@@ -1,0 +1,236 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+  tenants   Tenant[]
+}
+
+model Tenant {
+  id              String         @id @default(uuid()) @db.Uuid
+  userId          String         @map("user_id") @db.Uuid
+  name            String
+  email           String         @unique
+  address         String?
+  phone           String?
+  subscribedUntil DateTime?      @map("subscribed_until") @db.Timestamptz(6)
+  isSubscribed    Boolean?       @default(false) @map("is_subscribed")
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user            User           @relation(fields: [userId], references: [id])
+  customers         Customer[]
+  discounts         Discount[]
+  expenseCategories ExpenseCategory[] 
+  expenses          Expense[]
+  logs              Log[]
+  orders            Order[]
+  orderItems        OrderItem[]
+  products          Product[]
+  productCategories ProductCategory[] 
+  staffs            Staff[]
+  settings          TenantSetting?
+}
+
+model Customer {
+  id                 String    @id @default(uuid()) @db.Uuid
+  tenantId           String?   @map("tenant_id") @db.Uuid
+  membershipCode     String?   @unique @map("membership_code")
+  name               String
+  email              String?
+  phone              String?
+  address            String?
+  birthday           DateTime? @db.Date
+  lastPurchaseAt     DateTime? @map("last_purchase_at") @db.Timestamptz(6)
+  membershipExpiredAt DateTime? @map("membership_expired_at") @db.Timestamptz(6)
+  points             Int?      @default(0)
+  createdAt          DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant             Tenant?   @relation(fields: [tenantId], references: [id])
+  orders             Order[]
+}
+
+model Discount {
+  id               String    @id @default(uuid()) @db.Uuid
+  tenantId         String?   @map("tenant_id") @db.Uuid
+  code             String?   @unique
+  name             String
+  description      String?
+  type             String
+  value            Decimal
+  validFrom        DateTime? @map("valid_from") @db.Timestamptz(6)
+  validTo          DateTime? @map("valid_to") @db.Timestamptz(6)
+  minPurchase      Decimal?  @map("min_purchase")
+  maxDiscount      Decimal?  @map("max_discount")
+  applicableItems  Json?     @map("applicable_items")
+  rewardType       String?   @map("reward_type")
+  isMemberOnly     Boolean?  @default(false) @map("is_member_only")
+  createdAt        DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant           Tenant?   @relation(fields: [tenantId], references: [id])
+  orders           Order[]
+}
+
+model ExpenseCategory {
+  id          String    @id @default(uuid()) @db.Uuid
+  tenantId    String    @map("tenant_id") @db.Uuid
+  name        String
+  code        String
+  isPrivate   Boolean?  @default(false) @map("is_private")
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  tenant   Tenant    @relation(fields: [tenantId], references: [id])
+  expenses Expense[]
+}
+
+model Expense {
+  id                String    @id @default(uuid()) @db.Uuid
+  isShow            Boolean   @default(true) @map("is_show")
+  tenantId          String    @map("tenant_id") @db.Uuid
+  expenseCategoryId String    @map("expense_category_id") @db.Uuid
+  staffId           String    @map("staff_id") @db.Uuid
+  description       String
+  amount            Decimal
+  paidAt            DateTime? @map("paid_at") @db.Timestamptz(6)
+  attachmentUrl     String?   @map("attachment_url")
+  createdAt         DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  paymentType       String    @default("Cash") @map("payment_type")
+  tenant          Tenant          @relation(fields: [tenantId], references: [id])
+  expenseCategory ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
+  staff           Staff           @relation(fields: [staffId], references: [id])
+}
+
+model Log {
+  id        String    @id @default(uuid()) @db.Uuid
+  staffId   String?   @map("staff_id") @db.Uuid
+  tenantId  String?   @default(uuid()) @map("tenant_id") @db.Uuid
+  action    String?
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  data      Json?
+  staff  Staff?  @relation(fields: [staffId], references: [id])
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+}
+
+model Order {
+  id                    String    @id @default(uuid()) @db.Uuid
+  tenantId              String?   @map("tenant_id") @db.Uuid
+  orderNo               String    @unique @map("order_no")
+  grandTotal            Decimal   @default(0) @map("grand_total")
+  subtotal              Decimal   @map("subtotal")
+  totalAmount           Decimal   @map("total_amount")
+  paidAmount            Decimal   @map("paid_amount")
+  remainingBalance      Decimal?  @map("remaining_balance")
+  change                Decimal?
+  taxAmount             Decimal?  @map("tax_amount")
+  paymentMethod         String?   @map("payment_method")
+  paymentStatus         String?   @map("payment_status")
+  orderStatus           String?   @map("order_status")
+  paymentDate           DateTime? @map("payment_date") @db.Timestamptz(6)
+  note                  String?   @default("")
+  createdAt             DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  customerId           String?   @map("customer_id") @db.Uuid
+  customerName         String?   @map("customer_name")
+  discountId           String?   @map("discount_id") @db.Uuid
+  discountName         String?   @map("discount_name")
+  discountType         String?   @map("discount_type")
+  discountValue        Decimal?  @map("discount_value")
+  discountAmount       Decimal?  @map("discount_amount")
+  discountRewardType   String?   @map("discount_reward_type")
+  pointUsed            Int?      @map("point_used")
+  staffId              String?   @map("staff_id") @db.Uuid
+  lastPointsAccumulation Int?    @default(0) @map("last_points_accumulation")
+  tenant   Tenant?   @relation(fields: [tenantId], references: [id])
+  customer Customer? @relation(fields: [customerId], references: [id])
+  discount Discount? @relation(fields: [discountId], references: [id])
+  staff    Staff?    @relation(fields: [staffId], references: [id])
+  items    OrderItem[]
+}
+
+model OrderItem {
+  id            String    @id @default(uuid()) @db.Uuid
+  tenantId      String?   @map("tenant_id") @db.Uuid
+  orderId       String?   @map("order_id") @db.Uuid
+  productId     String?   @map("product_id") @db.Uuid
+  productName   String    @map("product_name")
+  productPrice  Decimal   @map("product_price")
+  qty           Decimal
+  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant  Tenant?  @relation(fields: [tenantId], references: [id])
+  order   Order?   @relation(fields: [orderId], references: [id])
+  product Product? @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id                String            @id @default(uuid()) @db.Uuid
+  tenantId          String?           @map("tenant_id") @db.Uuid
+  productCategoryId String?           @map("product_category_id") @db.Uuid
+  name              String
+  description       String?
+  price             Decimal
+  type              String
+  stock             Int?
+  sku               String?
+  imageUrl          String?           @map("image_url")
+  alias             String?
+  createdAt         DateTime?         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime?         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant          Tenant?         @relation(fields: [tenantId], references: [id])
+  productCategory ProductCategory? @relation(fields: [productCategoryId], references: [id])
+  orderItems      OrderItem[]
+}
+
+model ProductCategory {
+  id          String           @id @default(uuid()) @db.Uuid
+  tenantId    String?          @map("tenant_id") @db.Uuid
+  parentId    String?          @map("parent_id") @db.Uuid
+  name        String
+  description String?
+  createdAt   DateTime?        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime?        @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant    Tenant?         @relation(fields: [tenantId], references: [id])
+  parent    ProductCategory? @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children  ProductCategory[] @relation("CategoryToCategory")
+  products  Product[]
+}
+
+model Staff {
+  id        String    @id @default(uuid()) @db.Uuid
+  tenantId  String?   @map("tenant_id") @db.Uuid
+  role      String
+  username  String
+  password  String
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant   Tenant?   @relation(fields: [tenantId], references: [id])
+  expenses Expense[]
+  logs     Log[]
+  orders   Order[]
+
+  @@unique([tenantId, username])
+}
+
+model TenantSetting {
+  id          BigInt    @id @default(autoincrement())
+  tenantId    String    @unique @map("tenant_id") @db.Uuid
+  showDiscount Boolean   @default(false) @map("show_discount")
+  showTax     Boolean   @default(false) @map("show_tax")
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}

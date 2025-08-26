@@ -1,0 +1,946 @@
+{
+	"info": {
+		"_postman_id": "49257697-7d9a-4155-8941-86a0b73199b0",
+		"name": "POS Backend API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31969245"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "POST Login Owner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"owner@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login Staff",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"cashier1\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/tenants/{{TENANT_ID}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"tenants",
+								"{{TENANT_ID}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GET List Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/products?p_limit=10&p_page=1&p_sort_by=name&p_sort_dir=asc",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"products"
+							],
+							"query": [
+								{
+									"key": "p_limit",
+									"value": "10"
+								},
+								{
+									"key": "p_page",
+									"value": "1"
+								},
+								{
+									"key": "p_search_name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "p_category_id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "p_sort_by",
+									"value": "name"
+								},
+								{
+									"key": "p_sort_dir",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Ayam Bakar Madu\",\n    \"description\": \"Ayam bakar dengan bumbu madu\",\n    \"price\": 35000,\n    \"type\": \"good\",\n    \"stock\": 25,\n    \"sku\": \"ABM-003\",\n    \"productCategoryId\": \"<PRODUCT_CATEGORY_ID>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Product",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/products/{{PRODUCT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"products",
+								"{{PRODUCT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 40000,\n    \"stock\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/products/{{PRODUCT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"products",
+								"{{PRODUCT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/products/{{PRODUCT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"products",
+								"{{PRODUCT_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Categories",
+			"item": [
+				{
+					"name": "GET List Product Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/product-categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"product-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Product Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dessert\",\n    \"description\": \"Makanan pencuci mulut\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/product-categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"product-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Product Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Minuman Dingin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/product-categories/{{CATEGORY_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"product-categories",
+								"{{CATEGORY_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Product Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/product-categories/{{CATEGORY_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"product-categories",
+								"{{CATEGORY_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "GET List Customers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/customers?p_limit=10&p_page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "p_limit",
+									"value": "10"
+								},
+								{
+									"key": "p_page",
+									"value": "1"
+								},
+								{
+									"key": "p_search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Joko Susilo\",\n    \"email\": \"joko@example.com\",\n    \"phone\": \"081122334455\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/customers",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/customers/{{CUSTOMER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"customers",
+								"{{CUSTOMER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"joko.update@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/customers/{{CUSTOMER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"customers",
+								"{{CUSTOMER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/customers/{{CUSTOMER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"customers",
+								"{{CUSTOMER_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Discounts",
+			"item": [
+				{
+					"name": "GET List Discounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/discounts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"discounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Discount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Diskon 50%\",\n    \"code\": \"SALE50\",\n    \"type\": \"percentage\",\n    \"value\": 50,\n    \"minPurchase\": 100000,\n    \"isMemberOnly\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/discounts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"discounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Discount",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/discounts/{{DISCOUNT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"discounts",
+								"{{DISCOUNT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Discount",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Diskon Spesial\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/discounts/{{DISCOUNT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"discounts",
+								"{{DISCOUNT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Discount",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/discounts/{{DISCOUNT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"discounts",
+								"{{DISCOUNT_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Staffs",
+			"item": [
+				{
+					"name": "GET List Staffs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/staffs",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"staffs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Staff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin1\",\n    \"password\": \"newpassword123\",\n    \"role\": \"manager\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/staffs",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"staffs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Staff",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/staffs/{{STAFF_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"staffs",
+								"{{STAFF_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Staff",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"cashier\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/staffs/{{STAFF_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"staffs",
+								"{{STAFF_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Staff",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/data/tenants/{{TENANT_ID}}/staffs/{{STAFF_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"data",
+								"tenants",
+								"{{TENANT_ID}}",
+								"staffs",
+								"{{STAFF_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "TENANT_ID",
+			"value": ""
+		},
+		{
+			"key": "JWT_TOKEN",
+			"value": ""
+		},
+		{
+			"key": "PRODUCT_ID",
+			"value": ""
+		},
+		{
+			"key": "CATEGORY_ID",
+			"value": ""
+		},
+		{
+			"key": "CUSTOMER_ID",
+			"value": ""
+		},
+		{
+			"key": "DISCOUNT_ID",
+			"value": ""
+		},
+		{
+			"key": "STAFF_ID",
+			"value": ""
+		}
+	]
+}
