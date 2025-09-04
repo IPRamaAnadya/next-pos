@@ -10,7 +10,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const tenantIdFromUrl = params.tenantId;
+    const tenantIdFromUrl = (await params).tenantId;
 
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
@@ -40,6 +40,15 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const orders = await prisma.order.findMany({
       where: whereClause,
       take: p_limit,
+      select: {
+        id: true,
+        orderNo: true,
+        grandTotal: true,
+        customerName: true,
+        createdAt: true,
+        orderStatus: true,
+        paymentStatus: true,
+      },
       skip: (p_page - 1) * p_limit,
       orderBy: { [p_sort_by]: p_sort_dir },
     });
@@ -53,10 +62,15 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       prev_page: p_page > 1 ? p_page - 1 : null,
     };
 
-    return NextResponse.json({
+    const jsonResponse = {
       meta: { code: 200, status: 'success', message: 'Orders data retrieved successfully' },
       data: { orders, pagination },
-    });
+    }
+
+    console.log(jsonResponse);
+    console.log(orders[0]);
+
+    return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error('Error fetching orders:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -69,7 +83,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const tenantIdFromUrl = params.tenantId;
+    const tenantIdFromUrl = (await params).tenantId;
 
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
@@ -95,6 +109,9 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
           // Calculate remaining balance and change based on the Flutter logic
           remainingBalance: Math.max(orderData.grandTotal - orderData.paidAmount, 0),
           change: Math.max(orderData.paidAmount - orderData.grandTotal, 0),
+        },
+        include: {
+          items: true,
         },
       });
 
@@ -131,10 +148,23 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
         });
       }
 
-      return createdOrder;
+      // finalize order creation
+
+      const ord = await prisma.order.findUnique({
+        where: { id: createdOrder.id },
+        include: { items: true },
+      });
+
+      return ord;
     });
 
-    return NextResponse.json(newOrder, { status: 201 });
+    const jsonResponse = {
+      'data': {
+        'order': newOrder
+      }
+    }
+    
+    return NextResponse.json(jsonResponse, { status: 201 });
   } catch (error) {
     console.error('Error creating order:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

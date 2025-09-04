@@ -3,18 +3,17 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { customerCreateSchema } from '@/utils/validation/customerSchema';
+import { validateTenantAuth } from '@/lib/auth';
 
 // GET: Mengambil daftar customer dengan pencarian dan paginasi
 export async function GET(req: Request, { params }: { params: { tenantId: string } }) {
   try {
-    const token = req.headers.get('authorization')?.split(' ')[1];
-    const decoded: any = verifyToken(token as string);
-    const tenantIdFromToken = decoded.tenantId;
-    const tenantIdFromUrl = params.tenantId;
-
-    if (tenantIdFromToken !== tenantIdFromUrl) {
-      return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
+    const authResult = validateTenantAuth(req as any, (await params).tenantId);
+    if (!authResult.success) {
+      return authResult.response;
     }
+
+    const tenantId = authResult.tenantId;
 
     const { searchParams } = new URL(req.url);
     const p_limit = parseInt(searchParams.get('p_limit') || '5', 10);
@@ -22,14 +21,13 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const p_search = searchParams.get('p_search');
 
     const whereClause: any = {
-      tenantId: tenantIdFromUrl,
+      tenantId: tenantId,
     };
 
     if (p_search) {
       whereClause.OR = [
         { name: { contains: p_search, mode: 'insensitive' } },
-        { phone: { contains: p_search, mode: 'insensitive' } },
-        { id: { contains: p_search, mode: 'insensitive' } },
+        { phone: { contains: p_search, mode: 'insensitive' } }
       ];
     }
 
@@ -74,6 +72,13 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     }
 
     const data = await req.json();
+
+    // remove empty fields
+    Object.keys(data).forEach((key) => {
+      if (data[key] === '') {
+        delete data[key];
+      }
+    });
 
     try {
       await customerCreateSchema.validate(data, { abortEarly: false });

@@ -17,6 +17,5 @@ export const productUpdateSchema = yup.object({
   type: yup.string().optional().oneOf(['good', 'service'], 'Tipe tidak valid.'),
   stock: yup.number().optional().min(0, 'Stok tidak boleh negatif.').integer('Stok harus berupa bilangan bulat.'),
   sku: yup.string().optional(),
-  image_url: yup.string().optional().url('URL gambar tidak valid.'),
-  productCategoryId: yup.string().optional(),
+  imageUrl: yup.string().optional().url('URL gambar tidak valid.'),
 });

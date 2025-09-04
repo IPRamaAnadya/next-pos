@@ -9,7 +9,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const { tenantId, id } = params;
+    const { tenantId, id } = await params;
     if (tenantIdFromToken !== tenantId) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }
@@ -29,12 +29,15 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const { tenantId, id } = params;
+    const { tenantId, id } = await params;
     if (tenantIdFromToken !== tenantId) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }
     const data = await req.json();
+    // remove productCategoryId from data
+    delete data.productCategoryId;
     try {
+      console.log(data);
       await productUpdateSchema.validate(data, { abortEarly: false });
     } catch (validationError: any) {
       return NextResponse.json({ error: 'Validation failed', details: validationError.errors }, { status: 400 });
@@ -52,7 +55,7 @@ export async function DELETE(req: Request, { params }: { params: { tenantId: str
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const { tenantId, id } = params;
+    const { tenantId, id } = await params;
     if (tenantIdFromToken !== tenantId) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }

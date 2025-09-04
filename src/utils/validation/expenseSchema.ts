@@ -17,7 +17,7 @@ export const expenseCreateSchema = yup.object({
   staffId: yup.string().uuid().required('ID staff harus diisi.'),
   description: yup.string().required('Deskripsi harus diisi.'),
   amount: yup.number().required('Jumlah harus diisi.').min(0, 'Jumlah tidak boleh negatif.'),
-  paidAt: yup.date().optional(),
+  paidAt: yup.date().optional().nullable(),
   attachmentUrl: yup.string().optional().url('URL lampiran tidak valid.'),
   paymentType: yup.string().optional().default('Cash'),
   isShow: yup.boolean().optional(),

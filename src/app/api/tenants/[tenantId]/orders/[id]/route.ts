@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { orderUpdateSchema } from '@/utils/validation/orderSchema';
+import { json } from 'stream/consumers';
 
 // GET: Get order details (replacing get_order_detail)
 export async function GET(req: Request, { params }: { params: { tenantId: string, id: string } }) {
@@ -10,7 +11,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const { tenantId, id } = params;
+    const { tenantId, id } = await params;
 
     if (tenantIdFromToken !== tenantId) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
@@ -27,7 +28,23 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
-    return NextResponse.json(order);
+    const orderWithTotal = {
+      ...order,
+      items: order?.items.map((item: any) => ({
+        ...item,
+        totalPrice: item.productPrice * item.qty,
+      })),
+    };
+
+    const jsonResponse = {
+      data: {
+        order: orderWithTotal
+      }
+    }
+
+    console.log(jsonResponse)
+
+    return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error('Error fetching order details:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -40,7 +57,7 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const { tenantId, id } = params;
+    const { tenantId, id } = await params;
 
     if (tenantIdFromToken !== tenantId) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
@@ -53,7 +70,7 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
     } catch (validationError: any) {
       return NextResponse.json({ error: 'Validation failed', details: validationError.errors }, { status: 400 });
     }
-    
+
     const { orderItems, ...orderData } = body;
 
     const updatedOrder = await prisma.$transaction(async (prisma) => {
@@ -107,7 +124,13 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
       return updatedOrder;
     });
 
-    return NextResponse.json(updatedOrder);
+    const jsonResponse = {
+      data: {
+        order: updatedOrder
+      }
+    };
+
+    return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error('Error updating order:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -131,30 +154,30 @@ export async function DELETE(req: Request, { params }: { params: { tenantId: str
     if (!orderToDelete) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
-    
+
     // Check if order is 'completed'
     if (orderToDelete.orderStatus === 'completed') {
       return NextResponse.json({ error: 'Order with completed status cannot be deleted.' }, { status: 403 });
     }
 
     await prisma.$transaction(async (prisma) => {
-        // Reverse point changes if necessary before deleting
-        if (orderToDelete.paymentStatus === 'paid' && orderToDelete.customerId) {
-            if (orderToDelete.pointUsed && orderToDelete.pointUsed > 0) {
-                await prisma.customer.update({
-                    where: { id: orderToDelete.customerId },
-                    data: { points: { increment: orderToDelete.pointUsed } },
-                });
-            }
-            if (orderToDelete.discountRewardType === 'point' && orderToDelete.discountAmount && orderToDelete.discountAmount.toNumber() > 0) {
-                await prisma.customer.update({
-                    where: { id: orderToDelete.customerId },
-                    data: { points: { decrement: orderToDelete.discountAmount.toNumber() } },
-                });
-            }
+      // Reverse point changes if necessary before deleting
+      if (orderToDelete.paymentStatus === 'paid' && orderToDelete.customerId) {
+        if (orderToDelete.pointUsed && orderToDelete.pointUsed > 0) {
+          await prisma.customer.update({
+            where: { id: orderToDelete.customerId },
+            data: { points: { increment: orderToDelete.pointUsed } },
+          });
         }
-        await prisma.orderItem.deleteMany({ where: { orderId: id } });
-        await prisma.order.delete({ where: { id, tenantId } });
+        if (orderToDelete.discountRewardType === 'point' && orderToDelete.discountAmount && orderToDelete.discountAmount.toNumber() > 0) {
+          await prisma.customer.update({
+            where: { id: orderToDelete.customerId },
+            data: { points: { decrement: orderToDelete.discountAmount.toNumber() } },
+          });
+        }
+      }
+      await prisma.orderItem.deleteMany({ where: { orderId: id } });
+      await prisma.order.delete({ where: { id, tenantId } });
     });
 
     return NextResponse.json({ message: 'Order deleted successfully' });
