@@ -26,6 +26,9 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
             }
         }
       },
+      orderBy: {
+        createdAt: 'desc'
+      }
     });
     return NextResponse.json(expenses);
   } catch (error) {

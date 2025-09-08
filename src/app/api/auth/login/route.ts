@@ -13,10 +13,18 @@ export async function POST(req: Request) {
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
+
+    const staffAccount = await prisma.staff.findFirst({
+      where: {
+        isOwner: true
+      }
+    });
+
     const payload = {
       userId: user.id,
       tenantId: user.tenants[0]?.id,
       role: 'owner',
+      staffId: staffAccount?.id
     };
     const token = generateToken(payload);
     return NextResponse.json({ token, user: payload });

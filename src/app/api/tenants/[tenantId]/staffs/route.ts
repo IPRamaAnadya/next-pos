@@ -11,7 +11,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const tenantIdFromUrl = params.tenantId;
+    const tenantIdFromUrl = (await params).tenantId;
 
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
@@ -30,7 +30,9 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       }
     });
 
-    return NextResponse.json(staffs);
+    return NextResponse.json({
+      data: staffs
+    });
   } catch (error) {
     console.error('Error fetching staffs:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -43,7 +45,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const tenantIdFromUrl = params.tenantId;
+    const tenantIdFromUrl = (await params).tenantId;
 
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });

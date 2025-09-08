@@ -1,7 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/app/api/utils/jwt';
 
-export const validateTenantAuth = (request: NextRequest, tenantIdFromUrl: string) => {
+interface ValidateTenantAuthResult {
+  success: boolean;
+  tenantId?: string;
+  response: NextResponse;
+}
+
+export const validateTenantAuth = (
+  request: NextRequest,
+  tenantIdFromUrl: string,
+  requireRole?: string[] // optional list of allowed roles
+): ValidateTenantAuthResult => {
   const token = request.headers.get('authorization')?.split(' ')[1];
   if (!token) {
     return {
@@ -25,9 +35,22 @@ export const validateTenantAuth = (request: NextRequest, tenantIdFromUrl: string
     };
   }
 
+  if (requireRole && Array.isArray(requireRole) && !requireRole.includes(decoded.role)) {
+    return {
+      success: false,
+      response: NextResponse.json(
+        { error: 'Forbidden: Insufficient role permission' },
+        { status: 403 }
+      ),
+    };
+  }
+
   return {
     success: true,
     tenantId: decoded.tenantId as string,
-    response: null,
+    response: NextResponse.json(
+        { error: 'My Brain is Error' },
+        { status: 500 }
+      ),
   };
 };

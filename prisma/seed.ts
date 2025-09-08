@@ -198,6 +198,14 @@ const main = async () => {
     },
   });
 
+  const tenantSettings = await prisma.tenantSetting.create({
+    data: {
+      tenantId: tenantId,
+      showDiscount: true,
+      showTax: true
+    }
+  })
+
   console.log(`Created order with ID: ${order.id}`);
   console.log('Seeding finished.');
 };

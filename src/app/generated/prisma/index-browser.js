@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.14.0
- * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+ * Prisma Client JS version: 6.15.0
+ * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
  */
 Prisma.prismaVersion = {
-  client: "6.14.0",
-  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
+  client: "6.15.0",
+  engine: "85179d7826409ee107a6ba334b5e305ae3fba9fb"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -280,6 +280,7 @@ exports.Prisma.ProductCategoryScalarFieldEnum = {
 exports.Prisma.StaffScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
+  isOwner: 'isOwner',
   role: 'role',
   username: 'username',
   password: 'password',
@@ -292,6 +293,40 @@ exports.Prisma.TenantSettingScalarFieldEnum = {
   tenantId: 'tenantId',
   showDiscount: 'showDiscount',
   showTax: 'showTax',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SubscriptionPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  pricePerMonth: 'pricePerMonth',
+  pricePerYear: 'pricePerYear',
+  isBetaTest: 'isBetaTest',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TenantSubscriptionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  planId: 'planId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  customLimits: 'customLimits'
+};
+
+exports.Prisma.SubscriptionPaymentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  tenantSubscriptionId: 'tenantSubscriptionId',
+  midtransOrderId: 'midtransOrderId',
+  amount: 'amount',
+  paymentMethod: 'paymentMethod',
+  transactionStatus: 'transactionStatus',
   createdAt: 'createdAt'
 };
 
@@ -335,7 +370,10 @@ exports.Prisma.ModelName = {
   Product: 'Product',
   ProductCategory: 'ProductCategory',
   Staff: 'Staff',
-  TenantSetting: 'TenantSetting'
+  TenantSetting: 'TenantSetting',
+  SubscriptionPlan: 'SubscriptionPlan',
+  TenantSubscription: 'TenantSubscription',
+  SubscriptionPayment: 'SubscriptionPayment'
 };
 
 /**

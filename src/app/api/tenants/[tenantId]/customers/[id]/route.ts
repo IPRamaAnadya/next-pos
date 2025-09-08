@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { customerUpdateSchema } from '@/utils/validation/customerSchema';
 
+type Params = Promise<{ tenantId: string; id: string } >;
+
 // GET: Mengambil detail customer
-export async function GET(req: Request, { params }: { params: { tenantId: string, id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Params }) {
   try {
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
@@ -32,7 +34,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
 }
 
 // PUT: Mengedit customer
-export async function PUT(req: Request, { params }: { params: { tenantId: string, id: string } }) {
+export async function PUT(req: NextRequest,{ params }: { params: Params }) {
   try {
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
@@ -64,7 +66,7 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
 }
 
 // DELETE: Menghapus customer
-export async function DELETE(req: Request, { params }: { params: { tenantId: string, id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Params }) {
   try {
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
@@ -75,7 +77,7 @@ export async function DELETE(req: Request, { params }: { params: { tenantId: str
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }
 
-    const deletedCustomer = await prisma.customer.delete({
+    await prisma.customer.delete({
       where: { id, tenantId },
     });
 

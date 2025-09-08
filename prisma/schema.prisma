@@ -46,6 +46,8 @@ model Tenant {
   productCategories ProductCategory[] 
   staffs            Staff[]
   settings          TenantSetting?
+  subscription       TenantSubscription?
+  subscriptionPayments SubscriptionPayment[]
 }
 
 model Customer {
@@ -213,6 +215,7 @@ model ProductCategory {
 model Staff {
   id        String    @id @default(uuid()) @db.Uuid
   tenantId  String?   @map("tenant_id") @db.Uuid
+  isOwner   Boolean   @default(false)
   role      String
   username  String
   password  String
@@ -233,4 +236,50 @@ model TenantSetting {
   showTax     Boolean   @default(false) @map("show_tax")
   createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
   tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+model SubscriptionPlan {
+  id                  String         @id @default(uuid()) @db.Uuid
+  name                String         @unique
+  description         String?
+  pricePerMonth       Decimal        @map("price_per_month")
+  pricePerYear        Decimal?       @map("price_per_year")
+  isBetaTest          Boolean        @default(false) @map("is_beta_test")
+  createdAt           DateTime       @default(now()) @db.Timestamptz(6)
+  updatedAt           DateTime       @updatedAt @db.Timestamptz(6)
+  
+  tenantSubscriptions TenantSubscription[]
+}
+
+model TenantSubscription {
+  id                 String             @id @default(uuid()) @db.Uuid
+  tenantId           String             @unique @map("tenant_id") @db.Uuid
+  planId             String             @map("plan_id") @db.Uuid
+  startDate          DateTime           @default(now()) @map("start_date") @db.Timestamptz(6)
+  endDate            DateTime           @map("end_date") @db.Timestamptz(6)
+  status             String             @default("trial")
+  createdAt          DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime           @updatedAt @db.Timestamptz(6)
+  
+  customLimits       Json?              @map("custom_limits")
+
+  tenant             Tenant             @relation(fields: [tenantId], references: [id])
+  subscriptionPlan   SubscriptionPlan   @relation(fields: [planId], references: [id])
+  // Perbarui relasi
+  subscriptionPayments SubscriptionPayment[]
+}
+
+model SubscriptionPayment {
+  id                      String          @id @default(uuid()) @db.Uuid
+  tenantId                String          @map("tenant_id") @db.Uuid
+  tenantSubscriptionId    String          @map("tenant_subscription_id") @db.Uuid
+  midtransOrderId         String          @unique @map("midtrans_order_id")
+  amount                  Decimal
+  paymentMethod           String?         @map("payment_method")
+  transactionStatus       String          @map("transaction_status")
+  createdAt               DateTime        @default(now()) @db.Timestamptz(6)
+  
+  // Relasi
+  tenantSubscription      TenantSubscription @relation(fields: [tenantSubscriptionId], references: [id])
+  tenant                  Tenant          @relation(fields: [tenantId], references: [id])
 }

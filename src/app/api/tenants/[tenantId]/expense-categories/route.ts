@@ -28,7 +28,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
-    const tenantIdFromUrl = params.tenantId;
+    const tenantIdFromUrl = (await params).tenantId;
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }
