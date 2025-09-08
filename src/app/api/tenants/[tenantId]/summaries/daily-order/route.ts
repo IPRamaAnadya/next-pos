@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 
-export async function GET(req: Request, { params }: { params: { tenantId: string } }) {
+export async function GET(
+  req: Request,
+  { params }: { params: { tenantId: string } }
+) {
   try {
     const token = req.headers.get('authorization')?.split(' ')[1];
     const decoded: any = verifyToken(token as string);
@@ -10,61 +13,68 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const { tenantId } = await params;
 
     if (tenantIdFromToken !== tenantId) {
-      return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Unauthorized: Tenant ID mismatch' },
+        { status: 403 }
+      );
     }
 
     const { searchParams } = new URL(req.url);
-    const startDateParam = searchParams.get('start_date');
-    const endDateParam = searchParams.get('end_date');
+    const startDate = searchParams.get('start_date')
+      ? new Date(searchParams.get('start_date')!)
+      : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-    const startDate = startDateParam ? new Date(startDateParam) : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-    const endDate = endDateParam ? new Date(endDateParam) : new Date();
-    endDate.setDate(endDate.getDate() + 1);
-    // 1. Ambil semua data orders
-    const allOrders = await prisma.order.findMany({
+    const endDate = searchParams.get('end_date')
+      ? new Date(searchParams.get('end_date')!)
+      : new Date();
+
+    // extend by 1 day for inclusive range
+    const queryEndDate = new Date(endDate);
+    queryEndDate.setDate(queryEndDate.getDate() + 1);
+
+    // --- Orders grouped by createdAt for general stats ---
+    const orders = await prisma.order.findMany({
       where: {
-        tenantId: tenantId,
-        createdAt: {
-          gte: startDate,
-          lte: endDate,
-        },
+        tenantId,
+        createdAt: { gte: startDate, lte: queryEndDate },
       },
       select: {
-        id: true,
         grandTotal: true,
         paymentStatus: true,
-        paymentDate: true,
         paymentMethod: true,
         createdAt: true,
+        paymentDate: true,
       },
       orderBy: { createdAt: 'asc' },
     });
 
-    // 2. Ambil semua data expenses
-    const allExpenses = await prisma.expense.findMany({
+    // --- Expenses grouped by createdAt ---
+    const expenses = await prisma.expense.findMany({
       where: {
-        tenantId: tenantId,
+        tenantId,
         isShow: true,
-        createdAt: {
-          gte: startDate,
-          lte: endDate,
-        },
+        createdAt: { gte: startDate, lte: queryEndDate },
       },
-      select: {
-        amount: true,
-        paymentType: true,
-        createdAt: true,
-      },
+      select: { amount: true, paymentType: true, createdAt: true },
       orderBy: { createdAt: 'asc' },
     });
 
-    // 3. Gabungkan dan agregasi data di memori
-    const dailyData: { [key: string]: any } = {};
+    // --- Payments received grouped by paymentDate for paid orders only ---
+    const payments = await prisma.order.findMany({
+      where: {
+        tenantId,
+        paymentStatus: 'paid',
+        paymentDate: { gte: startDate, lte: queryEndDate },
+      },
+      select: { grandTotal: true, paymentMethod: true, paymentDate: true },
+      orderBy: { paymentDate: 'asc' },
+    });
 
-    allOrders.forEach(order => {
-      const dateKey = order.createdAt?.toISOString().split('T')[0];
-      if (!dateKey) return;
+    const dailyData: Record<string, any> = {};
 
+    // Orders aggregation
+    orders.forEach((order) => {
+      const dateKey = order.createdAt!.toISOString().split('T')[0];
       if (!dailyData[dateKey]) {
         dailyData[dateKey] = {
           date: dateKey,
@@ -77,25 +87,19 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
         };
       }
 
-      dailyData[dateKey].total_ordered += order.grandTotal?.toNumber() || 0;
+      const total = order.grandTotal?.toNumber() || 0;
+      dailyData[dateKey].total_ordered += total;
 
       if (order.paymentStatus === 'paid') {
-        if (order.paymentDate) {
-          dailyData[dateKey].payment_received += order.grandTotal?.toNumber() || 0;
-          if (order.paymentMethod?.toLowerCase() !== 'cash') {
-            dailyData[dateKey].payment_received_non_cash += order.grandTotal?.toNumber() || 0;
-          }
-        }
-        dailyData[dateKey].total_paid += order.grandTotal?.toNumber() || 0;
+        dailyData[dateKey].total_paid += total;
       } else {
-        dailyData[dateKey].total_unpaid += order.grandTotal?.toNumber() || 0;
+        dailyData[dateKey].total_unpaid += total;
       }
     });
 
-    allExpenses.forEach(expense => {
-      const dateKey = expense.createdAt?.toISOString().split('T')[0];
-      if (!dateKey) return;
-
+    // Expenses aggregation
+    expenses.forEach((exp) => {
+      const dateKey = exp.createdAt!.toISOString().split('T')[0];
       if (!dailyData[dateKey]) {
         dailyData[dateKey] = {
           date: dateKey,
@@ -107,74 +111,101 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
           expense: [],
         };
       }
-
       dailyData[dateKey].expense.push({
-        payment_type: expense.paymentType,
-        amount: expense.amount.toNumber() || 0,
+        payment_type: exp.paymentType,
+        amount: exp.amount?.toNumber() || 0,
       });
     });
 
-    // 4. Hitung ringkasan total
-    const dailyTransactions = Object.values(dailyData).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    // Payment received aggregation based on paymentDate
+    payments.forEach((pay) => {
+      const dateKey = pay.paymentDate?.toISOString().split('T')[0];
+      if (!dateKey) return;
 
-    const totalSummary = dailyTransactions.reduce((acc, curr) => {
-      acc.total_ordered_sum += curr.total_ordered;
-      acc.total_paid_sum += curr.total_paid;
-      acc.total_unpaid_sum += curr.total_unpaid;
-      acc.total_payment_received_sum += curr.payment_received;
-      acc.total_payment_received_non_cash += curr.payment_received_non_cash;
-      return acc;
-    }, {
-      total_ordered_sum: 0,
-      total_paid_sum: 0,
-      total_unpaid_sum: 0,
-      total_payment_received_sum: 0,
-      total_payment_received_non_cash: 0,
+      if (!dailyData[dateKey]) {
+        dailyData[dateKey] = {
+          date: dateKey,
+          total_ordered: 0,
+          total_paid: 0,
+          total_unpaid: 0,
+          payment_received: 0,
+          payment_received_non_cash: 0,
+          expense: [],
+        };
+      }
+
+      const total = pay.grandTotal?.toNumber() || 0;
+      dailyData[dateKey].payment_received += total;
+      if (pay.paymentMethod?.toLowerCase() !== 'cash') {
+        dailyData[dateKey].payment_received_non_cash += total;
+      }
     });
 
-    const dailyPaymentReceivedToday = allOrders.filter(o => o.paymentStatus === 'paid' && o.paymentDate?.toISOString().split('T')[0] === new Date().toISOString().split('T')[0])
-      .reduce((acc, curr) => {
-        const grandTotal = curr.grandTotal?.toNumber() || 0;
-        acc.daily_payment_received += grandTotal;
-        if (curr.paymentMethod?.toLowerCase() !== 'cash') {
-          acc.daily_payment_received_non_cash += grandTotal;
-        }
-        return acc;
-      }, { daily_payment_received: 0, daily_payment_received_non_cash: 0 });
+    const dailyTransactions = Object.values(dailyData).sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
 
-    const totalExpenseSum = allExpenses.reduce((acc, curr) => acc + (curr.amount?.toNumber() || 0), 0);
+    // Total summary with daily values
+    const totalSummary = dailyTransactions.reduce(
+      (acc, curr, idx) => {
+        acc.total_ordered_sum += curr.total_ordered;
+        acc.total_paid_sum += curr.total_paid;
+        acc.total_unpaid_sum += curr.total_unpaid;
+        acc.total_payment_received_sum += curr.payment_received;
+        acc.total_payment_received_non_cash += curr.payment_received_non_cash;
+        acc.total_expense_sum += curr.expense.reduce(
+          (sum: number, e: any) => sum + e.amount,
+          0
+        );
+
+        // last day snapshot
+        if (idx === dailyTransactions.length - 1) {
+          acc.daily_payment_received = curr.payment_received;
+          acc.daily_payment_received_non_cash =
+            curr.payment_received_non_cash;
+        }
+
+        return acc;
+      },
+      {
+        total_ordered_sum: 0,
+        total_paid_sum: 0,
+        total_unpaid_sum: 0,
+        total_payment_received_sum: 0,
+        total_payment_received_non_cash: 0,
+        total_expense_sum: 0,
+        daily_payment_received: 0,
+        daily_payment_received_non_cash: 0,
+      }
+    );
 
     const finalData = {
       meta: {
         code: 200,
         status: 'success',
-        message: 'Financial data retrieved successfully'
+        message: 'Financial data retrieved successfully',
       },
       data: {
-        id: `FIN_REPORT_${new Date().getFullYear()}${Math.floor(new Date().getMonth() / 3) + 1}`,
+        id: `FIN_REPORT_${new Date().getFullYear()}${
+          Math.floor(new Date().getMonth() / 3) + 1
+        }`,
         report_type: 'daily_financials',
         generated_at: new Date(),
         date_range: {
           start: startDate.toISOString().split('T')[0],
-          end: endDate.toISOString().split('T')[0],
+          end: endDate.toISOString().split('T')[0], // 👈 fixed: not the +1 day
         },
-        summary: {
-          total_ordered_sum: totalSummary.total_ordered_sum,
-          total_paid_sum: totalSummary.total_paid_sum,
-          total_unpaid_sum: totalSummary.total_unpaid_sum,
-          total_payment_received_sum: totalSummary.total_payment_received_sum,
-          total_payment_received_non_cash: totalSummary.total_payment_received_non_cash,
-          daily_payment_received: dailyPaymentReceivedToday.daily_payment_received,
-          daily_payment_received_non_cash: dailyPaymentReceivedToday.daily_payment_received_non_cash,
-          total_expense_sum: totalExpenseSum,
-        },
+        summary: totalSummary,
         daily_transactions: dailyTransactions,
-      }
+      },
     };
 
     return NextResponse.json(finalData);
   } catch (error) {
     console.error('Error fetching daily order summary:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
