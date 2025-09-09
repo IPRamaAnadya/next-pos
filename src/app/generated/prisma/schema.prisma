@@ -14,6 +14,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// =========================================================
+//  AUTHENTICATION & TENANT MANAGEMENT
+// =========================================================
+
 model User {
   id        String   @id @default(uuid()) @db.Uuid
   email     String   @unique
@@ -48,7 +52,40 @@ model Tenant {
   settings             TenantSetting?
   subscription         TenantSubscription?
   subscriptionPayments SubscriptionPayment[]
+
+  // Relasi Penggajian
+  payrollSettings PayrollSetting?
+  salaries        Salary[]
+  attendances     Attendance[]
+  payrollPeriods  PayrollPeriod[]
+  payrollDetails  PayrollDetail[]
 }
+
+model Staff {
+  id        String    @id @default(uuid()) @db.Uuid
+  tenantId  String?   @map("tenant_id") @db.Uuid
+  isOwner   Boolean   @default(false)
+  role      String
+  username  String
+  password  String
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant    Tenant?   @relation(fields: [tenantId], references: [id])
+  expenses  Expense[]
+  logs      Log[]
+  orders    Order[]
+
+  // Relasi Penggajian
+  salary         Salary?
+  attendances    Attendance[]
+  payrollDetails PayrollDetail[]
+
+  @@unique([tenantId, username])
+}
+
+// =========================================================
+//  BUSINESS OPERATIONS
+// =========================================================
 
 model Customer {
   id                  String    @id @default(uuid()) @db.Uuid
@@ -87,45 +124,6 @@ model Discount {
   updatedAt       DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   tenant          Tenant?   @relation(fields: [tenantId], references: [id])
   orders          Order[]
-}
-
-model ExpenseCategory {
-  id        String    @id @default(uuid()) @db.Uuid
-  tenantId  String    @map("tenant_id") @db.Uuid
-  name      String
-  code      String
-  isPrivate Boolean?  @default(false) @map("is_private")
-  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
-  tenant    Tenant    @relation(fields: [tenantId], references: [id])
-  expenses  Expense[]
-}
-
-model Expense {
-  id                String          @id @default(uuid()) @db.Uuid
-  isShow            Boolean         @default(true) @map("is_show")
-  tenantId          String          @map("tenant_id") @db.Uuid
-  expenseCategoryId String          @map("expense_category_id") @db.Uuid
-  staffId           String          @map("staff_id") @db.Uuid
-  description       String
-  amount            Decimal
-  paidAt            DateTime?       @map("paid_at") @db.Timestamptz(6)
-  attachmentUrl     String?         @map("attachment_url")
-  createdAt         DateTime?       @default(now()) @map("created_at") @db.Timestamptz(6)
-  paymentType       String          @default("Cash") @map("payment_type")
-  tenant            Tenant          @relation(fields: [tenantId], references: [id])
-  expenseCategory   ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
-  staff             Staff           @relation(fields: [staffId], references: [id])
-}
-
-model Log {
-  id        String   @id @default(uuid()) @db.Uuid
-  staffId   String?  @map("staff_id") @db.Uuid
-  tenantId  String?  @default(uuid()) @map("tenant_id") @db.Uuid
-  action    String?
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  data      Json?
-  staff     Staff?   @relation(fields: [staffId], references: [id])
-  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
 }
 
 model Order {
@@ -212,22 +210,54 @@ model ProductCategory {
   products    Product[]
 }
 
-model Staff {
-  id        String    @id @default(uuid()) @db.Uuid
-  tenantId  String?   @map("tenant_id") @db.Uuid
-  isOwner   Boolean   @default(false)
-  role      String
-  username  String
-  password  String
-  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
-  tenant    Tenant?   @relation(fields: [tenantId], references: [id])
-  expenses  Expense[]
-  logs      Log[]
-  orders    Order[]
+// =========================================================
+//  FINANCIALS & LOGGING
+// =========================================================
 
-  @@unique([tenantId, username])
+model ExpenseCategory {
+  id        String    @id @default(uuid()) @db.Uuid
+  tenantId  String    @map("tenant_id") @db.Uuid
+  name      String
+  code      String
+  isPrivate Boolean?  @default(false) @map("is_private")
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+  expenses  Expense[]
 }
+
+model Expense {
+  id                String          @id @default(uuid()) @db.Uuid
+  isShow            Boolean         @default(true) @map("is_show")
+  tenantId          String          @map("tenant_id") @db.Uuid
+  expenseCategoryId String          @map("expense_category_id") @db.Uuid
+  staffId           String          @map("staff_id") @db.Uuid
+  description       String
+  amount            Decimal
+  paidAt            DateTime?       @map("paid_at") @db.Timestamptz(6)
+  attachmentUrl     String?         @map("attachment_url")
+  createdAt         DateTime?       @default(now()) @map("created_at") @db.Timestamptz(6)
+  paymentType       String          @default("Cash") @map("payment_type")
+  tenant            Tenant          @relation(fields: [tenantId], references: [id])
+  expenseCategory   ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
+  staff             Staff           @relation(fields: [staffId], references: [id])
+  payrollDetailId   String?         @map("payroll_detail_id") @db.Uuid
+  payrollDetail     PayrollDetail?  @relation(fields: [payrollDetailId], references: [id])
+}
+
+model Log {
+  id        String   @id @default(uuid()) @db.Uuid
+  staffId   String?  @map("staff_id") @db.Uuid
+  tenantId  String?  @default(uuid()) @map("tenant_id") @db.Uuid
+  action    String?
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  data      Json?
+  staff     Staff?   @relation(fields: [staffId], references: [id])
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+}
+
+// =========================================================
+//  SUBSCRIPTION & SETTINGS
+// =========================================================
 
 model TenantSetting {
   id           BigInt    @id @default(autoincrement())
@@ -265,7 +295,6 @@ model TenantSubscription {
 
   tenant               Tenant                @relation(fields: [tenantId], references: [id])
   subscriptionPlan     SubscriptionPlan      @relation(fields: [planId], references: [id])
-  // Perbarui relasi
   subscriptionPayments SubscriptionPayment[]
 }
 
@@ -279,7 +308,91 @@ model SubscriptionPayment {
   transactionStatus    String   @map("transaction_status")
   createdAt            DateTime @default(now()) @db.Timestamptz(6)
 
-  // Relasi
   tenantSubscription TenantSubscription @relation(fields: [tenantSubscriptionId], references: [id])
   tenant             Tenant             @relation(fields: [tenantId], references: [id])
+}
+
+// =========================================================
+//  PAYROLL & HR MANAGEMENT
+// =========================================================
+
+model PayrollSetting {
+  id                      String    @id @default(uuid()) @db.Uuid
+  tenantId                String    @unique @map("tenant_id") @db.Uuid
+  ump                     Decimal?  @map("ump")
+  normalWorkHoursPerDay   Int?      @default(7) @map("normal_work_hours_per_day")
+  normalWorkHoursPerMonth Int?      @default(173) @map("normal_work_hours_per_month")
+  overtimeRate1           Decimal?  @default(1.5) @map("overtime_rate_1")
+  overtimeRate2           Decimal?  @default(2) @map("overtime_rate_2")
+  overtimeRateWeekend1    Decimal?  @default(2) @map("overtime_rate_weekend_1")
+  overtimeRateWeekend2    Decimal?  @default(3) @map("overtime_rate_weekend_2")
+  overtimeRateWeekend3    Decimal?  @default(4) @map("overtime_rate_weekend_3")
+  createdAt               DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant                  Tenant    @relation(fields: [tenantId], references: [id])
+}
+
+model Salary {
+  id             String    @id @default(uuid()) @db.Uuid
+  tenantId       String    @map("tenant_id") @db.Uuid
+  staffId        String    @unique @map("staff_id") @db.Uuid
+  basicSalary    Decimal   @map("basic_salary")
+  fixedAllowance Decimal   @default(0) @map("fixed_allowance")
+  createdAt      DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant         Tenant    @relation(fields: [tenantId], references: [id])
+  staff          Staff     @relation(fields: [staffId], references: [id])
+}
+
+model Attendance {
+  id           String    @id @default(uuid()) @db.Uuid
+  tenantId     String    @map("tenant_id") @db.Uuid
+  staffId      String    @map("staff_id") @db.Uuid
+  date         DateTime  @db.Date
+  checkInTime  DateTime? @map("check_in_time") @db.Timestamptz(6)
+  checkOutTime DateTime? @map("check_out_time") @db.Timestamptz(6)
+  totalHours   Decimal?  @map("total_hours")
+  isWeekend    Boolean?  @default(false) @map("is_weekend")
+  createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+  staff        Staff     @relation(fields: [staffId], references: [id])
+
+  @@unique([tenantId, staffId, date])
+}
+
+model PayrollPeriod {
+  id             String          @id @default(uuid()) @db.Uuid
+  tenantId       String          @map("tenant_id") @db.Uuid
+  periodStart    DateTime        @map("period_start") @db.Date
+  periodEnd      DateTime        @map("period_end") @db.Date
+  isFinalized    Boolean         @default(false) @map("is_finalized")
+  createdAt      DateTime?       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime?       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant         Tenant          @relation(fields: [tenantId], references: [id])
+  payrollDetails PayrollDetail[]
+
+  @@unique([tenantId, periodStart])
+}
+
+model PayrollDetail {
+  id                   String        @id @default(uuid()) @db.Uuid
+  tenantId             String        @map("tenant_id") @db.Uuid
+  payrollPeriodId      String        @map("payroll_period_id") @db.Uuid
+  staffId              String        @map("staff_id") @db.Uuid
+  basicSalaryAmount    Decimal       @map("basic_salary_amount")
+  fixedAllowanceAmount Decimal       @map("fixed_allowance_amount")
+  overtimeHours        Decimal       @default(0) @map("overtime_hours")
+  overtimePay          Decimal       @default(0) @map("overtime_pay")
+  bonusAmount          Decimal       @default(0) @map("bonus_amount")
+  deductionsAmount     Decimal       @default(0) @map("deductions_amount")
+  takeHomePay          Decimal       @map("take_home_pay")
+  isPaid               Boolean       @default(false) @map("is_paid")
+  paidAt               DateTime?     @map("paid_at") @db.Timestamptz(6)
+  createdAt            DateTime?     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime?     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant               Tenant        @relation(fields: [tenantId], references: [id])
+  payrollPeriod        PayrollPeriod @relation(fields: [payrollPeriodId], references: [id])
+  staff                Staff         @relation(fields: [staffId], references: [id])
+  expenses             Expense[]
 }

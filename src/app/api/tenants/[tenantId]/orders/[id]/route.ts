@@ -32,7 +32,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       ...order,
       items: order?.items.map((item: any) => ({
         ...item,
-        totalPrice: item.productPrice * item.qty,
+        totalPrice: Math.round(item.productPrice * item.qty),
       })),
     };
 

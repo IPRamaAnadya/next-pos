@@ -141,6 +141,17 @@ exports.Prisma.TenantScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.StaffScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  isOwner: 'isOwner',
+  role: 'role',
+  username: 'username',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CustomerScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -174,38 +185,6 @@ exports.Prisma.DiscountScalarFieldEnum = {
   isMemberOnly: 'isMemberOnly',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
-};
-
-exports.Prisma.ExpenseCategoryScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  name: 'name',
-  code: 'code',
-  isPrivate: 'isPrivate',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.ExpenseScalarFieldEnum = {
-  id: 'id',
-  isShow: 'isShow',
-  tenantId: 'tenantId',
-  expenseCategoryId: 'expenseCategoryId',
-  staffId: 'staffId',
-  description: 'description',
-  amount: 'amount',
-  paidAt: 'paidAt',
-  attachmentUrl: 'attachmentUrl',
-  createdAt: 'createdAt',
-  paymentType: 'paymentType'
-};
-
-exports.Prisma.LogScalarFieldEnum = {
-  id: 'id',
-  staffId: 'staffId',
-  tenantId: 'tenantId',
-  action: 'action',
-  createdAt: 'createdAt',
-  data: 'data'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {
@@ -277,15 +256,37 @@ exports.Prisma.ProductCategoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.StaffScalarFieldEnum = {
+exports.Prisma.ExpenseCategoryScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  isOwner: 'isOwner',
-  role: 'role',
-  username: 'username',
-  password: 'password',
+  name: 'name',
+  code: 'code',
+  isPrivate: 'isPrivate',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ExpenseScalarFieldEnum = {
+  id: 'id',
+  isShow: 'isShow',
+  tenantId: 'tenantId',
+  expenseCategoryId: 'expenseCategoryId',
+  staffId: 'staffId',
+  description: 'description',
+  amount: 'amount',
+  paidAt: 'paidAt',
+  attachmentUrl: 'attachmentUrl',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  paymentType: 'paymentType',
+  payrollDetailId: 'payrollDetailId'
+};
+
+exports.Prisma.LogScalarFieldEnum = {
+  id: 'id',
+  staffId: 'staffId',
+  tenantId: 'tenantId',
+  action: 'action',
+  createdAt: 'createdAt',
+  data: 'data'
 };
 
 exports.Prisma.TenantSettingScalarFieldEnum = {
@@ -330,6 +331,72 @@ exports.Prisma.SubscriptionPaymentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PayrollSettingScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ump: 'ump',
+  normalWorkHoursPerDay: 'normalWorkHoursPerDay',
+  normalWorkHoursPerMonth: 'normalWorkHoursPerMonth',
+  overtimeRate1: 'overtimeRate1',
+  overtimeRate2: 'overtimeRate2',
+  overtimeRateWeekend1: 'overtimeRateWeekend1',
+  overtimeRateWeekend2: 'overtimeRateWeekend2',
+  overtimeRateWeekend3: 'overtimeRateWeekend3',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  staffId: 'staffId',
+  basicSalary: 'basicSalary',
+  fixedAllowance: 'fixedAllowance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttendanceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  staffId: 'staffId',
+  date: 'date',
+  checkInTime: 'checkInTime',
+  checkOutTime: 'checkOutTime',
+  totalHours: 'totalHours',
+  isWeekend: 'isWeekend',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollPeriodScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  isFinalized: 'isFinalized',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollDetailScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  payrollPeriodId: 'payrollPeriodId',
+  staffId: 'staffId',
+  basicSalaryAmount: 'basicSalaryAmount',
+  fixedAllowanceAmount: 'fixedAllowanceAmount',
+  overtimeHours: 'overtimeHours',
+  overtimePay: 'overtimePay',
+  bonusAmount: 'bonusAmount',
+  deductionsAmount: 'deductionsAmount',
+  takeHomePay: 'takeHomePay',
+  isPaid: 'isPaid',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -360,20 +427,25 @@ exports.Prisma.JsonNullValueFilter = {
 exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
+  Staff: 'Staff',
   Customer: 'Customer',
   Discount: 'Discount',
-  ExpenseCategory: 'ExpenseCategory',
-  Expense: 'Expense',
-  Log: 'Log',
   Order: 'Order',
   OrderItem: 'OrderItem',
   Product: 'Product',
   ProductCategory: 'ProductCategory',
-  Staff: 'Staff',
+  ExpenseCategory: 'ExpenseCategory',
+  Expense: 'Expense',
+  Log: 'Log',
   TenantSetting: 'TenantSetting',
   SubscriptionPlan: 'SubscriptionPlan',
   TenantSubscription: 'TenantSubscription',
-  SubscriptionPayment: 'SubscriptionPayment'
+  SubscriptionPayment: 'SubscriptionPayment',
+  PayrollSetting: 'PayrollSetting',
+  Salary: 'Salary',
+  Attendance: 'Attendance',
+  PayrollPeriod: 'PayrollPeriod',
+  PayrollDetail: 'PayrollDetail'
 };
 
 /**
