@@ -42,8 +42,6 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       }
     }
 
-    console.log(jsonResponse)
-
     return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error('Error fetching order details:', error);
@@ -86,6 +84,16 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
           qty: item.qty,
         })),
       });
+
+      const previousOrder = await prisma.order.findUnique({
+        where: {
+          id: tenantId
+        }
+      });
+
+      if (previousOrder?.paymentDate == null && orderData.paymentStatus == 'paid') {
+        orderData.paymentDate = new Date();
+      } 
 
       // Update order
       const updatedOrder = await prisma.order.update({

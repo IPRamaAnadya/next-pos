@@ -24,6 +24,8 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       }
     });
 
+    console.log(settings);
+
     return NextResponse.json(settings);
   } catch (error) {
     console.error('Error fetching settings:', error);

@@ -3,17 +3,17 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
 
-type Params = { tenantId: string };
+type Params = Promise<{ tenantId: string }>;
 
 // POST: Mencatat waktu check-in staff
 export async function POST(req: Request, { params }: { params: Params }) {
   try {
-    const authResult = validateTenantAuth(req as any, params.tenantId);
+    const authResult = validateTenantAuth(req as any, (await params).tenantId);
     if (!authResult.success) {
       return authResult.response;
     }
 
-    const { tenantId } = params;
+    const { tenantId } = await params;
     const { staffId } = await req.json();
     const date = new Date().toISOString().split('T')[0]; // Format tanggal YYYY-MM-DD
 

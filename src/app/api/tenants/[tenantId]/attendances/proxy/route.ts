@@ -10,12 +10,12 @@ type Params = { tenantId: string };
 // POST: Melakukan check-in atau check-out dengan otentikasi username dan password
 export async function POST(req: Request, { params }: { params: Params }) {
   try {
-    const authResult = validateTenantAuth(req as any, params.tenantId);
+    const authResult = validateTenantAuth(req as any, (await params).tenantId);
     if (!authResult.success) {
       return authResult.response;
     }
 
-    const { tenantId } = params;
+    const { tenantId } = await params;
     const { username, password, action } = await req.json(); // 'checkin' atau 'checkout'
 
     // Cari staff berdasarkan username

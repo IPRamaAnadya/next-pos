@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { Prisma } from '@prisma/client';
+import { formatInTimeZone, fromZonedTime } from 'date-fns-tz';
 
 export async function GET(req: Request, { params }: { params: { tenantId: string } }) {
   try {
@@ -19,40 +20,50 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     var startDate = searchParams.get('start_date');
     var endDate = searchParams.get('end_date');
 
+    const clientTimezone = req.headers.get('X-Timezone-Name') || 'Asia/Jakarta';
+
     // if startDate and endDate is empty or null, change to current time with format like 2025-08-13
     if (!startDate || !endDate) {
       const now = new Date();
-      const startOfDay = new Date(now.setHours(0, 0, 0, 0));
-      const endOfDay = new Date(now.setHours(23, 59, 59, 999));
-      startDate = startOfDay.toISOString().split('T')[0];
-      endDate = endOfDay.toISOString().split('T')[0];
+      const localNow = formatInTimeZone(now, clientTimezone, 'yyyy-MM-dd');
+      startDate = localNow;
+      endDate = startDate;
     }
 
-    const result: any = await prisma.$queryRaw`
-      SELECT
-          DATE(o.payment_date) AS date,
-          SUM(o.grand_total) AS total_amount
-      FROM "Order" o
-      WHERE
-          tenant_id = ${tenantId}::uuid
-          AND payment_status = 'paid'
-          AND o.payment_date >= ${startDate}::timestamp
-          AND o.payment_date <= ${endDate}::timestamp + INTERVAL '1 day'
-      GROUP BY
-          DATE(payment_date)
-      ORDER BY
-          date DESC;
-    `;
+    // Konversi local start dan end ke UTC
+    const startOfDayLocal = new Date(`${startDate}T00:00:00`);
+    const endOfDayLocal = new Date(`${endDate}T23:59:59`);
 
+    const startUtc = fromZonedTime(startOfDayLocal, clientTimezone);
+    const endUtc = fromZonedTime(endOfDayLocal, clientTimezone);
+
+    const total = await prisma.order.aggregate({
+      _sum: {
+        grandTotal: true,
+      },
+      where: {
+        tenantId: tenantId,
+        paymentStatus: 'paid',
+        paymentDate: {
+          gte: startUtc,
+          lte: endUtc,
+        },
+      },
+    });
+    
     const jsonResponse = {
       data: {
-        daily_payment_received: result.total_amount ?? 0
+        daily_payment_received: total._sum.grandTotal
       }
     }
 
     return NextResponse.json(jsonResponse);
   } catch (error) {
-    console.error('Error fetching daily payment received:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ 
+      meta: {
+        error: 'Internal server error',
+        message: 'Internal server error'
+      }
+     }, { status: 500 });
   }
 }

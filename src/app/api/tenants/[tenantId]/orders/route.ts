@@ -67,9 +67,6 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       data: { orders, pagination },
     }
 
-    console.log(jsonResponse);
-    console.log(orders[0]);
-
     return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error('Error fetching orders:', error);
@@ -91,11 +88,16 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
 
     const body = await req.json();
 
+    console.log('POST body:', body);
+
     try {
       await orderCreateSchema.validate(body, { abortEarly: false });
     } catch (validationError: any) {
       return NextResponse.json({ error: 'Validation failed', details: validationError.errors }, { status: 400 });
     }
+
+    // PaymentDate
+    const paymentDate = body.paymentStatus == 'paid' ? new Date(): null;
 
     const { orderItems, ...orderData } = body;
     const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
@@ -105,6 +107,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
         data: {
           ...orderData,
           orderNo,
+          paymentDate,
           tenantId: tenantIdFromUrl,
           // Calculate remaining balance and change based on the Flutter logic
           remainingBalance: Math.max(orderData.grandTotal - orderData.paidAmount, 0),
@@ -114,6 +117,8 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
           items: true,
         },
       });
+
+      console.log(createdOrder.id);
 
       // Insert order items
       await prisma.orderItem.createMany({

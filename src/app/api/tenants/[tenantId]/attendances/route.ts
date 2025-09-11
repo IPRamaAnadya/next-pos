@@ -2,10 +2,12 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
+import { Decimal } from '@prisma/client/runtime/library';
+import { getClientCurrentDateFromInput, getClientCurrentTimeFromInput } from '@/app/api/utils/date';
+import { ApiError } from 'next/dist/server/api-utils';
 
 type Params = { tenantId: string };
-
-// POST: Mencatat kehadiran (check-in/check-out)
+// POST: Menambahkan absensi manual (untuk admin/owner)
 export async function POST(req: Request, { params }: { params: Params }) {
   try {
     const authResult = validateTenantAuth(req as any, params.tenantId);
@@ -14,45 +16,63 @@ export async function POST(req: Request, { params }: { params: Params }) {
     }
 
     const { tenantId } = params;
-    const { staffId, checkInTime, checkOutTime, date, isWeekend } = await req.json();
+    const { 
+      staffId, 
+      date, 
+      checkInTime, 
+      checkOutTime,
+      isWeekend,
+    } = await req.json();
 
-    let dataToCreate: any = { tenantId, staffId, date: new Date(date) };
-    if (checkInTime) dataToCreate.checkInTime = new Date(checkInTime);
-    if (checkOutTime) dataToCreate.checkOutTime = new Date(checkOutTime);
-    if (isWeekend !== undefined) dataToCreate.isWeekend = isWeekend;
-
-    if (checkInTime && checkOutTime) {
-      const checkIn = new Date(checkInTime);
-      const checkOut = new Date(checkOutTime);
-      const diffInMs = checkOut.getTime() - checkIn.getTime();
-      dataToCreate.totalHours = diffInMs / (1000 * 60 * 60);
+    if (!staffId || !date || !checkInTime || !checkOutTime) {
+      return NextResponse.json({
+        meta: { code: 400, status: 'error', message: 'staffId, date, checkInTime, and checkOutTime are required' },
+      }, { status: 400 });
     }
 
-    const attendanceRecord = await prisma.attendance.upsert({
+    // Hitung total jam kerja
+    const checkIn = getClientCurrentTimeFromInput(req, checkInTime);
+    const checkOut = getClientCurrentTimeFromInput(req, checkOutTime);
+    const totalHours = new Decimal((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60)).toFixed(2);
+
+    const selectedDate = getClientCurrentDateFromInput(req, date);
+    
+    // Periksa apakah entri absensi sudah ada
+    const existingAttendance = await prisma.attendance.findFirst({
       where: {
-        tenantId_staffId_date: {
-          tenantId,
-          staffId,
-          date: new Date(date),
-        },
+        staffId,
+        tenantId,
+        date: selectedDate,
       },
-      update: {
-        ...dataToCreate,
-        updatedAt: new Date(),
+    });
+
+    if (existingAttendance) {
+      return NextResponse.json({
+        meta: { code: 409, status: 'error', message: 'Attendance entry for this date already exists for the staff' },
+      }, { status: 409 });
+    }
+
+    const newAttendance = await prisma.attendance.create({
+      data: {
+        tenantId,
+        staffId,
+        date: selectedDate,
+        checkInTime: checkIn,
+        checkOutTime: checkOut,
+        totalHours: new Decimal(totalHours),
+        isWeekend: isWeekend ?? (selectedDate.getDay() === 0 || selectedDate.getDay() === 6),
       },
-      create: dataToCreate,
     });
 
     return NextResponse.json({
-      meta: { code: 200, status: 'success', message: 'Attendance record created/updated successfully' },
-      data: attendanceRecord,
-    });
+      meta: { code: 201, status: 'success', message: 'Attendance recorded successfully' },
+      data: newAttendance,
+    }, { status: 201 });
   } catch (error) {
-    console.error('Error creating/updating attendance record:', error);
+    console.error('Error recording attendance:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
-
 // GET: Mengambil daftar kehadiran dengan filter dan paginasi
 export async function GET(req: Request, { params }: { params: Params }) {
   try {

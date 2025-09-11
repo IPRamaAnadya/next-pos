@@ -37,7 +37,6 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
     // remove productCategoryId from data
     delete data.productCategoryId;
     try {
-      console.log(data);
       await productUpdateSchema.validate(data, { abortEarly: false });
     } catch (validationError: any) {
       return NextResponse.json({ error: 'Validation failed', details: validationError.errors }, { status: 400 });

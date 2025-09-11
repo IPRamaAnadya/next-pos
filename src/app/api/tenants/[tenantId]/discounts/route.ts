@@ -20,7 +20,11 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       where: { tenantId: tenantIdFromUrl },
     });
 
-    return NextResponse.json(discounts);
+    return NextResponse.json({
+      data: {
+        discounts: discounts
+      }
+    });
   } catch (error) {
     console.error('Error fetching discounts:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

@@ -2,20 +2,22 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
+import { formatInTimeZone, fromZonedTime, toZonedTime } from 'date-fns-tz';
+import {getClientCurrentDate} from '@/app/api/utils/date';
 
 type Params = { tenantId: string };
 
 // GET: Mengambil status absensi staff hari ini
 export async function GET(req: Request, { params }: { params: Params }) {
   try {
-    const authResult = validateTenantAuth(req as any, params.tenantId);
+    const authResult = validateTenantAuth(req as any, (await params).tenantId);
     if (!authResult.success) {
       return authResult.response;
     }
 
     const { searchParams } = new URL(req.url);
     const staffId = searchParams.get('staffId');
-    const tenantId = params.tenantId;
+    const tenantId = (await params).tenantId;
 
     if (!staffId) {
       return NextResponse.json({
@@ -23,19 +25,13 @@ export async function GET(req: Request, { params }: { params: Params }) {
       }, { status: 400 });
     }
 
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const todayEnd = new Date();
-    todayEnd.setHours(23, 59, 59, 999);
+    const currentDate = getClientCurrentDate(req);
 
     const attendance = await prisma.attendance.findFirst({
       where: {
         staffId,
         tenantId,
-        date: {
-          gte: todayStart,
-          lte: todayEnd,
-        },
+        date: currentDate
       },
     });
 
@@ -47,14 +43,16 @@ export async function GET(req: Request, { params }: { params: Params }) {
       status = 'checked_out';
     }
 
-    return NextResponse.json({
+    const jsonResponse = {
       meta: { code: 200, status: 'success', message: 'Attendance status retrieved successfully' },
       data: {
         status,
         checkInTime: attendance?.checkInTime,
         checkOutTime: attendance?.checkOutTime,
       },
-    });
+    };
+
+    return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error('Error fetching today attendance status:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
