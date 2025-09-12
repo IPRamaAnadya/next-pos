@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Transaksi untuk membuat user, tenant, setting, staff
-    const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx) => {
       // 1. Buat User
       const user = await tx.user.create({
         data: {
@@ -44,6 +44,7 @@ export async function POST(req: Request) {
         },
       });
 
+
       // 3. Buat Tenant Setting (default)
       await tx.tenantSetting.create({
         data: {
@@ -53,7 +54,23 @@ export async function POST(req: Request) {
         },
       });
 
-      // 4. Buat Staff dengan role manager + isOwner
+      // 4. Buat Payroll Setting (default)
+      await tx.payrollSetting.create({
+        data: {
+          tenantId: tenant.id,
+          ump: 0,
+          normalWorkHoursPerDay: 7,
+          normalWorkHoursPerMonth: 173,
+          overtimeRate1: 1.5,
+          overtimeRate2: 2,
+          overtimeRateWeekend1: 2,
+          overtimeRateWeekend2: 3,
+          overtimeRateWeekend3: 4,
+          overtimeCalculationType: 'HOURLY',
+        },
+      });
+      
+      // 5. Buat Staff dengan role manager + isOwner
       const staff = await tx.staff.create({
         data: {
           tenantId: tenant.id,
@@ -64,6 +81,26 @@ export async function POST(req: Request) {
         },
       });
 
+      // 6. Cek dan assign Trial Subscription Plan
+      const trialPlan = await tx.subscriptionPlan.findFirst({
+        where: { name: 'Trial' },
+      });
+      if (trialPlan) {
+        await tx.tenantSubscription.create({
+          data: {
+            tenantId: tenant.id,
+            planId: trialPlan.id,
+            status: 'trial',
+            startDate: new Date(),
+            endDate: new Date(new Date().setMonth(new Date().getMonth() + 2)), // 2 month trial
+          },
+        });
+
+        await tx.tenant.update({
+          where: { id: tenant.id },
+          data: { isSubscribed: true, subscribedUntil: new Date(new Date().setMonth(new Date().getMonth() + 2)) },
+        });
+      }
       return { user, tenant, staff };
     });
 

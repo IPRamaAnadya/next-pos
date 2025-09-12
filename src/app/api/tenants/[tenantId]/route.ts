@@ -18,7 +18,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     }
 
     const tenantIdFromToken = decoded.tenantId;
-    const { tenantId } = params;
+    const { tenantId } = await params;
 
     // Pastikan tenantId di URL cocok dengan tenantId di token
     if (tenantIdFromToken !== tenantId) {
@@ -30,15 +30,29 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       where: {
         id: tenantId,
       },
+      include: {
+        settings: {
+          select: {
+            showDiscount: true,
+            showTax: true,
+          },
+        },
+        subscription: true,
+        subscriptionPayments: true,
+        payrollSettings: true,
+      },
     });
 
     if (!tenant) {
       return NextResponse.json({ error: 'Tenant not found' }, { status: 404 });
     }
 
-    return NextResponse.json(tenant, { status: 200 });
+    console.log('Fetched tenant:', tenant);
+
+    const safeTenant = JSON.parse(JSON.stringify(tenant));
+    return NextResponse.json(safeTenant, { status: 200 });
   } catch (error) {
-    console.error('Error fetching tenant:', error);
+    console.log('Error fetching tenant:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

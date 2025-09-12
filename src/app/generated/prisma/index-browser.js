@@ -305,7 +305,8 @@ exports.Prisma.SubscriptionPlanScalarFieldEnum = {
   pricePerYear: 'pricePerYear',
   isBetaTest: 'isBetaTest',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  customLimits: 'customLimits'
 };
 
 exports.Prisma.TenantSubscriptionScalarFieldEnum = {
@@ -320,10 +321,21 @@ exports.Prisma.TenantSubscriptionScalarFieldEnum = {
   customLimits: 'customLimits'
 };
 
+exports.Prisma.TenantSubscriptionHistoryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  planId: 'planId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  customLimits: 'customLimits'
+};
+
 exports.Prisma.SubscriptionPaymentScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  tenantSubscriptionId: 'tenantSubscriptionId',
+  tenantSubscriptionHistoryId: 'tenantSubscriptionHistoryId',
   midtransOrderId: 'midtransOrderId',
   amount: 'amount',
   paymentMethod: 'paymentMethod',
@@ -342,6 +354,7 @@ exports.Prisma.PayrollSettingScalarFieldEnum = {
   overtimeRateWeekend1: 'overtimeRateWeekend1',
   overtimeRateWeekend2: 'overtimeRateWeekend2',
   overtimeRateWeekend3: 'overtimeRateWeekend3',
+  overtimeCalculationType: 'overtimeCalculationType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -353,7 +366,8 @@ exports.Prisma.SalaryScalarFieldEnum = {
   basicSalary: 'basicSalary',
   fixedAllowance: 'fixedAllowance',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  type: 'type'
 };
 
 exports.Prisma.AttendanceScalarFieldEnum = {
@@ -397,6 +411,17 @@ exports.Prisma.PayrollDetailScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.StaffLeaveScalarFieldEnum = {
+  id: 'id',
+  staffId: 'staffId',
+  type: 'type',
+  reason: 'reason',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -422,7 +447,23 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.OvertimeCalculationType = exports.$Enums.OvertimeCalculationType = {
+  HOURLY: 'HOURLY',
+  MONTHLY: 'MONTHLY'
+};
 
+exports.SalaryType = exports.$Enums.SalaryType = {
+  MONTHLY: 'MONTHLY',
+  HOURLY: 'HOURLY'
+};
+
+exports.LeaveType = exports.$Enums.LeaveType = {
+  SICK: 'SICK',
+  LEAVE: 'LEAVE',
+  PERMIT: 'PERMIT',
+  ABSENT: 'ABSENT',
+  OTHER: 'OTHER'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -440,12 +481,14 @@ exports.Prisma.ModelName = {
   TenantSetting: 'TenantSetting',
   SubscriptionPlan: 'SubscriptionPlan',
   TenantSubscription: 'TenantSubscription',
+  TenantSubscriptionHistory: 'TenantSubscriptionHistory',
   SubscriptionPayment: 'SubscriptionPayment',
   PayrollSetting: 'PayrollSetting',
   Salary: 'Salary',
   Attendance: 'Attendance',
   PayrollPeriod: 'PayrollPeriod',
-  PayrollDetail: 'PayrollDetail'
+  PayrollDetail: 'PayrollDetail',
+  StaffLeave: 'StaffLeave'
 };
 
 /**

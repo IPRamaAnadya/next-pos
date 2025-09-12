@@ -207,6 +207,115 @@ const main = async () => {
   })
 
   console.log(`Created order with ID: ${order.id}`);
+  // 9. Create Subscription Plans
+  await prisma.subscriptionPlan.createMany({
+    data: [
+      {
+        name: 'Trial',
+        description: 'Free trial plan',
+        pricePerMonth: 0,
+        pricePerYear: 0,
+        isBetaTest: false,
+        customLimits: {
+          staff: 1,
+          product: 25,
+          transaction: 1000,
+          can_access_discount: false,
+          can_access_report: false,
+          can_access_payroll: false,
+          can_access_attendance: false,
+          can_access_online_store: false,
+        },
+      },
+      {
+        name: 'Bantuan',
+        description: 'Plan bantuan untuk UMKM',
+        pricePerMonth: 4900,
+        pricePerYear: 49900,
+        isBetaTest: false,
+        customLimits: {
+          staff: 1,
+          product: 25,
+          transaction: 500,
+          can_access_discount: false,
+          can_access_report: false,
+          can_access_payroll: false,
+          can_access_attendance: false,
+          can_access_online_store: false,
+        },
+      },
+      {
+        name: 'Subsidi',
+        description: 'Plan subsidi untuk UMKM',
+        pricePerMonth: 24900,
+        pricePerYear: 249000,
+        isBetaTest: false,
+        customLimits: {
+          staff: 2,
+          product: 100,
+          transaction: 500,
+          can_access_discount: false,
+          can_access_report: true,
+          can_access_attendance: false,
+          can_access_online_store: true,
+        },
+      },
+      {
+        name: 'Premium',
+        description: 'Premium plan for growing businesses',
+        pricePerMonth: 199000,
+        pricePerYear: 1990000,
+        isBetaTest: false,
+        customLimits: {
+          staff: 10,
+          product: 500,
+          transaction: 5000,
+          can_access_discount: true,
+          can_access_report: true,
+          can_access_payroll: false,
+          can_access_attendance: false,
+          can_access_online_store: false,
+        },
+      },
+      {
+        name: 'Pro',
+        description: 'Pro plan for advanced features',
+        pricePerMonth: 399000,
+        pricePerYear: 3990000,
+        isBetaTest: false,
+        customLimits: {
+          staff: 50,
+          product: 5000,
+          transaction: 50000,
+          can_access_discount: true,
+          can_access_report: true,
+          can_access_payroll: true,
+          can_access_attendance: false,
+          can_access_online_store: false,
+        },
+      },
+      {
+        name: 'Enterprise',
+        description: 'Enterprise plan for large businesses',
+        pricePerMonth: 999000,
+        pricePerYear: 9990000,
+        isBetaTest: false,
+        customLimits: {
+          staff: -1, // unlimited
+          product: -1,
+          transaction: -1,
+          can_access_discount: true,
+          can_access_report: true,
+          can_access_payroll: true,
+          can_access_attendance: false,
+          can_access_online_store: false,
+        },
+      },
+    ],
+    skipDuplicates: true,
+  });
+
+  console.log('Seeded subscription plans: Trial, Premium, Pro, Enterprise');
   console.log('Seeding finished.');
 };
 
