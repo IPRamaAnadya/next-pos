@@ -26794,8 +26794,8 @@ export namespace Prisma {
     tenantId: string | null
     staffId: string | null
     date: Date | null
-    checkInTime: Date | null
-    checkOutTime: Date | null
+    checkInTime: string | null
+    checkOutTime: string | null
     totalHours: Decimal | null
     isWeekend: boolean | null
     createdAt: Date | null
@@ -26807,8 +26807,8 @@ export namespace Prisma {
     tenantId: string | null
     staffId: string | null
     date: Date | null
-    checkInTime: Date | null
-    checkOutTime: Date | null
+    checkInTime: string | null
+    checkOutTime: string | null
     totalHours: Decimal | null
     isWeekend: boolean | null
     createdAt: Date | null
@@ -26969,8 +26969,8 @@ export namespace Prisma {
     tenantId: string
     staffId: string
     date: Date
-    checkInTime: Date | null
-    checkOutTime: Date | null
+    checkInTime: string | null
+    checkOutTime: string | null
     totalHours: Decimal | null
     isWeekend: boolean | null
     createdAt: Date | null
@@ -27079,8 +27079,8 @@ export namespace Prisma {
       tenantId: string
       staffId: string
       date: Date
-      checkInTime: Date | null
-      checkOutTime: Date | null
+      checkInTime: string | null
+      checkOutTime: string | null
       totalHours: Prisma.Decimal | null
       isWeekend: boolean | null
       createdAt: Date | null
@@ -27514,8 +27514,8 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"Attendance", 'String'>
     readonly staffId: FieldRef<"Attendance", 'String'>
     readonly date: FieldRef<"Attendance", 'DateTime'>
-    readonly checkInTime: FieldRef<"Attendance", 'DateTime'>
-    readonly checkOutTime: FieldRef<"Attendance", 'DateTime'>
+    readonly checkInTime: FieldRef<"Attendance", 'String'>
+    readonly checkOutTime: FieldRef<"Attendance", 'String'>
     readonly totalHours: FieldRef<"Attendance", 'Decimal'>
     readonly isWeekend: FieldRef<"Attendance", 'Boolean'>
     readonly createdAt: FieldRef<"Attendance", 'DateTime'>
@@ -33734,8 +33734,8 @@ export namespace Prisma {
     tenantId?: UuidFilter<"Attendance"> | string
     staffId?: UuidFilter<"Attendance"> | string
     date?: DateTimeFilter<"Attendance"> | Date | string
-    checkInTime?: DateTimeNullableFilter<"Attendance"> | Date | string | null
-    checkOutTime?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    checkInTime?: StringNullableFilter<"Attendance"> | string | null
+    checkOutTime?: StringNullableFilter<"Attendance"> | string | null
     totalHours?: DecimalNullableFilter<"Attendance"> | Decimal | DecimalJsLike | number | string | null
     isWeekend?: BoolNullableFilter<"Attendance"> | boolean | null
     createdAt?: DateTimeNullableFilter<"Attendance"> | Date | string | null
@@ -33768,8 +33768,8 @@ export namespace Prisma {
     tenantId?: UuidFilter<"Attendance"> | string
     staffId?: UuidFilter<"Attendance"> | string
     date?: DateTimeFilter<"Attendance"> | Date | string
-    checkInTime?: DateTimeNullableFilter<"Attendance"> | Date | string | null
-    checkOutTime?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    checkInTime?: StringNullableFilter<"Attendance"> | string | null
+    checkOutTime?: StringNullableFilter<"Attendance"> | string | null
     totalHours?: DecimalNullableFilter<"Attendance"> | Decimal | DecimalJsLike | number | string | null
     isWeekend?: BoolNullableFilter<"Attendance"> | boolean | null
     createdAt?: DateTimeNullableFilter<"Attendance"> | Date | string | null
@@ -33804,8 +33804,8 @@ export namespace Prisma {
     tenantId?: UuidWithAggregatesFilter<"Attendance"> | string
     staffId?: UuidWithAggregatesFilter<"Attendance"> | string
     date?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
-    checkInTime?: DateTimeNullableWithAggregatesFilter<"Attendance"> | Date | string | null
-    checkOutTime?: DateTimeNullableWithAggregatesFilter<"Attendance"> | Date | string | null
+    checkInTime?: StringNullableWithAggregatesFilter<"Attendance"> | string | null
+    checkOutTime?: StringNullableWithAggregatesFilter<"Attendance"> | string | null
     totalHours?: DecimalNullableWithAggregatesFilter<"Attendance"> | Decimal | DecimalJsLike | number | string | null
     isWeekend?: BoolNullableWithAggregatesFilter<"Attendance"> | boolean | null
     createdAt?: DateTimeNullableWithAggregatesFilter<"Attendance"> | Date | string | null
@@ -35936,8 +35936,8 @@ export namespace Prisma {
   export type AttendanceCreateInput = {
     id?: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -35951,8 +35951,8 @@ export namespace Prisma {
     tenantId: string
     staffId: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -35962,8 +35962,8 @@ export namespace Prisma {
   export type AttendanceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35977,8 +35977,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35990,8 +35990,8 @@ export namespace Prisma {
     tenantId: string
     staffId: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -36001,8 +36001,8 @@ export namespace Prisma {
   export type AttendanceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36014,8 +36014,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -41420,8 +41420,8 @@ export namespace Prisma {
   export type AttendanceCreateWithoutTenantInput = {
     id?: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -41433,8 +41433,8 @@ export namespace Prisma {
     id?: string
     staffId: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -42105,8 +42105,8 @@ export namespace Prisma {
     tenantId?: UuidFilter<"Attendance"> | string
     staffId?: UuidFilter<"Attendance"> | string
     date?: DateTimeFilter<"Attendance"> | Date | string
-    checkInTime?: DateTimeNullableFilter<"Attendance"> | Date | string | null
-    checkOutTime?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    checkInTime?: StringNullableFilter<"Attendance"> | string | null
+    checkOutTime?: StringNullableFilter<"Attendance"> | string | null
     totalHours?: DecimalNullableFilter<"Attendance"> | Decimal | DecimalJsLike | number | string | null
     isWeekend?: BoolNullableFilter<"Attendance"> | boolean | null
     createdAt?: DateTimeNullableFilter<"Attendance"> | Date | string | null
@@ -42440,8 +42440,8 @@ export namespace Prisma {
   export type AttendanceCreateWithoutStaffInput = {
     id?: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -42453,8 +42453,8 @@ export namespace Prisma {
     id?: string
     tenantId: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -47706,8 +47706,8 @@ export namespace Prisma {
     id?: string
     staffId: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -48277,8 +48277,8 @@ export namespace Prisma {
   export type AttendanceUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48290,8 +48290,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48302,8 +48302,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48458,8 +48458,8 @@ export namespace Prisma {
     id?: string
     tenantId: string
     date: Date | string
-    checkInTime?: Date | string | null
-    checkOutTime?: Date | string | null
+    checkInTime?: string | null
+    checkOutTime?: string | null
     totalHours?: Decimal | DecimalJsLike | number | string | null
     isWeekend?: boolean | null
     createdAt?: Date | string | null
@@ -48674,8 +48674,8 @@ export namespace Prisma {
   export type AttendanceUpdateWithoutStaffInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48687,8 +48687,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48699,8 +48699,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    checkInTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    checkOutTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
     totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

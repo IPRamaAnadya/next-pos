@@ -388,8 +388,8 @@ model Attendance {
   tenantId     String    @map("tenant_id") @db.Uuid
   staffId      String    @map("staff_id") @db.Uuid
   date         DateTime  @db.Date
-  checkInTime  DateTime? @map("check_in_time") @db.Timestamptz(6)
-  checkOutTime DateTime? @map("check_out_time") @db.Timestamptz(6)
+  checkInTime  String? @map("check_in_time") 
+  checkOutTime String? @map("check_out_time") 
   totalHours   Decimal?  @map("total_hours")
   isWeekend    Boolean?  @default(false) @map("is_weekend")
   createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)

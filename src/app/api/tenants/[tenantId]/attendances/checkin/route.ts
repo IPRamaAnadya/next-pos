@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
+import { getClientCurrentTime } from '@/app/api/utils/date';
 
 type Params = Promise<{ tenantId: string }>;
 
@@ -47,7 +48,7 @@ export async function POST(req: Request, { params }: { params: Params }) {
         tenantId,
         staffId,
         date: new Date(date),
-        checkInTime: new Date(),
+        checkInTime: getClientCurrentTime(req),
         isWeekend: (new Date().getDay() === 0 || new Date().getDay() === 6),
       },
     });

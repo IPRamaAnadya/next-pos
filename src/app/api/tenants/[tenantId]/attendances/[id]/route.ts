@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
 import { Decimal } from '@prisma/client/runtime/library';
-import { getClientCurrentDateFromInput, getClientCurrentTimeFromInput } from '@/app/api/utils/date';
+import { calculateWorkHours, getClientCurrentDateFromInput, getClientCurrentTimeFromInput } from '@/app/api/utils/date';
 
 type Params = { tenantId: string; id: string };
 
@@ -52,11 +52,9 @@ export async function PUT(req: Request, { params }: { params: Params }) {
     const { checkInTime, checkOutTime, date, isWeekend } = await req.json();
 
     // Hitung total jam kerja jika waktu diubah
-    let totalHours = null;
-    if (checkInTime && checkOutTime) {
-      const checkIn = getClientCurrentTimeFromInput(req, checkInTime);
-      const checkOut = getClientCurrentTimeFromInput(req, checkOutTime);
-      totalHours = new Decimal((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60)).toFixed(2);
+    let totalHours = calculateWorkHours(checkInTime, checkOutTime);
+    if (totalHours !== null) {
+      totalHours = parseFloat(totalHours.toFixed(2)); // Bulatkan ke 2 desimal
     }
 
     const selectedDate = getClientCurrentDateFromInput(req, date);
@@ -68,8 +66,8 @@ export async function PUT(req: Request, { params }: { params: Params }) {
       },
       data: {
         date: date ? selectedDate : undefined,
-        checkInTime: checkInTime ? getClientCurrentTimeFromInput(req, checkInTime) : undefined,
-        checkOutTime: checkOutTime ? getClientCurrentTimeFromInput(req, checkOutTime) : undefined,
+        checkInTime: checkInTime ,
+        checkOutTime: checkOutTime,
         totalHours: totalHours ? new Decimal(totalHours) : undefined,
         isWeekend: isWeekend,
       },

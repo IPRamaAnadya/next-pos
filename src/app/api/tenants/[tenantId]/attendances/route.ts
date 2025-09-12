@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
 import { Decimal } from '@prisma/client/runtime/library';
-import { getClientCurrentDateFromInput, getClientCurrentTimeFromInput } from '@/app/api/utils/date';
+import { calculateWorkHours, getClientCurrentDateFromInput, getClientCurrentTimeFromInput } from '@/app/api/utils/date';
 import { ApiError } from 'next/dist/server/api-utils';
 
 type Params = { tenantId: string };
@@ -31,9 +31,9 @@ export async function POST(req: Request, { params }: { params: Params }) {
     }
 
     // Hitung total jam kerja
-    const checkIn = getClientCurrentTimeFromInput(req, checkInTime);
-    const checkOut = getClientCurrentTimeFromInput(req, checkOutTime);
-    const totalHours = new Decimal((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60)).toFixed(2);
+    const checkIn = checkInTime;
+    const checkOut = checkOutTime;
+    const totalHours = calculateWorkHours(checkIn, checkOut);
 
     const selectedDate = getClientCurrentDateFromInput(req, date);
     

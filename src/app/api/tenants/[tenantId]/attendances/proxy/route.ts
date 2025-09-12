@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { Decimal } from '@prisma/client/runtime/library';
 import { validateTenantAuth } from '@/lib/auth';
+import { calculateWorkHours, getClientCurrentTime } from '@/app/api/utils/date';
 
 type Params = { tenantId: string };
 
@@ -70,7 +71,7 @@ export async function POST(req: Request, { params }: { params: Params }) {
           tenantId,
           staffId: staff.id,
           date: currentDate,
-          checkInTime: new Date(),
+          checkInTime: getClientCurrentTime(req),
           isWeekend: (new Date().getDay() === 0 || new Date().getDay() === 6),
         },
       });
@@ -104,12 +105,11 @@ export async function POST(req: Request, { params }: { params: Params }) {
         }, { status: 409 });
       }
 
-      const checkOutTime = new Date();
+      const checkOutTime = getClientCurrentTime(req);
       const checkInTime = attendanceRecord.checkInTime;
 
       // Hitung total jam kerja
-      const totalMilliseconds = checkOutTime.getTime() - checkInTime.getTime();
-      const totalHours = new Decimal(totalMilliseconds / (1000 * 60 * 60));
+      const totalHours = calculateWorkHours(checkInTime, checkOutTime);
 
       const updatedAttendance = await prisma.attendance.update({
         where: {

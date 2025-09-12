@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
 import { Decimal } from '@prisma/client/runtime/library';
+import { calculateWorkHours, getClientCurrentTime } from '@/app/api/utils/date';
 
 type Params = { tenantId: string };
 
@@ -40,12 +41,10 @@ export async function POST(req: Request, { params }: { params: Params }) {
       }, { status: 409 });
     }
 
-    const checkOutTime = new Date();
+    const checkOutTime = getClientCurrentTime(req);
     const checkInTime = attendanceRecord.checkInTime;
 
-    // Hitung total jam kerja
-    const totalMilliseconds = checkOutTime.getTime() - checkInTime.getTime();
-    const totalHours = new Decimal(totalMilliseconds / (1000 * 60 * 60));
+    const totalHours = calculateWorkHours(checkInTime, checkOutTime);
 
     const updatedAttendance = await prisma.attendance.update({
       where: {
