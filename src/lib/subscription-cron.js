@@ -4,9 +4,8 @@ import cron from 'node-cron';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 
-cron.schedule('*/10 * * * * *', async () => {
+cron.schedule('*/5 * * * * *', async () => {
   try {
-    console.log('Running subscription check for all tenants');
     // Fetch all tenants from the API
     const tenantsRes = await fetch(`${BASE_URL}/api/tenants`);
     const tenants = await tenantsRes.json();
@@ -19,7 +18,6 @@ cron.schedule('*/10 * * * * *', async () => {
           body: JSON.stringify({ tenantId }),
         });
         const data = await res.json();
-        console.log(`Checked tenant ${tenantId}:`, data);
       } catch (err) {
         console.error(`Error checking tenant ${tenantId}:`, err);
       }

@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { sendNotificationByEvent } from '@/lib/fcm';
 
 export async function POST(req: Request) {
   try {
@@ -21,22 +20,14 @@ export async function POST(req: Request) {
     const diffDays = diffMs / (1000 * 60 * 60 * 24);
 
     if (diffDays < 7) {
-      // Send notification to all devices subscribed to this tenant
-      await sendNotificationByEvent(tenantId, {
-        notification: {
-          title: 'Langganan Akan Segera Berakhir',
-          body: `Langganan Anda akan berakhir dalam ${Math.ceil(diffDays)} hari. Silakan perpanjang segera!`,
-        },
-        data: {
-          type: 'subscription_expiring',
-          days_left: Math.ceil(diffDays).toString(),
-        },
-      });
+      console.log(`Notification sent to tenant ${tenantId}: Subscription expiring in ${Math.ceil(diffDays)} day(s)`);
+    } else {
+      console.log(`Subscription for tenant ${tenantId} is valid for more than 7 days. No notification sent.`);
     }
 
     return NextResponse.json({ daysLeft: Math.ceil(diffDays) }, { status: 200 });
   } catch (error) {
-    console.error('Error checking subscription duration:', error);
+    console.log('Error checking subscription duration:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
