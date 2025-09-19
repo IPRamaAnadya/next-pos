@@ -329,6 +329,7 @@ exports.Prisma.TenantSubscriptionHistoryScalarFieldEnum = {
   endDate: 'endDate',
   status: 'status',
   createdAt: 'createdAt',
+  snapToken: 'snapToken',
   customLimits: 'customLimits'
 };
 

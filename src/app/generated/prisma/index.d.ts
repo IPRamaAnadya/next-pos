@@ -22150,6 +22150,7 @@ export namespace Prisma {
     endDate: Date | null
     status: string | null
     createdAt: Date | null
+    snapToken: string | null
   }
 
   export type TenantSubscriptionHistoryMaxAggregateOutputType = {
@@ -22160,6 +22161,7 @@ export namespace Prisma {
     endDate: Date | null
     status: string | null
     createdAt: Date | null
+    snapToken: string | null
   }
 
   export type TenantSubscriptionHistoryCountAggregateOutputType = {
@@ -22170,6 +22172,7 @@ export namespace Prisma {
     endDate: number
     status: number
     createdAt: number
+    snapToken: number
     customLimits: number
     _all: number
   }
@@ -22183,6 +22186,7 @@ export namespace Prisma {
     endDate?: true
     status?: true
     createdAt?: true
+    snapToken?: true
   }
 
   export type TenantSubscriptionHistoryMaxAggregateInputType = {
@@ -22193,6 +22197,7 @@ export namespace Prisma {
     endDate?: true
     status?: true
     createdAt?: true
+    snapToken?: true
   }
 
   export type TenantSubscriptionHistoryCountAggregateInputType = {
@@ -22203,6 +22208,7 @@ export namespace Prisma {
     endDate?: true
     status?: true
     createdAt?: true
+    snapToken?: true
     customLimits?: true
     _all?: true
   }
@@ -22287,6 +22293,7 @@ export namespace Prisma {
     endDate: Date
     status: string
     createdAt: Date
+    snapToken: string | null
     customLimits: JsonValue | null
     _count: TenantSubscriptionHistoryCountAggregateOutputType | null
     _min: TenantSubscriptionHistoryMinAggregateOutputType | null
@@ -22315,6 +22322,7 @@ export namespace Prisma {
     endDate?: boolean
     status?: boolean
     createdAt?: boolean
+    snapToken?: boolean
     customLimits?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     subscriptionPlan?: boolean | SubscriptionPlanDefaultArgs<ExtArgs>
@@ -22330,6 +22338,7 @@ export namespace Prisma {
     endDate?: boolean
     status?: boolean
     createdAt?: boolean
+    snapToken?: boolean
     customLimits?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     subscriptionPlan?: boolean | SubscriptionPlanDefaultArgs<ExtArgs>
@@ -22343,6 +22352,7 @@ export namespace Prisma {
     endDate?: boolean
     status?: boolean
     createdAt?: boolean
+    snapToken?: boolean
     customLimits?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     subscriptionPlan?: boolean | SubscriptionPlanDefaultArgs<ExtArgs>
@@ -22356,10 +22366,11 @@ export namespace Prisma {
     endDate?: boolean
     status?: boolean
     createdAt?: boolean
+    snapToken?: boolean
     customLimits?: boolean
   }
 
-  export type TenantSubscriptionHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "planId" | "startDate" | "endDate" | "status" | "createdAt" | "customLimits", ExtArgs["result"]["tenantSubscriptionHistory"]>
+  export type TenantSubscriptionHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "planId" | "startDate" | "endDate" | "status" | "createdAt" | "snapToken" | "customLimits", ExtArgs["result"]["tenantSubscriptionHistory"]>
   export type TenantSubscriptionHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     subscriptionPlan?: boolean | SubscriptionPlanDefaultArgs<ExtArgs>
@@ -22390,6 +22401,7 @@ export namespace Prisma {
       endDate: Date
       status: string
       createdAt: Date
+      snapToken: string | null
       customLimits: Prisma.JsonValue | null
     }, ExtArgs["result"]["tenantSubscriptionHistory"]>
     composites: {}
@@ -22824,6 +22836,7 @@ export namespace Prisma {
     readonly endDate: FieldRef<"TenantSubscriptionHistory", 'DateTime'>
     readonly status: FieldRef<"TenantSubscriptionHistory", 'String'>
     readonly createdAt: FieldRef<"TenantSubscriptionHistory", 'DateTime'>
+    readonly snapToken: FieldRef<"TenantSubscriptionHistory", 'String'>
     readonly customLimits: FieldRef<"TenantSubscriptionHistory", 'Json'>
   }
     
@@ -31705,6 +31718,7 @@ export namespace Prisma {
     endDate: 'endDate',
     status: 'status',
     createdAt: 'createdAt',
+    snapToken: 'snapToken',
     customLimits: 'customLimits'
   };
 
@@ -33414,6 +33428,7 @@ export namespace Prisma {
     endDate?: DateTimeFilter<"TenantSubscriptionHistory"> | Date | string
     status?: StringFilter<"TenantSubscriptionHistory"> | string
     createdAt?: DateTimeFilter<"TenantSubscriptionHistory"> | Date | string
+    snapToken?: StringNullableFilter<"TenantSubscriptionHistory"> | string | null
     customLimits?: JsonNullableFilter<"TenantSubscriptionHistory">
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     subscriptionPlan?: XOR<SubscriptionPlanScalarRelationFilter, SubscriptionPlanWhereInput>
@@ -33428,6 +33443,7 @@ export namespace Prisma {
     endDate?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    snapToken?: SortOrderInput | SortOrder
     customLimits?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
     subscriptionPlan?: SubscriptionPlanOrderByWithRelationInput
@@ -33445,6 +33461,7 @@ export namespace Prisma {
     endDate?: DateTimeFilter<"TenantSubscriptionHistory"> | Date | string
     status?: StringFilter<"TenantSubscriptionHistory"> | string
     createdAt?: DateTimeFilter<"TenantSubscriptionHistory"> | Date | string
+    snapToken?: StringNullableFilter<"TenantSubscriptionHistory"> | string | null
     customLimits?: JsonNullableFilter<"TenantSubscriptionHistory">
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     subscriptionPlan?: XOR<SubscriptionPlanScalarRelationFilter, SubscriptionPlanWhereInput>
@@ -33459,6 +33476,7 @@ export namespace Prisma {
     endDate?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    snapToken?: SortOrderInput | SortOrder
     customLimits?: SortOrderInput | SortOrder
     _count?: TenantSubscriptionHistoryCountOrderByAggregateInput
     _max?: TenantSubscriptionHistoryMaxOrderByAggregateInput
@@ -33476,6 +33494,7 @@ export namespace Prisma {
     endDate?: DateTimeWithAggregatesFilter<"TenantSubscriptionHistory"> | Date | string
     status?: StringWithAggregatesFilter<"TenantSubscriptionHistory"> | string
     createdAt?: DateTimeWithAggregatesFilter<"TenantSubscriptionHistory"> | Date | string
+    snapToken?: StringNullableWithAggregatesFilter<"TenantSubscriptionHistory"> | string | null
     customLimits?: JsonNullableWithAggregatesFilter<"TenantSubscriptionHistory">
   }
 
@@ -35599,6 +35618,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     tenant: TenantCreateNestedOneWithoutTenantSubscriptionHistoriesInput
     subscriptionPlan: SubscriptionPlanCreateNestedOneWithoutTenantSubscriptionHistoriesInput
@@ -35613,6 +35633,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantSubscriptionHistoryInput
   }
@@ -35623,6 +35644,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneRequiredWithoutTenantSubscriptionHistoriesNestedInput
     subscriptionPlan?: SubscriptionPlanUpdateOneRequiredWithoutTenantSubscriptionHistoriesNestedInput
@@ -35637,6 +35659,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantSubscriptionHistoryNestedInput
   }
@@ -35649,6 +35672,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -35658,6 +35682,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -35669,6 +35694,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -37633,6 +37659,7 @@ export namespace Prisma {
     endDate?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    snapToken?: SortOrder
     customLimits?: SortOrder
   }
 
@@ -37644,6 +37671,7 @@ export namespace Prisma {
     endDate?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    snapToken?: SortOrder
   }
 
   export type TenantSubscriptionHistoryMinOrderByAggregateInput = {
@@ -37654,6 +37682,7 @@ export namespace Prisma {
     endDate?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    snapToken?: SortOrder
   }
 
   export type TenantSubscriptionHistoryScalarRelationFilter = {
@@ -41326,6 +41355,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPlan: SubscriptionPlanCreateNestedOneWithoutTenantSubscriptionHistoriesInput
     subscriptionPayments?: SubscriptionPaymentCreateNestedManyWithoutTenantSubscriptionHistoryInput
@@ -41338,6 +41368,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantSubscriptionHistoryInput
   }
@@ -42007,6 +42038,7 @@ export namespace Prisma {
     endDate?: DateTimeFilter<"TenantSubscriptionHistory"> | Date | string
     status?: StringFilter<"TenantSubscriptionHistory"> | string
     createdAt?: DateTimeFilter<"TenantSubscriptionHistory"> | Date | string
+    snapToken?: StringNullableFilter<"TenantSubscriptionHistory"> | string | null
     customLimits?: JsonNullableFilter<"TenantSubscriptionHistory">
   }
 
@@ -45505,6 +45537,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     tenant: TenantCreateNestedOneWithoutTenantSubscriptionHistoriesInput
     subscriptionPayments?: SubscriptionPaymentCreateNestedManyWithoutTenantSubscriptionHistoryInput
@@ -45517,6 +45550,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantSubscriptionHistoryInput
   }
@@ -46046,6 +46080,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     tenant: TenantCreateNestedOneWithoutTenantSubscriptionHistoriesInput
     subscriptionPlan: SubscriptionPlanCreateNestedOneWithoutTenantSubscriptionHistoriesInput
@@ -46059,6 +46094,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -46151,6 +46187,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneRequiredWithoutTenantSubscriptionHistoriesNestedInput
     subscriptionPlan?: SubscriptionPlanUpdateOneRequiredWithoutTenantSubscriptionHistoriesNestedInput
@@ -46164,6 +46201,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -47689,6 +47727,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -48218,6 +48257,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPlan?: SubscriptionPlanUpdateOneRequiredWithoutTenantSubscriptionHistoriesNestedInput
     subscriptionPayments?: SubscriptionPaymentUpdateManyWithoutTenantSubscriptionHistoryNestedInput
@@ -48230,6 +48270,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantSubscriptionHistoryNestedInput
   }
@@ -48241,6 +48282,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -49268,6 +49310,7 @@ export namespace Prisma {
     endDate: Date | string
     status?: string
     createdAt?: Date | string
+    snapToken?: string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -49310,6 +49353,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneRequiredWithoutTenantSubscriptionHistoriesNestedInput
     subscriptionPayments?: SubscriptionPaymentUpdateManyWithoutTenantSubscriptionHistoryNestedInput
@@ -49322,6 +49366,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
     subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantSubscriptionHistoryNestedInput
   }
@@ -49333,6 +49378,7 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
     customLimits?: NullableJsonNullValueInput | InputJsonValue
   }
 

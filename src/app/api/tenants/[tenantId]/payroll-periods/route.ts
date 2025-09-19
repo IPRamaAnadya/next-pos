@@ -2,25 +2,31 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
+import { apiResponse } from '@/app/api/utils/response';
+import { getClientCurrentDateFromInput } from '@/app/api/utils/date';
 
 type Params = { tenantId: string };
 
 // POST: Membuat periode penggajian baru
 export async function POST(req: Request, { params }: { params: Params }) {
   try {
-    const authResult = validateTenantAuth(req as any, params.tenantId);
+    const authResult = validateTenantAuth(req as any, (await params).tenantId);
     if (!authResult.success) {
       return authResult.response;
     }
 
-    const { tenantId } = params;
+    const { tenantId } = await params;
     const { periodStart, periodEnd } = await req.json();
+    const periodClient = getClientCurrentDateFromInput(req, periodStart);
+    const periodEndClient = getClientCurrentDateFromInput(req, periodEnd);
+
+    console.log('Creating payroll period:', { tenantId, periodClient, periodEndClient });
 
     const newPeriod = await prisma.payrollPeriod.create({
       data: {
         tenantId,
-        periodStart: new Date(periodStart),
-        periodEnd: new Date(periodEnd),
+        periodStart: new Date(periodClient),
+        periodEnd: new Date(periodEndClient),
       },
     });
 
@@ -37,7 +43,7 @@ export async function POST(req: Request, { params }: { params: Params }) {
 // GET: Mengambil daftar periode penggajian
 export async function GET(req: Request, { params }: { params: Params }) {
   try {
-    const authResult = validateTenantAuth(req as any, params.tenantId);
+    const authResult = validateTenantAuth(req as any, (await params).tenantId);
     if (!authResult.success) {
       return authResult.response;
     }

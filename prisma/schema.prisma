@@ -309,6 +309,7 @@ model TenantSubscriptionHistory {
   endDate   DateTime @map("end_date") @db.Timestamptz(6)
   status    String   @default("expired")
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  snapToken String? @map("snap_token")
 
   customLimits Json? @map("custom_limits")
 

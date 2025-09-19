@@ -33,15 +33,6 @@ export async function POST(req: Request) {
     // Use a single transaction to ensure atomicity
     const { snapToken } = await prisma.$transaction(async (tx) => {
       // Create tenant subscription history
-      const tenantSubscription = await tx.tenantSubscriptionHistory.create({
-        data: {
-          tenantId,
-          planId,
-          startDate: new Date(),
-          endDate,
-          status: 'pending',
-        },
-      });
 
       // Create Midtrans Snap transaction
       const snapToken = await createSnapTransaction({
@@ -58,7 +49,19 @@ export async function POST(req: Request) {
           quantity: 1,
           name: plan.name,
         }],
-        enabledPayments: ['bca_va'],
+        enabledPayments: ['gopay', 'shopeepay', 'dana'],
+      });
+
+
+      const tenantSubscription = await tx.tenantSubscriptionHistory.create({
+        data: {
+          tenantId,
+          planId,
+          startDate: new Date(),
+          endDate,
+          status: 'pending',
+          snapToken,
+        },
       });
 
       // Create SubscriptionPayment record

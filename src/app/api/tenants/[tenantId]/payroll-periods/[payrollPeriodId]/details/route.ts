@@ -103,12 +103,12 @@ export async function POST(req: Request, { params }: { params: Params }) {
 // GET: Mengambil detail penggajian untuk periode tertentu
 export async function GET(req: Request, { params }: { params: Params }) {
   try {
-    const authResult = validateTenantAuth(req as any, params.tenantId);
+    const authResult = validateTenantAuth(req as any, (await params).tenantId);
     if (!authResult.success) {
       return authResult.response;
     }
 
-    const { tenantId, payrollPeriodId } = params;
+    const { tenantId, payrollPeriodId } = await params;
 
     const payrollDetails = await prisma.payrollDetail.findMany({
       where: {

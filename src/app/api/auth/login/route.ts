@@ -11,7 +11,9 @@ export async function POST(req: Request) {
       include: { tenants: { select: { id: true } } }
     });
     if (!user || !bcrypt.compareSync(password, user.password)) {
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+      return NextResponse.json({
+        meta: { message: 'Invalid email or password', success: false, code: 401 }
+      }, { status: 401 });
     }
 
     const staffAccount = await prisma.staff.findFirst({
@@ -29,6 +31,8 @@ export async function POST(req: Request) {
     const token = generateToken(payload);
     return NextResponse.json({ token, user: payload });
   } catch (error) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({
+      meta: { message: 'Internal server error', success: false, code: 500 }
+    }, { status: 500 });
   }
 }

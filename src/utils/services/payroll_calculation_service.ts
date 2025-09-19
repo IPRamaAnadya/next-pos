@@ -41,7 +41,8 @@ export async function calculateTakeHomePay(params: PayrollCalculationParams) {
   const payrollSetting = await prisma.payrollSetting.findUnique({ where: { tenantId } });
   const normalHoursPerDay = payrollSetting?.normalWorkHoursPerDay || 7;
   const normalHoursPerMonth = payrollSetting?.normalWorkHoursPerMonth || 173;
-  const hourlyRate = (basicSalary + fixedAllowance) / normalHoursPerMonth;
+  // Calculate hourly rate using Math.floor (get floor, no rounding up, no comma)
+  const hourlyRate = Math.floor((basicSalary + fixedAllowance) / normalHoursPerMonth);
   // Get overtimeCalculationType from payrollSetting if not provided
   let overtimeType: 'HOURLY' | 'MONTHLY' = paramOvertimeType as any;
   if (!overtimeType) {
