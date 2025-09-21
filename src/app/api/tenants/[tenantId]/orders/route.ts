@@ -88,8 +88,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
 
     const body = await req.json();
 
-    console.log('POST body:', body);
-
     try {
       await orderCreateSchema.validate(body, { abortEarly: false });
     } catch (validationError: any) {
@@ -109,7 +107,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
           orderNo,
           paymentDate,
           tenantId: tenantIdFromUrl,
-          // Calculate remaining balance and change based on the Flutter logic
           remainingBalance: Math.max(orderData.grandTotal - orderData.paidAmount, 0),
           change: Math.max(orderData.paidAmount - orderData.grandTotal, 0),
         },
@@ -117,8 +114,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
           items: true,
         },
       });
-
-      console.log(createdOrder.id);
 
       // Insert order items
       await prisma.orderItem.createMany({
@@ -132,7 +127,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
         })),
       });
 
-      // Handle customer points logic (like in the SQL function)
+      // Handle customer points logic
       if (orderData.paymentStatus === 'paid' && orderData.customerId) {
         if (orderData.pointUsed && orderData.pointUsed > 0) {
           await prisma.customer.update({
@@ -154,11 +149,46 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
       }
 
       // finalize order creation
-
       const ord = await prisma.order.findUnique({
         where: { id: createdOrder.id },
         include: { items: true },
       });
+
+      // Send notification after order creation
+      if (ord) {
+        try {
+          const customer = await prisma.customer.findUnique({ where: { id: ord.customerId ?? '' } });
+
+            const notificationVars = {
+            phone: customer?.phone || '',
+            customerName: customer?.name || '',
+            grandTotal: `Rp${Number(ord.grandTotal).toLocaleString('id-ID')}`,
+            };
+
+          console.log('Notification vars:', notificationVars);
+          if (ord.paymentStatus === 'paid') {
+            await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+              sendOrderNotification({
+                tenantId: tenantIdFromUrl,
+                event: 'ORDER_PAID',
+                orderId: ord.id,
+                variables: notificationVars
+              })
+            );
+          } else {
+            await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+              sendOrderNotification({
+                tenantId: tenantIdFromUrl,
+                event: 'ORDER_CREATED',
+                orderId: ord.id,
+                variables: notificationVars
+              })
+            );
+          }
+        } catch (notifyError) {
+          console.log('Notification error:', notifyError);
+        }
+      }
 
       return ord;
     });

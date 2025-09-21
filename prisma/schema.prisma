@@ -60,6 +60,11 @@ model Tenant {
   attendances     Attendance[]
   payrollPeriods  PayrollPeriod[]
   payrollDetails  PayrollDetail[]
+
+  // Relasi Notifikasi
+  notificationConfig TenantNotificationConfig?
+  notificationTemplates NotificationTemplate[]
+  notificationLogs NotificationLog[]
 }
 
 model Staff {
@@ -447,4 +452,61 @@ model StaffLeave {
   endDate      DateTime
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+
+// =========================================================
+//  NOTIFICATIONS
+// =========================================================
+
+
+// ---------------------------------------------------------
+//  ORDER NOTIFICATIONs
+// ---------------------------------------------------------
+
+enum NotificationEvent {
+  ORDER_CREATED
+  ORDER_PAID
+}
+
+model TenantNotificationConfig {
+  id         String   @id @default(uuid())
+  tenantId   String   @unique @map("tenant_id") @db.Uuid
+  provider   String   @default("fonnte") // bisa fonnte, email, dll
+  apiToken   String   @map("api_token")
+  apiUrl     String   @default("https://api.fonnte.com/send") @map("api_url")
+  isActive   Boolean  @default(true) @map("is_active")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+}
+
+model NotificationTemplate {
+  id          String   @id @default(uuid())
+  tenantId    String   @map("tenant_id") @db.Uuid
+  name        String             // contoh: "Order Created", "Order Paid", "Custom Reminder"
+  event       NotificationEvent? // optional, jika null berarti custom
+  message     String             // isi pesan dengan {{variable}}
+  isActive    Boolean  @default(true) @map("is_active")
+  isCustom    Boolean  @default(false) @map("is_custom")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  tenant      Tenant                 @relation(fields: [tenantId], references: [id])
+}
+
+
+model NotificationLog {
+  id          String   @id @default(uuid())
+  tenantId    String   @map("tenant_id") @db.Uuid
+  templateId  String?  @map("template_id") @db.Uuid
+  recipient   String
+  message     String
+  status      String   // success, failed
+  response    Json?
+  error       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  tenant      Tenant                 @relation(fields: [tenantId], references: [id])
 }

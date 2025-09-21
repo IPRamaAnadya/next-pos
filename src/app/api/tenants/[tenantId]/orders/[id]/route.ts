@@ -93,7 +93,7 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
 
       if (previousOrder?.paymentDate == null && orderData.paymentStatus == 'paid') {
         orderData.paymentDate = new Date();
-      } 
+      }
 
       // Update order
       const updatedOrder = await prisma.order.update({
@@ -129,6 +129,38 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
         });
       }
 
+      // ...existing code...
+      // Send notification after order update
+      try {
+        const customer = await prisma.customer.findUnique({ where: { id: orderData.customerId ?? '' } });
+
+        const notificationVars = {
+          phone: customer?.phone || '',
+          customerName: customer?.name || '',
+          grandTotal: `Rp${Number(orderData.grandTotal).toLocaleString('id-ID')}`,
+        };
+        if (updatedOrder.paymentStatus === 'paid') {
+          await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+            sendOrderNotification({
+              tenantId,
+              event: 'ORDER_PAID',
+              orderId: updatedOrder.id,
+              variables: notificationVars
+            })
+          );
+        } else {
+          await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+            sendOrderNotification({
+              tenantId,
+              event: 'ORDER_CREATED',
+              orderId: updatedOrder.id,
+              variables: notificationVars
+            })
+          );
+        }
+      } catch (notifyError) {
+        console.error('Notification error:', notifyError);
+      }
       return updatedOrder;
     });
 

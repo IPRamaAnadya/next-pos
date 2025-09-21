@@ -423,6 +423,41 @@ exports.Prisma.StaffLeaveScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TenantNotificationConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  provider: 'provider',
+  apiToken: 'apiToken',
+  apiUrl: 'apiUrl',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationTemplateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  event: 'event',
+  message: 'message',
+  isActive: 'isActive',
+  isCustom: 'isCustom',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  templateId: 'templateId',
+  recipient: 'recipient',
+  message: 'message',
+  status: 'status',
+  response: 'response',
+  error: 'error',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -466,6 +501,11 @@ exports.LeaveType = exports.$Enums.LeaveType = {
   OTHER: 'OTHER'
 };
 
+exports.NotificationEvent = exports.$Enums.NotificationEvent = {
+  ORDER_CREATED: 'ORDER_CREATED',
+  ORDER_PAID: 'ORDER_PAID'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
@@ -489,7 +529,10 @@ exports.Prisma.ModelName = {
   Attendance: 'Attendance',
   PayrollPeriod: 'PayrollPeriod',
   PayrollDetail: 'PayrollDetail',
-  StaffLeave: 'StaffLeave'
+  StaffLeave: 'StaffLeave',
+  TenantNotificationConfig: 'TenantNotificationConfig',
+  NotificationTemplate: 'NotificationTemplate',
+  NotificationLog: 'NotificationLog'
 };
 
 /**
