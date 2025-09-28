@@ -11,26 +11,55 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
     const tenantIdFromUrl = (await params).tenantId;
+    // get isCashier from query param
+    const isCashier = req.url.includes('isCashier=true');
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }
-    const expenses = await prisma.expense.findMany({
-      where: { tenantId: tenantIdFromUrl },
-      include: {
-        expenseCategory: true,
-        staff: {
+
+    // Pagination
+    const urlObj = new URL(req.url);
+    const page = parseInt(urlObj.searchParams.get('p_page') || '1', 10);
+    const limit = parseInt(urlObj.searchParams.get('p_limit') || '50', 50);
+    const skip = (page - 1) * limit;
+
+    var whereClause: any = { tenantId: tenantIdFromUrl };
+    if (isCashier) {
+      whereClause.isShow = false;
+      whereClause.expenseCategory = { isPrivate: false };
+    }
+
+    const [expenses, total] = await Promise.all([
+      prisma.expense.findMany({
+        where: { ...whereClause },
+        include: {
+          expenseCategory: true,
+          staff: {
             select: {
-                id: true,
-                username: true,
-                role: true
+              id: true,
+              username: true,
+              role: true
             }
-        }
-      },
-      orderBy: {
-        createdAt: 'desc'
+          }
+        },
+        orderBy: {
+          createdAt: 'desc'
+        },
+        skip,
+        take: limit,
+      }),
+      prisma.expense.count({ where: { ...whereClause } })
+    ]);
+
+    return NextResponse.json({
+      data: expenses,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit)
       }
     });
-    return NextResponse.json(expenses);
   } catch (error) {
     console.error('Error fetching expenses:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -44,6 +73,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
     const tenantIdFromUrl = (await params).tenantId;
+    const isCashier = req.url.includes('isCashier=true');
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }
@@ -54,7 +84,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
       return NextResponse.json({ error: 'Validation failed', details: validationError.errors }, { status: 400 });
     }
     const newExpense = await prisma.expense.create({
-      data: { ...data, tenantId: tenantIdFromUrl },
+      data: { ...data, tenantId: tenantIdFromUrl, isShow: isCashier ? true : false },
     });
     return NextResponse.json(newExpense, { status: 201 });
   } catch (error) {

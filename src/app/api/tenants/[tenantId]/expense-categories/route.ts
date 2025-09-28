@@ -11,10 +11,17 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const decoded: any = verifyToken(token as string);
     const tenantIdFromToken = decoded.tenantId;
     const tenantIdFromUrl = (await params).tenantId;
+    const isCashier = req.url.includes('isCashier=true');
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return NextResponse.json({ error: 'Unauthorized: Tenant ID mismatch' }, { status: 403 });
     }
-    const categories = await prisma.expenseCategory.findMany({ where: { tenantId: tenantIdFromUrl } });
+
+    var whereClause: any = { tenantId: tenantIdFromUrl };
+    
+    if (isCashier) {
+      whereClause.isPrivate = false;
+    }
+    const categories = await prisma.expenseCategory.findMany({ where: { ...whereClause } });
     return NextResponse.json(categories);
   } catch (error) {
     console.error('Error fetching expense categories:', error);
