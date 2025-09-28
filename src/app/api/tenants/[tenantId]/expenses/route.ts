@@ -26,7 +26,6 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
 
     var whereClause: any = { tenantId: tenantIdFromUrl };
     if (isCashier) {
-      whereClause.isShow = false;
       whereClause.expenseCategory = { isPrivate: false };
     }
 
