@@ -38,6 +38,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       where: whereClause,
       skip,
       take: limit,
+      orderBy: { createdAt: 'desc' },
       include: {
         expenseCategory: true,
         staff: {
