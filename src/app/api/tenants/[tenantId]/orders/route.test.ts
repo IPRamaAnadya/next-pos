@@ -120,4 +120,47 @@ describe('POST /api/tenants/[tenantId]/orders', () => {
     const res = await POST(req, { params: { tenantId } });
     expect(res.status).toBe(500);
   });
+
+  it('should return correct grandTotal, paidAmount, discountAmount, remainingBalance, and change', async () => {
+    const { verifyToken } = require('@/app/api/utils/jwt');
+    const { orderCreateSchema } = require('@/utils/validation/orderSchema');
+    const prisma = require('@/lib/prisma');
+    const { sendOrderNotification } = require('@/lib/orderNotificationService');
+    verifyToken.mockReturnValue({ tenantId });
+    const customOrderBody = {
+      grandTotal: 150000,
+      paidAmount: 120000,
+      discountAmount: 30000,
+      paymentStatus: 'unpaid',
+      customerId,
+      orderItems: [
+        { productName: 'Product B', productId: 'prod2', productPrice: 75000, qty: 2 },
+      ],
+    };
+    req.json.mockResolvedValue(customOrderBody);
+    orderCreateSchema.validate.mockResolvedValue(true);
+    // Simulate DB create and find
+    prisma.order.create.mockResolvedValue({ id: orderId, ...customOrderBody });
+    prisma.orderItem.createMany.mockResolvedValue({});
+    prisma.customer.findUnique.mockResolvedValue({ id: customerId, points: 10, phone: '0812', name: 'John' });
+    prisma.order.findUnique.mockResolvedValue({
+      id: orderId,
+      ...customOrderBody,
+      items: customOrderBody.orderItems,
+      remainingBalance: 30000,
+      change: 0,
+    });
+    sendOrderNotification.mockResolvedValue({});
+    prisma.order.update.mockResolvedValue({});
+    const res = await POST(req, { params: { tenantId } });
+    expect(res.status).toBe(201);
+    const json = await res.json();
+    expect(json.data.order.grandTotal).toBe(150000);
+    expect(json.data.order.paidAmount).toBe(120000);
+    expect(json.data.order.discountAmount).toBe(30000);
+    expect(json.data.order.remainingBalance).toBe(30000);
+    expect(json.data.order.change).toBe(0);
+    expect(json.data.order.items[0].productPrice).toBe(75000);
+    expect(json.data.order.items[0].qty).toBe(2);
+  });
 });

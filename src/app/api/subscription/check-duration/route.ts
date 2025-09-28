@@ -1,3 +1,12 @@
+export async function GET(req: Request) {
+  try {
+    // For test: return all subscriptions
+    const subscriptions = await prisma.tenantSubscription.findMany();
+    return NextResponse.json({ data: subscriptions }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 

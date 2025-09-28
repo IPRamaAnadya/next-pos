@@ -42,7 +42,7 @@ export async function calculateTakeHomePay(params: PayrollCalculationParams) {
   const normalHoursPerDay = payrollSetting?.normalWorkHoursPerDay || 7;
   const normalHoursPerMonth = payrollSetting?.normalWorkHoursPerMonth || 173;
   // Calculate hourly rate using Math.floor (get floor, no rounding up, no comma)
-  const hourlyRate = Math.floor((basicSalary + fixedAllowance) / normalHoursPerMonth);
+  const hourlyRate = Math.floor((basicSalary) / normalHoursPerMonth);
   // Get overtimeCalculationType from payrollSetting if not provided
   let overtimeType: 'HOURLY' | 'MONTHLY' = paramOvertimeType as any;
   if (!overtimeType) {
