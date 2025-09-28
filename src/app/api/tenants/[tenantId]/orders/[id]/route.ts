@@ -164,12 +164,26 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
       return updatedOrder;
     });
 
+    // Fetch the updated order with items and totalPrice for each item
+    const order = await prisma.order.findUnique({
+      where: { id, tenantId },
+      include: { items: true },
+    });
+    if (!order) {
+      return NextResponse.json({ error: 'Order not found after update' }, { status: 404 });
+    }
+    const orderWithTotal = {
+      ...order,
+      items: order?.items.map((item: any) => ({
+        ...item,
+        totalPrice: Math.round(item.productPrice * item.qty),
+      })),
+    };
     const jsonResponse = {
       data: {
-        order: updatedOrder
+        order: orderWithTotal
       }
     };
-
     return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error('Error updating order:', error);

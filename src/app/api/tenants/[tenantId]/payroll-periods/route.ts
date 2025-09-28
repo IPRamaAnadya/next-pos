@@ -20,8 +20,6 @@ export async function POST(req: Request, { params }: { params: Params }) {
     const periodClient = getClientCurrentDateFromInput(req, periodStart);
     const periodEndClient = getClientCurrentDateFromInput(req, periodEnd);
 
-    console.log('Creating payroll period:', { tenantId, periodClient, periodEndClient });
-
     const newPeriod = await prisma.payrollPeriod.create({
       data: {
         tenantId,

@@ -2,9 +2,8 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { Decimal } from '@prisma/client/runtime/library';
 import { validateTenantAuth } from '@/lib/auth';
-import { calculateWorkHours, getClientCurrentTime } from '@/app/api/utils/date';
+import { calculateWorkHours, getClientCurrentDate, getClientCurrentTime } from '@/app/api/utils/date';
 
 type Params = { tenantId: string };
 
@@ -43,8 +42,7 @@ export async function POST(req: Request, { params }: { params: Params }) {
       }, { status: 401 });
     }
 
-    const today = new Date().toISOString().split('T')[0];
-    const currentDate = new Date(today);
+    const currentDate = getClientCurrentDate(req);
 
     let attendanceRecord;
 
@@ -72,7 +70,7 @@ export async function POST(req: Request, { params }: { params: Params }) {
           staffId: staff.id,
           date: currentDate,
           checkInTime: getClientCurrentTime(req),
-          isWeekend: (new Date().getDay() === 0 || new Date().getDay() === 6),
+          isWeekend: (currentDate.getDay() === 0 || currentDate.getDay() === 6),
         },
       });
 

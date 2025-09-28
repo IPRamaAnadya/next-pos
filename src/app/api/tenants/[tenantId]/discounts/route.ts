@@ -47,7 +47,6 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       orderBy: { createdAt: 'desc' },
     });
 
-    console.log('Fetched discounts:', discounts);
 
     return NextResponse.json({
       data: {
@@ -67,8 +66,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     const tenantIdFromToken = decoded.tenantId;
     const tenantIdFromUrl = (await params).tenantId;
 
-    console.log(tenantIdFromToken, tenantIdFromUrl);
-
     if (tenantIdFromToken !== tenantIdFromUrl) {
       return apiResponse.forbidden('Unauthorized: Tenant ID mismatch');
     }
@@ -78,7 +75,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     try {
       await discountCreateSchema.validate(data, { abortEarly: false });
     } catch (validationError: any) {
-      console.log(validationError);
       return apiResponse.validationError(validationError.errors);
     }
 
@@ -88,7 +84,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
 
     return NextResponse.json(newDiscount, { status: 201 });
   } catch (error) {
-    console.log(error);
     return apiResponse.internalError();
   }
 }

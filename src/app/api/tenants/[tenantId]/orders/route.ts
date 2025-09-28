@@ -164,8 +164,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
             customerName: customer?.name || '',
             grandTotal: `Rp${Number(ord.grandTotal).toLocaleString('id-ID')}`,
             };
-
-          console.log('Notification vars:', notificationVars);
           if (ord.paymentStatus === 'paid') {
             await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
               sendOrderNotification({

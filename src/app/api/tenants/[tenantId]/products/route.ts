@@ -30,6 +30,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const totalPages = Math.ceil(totalCount / p_limit);
     const products = await prisma.product.findMany({
       where: whereClause, take: p_limit, skip: (p_page - 1) * p_limit, orderBy: { [p_sort_by]: p_sort_dir },
+      include: { productCategory: true },
     });
     const pagination = {
       total_data: totalCount, per_page: p_limit, current_page: p_page, total_page: totalPages, next_page: p_page < totalPages ? p_page + 1 : null, prev_page: p_page > 1 ? p_page - 1 : null,
