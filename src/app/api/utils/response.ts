@@ -44,12 +44,18 @@ export const ErrorCodes: { [key in ErrorType]: number } = {
   [ErrorType.NOT_FOUND]: 404,
 };
 
+interface ApiPagination {
+  page: number;
+  pageSize: number;
+  total: number;
+}
+
 
 interface apiResponseProps {
   error?: ErrorType;
   message?: string;
   data?: any;
-  pagination?: any;
+  pagination?: ApiPagination;
   status?: number;
   errors?: { field: string; message: string }[];
 }
@@ -90,6 +96,10 @@ namespace apiResponse {
 
   export function notFound(message?: string) {
     return apiResponse({ error: ErrorType.NOT_FOUND, message: message || 'Not Found', status: 404 });
+  }
+
+  export function success({ data, message, pagination }: { data?: any; message?: string; pagination?: ApiPagination }) {
+    return apiResponse({ data, message: message || 'Success', pagination });
   }
 }
 

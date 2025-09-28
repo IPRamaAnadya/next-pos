@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { expenseCreateSchema } from '@/utils/validation/expenseSchema';
+import { apiResponse } from '@/app/api/utils/response';
 
 // GET: Mengambil daftar semua pengeluaran
 export async function GET(req: Request, { params }: { params: { tenantId: string } }) {
@@ -19,8 +20,8 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
 
     // Pagination
     const urlObj = new URL(req.url);
-    const page = parseInt(urlObj.searchParams.get('p_page') || '1', 10);
-    const limit = parseInt(urlObj.searchParams.get('p_limit') || '50', 50);
+    const page = parseInt(urlObj.searchParams.get('page') || '1', 10);
+    const limit = parseInt(urlObj.searchParams.get('limit') || '50', 10);
     const skip = (page - 1) * limit;
 
     var whereClause: any = { tenantId: tenantIdFromUrl };
@@ -29,27 +30,30 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
       whereClause.expenseCategory = { isPrivate: false };
     }
 
+
+
+
     const [expenses, total] = await Promise.all([
       prisma.expense.findMany({
-        where: { ...whereClause },
-        include: {
-          expenseCategory: true,
-          staff: {
-            select: {
-              id: true,
-              username: true,
-              role: true
-            }
-          }
-        },
-        orderBy: {
-          createdAt: 'desc'
-        },
-        skip,
-        take: limit,
+      where: whereClause,
+      skip,
+      take: limit,
+      include: {
+        expenseCategory: true,
+        staff: {
+        select: {
+          id: true,
+          username: true,
+          role: true
+        }
+        }
+      }
       }),
-      prisma.expense.count({ where: { ...whereClause } })
+      prisma.expense.count({ where: whereClause }),
     ]);
+
+
+    return apiResponse.success({ data: expenses, pagination: { page, pageSize: limit, total } });
 
     return NextResponse.json({
       data: expenses,
