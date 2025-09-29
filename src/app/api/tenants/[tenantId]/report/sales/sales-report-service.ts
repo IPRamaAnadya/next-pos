@@ -1,4 +1,6 @@
+import { toUtcFromTz } from '@/lib/dateTz';
 import prisma from '@/lib/prisma';
+import { NextRequest } from 'next/server';
 
 function getMonthYearString(date = new Date()) {
   const months = [
@@ -8,7 +10,7 @@ function getMonthYearString(date = new Date()) {
   return `${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-export async function getSalesReportData(tenantId: string, periodParam?: string) {
+export async function getSalesReportData(tenantId: string, req: NextRequest, periodParam?: string) {
   let year, month;
   if (periodParam) {
     const [y, m] = periodParam.split('-').map(Number);
@@ -21,13 +23,21 @@ export async function getSalesReportData(tenantId: string, periodParam?: string)
   }
   const period = getMonthYearString(new Date(year, month));
 
+  let clientTimeZone = req.headers.get('X-Timezone-Name') || 'Asia/Makassar';
+  const localStart = `${year}-${(month + 1).toString().padStart(2, '0')}-01T00:00:00`;
+  const localEnd = `${year}-${(month + 2).toString().padStart(2, '0')}-01T00:00:00`;
+
+  // step 2: convert local time in client timezone to UTC
+  const gte = toUtcFromTz(localStart, clientTimeZone);
+  const lt = toUtcFromTz(localEnd, clientTimeZone);
+
   // Get sales orders for the period
   const orders = await prisma.order.findMany({
     where: {
       tenantId,
       paymentDate: {
-        gte: new Date(year, month, 1),
-        lt: new Date(year, month + 1, 1),
+        gte,
+        lt,
       },
     },
     include: {

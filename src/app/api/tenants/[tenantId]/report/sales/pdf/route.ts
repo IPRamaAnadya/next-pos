@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, context: { params: { tenantId: strin
 	const { tenantId } = context.params;
 	const { searchParams } = new URL(req.url);
   const periodParam = searchParams.get('period') || undefined;
-  const data = await getSalesReportData(tenantId, periodParam);
+  const data = await getSalesReportData(tenantId, req, periodParam);
 
   // check if data is available in database
   const previousReport = await prisma.tenantReport.findFirst({
