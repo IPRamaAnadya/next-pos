@@ -38,16 +38,24 @@ export async function getProfitAndLossReportData(tenantId: string, req: NextRequ
   });
   const totalPendapatan = Number(sales._sum.grandTotal ?? 0);
 
-  const clientTimeZone = req.headers.get('X-Timezone-Name') || 'Asia/Jakarta';;
+  const clientTimeZone = req.headers.get('X-Timezone-Name') || 'Asia/Jakarta';
 
-  // step 1: build the start/end in client timezone
-  const localStart = new Date(year, month, 1, 0, 0, 0);      // 1st day, 00:00
-  const localEnd = new Date(year, month + 1, 1, 0, 0, 0);    // next month, 00:00
+  // convert from client datetime into utc
+  // example
+  // year = 2024, month = 5 (June)
+  // clientTimeZone = 'Asia/Jakarta'
+  // localStart = 2024-06-01T00:00:00+07:00
+  // localEnd = 2024-07-01T00:00:00+07:00
+  // gte = 2024-05-31T17:00:00Z
+  // lt = 2024-06-30T17:00:00Z
+  
+  // step 1: build the start/end in client timezone, if using new Date(year, month, 1) it will be in local timezone (server timezone), not client timezone
+  const localStart = new Date(year, month, 1);
+  const localEnd = new Date(year, month + 1, 1);
 
-  // step 2: convert those to UTC
+  // step 2: convert local time in client timezone to UTC
   const gte = zonedTimeToUtc(localStart, clientTimeZone);
   const lt = zonedTimeToUtc(localEnd, clientTimeZone);
-
 
   // Get expense categories and their totals (Beban)
   const expenseCategories = await prisma.expenseCategory.findMany({
