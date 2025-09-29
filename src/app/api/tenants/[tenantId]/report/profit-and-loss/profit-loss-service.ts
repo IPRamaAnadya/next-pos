@@ -93,7 +93,15 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
       },
       {
         category: 'Beban',
-        items: bebanItems,
+        items: [
+          ...bebanItems,
+          {
+            classification: 'Total Beban',
+            value: null,
+            percentage: null,
+            total: totalBeban,
+          },
+        ],
       },
     ],
     summary: [
