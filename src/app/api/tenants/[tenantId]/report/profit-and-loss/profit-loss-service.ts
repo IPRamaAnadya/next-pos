@@ -24,9 +24,10 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
   }
   const period = getMonthYearString(new Date(year, month));
 
-  // Get total sales (Pendapatan)
-  const sales = await prisma.order.aggregate({
-    _sum: { grandTotal: true },
+
+  // Get total sales (Pendapatan) using subTotal and totalDiscount using discountAmount
+  const salesAgg = await prisma.order.aggregate({
+    _sum: { subtotal: true, discountAmount: true },
     where: {
       tenantId,
       paymentDate: {
@@ -35,7 +36,8 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
       },
     },
   });
-  const totalPendapatan = Number(sales._sum.grandTotal ?? 0);
+  const totalPendapatan = Number(salesAgg._sum?.subtotal ?? 0);
+  const totalDiscount = Number(salesAgg._sum?.discountAmount ?? 0);
 
   // Get expense categories and their totals (Beban)
   const expenseCategories = await prisma.expenseCategory.findMany({
@@ -64,6 +66,12 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
       total: null,
     });
   }
+  bebanItems.push({
+    classification: 'Promo/Diskon',
+    value: totalDiscount,
+    percentage: totalPendapatan ? totalDiscount / totalPendapatan : 0,
+    total: null,
+  });
 
   // Pajak 11%
   const pajak = 0;
