@@ -57,8 +57,7 @@ export async function GET(
     const expenses = await prisma.expense.findMany({
       where: {
         tenantId,
-        isShow: true,
-        createdAt: { gte: startDate, lte: queryEndDate },
+        createdAt: { gte: startDate, lt: queryEndDate },
       },
       select: { amount: true, paymentType: true, createdAt: true },
       orderBy: { createdAt: 'asc' },
