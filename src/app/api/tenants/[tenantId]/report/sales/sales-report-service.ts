@@ -43,19 +43,23 @@ export async function getSalesReportData(tenantId: string, periodParam?: string)
     },
   });
 
+
   // Aggregate sales data
+  let totalSalesBruto = 0;
+  let totalDiscounts = 0;
   let totalSales = 0;
   let totalOrders = orders.length;
   let totalItems = 0;
   const productMap = new Map();
 
   for (const order of orders) {
+    let orderBruto = 0;
     for (const item of order.items) {
       const key = item.productId;
       const productName = item.productName;
       const categoryName = item.product?.productCategory?.name || '-';
       const saleAmount = Number(item.productPrice) * Number(item.qty);
-      totalSales += saleAmount;
+      orderBruto += saleAmount;
       totalItems += Number(item.qty);
       if (!productMap.has(key)) {
         productMap.set(key, {
@@ -71,6 +75,9 @@ export async function getSalesReportData(tenantId: string, periodParam?: string)
       prod.orderAmount += 1;
       prod.itemCount += Number(item.qty);
     }
+    totalSalesBruto += orderBruto;
+    totalDiscounts += Number(order.discountAmount || 0);
+    totalSales += orderBruto - Number(order.discountAmount || 0);
   }
 
   const details = Array.from(productMap.values());
@@ -87,9 +94,11 @@ export async function getSalesReportData(tenantId: string, periodParam?: string)
     period,
     tenantName,
     summary: {
-      totalSales,
+      totalSalesBruto,
       totalOrders,
       totalItems,
+      totalDiscounts,
+      totalSales,
     },
     details,
   };

@@ -9,9 +9,11 @@ export async function generateSalesReportPdf({
   reportTitle: string;
   period: string;
   summary: {
-    totalSales: number;
+    totalSalesBruto: number;
     totalOrders: number;
     totalItems: number;
+    totalDiscounts: number;
+    totalSales: number;
   };
   details: Array<{
     title: string;
@@ -25,7 +27,6 @@ export async function generateSalesReportPdf({
   const page = pdfDoc.addPage([595.28, 841.89]); // A4 size
   const { width, height } = page.getSize();
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-
   // Header
   page.drawText(reportTitle, {
     x: 50,
@@ -77,6 +78,12 @@ export async function generateSalesReportPdf({
   }
 
   // Summary
+  y -= rowHeight;
+  page.drawText('Total Penjualan Bruto:', { x: 50, y, size: 10, font, color: rgb(0, 0, 0) });
+  page.drawText(`Rp${summary.totalSalesBruto.toLocaleString('id-ID')}`, { x: 200, y, size: 10, font, color: rgb(0, 0, 0) });
+  y -= rowHeight;
+  page.drawText('Total Diskon:', { x: 50, y, size: 10, font, color: rgb(0, 0, 0) });
+  page.drawText(`Rp${summary.totalDiscounts.toLocaleString('id-ID')}`, { x: 200, y, size: 10, font, color: rgb(0, 0, 0) });
   y -= rowHeight;
   page.drawText('Total Penjualan:', { x: 50, y, size: 10, font, color: rgb(0, 0, 0) });
   page.drawText(`Rp${summary.totalSales.toLocaleString('id-ID')}`, { x: 200, y, size: 10, font, color: rgb(0, 0, 0) });
