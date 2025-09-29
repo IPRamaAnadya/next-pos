@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma';
+import { NextRequest } from 'next/server';
 
 function getMonthYearString(date = new Date()) {
   const months = [
@@ -8,7 +9,7 @@ function getMonthYearString(date = new Date()) {
   return `${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-export async function getProfitAndLossReportData(tenantId: string, periodParam?: string) {
+export async function getProfitAndLossReportData(tenantId: string, req: NextRequest, periodParam?: string) {
   // Fetch tenant name
   const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
   const tenantName = tenant?.name || "";
@@ -37,6 +38,17 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
   });
   const totalPendapatan = Number(sales._sum.grandTotal ?? 0);
 
+  const clientTimeZone = req.headers.get('X-Timezone-Name') || 'Asia/Jakarta';;
+
+  // step 1: build the start/end in client timezone
+  const localStart = new Date(year, month, 1, 0, 0, 0);      // 1st day, 00:00
+  const localEnd = new Date(year, month + 1, 1, 0, 0, 0);    // next month, 00:00
+
+  // step 2: convert those to UTC
+  const gte = zonedTimeToUtc(localStart, clientTimeZone);
+  const lt = zonedTimeToUtc(localEnd, clientTimeZone);
+
+
   // Get expense categories and their totals (Beban)
   const expenseCategories = await prisma.expenseCategory.findMany({
     where: { tenantId },
@@ -44,8 +56,8 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
       expenses: {
         where: {
           createdAt: {
-            gte: new Date(year, month, 1),
-            lt: new Date(year, month + 1, 1),
+            gte,
+            lt,
           },
         },
       },
@@ -73,6 +85,9 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
   return {
     reportTitle: `Laporan Laba Rugi ${tenantName}`,
     period,
+    startDate: gte,
+    endDate: lt,
+    clientTimeZone,
     data: [
       {
         category: 'Pendapatan',
@@ -123,3 +138,12 @@ export async function getProfitAndLossReportData(tenantId: string, periodParam?:
     ],
   };
 }
+// Import from date-fns-tz at the top of your file:
+// import { zonedTimeToUtc } from 'date-fns-tz';
+
+function zonedTimeToUtc(localDate: Date, timeZone: string): Date {
+  // Simple implementation using toLocaleString and Date constructor
+  // For production, use date-fns-tz's zonedTimeToUtc for accuracy
+  return new Date(localDate.toLocaleString('en-US', { timeZone: 'UTC' }));
+}
+

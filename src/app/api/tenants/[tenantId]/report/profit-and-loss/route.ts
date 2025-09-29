@@ -6,6 +6,6 @@ export async function GET(req: NextRequest, context: { params: { tenantId: strin
   const { tenantId } = context.params;
   const { searchParams } = new URL(req.url);
   const periodParam = searchParams.get('period') || undefined;
-  const data = await getProfitAndLossReportData(tenantId, periodParam);
+  const data = await getProfitAndLossReportData(tenantId,req, periodParam);
   return NextResponse.json({ meta: { status: 200, message: '' }, data });
 }
