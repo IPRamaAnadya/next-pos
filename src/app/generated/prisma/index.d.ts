@@ -143,6 +143,11 @@ export type NotificationTemplate = $Result.DefaultSelection<Prisma.$Notification
  * 
  */
 export type NotificationLog = $Result.DefaultSelection<Prisma.$NotificationLogPayload>
+/**
+ * Model TenantReport
+ * 
+ */
+export type TenantReport = $Result.DefaultSelection<Prisma.$TenantReportPayload>
 
 /**
  * Enums
@@ -577,6 +582,16 @@ export class PrismaClient<
     * ```
     */
   get notificationLog(): Prisma.NotificationLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tenantReport`: Exposes CRUD operations for the **TenantReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TenantReports
+    * const tenantReports = await prisma.tenantReport.findMany()
+    * ```
+    */
+  get tenantReport(): Prisma.TenantReportDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1042,7 +1057,8 @@ export namespace Prisma {
     StaffLeave: 'StaffLeave',
     TenantNotificationConfig: 'TenantNotificationConfig',
     NotificationTemplate: 'NotificationTemplate',
-    NotificationLog: 'NotificationLog'
+    NotificationLog: 'NotificationLog',
+    TenantReport: 'TenantReport'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1061,7 +1077,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "tenant" | "staff" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog"
+      modelProps: "user" | "tenant" | "staff" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog" | "tenantReport"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2989,6 +3005,80 @@ export namespace Prisma {
           }
         }
       }
+      TenantReport: {
+        payload: Prisma.$TenantReportPayload<ExtArgs>
+        fields: Prisma.TenantReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TenantReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TenantReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>
+          }
+          findFirst: {
+            args: Prisma.TenantReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TenantReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>
+          }
+          findMany: {
+            args: Prisma.TenantReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>[]
+          }
+          create: {
+            args: Prisma.TenantReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>
+          }
+          createMany: {
+            args: Prisma.TenantReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TenantReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>[]
+          }
+          delete: {
+            args: Prisma.TenantReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>
+          }
+          update: {
+            args: Prisma.TenantReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.TenantReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TenantReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TenantReportUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>[]
+          }
+          upsert: {
+            args: Prisma.TenantReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantReportPayload>
+          }
+          aggregate: {
+            args: Prisma.TenantReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantReport>
+          }
+          groupBy: {
+            args: Prisma.TenantReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TenantReportCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantReportCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3107,6 +3197,7 @@ export namespace Prisma {
     tenantNotificationConfig?: TenantNotificationConfigOmit
     notificationTemplate?: NotificationTemplateOmit
     notificationLog?: NotificationLogOmit
+    tenantReport?: TenantReportOmit
   }
 
   /* Types for Logging */
@@ -3236,6 +3327,7 @@ export namespace Prisma {
     payrollDetails: number
     notificationTemplates: number
     notificationLogs: number
+    reports: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3257,6 +3349,7 @@ export namespace Prisma {
     payrollDetails?: boolean | TenantCountOutputTypeCountPayrollDetailsArgs
     notificationTemplates?: boolean | TenantCountOutputTypeCountNotificationTemplatesArgs
     notificationLogs?: boolean | TenantCountOutputTypeCountNotificationLogsArgs
+    reports?: boolean | TenantCountOutputTypeCountReportsArgs
   }
 
   // Custom InputTypes
@@ -3394,6 +3487,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountNotificationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationLogWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantReportWhereInput
   }
 
 
@@ -5102,6 +5202,7 @@ export namespace Prisma {
     notificationConfig?: boolean | Tenant$notificationConfigArgs<ExtArgs>
     notificationTemplates?: boolean | Tenant$notificationTemplatesArgs<ExtArgs>
     notificationLogs?: boolean | Tenant$notificationLogsArgs<ExtArgs>
+    reports?: boolean | Tenant$reportsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -5171,6 +5272,7 @@ export namespace Prisma {
     notificationConfig?: boolean | Tenant$notificationConfigArgs<ExtArgs>
     notificationTemplates?: boolean | Tenant$notificationTemplatesArgs<ExtArgs>
     notificationLogs?: boolean | Tenant$notificationLogsArgs<ExtArgs>
+    reports?: boolean | Tenant$reportsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5206,6 +5308,7 @@ export namespace Prisma {
       notificationConfig: Prisma.$TenantNotificationConfigPayload<ExtArgs> | null
       notificationTemplates: Prisma.$NotificationTemplatePayload<ExtArgs>[]
       notificationLogs: Prisma.$NotificationLogPayload<ExtArgs>[]
+      reports: Prisma.$TenantReportPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5635,6 +5738,7 @@ export namespace Prisma {
     notificationConfig<T extends Tenant$notificationConfigArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationConfigArgs<ExtArgs>>): Prisma__TenantNotificationConfigClient<$Result.GetResult<Prisma.$TenantNotificationConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     notificationTemplates<T extends Tenant$notificationTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notificationLogs<T extends Tenant$notificationLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reports<T extends Tenant$reportsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6575,6 +6679,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationLogScalarFieldEnum | NotificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.reports
+   */
+  export type Tenant$reportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    where?: TenantReportWhereInput
+    orderBy?: TenantReportOrderByWithRelationInput | TenantReportOrderByWithRelationInput[]
+    cursor?: TenantReportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantReportScalarFieldEnum | TenantReportScalarFieldEnum[]
   }
 
   /**
@@ -35146,6 +35274,1099 @@ export namespace Prisma {
 
 
   /**
+   * Model TenantReport
+   */
+
+  export type AggregateTenantReport = {
+    _count: TenantReportCountAggregateOutputType | null
+    _min: TenantReportMinAggregateOutputType | null
+    _max: TenantReportMaxAggregateOutputType | null
+  }
+
+  export type TenantReportMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    type: string | null
+    period: string | null
+    title: string | null
+    pdfUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type TenantReportMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    type: string | null
+    period: string | null
+    title: string | null
+    pdfUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type TenantReportCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    type: number
+    period: number
+    title: number
+    data: number
+    pdfUrl: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TenantReportMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    type?: true
+    period?: true
+    title?: true
+    pdfUrl?: true
+    createdAt?: true
+  }
+
+  export type TenantReportMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    type?: true
+    period?: true
+    title?: true
+    pdfUrl?: true
+    createdAt?: true
+  }
+
+  export type TenantReportCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    type?: true
+    period?: true
+    title?: true
+    data?: true
+    pdfUrl?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TenantReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantReport to aggregate.
+     */
+    where?: TenantReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantReports to fetch.
+     */
+    orderBy?: TenantReportOrderByWithRelationInput | TenantReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TenantReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TenantReports
+    **/
+    _count?: true | TenantReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TenantReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TenantReportMaxAggregateInputType
+  }
+
+  export type GetTenantReportAggregateType<T extends TenantReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTenantReport[P]>
+      : GetScalarType<T[P], AggregateTenantReport[P]>
+  }
+
+
+
+
+  export type TenantReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantReportWhereInput
+    orderBy?: TenantReportOrderByWithAggregationInput | TenantReportOrderByWithAggregationInput[]
+    by: TenantReportScalarFieldEnum[] | TenantReportScalarFieldEnum
+    having?: TenantReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TenantReportCountAggregateInputType | true
+    _min?: TenantReportMinAggregateInputType
+    _max?: TenantReportMaxAggregateInputType
+  }
+
+  export type TenantReportGroupByOutputType = {
+    id: string
+    tenantId: string
+    type: string
+    period: string
+    title: string
+    data: JsonValue
+    pdfUrl: string | null
+    createdAt: Date
+    _count: TenantReportCountAggregateOutputType | null
+    _min: TenantReportMinAggregateOutputType | null
+    _max: TenantReportMaxAggregateOutputType | null
+  }
+
+  type GetTenantReportGroupByPayload<T extends TenantReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TenantReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TenantReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TenantReportGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TenantReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    period?: boolean
+    title?: boolean
+    data?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantReport"]>
+
+  export type TenantReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    period?: boolean
+    title?: boolean
+    data?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantReport"]>
+
+  export type TenantReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    period?: boolean
+    title?: boolean
+    data?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantReport"]>
+
+  export type TenantReportSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    period?: boolean
+    title?: boolean
+    data?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+  }
+
+  export type TenantReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "type" | "period" | "title" | "data" | "pdfUrl" | "createdAt", ExtArgs["result"]["tenantReport"]>
+  export type TenantReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type TenantReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type TenantReportIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $TenantReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantReport"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      type: string
+      period: string
+      title: string
+      data: Prisma.JsonValue
+      pdfUrl: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["tenantReport"]>
+    composites: {}
+  }
+
+  type TenantReportGetPayload<S extends boolean | null | undefined | TenantReportDefaultArgs> = $Result.GetResult<Prisma.$TenantReportPayload, S>
+
+  type TenantReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantReportCountAggregateInputType | true
+    }
+
+  export interface TenantReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantReport'], meta: { name: 'TenantReport' } }
+    /**
+     * Find zero or one TenantReport that matches the filter.
+     * @param {TenantReportFindUniqueArgs} args - Arguments to find a TenantReport
+     * @example
+     * // Get one TenantReport
+     * const tenantReport = await prisma.tenantReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TenantReportFindUniqueArgs>(args: SelectSubset<T, TenantReportFindUniqueArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TenantReport that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TenantReportFindUniqueOrThrowArgs} args - Arguments to find a TenantReport
+     * @example
+     * // Get one TenantReport
+     * const tenantReport = await prisma.tenantReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TenantReportFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantReportFindFirstArgs} args - Arguments to find a TenantReport
+     * @example
+     * // Get one TenantReport
+     * const tenantReport = await prisma.tenantReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TenantReportFindFirstArgs>(args?: SelectSubset<T, TenantReportFindFirstArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantReportFindFirstOrThrowArgs} args - Arguments to find a TenantReport
+     * @example
+     * // Get one TenantReport
+     * const tenantReport = await prisma.tenantReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TenantReportFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TenantReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TenantReports
+     * const tenantReports = await prisma.tenantReport.findMany()
+     * 
+     * // Get first 10 TenantReports
+     * const tenantReports = await prisma.tenantReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tenantReportWithIdOnly = await prisma.tenantReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TenantReportFindManyArgs>(args?: SelectSubset<T, TenantReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TenantReport.
+     * @param {TenantReportCreateArgs} args - Arguments to create a TenantReport.
+     * @example
+     * // Create one TenantReport
+     * const TenantReport = await prisma.tenantReport.create({
+     *   data: {
+     *     // ... data to create a TenantReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends TenantReportCreateArgs>(args: SelectSubset<T, TenantReportCreateArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TenantReports.
+     * @param {TenantReportCreateManyArgs} args - Arguments to create many TenantReports.
+     * @example
+     * // Create many TenantReports
+     * const tenantReport = await prisma.tenantReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TenantReportCreateManyArgs>(args?: SelectSubset<T, TenantReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TenantReports and returns the data saved in the database.
+     * @param {TenantReportCreateManyAndReturnArgs} args - Arguments to create many TenantReports.
+     * @example
+     * // Create many TenantReports
+     * const tenantReport = await prisma.tenantReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TenantReports and only return the `id`
+     * const tenantReportWithIdOnly = await prisma.tenantReport.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TenantReportCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TenantReport.
+     * @param {TenantReportDeleteArgs} args - Arguments to delete one TenantReport.
+     * @example
+     * // Delete one TenantReport
+     * const TenantReport = await prisma.tenantReport.delete({
+     *   where: {
+     *     // ... filter to delete one TenantReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TenantReportDeleteArgs>(args: SelectSubset<T, TenantReportDeleteArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TenantReport.
+     * @param {TenantReportUpdateArgs} args - Arguments to update one TenantReport.
+     * @example
+     * // Update one TenantReport
+     * const tenantReport = await prisma.tenantReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TenantReportUpdateArgs>(args: SelectSubset<T, TenantReportUpdateArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TenantReports.
+     * @param {TenantReportDeleteManyArgs} args - Arguments to filter TenantReports to delete.
+     * @example
+     * // Delete a few TenantReports
+     * const { count } = await prisma.tenantReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TenantReportDeleteManyArgs>(args?: SelectSubset<T, TenantReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TenantReports
+     * const tenantReport = await prisma.tenantReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TenantReportUpdateManyArgs>(args: SelectSubset<T, TenantReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantReports and returns the data updated in the database.
+     * @param {TenantReportUpdateManyAndReturnArgs} args - Arguments to update many TenantReports.
+     * @example
+     * // Update many TenantReports
+     * const tenantReport = await prisma.tenantReport.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TenantReports and only return the `id`
+     * const tenantReportWithIdOnly = await prisma.tenantReport.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TenantReportUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantReportUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TenantReport.
+     * @param {TenantReportUpsertArgs} args - Arguments to update or create a TenantReport.
+     * @example
+     * // Update or create a TenantReport
+     * const tenantReport = await prisma.tenantReport.upsert({
+     *   create: {
+     *     // ... data to create a TenantReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TenantReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TenantReportUpsertArgs>(args: SelectSubset<T, TenantReportUpsertArgs<ExtArgs>>): Prisma__TenantReportClient<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TenantReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantReportCountArgs} args - Arguments to filter TenantReports to count.
+     * @example
+     * // Count the number of TenantReports
+     * const count = await prisma.tenantReport.count({
+     *   where: {
+     *     // ... the filter for the TenantReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends TenantReportCountArgs>(
+      args?: Subset<T, TenantReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TenantReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TenantReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TenantReportAggregateArgs>(args: Subset<T, TenantReportAggregateArgs>): Prisma.PrismaPromise<GetTenantReportAggregateType<T>>
+
+    /**
+     * Group by TenantReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TenantReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TenantReportGroupByArgs['orderBy'] }
+        : { orderBy?: TenantReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TenantReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TenantReport model
+   */
+  readonly fields: TenantReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TenantReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TenantReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TenantReport model
+   */
+  interface TenantReportFieldRefs {
+    readonly id: FieldRef<"TenantReport", 'String'>
+    readonly tenantId: FieldRef<"TenantReport", 'String'>
+    readonly type: FieldRef<"TenantReport", 'String'>
+    readonly period: FieldRef<"TenantReport", 'String'>
+    readonly title: FieldRef<"TenantReport", 'String'>
+    readonly data: FieldRef<"TenantReport", 'Json'>
+    readonly pdfUrl: FieldRef<"TenantReport", 'String'>
+    readonly createdAt: FieldRef<"TenantReport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TenantReport findUnique
+   */
+  export type TenantReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantReport to fetch.
+     */
+    where: TenantReportWhereUniqueInput
+  }
+
+  /**
+   * TenantReport findUniqueOrThrow
+   */
+  export type TenantReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantReport to fetch.
+     */
+    where: TenantReportWhereUniqueInput
+  }
+
+  /**
+   * TenantReport findFirst
+   */
+  export type TenantReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantReport to fetch.
+     */
+    where?: TenantReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantReports to fetch.
+     */
+    orderBy?: TenantReportOrderByWithRelationInput | TenantReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantReports.
+     */
+    cursor?: TenantReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantReports.
+     */
+    distinct?: TenantReportScalarFieldEnum | TenantReportScalarFieldEnum[]
+  }
+
+  /**
+   * TenantReport findFirstOrThrow
+   */
+  export type TenantReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantReport to fetch.
+     */
+    where?: TenantReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantReports to fetch.
+     */
+    orderBy?: TenantReportOrderByWithRelationInput | TenantReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantReports.
+     */
+    cursor?: TenantReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantReports.
+     */
+    distinct?: TenantReportScalarFieldEnum | TenantReportScalarFieldEnum[]
+  }
+
+  /**
+   * TenantReport findMany
+   */
+  export type TenantReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantReports to fetch.
+     */
+    where?: TenantReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantReports to fetch.
+     */
+    orderBy?: TenantReportOrderByWithRelationInput | TenantReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TenantReports.
+     */
+    cursor?: TenantReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantReports.
+     */
+    skip?: number
+    distinct?: TenantReportScalarFieldEnum | TenantReportScalarFieldEnum[]
+  }
+
+  /**
+   * TenantReport create
+   */
+  export type TenantReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TenantReport.
+     */
+    data: XOR<TenantReportCreateInput, TenantReportUncheckedCreateInput>
+  }
+
+  /**
+   * TenantReport createMany
+   */
+  export type TenantReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TenantReports.
+     */
+    data: TenantReportCreateManyInput | TenantReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TenantReport createManyAndReturn
+   */
+  export type TenantReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * The data used to create many TenantReports.
+     */
+    data: TenantReportCreateManyInput | TenantReportCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantReport update
+   */
+  export type TenantReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TenantReport.
+     */
+    data: XOR<TenantReportUpdateInput, TenantReportUncheckedUpdateInput>
+    /**
+     * Choose, which TenantReport to update.
+     */
+    where: TenantReportWhereUniqueInput
+  }
+
+  /**
+   * TenantReport updateMany
+   */
+  export type TenantReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TenantReports.
+     */
+    data: XOR<TenantReportUpdateManyMutationInput, TenantReportUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantReports to update
+     */
+    where?: TenantReportWhereInput
+    /**
+     * Limit how many TenantReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantReport updateManyAndReturn
+   */
+  export type TenantReportUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * The data used to update TenantReports.
+     */
+    data: XOR<TenantReportUpdateManyMutationInput, TenantReportUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantReports to update
+     */
+    where?: TenantReportWhereInput
+    /**
+     * Limit how many TenantReports to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantReport upsert
+   */
+  export type TenantReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TenantReport to update in case it exists.
+     */
+    where: TenantReportWhereUniqueInput
+    /**
+     * In case the TenantReport found by the `where` argument doesn't exist, create a new TenantReport with this data.
+     */
+    create: XOR<TenantReportCreateInput, TenantReportUncheckedCreateInput>
+    /**
+     * In case the TenantReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TenantReportUpdateInput, TenantReportUncheckedUpdateInput>
+  }
+
+  /**
+   * TenantReport delete
+   */
+  export type TenantReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+    /**
+     * Filter which TenantReport to delete.
+     */
+    where: TenantReportWhereUniqueInput
+  }
+
+  /**
+   * TenantReport deleteMany
+   */
+  export type TenantReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantReports to delete
+     */
+    where?: TenantReportWhereInput
+    /**
+     * Limit how many TenantReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantReport without action
+   */
+  export type TenantReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantReport
+     */
+    select?: TenantReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantReport
+     */
+    omit?: TenantReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantReportInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -35575,6 +36796,20 @@ export namespace Prisma {
   export type NotificationLogScalarFieldEnum = (typeof NotificationLogScalarFieldEnum)[keyof typeof NotificationLogScalarFieldEnum]
 
 
+  export const TenantReportScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    type: 'type',
+    period: 'period',
+    title: 'title',
+    data: 'data',
+    pdfUrl: 'pdfUrl',
+    createdAt: 'createdAt'
+  };
+
+  export type TenantReportScalarFieldEnum = (typeof TenantReportScalarFieldEnum)[keyof typeof TenantReportScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -35589,6 +36824,13 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -35877,6 +37119,7 @@ export namespace Prisma {
     notificationConfig?: XOR<TenantNotificationConfigNullableScalarRelationFilter, TenantNotificationConfigWhereInput> | null
     notificationTemplates?: NotificationTemplateListRelationFilter
     notificationLogs?: NotificationLogListRelationFilter
+    reports?: TenantReportListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -35913,6 +37156,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigOrderByWithRelationInput
     notificationTemplates?: NotificationTemplateOrderByRelationAggregateInput
     notificationLogs?: NotificationLogOrderByRelationAggregateInput
+    reports?: TenantReportOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -35952,6 +37196,7 @@ export namespace Prisma {
     notificationConfig?: XOR<TenantNotificationConfigNullableScalarRelationFilter, TenantNotificationConfigWhereInput> | null
     notificationTemplates?: NotificationTemplateListRelationFilter
     notificationLogs?: NotificationLogListRelationFilter
+    reports?: TenantReportListRelationFilter
   }, "id" | "email">
 
   export type TenantOrderByWithAggregationInput = {
@@ -38068,6 +39313,76 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"NotificationLog"> | Date | string
   }
 
+  export type TenantReportWhereInput = {
+    AND?: TenantReportWhereInput | TenantReportWhereInput[]
+    OR?: TenantReportWhereInput[]
+    NOT?: TenantReportWhereInput | TenantReportWhereInput[]
+    id?: UuidFilter<"TenantReport"> | string
+    tenantId?: UuidFilter<"TenantReport"> | string
+    type?: StringFilter<"TenantReport"> | string
+    period?: StringFilter<"TenantReport"> | string
+    title?: StringFilter<"TenantReport"> | string
+    data?: JsonFilter<"TenantReport">
+    pdfUrl?: StringNullableFilter<"TenantReport"> | string | null
+    createdAt?: DateTimeFilter<"TenantReport"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type TenantReportOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    period?: SortOrder
+    title?: SortOrder
+    data?: SortOrder
+    pdfUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type TenantReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TenantReportWhereInput | TenantReportWhereInput[]
+    OR?: TenantReportWhereInput[]
+    NOT?: TenantReportWhereInput | TenantReportWhereInput[]
+    tenantId?: UuidFilter<"TenantReport"> | string
+    type?: StringFilter<"TenantReport"> | string
+    period?: StringFilter<"TenantReport"> | string
+    title?: StringFilter<"TenantReport"> | string
+    data?: JsonFilter<"TenantReport">
+    pdfUrl?: StringNullableFilter<"TenantReport"> | string | null
+    createdAt?: DateTimeFilter<"TenantReport"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type TenantReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    period?: SortOrder
+    title?: SortOrder
+    data?: SortOrder
+    pdfUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: TenantReportCountOrderByAggregateInput
+    _max?: TenantReportMaxOrderByAggregateInput
+    _min?: TenantReportMinOrderByAggregateInput
+  }
+
+  export type TenantReportScalarWhereWithAggregatesInput = {
+    AND?: TenantReportScalarWhereWithAggregatesInput | TenantReportScalarWhereWithAggregatesInput[]
+    OR?: TenantReportScalarWhereWithAggregatesInput[]
+    NOT?: TenantReportScalarWhereWithAggregatesInput | TenantReportScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"TenantReport"> | string
+    tenantId?: UuidWithAggregatesFilter<"TenantReport"> | string
+    type?: StringWithAggregatesFilter<"TenantReport"> | string
+    period?: StringWithAggregatesFilter<"TenantReport"> | string
+    title?: StringWithAggregatesFilter<"TenantReport"> | string
+    data?: JsonWithAggregatesFilter<"TenantReport">
+    pdfUrl?: StringNullableWithAggregatesFilter<"TenantReport"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TenantReport"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -38161,6 +39476,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -38196,6 +39512,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -38231,6 +39548,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -38266,6 +39584,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -40560,6 +41879,82 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TenantReportCreateInput = {
+    id?: string
+    type: string
+    period: string
+    title: string
+    data: JsonNullValueInput | InputJsonValue
+    pdfUrl?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutReportsInput
+  }
+
+  export type TenantReportUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    type: string
+    period: string
+    title: string
+    data: JsonNullValueInput | InputJsonValue
+    pdfUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TenantReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutReportsNestedInput
+  }
+
+  export type TenantReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantReportCreateManyInput = {
+    id?: string
+    tenantId: string
+    type: string
+    period: string
+    title: string
+    data: JsonNullValueInput | InputJsonValue
+    pdfUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TenantReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -40843,6 +42238,12 @@ export namespace Prisma {
     none?: NotificationLogWhereInput
   }
 
+  export type TenantReportListRelationFilter = {
+    every?: TenantReportWhereInput
+    some?: TenantReportWhereInput
+    none?: TenantReportWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -40917,6 +42318,10 @@ export namespace Prisma {
   }
 
   export type NotificationLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TenantReportOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42475,6 +43880,86 @@ export namespace Prisma {
     error?: SortOrder
     createdAt?: SortOrder
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type TenantReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    period?: SortOrder
+    title?: SortOrder
+    data?: SortOrder
+    pdfUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TenantReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    period?: SortOrder
+    title?: SortOrder
+    pdfUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TenantReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    period?: SortOrder
+    title?: SortOrder
+    pdfUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
 
   export type TenantCreateNestedManyWithoutUserInput = {
     create?: XOR<TenantCreateWithoutUserInput, TenantUncheckedCreateWithoutUserInput> | TenantCreateWithoutUserInput[] | TenantUncheckedCreateWithoutUserInput[]
@@ -42682,6 +44167,13 @@ export namespace Prisma {
     connect?: NotificationLogWhereUniqueInput | NotificationLogWhereUniqueInput[]
   }
 
+  export type TenantReportCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TenantReportCreateWithoutTenantInput, TenantReportUncheckedCreateWithoutTenantInput> | TenantReportCreateWithoutTenantInput[] | TenantReportUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantReportCreateOrConnectWithoutTenantInput | TenantReportCreateOrConnectWithoutTenantInput[]
+    createMany?: TenantReportCreateManyTenantInputEnvelope
+    connect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+  }
+
   export type CustomerUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<CustomerCreateWithoutTenantInput, CustomerUncheckedCreateWithoutTenantInput> | CustomerCreateWithoutTenantInput[] | CustomerUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutTenantInput | CustomerCreateOrConnectWithoutTenantInput[]
@@ -42830,6 +44322,13 @@ export namespace Prisma {
     connectOrCreate?: NotificationLogCreateOrConnectWithoutTenantInput | NotificationLogCreateOrConnectWithoutTenantInput[]
     createMany?: NotificationLogCreateManyTenantInputEnvelope
     connect?: NotificationLogWhereUniqueInput | NotificationLogWhereUniqueInput[]
+  }
+
+  export type TenantReportUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TenantReportCreateWithoutTenantInput, TenantReportUncheckedCreateWithoutTenantInput> | TenantReportCreateWithoutTenantInput[] | TenantReportUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantReportCreateOrConnectWithoutTenantInput | TenantReportCreateOrConnectWithoutTenantInput[]
+    createMany?: TenantReportCreateManyTenantInputEnvelope
+    connect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -43144,6 +44643,20 @@ export namespace Prisma {
     deleteMany?: NotificationLogScalarWhereInput | NotificationLogScalarWhereInput[]
   }
 
+  export type TenantReportUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TenantReportCreateWithoutTenantInput, TenantReportUncheckedCreateWithoutTenantInput> | TenantReportCreateWithoutTenantInput[] | TenantReportUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantReportCreateOrConnectWithoutTenantInput | TenantReportCreateOrConnectWithoutTenantInput[]
+    upsert?: TenantReportUpsertWithWhereUniqueWithoutTenantInput | TenantReportUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TenantReportCreateManyTenantInputEnvelope
+    set?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    disconnect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    delete?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    connect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    update?: TenantReportUpdateWithWhereUniqueWithoutTenantInput | TenantReportUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TenantReportUpdateManyWithWhereWithoutTenantInput | TenantReportUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TenantReportScalarWhereInput | TenantReportScalarWhereInput[]
+  }
+
   export type CustomerUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<CustomerCreateWithoutTenantInput, CustomerUncheckedCreateWithoutTenantInput> | CustomerCreateWithoutTenantInput[] | CustomerUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutTenantInput | CustomerCreateOrConnectWithoutTenantInput[]
@@ -43434,6 +44947,20 @@ export namespace Prisma {
     update?: NotificationLogUpdateWithWhereUniqueWithoutTenantInput | NotificationLogUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: NotificationLogUpdateManyWithWhereWithoutTenantInput | NotificationLogUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: NotificationLogScalarWhereInput | NotificationLogScalarWhereInput[]
+  }
+
+  export type TenantReportUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TenantReportCreateWithoutTenantInput, TenantReportUncheckedCreateWithoutTenantInput> | TenantReportCreateWithoutTenantInput[] | TenantReportUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantReportCreateOrConnectWithoutTenantInput | TenantReportCreateOrConnectWithoutTenantInput[]
+    upsert?: TenantReportUpsertWithWhereUniqueWithoutTenantInput | TenantReportUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TenantReportCreateManyTenantInputEnvelope
+    set?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    disconnect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    delete?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    connect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
+    update?: TenantReportUpdateWithWhereUniqueWithoutTenantInput | TenantReportUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TenantReportUpdateManyWithWhereWithoutTenantInput | TenantReportUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TenantReportScalarWhereInput | TenantReportScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutStaffsInput = {
@@ -44884,6 +46411,20 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutNotificationLogsInput, TenantUpdateWithoutNotificationLogsInput>, TenantUncheckedUpdateWithoutNotificationLogsInput>
   }
 
+  export type TenantCreateNestedOneWithoutReportsInput = {
+    create?: XOR<TenantCreateWithoutReportsInput, TenantUncheckedCreateWithoutReportsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutReportsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutReportsNestedInput = {
+    create?: XOR<TenantCreateWithoutReportsInput, TenantUncheckedCreateWithoutReportsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutReportsInput
+    upsert?: TenantUpsertWithoutReportsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutReportsInput, TenantUpdateWithoutReportsInput>, TenantUncheckedUpdateWithoutReportsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -45303,6 +46844,29 @@ export namespace Prisma {
     _min?: NestedEnumNotificationEventNullableFilter<$PrismaModel>
     _max?: NestedEnumNotificationEventNullableFilter<$PrismaModel>
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type TenantCreateWithoutUserInput = {
     id?: string
@@ -45336,6 +46900,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUserInput = {
@@ -45370,6 +46935,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUserInput = {
@@ -46213,6 +47779,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantReportCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    period: string
+    title: string
+    data: JsonNullValueInput | InputJsonValue
+    pdfUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TenantReportUncheckedCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    period: string
+    title: string
+    data: JsonNullValueInput | InputJsonValue
+    pdfUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TenantReportCreateOrConnectWithoutTenantInput = {
+    where: TenantReportWhereUniqueInput
+    create: XOR<TenantReportCreateWithoutTenantInput, TenantReportUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TenantReportCreateManyTenantInputEnvelope = {
+    data: TenantReportCreateManyTenantInput | TenantReportCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutTenantsInput = {
     update: XOR<UserUpdateWithoutTenantsInput, UserUncheckedUpdateWithoutTenantsInput>
     create: XOR<UserCreateWithoutTenantsInput, UserUncheckedCreateWithoutTenantsInput>
@@ -46959,6 +48555,36 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"NotificationLog"> | Date | string
   }
 
+  export type TenantReportUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TenantReportWhereUniqueInput
+    update: XOR<TenantReportUpdateWithoutTenantInput, TenantReportUncheckedUpdateWithoutTenantInput>
+    create: XOR<TenantReportCreateWithoutTenantInput, TenantReportUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TenantReportUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TenantReportWhereUniqueInput
+    data: XOR<TenantReportUpdateWithoutTenantInput, TenantReportUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TenantReportUpdateManyWithWhereWithoutTenantInput = {
+    where: TenantReportScalarWhereInput
+    data: XOR<TenantReportUpdateManyMutationInput, TenantReportUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type TenantReportScalarWhereInput = {
+    AND?: TenantReportScalarWhereInput | TenantReportScalarWhereInput[]
+    OR?: TenantReportScalarWhereInput[]
+    NOT?: TenantReportScalarWhereInput | TenantReportScalarWhereInput[]
+    id?: UuidFilter<"TenantReport"> | string
+    tenantId?: UuidFilter<"TenantReport"> | string
+    type?: StringFilter<"TenantReport"> | string
+    period?: StringFilter<"TenantReport"> | string
+    title?: StringFilter<"TenantReport"> | string
+    data?: JsonFilter<"TenantReport">
+    pdfUrl?: StringNullableFilter<"TenantReport"> | string | null
+    createdAt?: DateTimeFilter<"TenantReport"> | Date | string
+  }
+
   export type TenantCreateWithoutStaffsInput = {
     id?: string
     name: string
@@ -46991,6 +48617,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffsInput = {
@@ -47025,6 +48652,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffsInput = {
@@ -47346,6 +48974,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffsInput = {
@@ -47380,6 +49009,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExpenseUpsertWithWhereUniqueWithoutStaffInput = {
@@ -47555,6 +49185,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCustomersInput = {
@@ -47589,6 +49220,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCustomersInput = {
@@ -47711,6 +49343,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCustomersInput = {
@@ -47745,6 +49378,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type OrderUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -47795,6 +49429,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDiscountsInput = {
@@ -47829,6 +49464,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDiscountsInput = {
@@ -47951,6 +49587,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDiscountsInput = {
@@ -47985,6 +49622,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type OrderUpsertWithWhereUniqueWithoutDiscountInput = {
@@ -48035,6 +49673,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutOrdersInput = {
@@ -48069,6 +49708,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutOrdersInput = {
@@ -48270,6 +49910,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutOrdersInput = {
@@ -48304,6 +49945,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type CustomerUpsertWithoutOrdersInput = {
@@ -48491,6 +50133,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutOrderItemsInput = {
@@ -48525,6 +50168,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutOrderItemsInput = {
@@ -48679,6 +50323,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutOrderItemsInput = {
@@ -48713,6 +50358,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type OrderUpsertWithoutItemsInput = {
@@ -48863,6 +50509,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProductsInput = {
@@ -48897,6 +50544,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProductsInput = {
@@ -49006,6 +50654,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProductsInput = {
@@ -49040,6 +50689,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProductCategoryUpsertWithoutProductsInput = {
@@ -49123,6 +50773,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProductCategoriesInput = {
@@ -49157,6 +50808,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProductCategoriesInput = {
@@ -49308,6 +50960,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProductCategoriesInput = {
@@ -49342,6 +50995,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProductCategoryUpsertWithoutChildrenInput = {
@@ -49441,6 +51095,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -49475,6 +51130,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -49563,6 +51219,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -49597,6 +51254,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExpenseUpsertWithWhereUniqueWithoutExpenseCategoryInput = {
@@ -49647,6 +51305,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExpensesInput = {
@@ -49681,6 +51340,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExpensesInput = {
@@ -49834,6 +51494,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExpensesInput = {
@@ -49868,6 +51529,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExpenseCategoryUpsertWithoutExpensesInput = {
@@ -50062,6 +51724,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLogsInput = {
@@ -50096,6 +51759,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLogsInput = {
@@ -50191,6 +51855,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLogsInput = {
@@ -50225,6 +51890,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSettingsInput = {
@@ -50259,6 +51925,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -50293,6 +51960,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -50343,6 +52011,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -50377,6 +52046,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantSubscriptionCreateWithoutSubscriptionPlanInput = {
@@ -50524,6 +52194,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionInput = {
@@ -50558,6 +52229,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionInput = {
@@ -50639,6 +52311,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionInput = {
@@ -50673,6 +52346,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubscriptionPlanUpsertWithoutTenantSubscriptionsInput = {
@@ -50744,6 +52418,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTenantSubscriptionHistoriesInput = {
@@ -50778,6 +52453,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTenantSubscriptionHistoriesInput = {
@@ -50889,6 +52565,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTenantSubscriptionHistoriesInput = {
@@ -50923,6 +52600,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubscriptionPlanUpsertWithoutTenantSubscriptionHistoriesInput = {
@@ -51039,6 +52717,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionPaymentsInput = {
@@ -51073,6 +52752,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionPaymentsInput = {
@@ -51158,6 +52838,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionPaymentsInput = {
@@ -51192,6 +52873,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutPayrollSettingsInput = {
@@ -51226,6 +52908,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollSettingsInput = {
@@ -51260,6 +52943,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollSettingsInput = {
@@ -51310,6 +52994,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollSettingsInput = {
@@ -51344,6 +53029,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSalariesInput = {
@@ -51378,6 +53064,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSalariesInput = {
@@ -51412,6 +53099,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSalariesInput = {
@@ -51501,6 +53189,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSalariesInput = {
@@ -51535,6 +53224,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutSalaryInput = {
@@ -51614,6 +53304,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAttendancesInput = {
@@ -51648,6 +53339,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAttendancesInput = {
@@ -51737,6 +53429,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAttendancesInput = {
@@ -51771,6 +53464,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutAttendancesInput = {
@@ -51850,6 +53544,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollPeriodsInput = {
@@ -51884,6 +53579,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollPeriodsInput = {
@@ -51980,6 +53676,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollPeriodsInput = {
@@ -52014,6 +53711,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PayrollDetailUpsertWithWhereUniqueWithoutPayrollPeriodInput = {
@@ -52064,6 +53762,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollDetailsInput = {
@@ -52098,6 +53797,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollDetailsInput = {
@@ -52250,6 +53950,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollDetailsInput = {
@@ -52284,6 +53985,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PayrollPeriodUpsertWithoutPayrollDetailsInput = {
@@ -52494,6 +54196,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationConfigInput = {
@@ -52528,6 +54231,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationConfigInput = {
@@ -52578,6 +54282,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationConfigInput = {
@@ -52612,6 +54317,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutNotificationTemplatesInput = {
@@ -52646,6 +54352,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationTemplatesInput = {
@@ -52680,6 +54387,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationTemplatesInput = {
@@ -52730,6 +54438,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationTemplatesInput = {
@@ -52764,6 +54473,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutNotificationLogsInput = {
@@ -52798,6 +54508,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationLogsInput = {
@@ -52832,6 +54543,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationLogsInput = {
@@ -52882,6 +54594,7 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationLogsInput = {
@@ -52916,6 +54629,163 @@ export namespace Prisma {
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutReportsInput = {
+    id?: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTenantsInput
+    customers?: CustomerCreateNestedManyWithoutTenantInput
+    discounts?: DiscountCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseCreateNestedManyWithoutTenantInput
+    logs?: LogCreateNestedManyWithoutTenantInput
+    orders?: OrderCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemCreateNestedManyWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryCreateNestedManyWithoutTenantInput
+    staffs?: StaffCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingCreateNestedOneWithoutTenantInput
+    salaries?: SalaryCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutReportsInput = {
+    id?: string
+    userId: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    logs?: LogUncheckedCreateNestedManyWithoutTenantInput
+    orders?: OrderUncheckedCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryUncheckedCreateNestedManyWithoutTenantInput
+    staffs?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingUncheckedCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionUncheckedCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingUncheckedCreateNestedOneWithoutTenantInput
+    salaries?: SalaryUncheckedCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodUncheckedCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutReportsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutReportsInput, TenantUncheckedCreateWithoutReportsInput>
+  }
+
+  export type TenantUpsertWithoutReportsInput = {
+    update: XOR<TenantUpdateWithoutReportsInput, TenantUncheckedUpdateWithoutReportsInput>
+    create: XOR<TenantCreateWithoutReportsInput, TenantUncheckedCreateWithoutReportsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutReportsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutReportsInput, TenantUncheckedUpdateWithoutReportsInput>
+  }
+
+  export type TenantUpdateWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    customers?: CustomerUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUpdateManyWithoutTenantNestedInput
+    logs?: LogUpdateManyWithoutTenantNestedInput
+    orders?: OrderUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUpdateManyWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUncheckedUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    logs?: LogUncheckedUpdateManyWithoutTenantNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUncheckedUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUncheckedUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUncheckedUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUncheckedUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyUserInput = {
@@ -52962,6 +54832,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUserInput = {
@@ -52996,6 +54867,7 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutUserInput = {
@@ -53236,6 +55108,16 @@ export namespace Prisma {
     status: string
     response?: NullableJsonNullValueInput | InputJsonValue
     error?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TenantReportCreateManyTenantInput = {
+    id?: string
+    type: string
+    period: string
+    title: string
+    data: JsonNullValueInput | InputJsonValue
+    pdfUrl?: string | null
     createdAt?: Date | string
   }
 
@@ -53957,6 +55839,36 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     response?: NullableJsonNullValueInput | InputJsonValue
     error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantReportUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantReportUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantReportUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

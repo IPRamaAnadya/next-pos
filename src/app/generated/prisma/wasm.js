@@ -458,6 +458,17 @@ exports.Prisma.NotificationLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TenantReportScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  period: 'period',
+  title: 'title',
+  data: 'data',
+  pdfUrl: 'pdfUrl',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -465,6 +476,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -532,7 +547,8 @@ exports.Prisma.ModelName = {
   StaffLeave: 'StaffLeave',
   TenantNotificationConfig: 'TenantNotificationConfig',
   NotificationTemplate: 'NotificationTemplate',
-  NotificationLog: 'NotificationLog'
+  NotificationLog: 'NotificationLog',
+  TenantReport: 'TenantReport'
 };
 
 /**

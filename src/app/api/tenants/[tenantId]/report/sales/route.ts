@@ -80,13 +80,19 @@ export async function GET(req: NextRequest, context: { params: { tenantId: strin
 
   const details = Array.from(productMap.values());
 
+  // Get tenant name
+  const tenant = await prisma.tenant.findUnique({
+    where: { id: tenantId },
+    select: { name: true },
+  });
+
   const response = {
     meta: {
       status: 200,
       message: '',
     },
     data: {
-      reportTitle: 'Laporan Penjualan Toki Laundry',
+      reportTitle: `Laporan Penjualan ${tenant?.name ?? ''}`,
       period,
       summary: {
         totalSales,

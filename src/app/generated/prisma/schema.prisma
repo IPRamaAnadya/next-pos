@@ -65,6 +65,9 @@ model Tenant {
   notificationConfig    TenantNotificationConfig?
   notificationTemplates NotificationTemplate[]
   notificationLogs      NotificationLog[]
+
+  // Relasi Laporan
+  reports TenantReport[]
 }
 
 model Staff {
@@ -459,7 +462,7 @@ model StaffLeave {
 // =========================================================
 
 // ---------------------------------------------------------
-//  ORDER NOTIFICATIONs
+//  ORDER NOTIFICATIONS
 // ---------------------------------------------------------
 
 enum NotificationEvent {
@@ -504,6 +507,23 @@ model NotificationLog {
   response   Json?
   error      String?
   createdAt  DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+// ---------------------------------------------------------
+//  REPORT
+// ---------------------------------------------------------
+
+model TenantReport {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @map("tenant_id") @db.Uuid
+  type      String // profit_and_loss, sales, expense, dll
+  period    String
+  title     String
+  data      Json // simpan data laporan dalam bentuk JSON
+  pdfUrl    String?  @map("pdf_url") // link ke file PDF jika ada
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
 }

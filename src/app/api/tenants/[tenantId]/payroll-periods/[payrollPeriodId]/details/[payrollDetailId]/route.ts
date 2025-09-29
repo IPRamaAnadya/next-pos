@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
 
-type Params = { tenantId: string; payrollDetailId: string };
+type Params = { tenantId: string; payrollDetailId: string; payrollPeriodId: string };
 
 // PUT: Memperbarui bonus dan deduksi
 export async function PUT(req: Request, { params }: { params: Params }) {
@@ -49,6 +49,55 @@ export async function PUT(req: Request, { params }: { params: Params }) {
     });
   } catch (error) {
     console.error('Error updating payroll detail:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request, { params }: { params: Params }) {
+  try {
+    const authResult = validateTenantAuth(req as any, params.tenantId);
+    if (!authResult.success) {
+      return authResult.response;
+    }
+
+    const { payrollDetailId, payrollPeriodId } = params;
+    const payrollDetail = await prisma.payrollDetail.findUnique({
+      where: { id: payrollDetailId },
+    });
+    if (!payrollDetail) {
+      return NextResponse.json({
+        meta: { code: 404, status: 'error', message: 'Payroll detail not found' },
+        data: null,
+      }, { status: 404 });
+    }
+
+    // Check if payroll period is finalized
+    const payrollPeriod = await prisma.payrollPeriod.findUnique({
+      where: { id: payrollPeriodId },
+    });
+    if (!payrollPeriod) {
+      return NextResponse.json({
+        meta: { code: 404, status: 'error', message: 'Payroll period not found' },
+        data: null,
+      }, { status: 404 });
+    }
+    if (payrollPeriod.isFinalized) {
+      return NextResponse.json({
+        meta: { code: 400, status: 'error', message: 'Payroll period is already finalized' },
+        data: null,
+      }, { status: 400 });
+    }
+
+    await prisma.payrollDetail.delete({
+      where: { id: payrollDetailId },
+    });
+
+    return NextResponse.json({
+      meta: { code: 200, status: 'success', message: 'Payroll detail deleted successfully' },
+      data: null,
+    });
+  } catch (error) {
+    console.error('Error deleting payroll detail:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
