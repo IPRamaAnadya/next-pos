@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
+import { getUtcFromLocal, getUtcStartOfCurrentDay, toUtcFromTz } from '@/lib/dateTz';
 
 export async function GET(
   req: Request,
@@ -19,14 +20,18 @@ export async function GET(
       );
     }
 
+    const clientTimeZone = req.headers.get('X-Timezone-Name') || 'Asia/Makassar';
+
+    
+
     const { searchParams } = new URL(req.url);
     const startDate = searchParams.get('start_date')
-      ? new Date(searchParams.get('start_date')!)
-      : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+      ? toUtcFromTz(searchParams.get('start_date')! + 'T00:00:00', clientTimeZone)
+      : getUtcStartOfCurrentDay(clientTimeZone);
 
     const endDate = searchParams.get('end_date')
-      ? new Date(searchParams.get('end_date')!)
-      : new Date();
+      ? toUtcFromTz(searchParams.get('end_date')! + 'T00:00:00', clientTimeZone)
+      : getUtcFromLocal(clientTimeZone);
 
     // extend by 1 day for inclusive range
     const queryEndDate = new Date(endDate);
@@ -192,8 +197,8 @@ export async function GET(
         report_type: 'daily_financials',
         generated_at: new Date(),
         date_range: {
-          start: startDate.toISOString().split('T')[0],
-          end: endDate.toISOString().split('T')[0], // 👈 fixed: not the +1 day
+          start: startDate,
+          end: endDate,
         },
         summary: totalSummary,
         daily_transactions: dailyTransactions,
