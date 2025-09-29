@@ -4,19 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateSalesReportPdf } from "./pdf-lib-sales-report";
 import prisma from "@/lib/prisma";
 import { apiResponse } from "@/app/api/utils/response";
+import { getSalesReportData } from "../sales-report-service";
 
 export async function GET(req: NextRequest, context: { params: { tenantId: string } }) {
 	const { tenantId } = context.params;
 	const { searchParams } = new URL(req.url);
-	const periodParam = searchParams.get('period') || '';
-	// Fetch sales data from the API
-	const baseUrl = req.nextUrl.origin || process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-	const apiUrl = `${baseUrl}/api/tenants/${tenantId}/report/sales${req.nextUrl.search}`;
-	const apiRes = await fetch(apiUrl);
-	if (!apiRes.ok) {
-		return NextResponse.json({ error: 'Failed to fetch sales report data' }, { status: 500 });
-	}
-	const { data } = await apiRes.json();
+  const periodParam = searchParams.get('period') || undefined;
+  const data = await getSalesReportData(tenantId, periodParam);
 
   // check if data is available in database
   const previousReport = await prisma.tenantReport.findFirst({
