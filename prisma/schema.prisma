@@ -28,30 +28,30 @@ model User {
 }
 
 model Tenant {
-  id                   String                @id @default(uuid()) @db.Uuid
-  userId               String                @map("user_id") @db.Uuid
-  name                 String
-  email                String                @unique
-  address              String?
-  phone                String?
-  subscribedUntil      DateTime?             @map("subscribed_until") @db.Timestamptz(6)
-  isSubscribed         Boolean?              @default(false) @map("is_subscribed")
-  createdAt            DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt            DateTime              @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
-  user                 User                  @relation(fields: [userId], references: [id])
-  customers            Customer[]
-  discounts            Discount[]
-  expenseCategories    ExpenseCategory[]
-  expenses             Expense[]
-  logs                 Log[]
-  orders               Order[]
-  orderItems           OrderItem[]
-  products             Product[]
-  productCategories    ProductCategory[]
-  staffs               Staff[]
-  settings             TenantSetting?
-  subscription         TenantSubscription?
-  subscriptionPayments SubscriptionPayment[]
+  id                          String                      @id @default(uuid()) @db.Uuid
+  userId                      String                      @map("user_id") @db.Uuid
+  name                        String
+  email                       String                      @unique
+  address                     String?
+  phone                       String?
+  subscribedUntil             DateTime?                   @map("subscribed_until") @db.Timestamptz(6)
+  isSubscribed                Boolean?                    @default(false) @map("is_subscribed")
+  createdAt                   DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                   DateTime                    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user                        User                        @relation(fields: [userId], references: [id])
+  customers                   Customer[]
+  discounts                   Discount[]
+  expenseCategories           ExpenseCategory[]
+  expenses                    Expense[]
+  logs                        Log[]
+  orders                      Order[]
+  orderItems                  OrderItem[]
+  products                    Product[]
+  productCategories           ProductCategory[]
+  staffs                      Staff[]
+  settings                    TenantSetting?
+  subscription                TenantSubscription?
+  subscriptionPayments        SubscriptionPayment[]
   tenantSubscriptionHistories TenantSubscriptionHistory[]
 
   // Relasi Penggajian
@@ -62,27 +62,29 @@ model Tenant {
   payrollDetails  PayrollDetail[]
 
   // Relasi Notifikasi
-  notificationConfig TenantNotificationConfig?
+  notificationConfig    TenantNotificationConfig?
   notificationTemplates NotificationTemplate[]
-  notificationLogs NotificationLog[]
+  notificationLogs      NotificationLog[]
 
   // Relasi Laporan
   reports TenantReport[]
+
+  @@index([userId])
 }
 
 model Staff {
-  id        String    @id @default(uuid()) @db.Uuid
-  tenantId  String?   @map("tenant_id") @db.Uuid
-  isOwner   Boolean   @default(false)
-  role      String
-  username  String
-  password  String
-  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
-  tenant    Tenant?   @relation(fields: [tenantId], references: [id])
-  expenses  Expense[]
-  logs      Log[]
-  orders    Order[]
+  id          String       @id @default(uuid()) @db.Uuid
+  tenantId    String?      @map("tenant_id") @db.Uuid
+  isOwner     Boolean      @default(false)
+  role        String
+  username    String
+  password    String
+  createdAt   DateTime?    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime?    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant      Tenant?      @relation(fields: [tenantId], references: [id])
+  expenses    Expense[]
+  logs        Log[]
+  orders      Order[]
   staffLeaves StaffLeave[]
 
   // Relasi Penggajian
@@ -91,6 +93,7 @@ model Staff {
   payrollDetails PayrollDetail[]
 
   @@unique([tenantId, username])
+  @@index([tenantId])
 }
 
 // =========================================================
@@ -113,6 +116,10 @@ model Customer {
   updatedAt           DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   tenant              Tenant?   @relation(fields: [tenantId], references: [id])
   orders              Order[]
+
+  @@index([tenantId])
+  @@index([name])
+  @@index([phone])
 }
 
 model Discount {
@@ -134,6 +141,10 @@ model Discount {
   updatedAt       DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   tenant          Tenant?   @relation(fields: [tenantId], references: [id])
   orders          Order[]
+
+  @@index([tenantId])
+  @@index([validFrom])
+  @@index([validTo])
 }
 
 model Order {
@@ -170,6 +181,12 @@ model Order {
   discount               Discount?   @relation(fields: [discountId], references: [id])
   staff                  Staff?      @relation(fields: [staffId], references: [id])
   items                  OrderItem[]
+
+  @@index([tenantId])
+  @@index([createdAt])
+  @@index([tenantId, createdAt])
+  @@index([orderStatus])
+  @@index([paymentStatus])
 }
 
 model OrderItem {
@@ -185,6 +202,11 @@ model OrderItem {
   tenant       Tenant?   @relation(fields: [tenantId], references: [id])
   order        Order?    @relation(fields: [orderId], references: [id])
   product      Product?  @relation(fields: [productId], references: [id])
+
+  @@index([tenantId])
+  @@index([orderId])
+  @@index([productId])
+  @@index([createdAt])
 }
 
 model Product {
@@ -204,6 +226,11 @@ model Product {
   tenant            Tenant?          @relation(fields: [tenantId], references: [id])
   productCategory   ProductCategory? @relation(fields: [productCategoryId], references: [id])
   orderItems        OrderItem[]
+
+  @@index([tenantId])
+  @@index([productCategoryId])
+  @@index([name])
+  @@index([sku])
 }
 
 model ProductCategory {
@@ -218,6 +245,9 @@ model ProductCategory {
   parent      ProductCategory?  @relation("CategoryToCategory", fields: [parentId], references: [id])
   children    ProductCategory[] @relation("CategoryToCategory")
   products    Product[]
+
+  @@index([tenantId])
+  @@index([parentId])
 }
 
 // =========================================================
@@ -233,6 +263,9 @@ model ExpenseCategory {
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
   tenant    Tenant    @relation(fields: [tenantId], references: [id])
   expenses  Expense[]
+
+  @@index([tenantId])
+  @@index([code])
 }
 
 model Expense {
@@ -252,6 +285,11 @@ model Expense {
   staff             Staff           @relation(fields: [staffId], references: [id])
   payrollDetailId   String?         @map("payroll_detail_id") @db.Uuid
   payrollDetail     PayrollDetail?  @relation(fields: [payrollDetailId], references: [id])
+
+  @@index([tenantId])
+  @@index([expenseCategoryId])
+  @@index([staffId])
+  @@index([createdAt])
 }
 
 model Log {
@@ -263,6 +301,10 @@ model Log {
   data      Json?
   staff     Staff?   @relation(fields: [staffId], references: [id])
   tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([staffId])
+  @@index([createdAt])
 }
 
 // =========================================================
@@ -276,6 +318,8 @@ model TenantSetting {
   showTax      Boolean   @default(false) @map("show_tax")
   createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
   tenant       Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
 }
 
 model SubscriptionPlan {
@@ -287,10 +331,12 @@ model SubscriptionPlan {
   isBetaTest    Boolean  @default(false) @map("is_beta_test")
   createdAt     DateTime @default(now()) @db.Timestamptz(6)
   updatedAt     DateTime @updatedAt @db.Timestamptz(6)
-  customLimits Json? @map("custom_limits")
+  customLimits  Json?    @map("custom_limits")
 
-  tenantSubscriptions TenantSubscription[]
+  tenantSubscriptions         TenantSubscription[]
   tenantSubscriptionHistories TenantSubscriptionHistory[]
+
+  @@index([name])
 }
 
 model TenantSubscription {
@@ -305,8 +351,12 @@ model TenantSubscription {
 
   customLimits Json? @map("custom_limits")
 
-  tenant               Tenant                @relation(fields: [tenantId], references: [id])
-  subscriptionPlan     SubscriptionPlan      @relation(fields: [planId], references: [id])
+  tenant           Tenant           @relation(fields: [tenantId], references: [id])
+  subscriptionPlan SubscriptionPlan @relation(fields: [planId], references: [id])
+
+  @@index([tenantId])
+  @@index([planId])
+  @@index([status])
 }
 
 model TenantSubscriptionHistory {
@@ -317,27 +367,35 @@ model TenantSubscriptionHistory {
   endDate   DateTime @map("end_date") @db.Timestamptz(6)
   status    String   @default("expired")
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  snapToken String? @map("snap_token")
+  snapToken String?  @map("snap_token")
 
   customLimits Json? @map("custom_limits")
 
-  tenant           Tenant           @relation(fields: [tenantId], references: [id])
-  subscriptionPlan SubscriptionPlan @relation(fields: [planId], references: [id])
+  tenant               Tenant                @relation(fields: [tenantId], references: [id])
+  subscriptionPlan     SubscriptionPlan      @relation(fields: [planId], references: [id])
   subscriptionPayments SubscriptionPayment[]
+
+  @@index([tenantId])
+  @@index([planId])
+  @@index([status])
 }
 
 model SubscriptionPayment {
-  id                   String   @id @default(uuid()) @db.Uuid
-  tenantId             String   @map("tenant_id") @db.Uuid
+  id                          String   @id @default(uuid()) @db.Uuid
+  tenantId                    String   @map("tenant_id") @db.Uuid
   tenantSubscriptionHistoryId String   @map("tenant_subscription_history_id") @db.Uuid
-  midtransOrderId      String   @unique @map("midtrans_order_id")
-  amount               Decimal
-  paymentMethod        String?  @map("payment_method")
-  transactionStatus    String   @map("transaction_status")
-  createdAt            DateTime @default(now()) @db.Timestamptz(6)
+  midtransOrderId             String   @unique @map("midtrans_order_id")
+  amount                      Decimal
+  paymentMethod               String?  @map("payment_method")
+  transactionStatus           String   @map("transaction_status")
+  createdAt                   DateTime @default(now()) @db.Timestamptz(6)
 
   tenantSubscriptionHistory TenantSubscriptionHistory @relation(fields: [tenantSubscriptionHistoryId], references: [id])
-  tenant             Tenant             @relation(fields: [tenantId], references: [id])
+  tenant                    Tenant                    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantSubscriptionHistoryId])
+  @@index([transactionStatus])
 }
 
 // =========================================================
@@ -345,16 +403,16 @@ model SubscriptionPayment {
 // =========================================================
 
 enum LeaveType {
-  SICK      // Sakit
-  LEAVE     // Cuti
-  PERMIT    // Izin
-  ABSENT    // Alpha/tidak hadir tanpa keterangan
-  OTHER     // Lainnya
+  SICK // Sakit
+  LEAVE // Cuti
+  PERMIT // Izin
+  ABSENT // Alpha/tidak hadir tanpa keterangan
+  OTHER // Lainnya
 }
 
 enum SalaryType {
-  MONTHLY   
-  HOURLY    
+  MONTHLY
+  HOURLY
 }
 
 enum OvertimeCalculationType {
@@ -363,33 +421,35 @@ enum OvertimeCalculationType {
 }
 
 model PayrollSetting {
-  id                      String    @id @default(uuid()) @db.Uuid
-  tenantId                String    @unique @map("tenant_id") @db.Uuid
-  ump                     Decimal?  @map("ump")
-  normalWorkHoursPerDay   Int?      @default(7) @map("normal_work_hours_per_day")
-  normalWorkHoursPerMonth Int?      @default(173) @map("normal_work_hours_per_month")
-  overtimeRate1           Decimal?  @default(1.5) @map("overtime_rate_1")
-  overtimeRate2           Decimal?  @default(2) @map("overtime_rate_2")
-  overtimeRateWeekend1    Decimal?  @default(2) @map("overtime_rate_weekend_1")
-  overtimeRateWeekend2    Decimal?  @default(3) @map("overtime_rate_weekend_2")
-  overtimeRateWeekend3    Decimal?  @default(4) @map("overtime_rate_weekend_3")
+  id                      String                  @id @default(uuid()) @db.Uuid
+  tenantId                String                  @unique @map("tenant_id") @db.Uuid
+  ump                     Decimal?                @map("ump")
+  normalWorkHoursPerDay   Int?                    @default(7) @map("normal_work_hours_per_day")
+  normalWorkHoursPerMonth Int?                    @default(173) @map("normal_work_hours_per_month")
+  overtimeRate1           Decimal?                @default(1.5) @map("overtime_rate_1")
+  overtimeRate2           Decimal?                @default(2) @map("overtime_rate_2")
+  overtimeRateWeekend1    Decimal?                @default(2) @map("overtime_rate_weekend_1")
+  overtimeRateWeekend2    Decimal?                @default(3) @map("overtime_rate_weekend_2")
+  overtimeRateWeekend3    Decimal?                @default(4) @map("overtime_rate_weekend_3")
   overtimeCalculationType OvertimeCalculationType @default(HOURLY) @map("overtime_calculation_type")
-  createdAt               DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt               DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
-  tenant                  Tenant    @relation(fields: [tenantId], references: [id])
+  createdAt               DateTime?               @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime?               @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenant                  Tenant                  @relation(fields: [tenantId], references: [id])
 }
 
 model Salary {
-  id             String    @id @default(uuid()) @db.Uuid
-  tenantId       String    @map("tenant_id") @db.Uuid
-  staffId        String    @unique @map("staff_id") @db.Uuid
-  basicSalary    Decimal   @map("basic_salary")
-  fixedAllowance Decimal   @default(0) @map("fixed_allowance")
-  createdAt      DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt      DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  id             String     @id @default(uuid()) @db.Uuid
+  tenantId       String     @map("tenant_id") @db.Uuid
+  staffId        String     @unique @map("staff_id") @db.Uuid
+  basicSalary    Decimal    @map("basic_salary")
+  fixedAllowance Decimal    @default(0) @map("fixed_allowance")
+  createdAt      DateTime?  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime?  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   type           SalaryType @default(MONTHLY) @map("salary_type")
-  tenant         Tenant    @relation(fields: [tenantId], references: [id])
-  staff          Staff     @relation(fields: [staffId], references: [id])
+  tenant         Tenant     @relation(fields: [tenantId], references: [id])
+  staff          Staff      @relation(fields: [staffId], references: [id])
+
+  @@index([tenantId])
 }
 
 model Attendance {
@@ -397,8 +457,8 @@ model Attendance {
   tenantId     String    @map("tenant_id") @db.Uuid
   staffId      String    @map("staff_id") @db.Uuid
   date         DateTime  @db.Date
-  checkInTime  String? @map("check_in_time") 
-  checkOutTime String? @map("check_out_time") 
+  checkInTime  String?   @map("check_in_time")
+  checkOutTime String?   @map("check_out_time")
   totalHours   Decimal?  @map("total_hours")
   isWeekend    Boolean?  @default(false) @map("is_weekend")
   createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
@@ -407,6 +467,9 @@ model Attendance {
   staff        Staff     @relation(fields: [staffId], references: [id])
 
   @@unique([tenantId, staffId, date])
+  @@index([tenantId])
+  @@index([staffId])
+  @@index([date])
 }
 
 model PayrollPeriod {
@@ -421,6 +484,7 @@ model PayrollPeriod {
   payrollDetails PayrollDetail[]
 
   @@unique([tenantId, periodStart])
+  @@index([tenantId])
 }
 
 model PayrollDetail {
@@ -443,18 +507,23 @@ model PayrollDetail {
   payrollPeriod        PayrollPeriod @relation(fields: [payrollPeriodId], references: [id])
   staff                Staff         @relation(fields: [staffId], references: [id])
   expenses             Expense[]
+
+  @@index([tenantId])
+  @@index([payrollPeriodId])
+  @@index([staffId])
+  @@index([isPaid])
 }
 
 model StaffLeave {
-  id           String   @id @default(uuid())
-  staffId      String   @map("staff_id") @db.Uuid
-  staff        Staff    @relation(fields: [staffId], references: [id])
-  type         LeaveType
-  reason       String?
-  startDate    DateTime
-  endDate      DateTime
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String    @id @default(uuid())
+  staffId   String    @map("staff_id") @db.Uuid
+  staff     Staff     @relation(fields: [staffId], references: [id])
+  type      LeaveType
+  reason    String?
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 
@@ -473,45 +542,52 @@ enum NotificationEvent {
 }
 
 model TenantNotificationConfig {
-  id         String   @id @default(uuid())
-  tenantId   String   @unique @map("tenant_id") @db.Uuid
-  provider   String   @default("fonnte") // bisa fonnte, email, dll
-  apiToken   String   @map("api_token")
-  apiUrl     String   @default("https://api.fonnte.com/send") @map("api_url")
-  isActive   Boolean  @default(true) @map("is_active")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id        String   @id @default(uuid())
+  tenantId  String   @unique @map("tenant_id") @db.Uuid
+  provider  String   @default("fonnte") // bisa fonnte, email, dll
+  apiToken  String   @map("api_token")
+  apiUrl    String   @default("https://api.fonnte.com/send") @map("api_url")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
 }
 
 model NotificationTemplate {
-  id          String   @id @default(uuid())
-  tenantId    String   @map("tenant_id") @db.Uuid
-  name        String             // contoh: "Order Created", "Order Paid", "Custom Reminder"
-  event       NotificationEvent? // optional, jika null berarti custom
-  message     String             // isi pesan dengan {{variable}}
-  isActive    Boolean  @default(true) @map("is_active")
-  isCustom    Boolean  @default(false) @map("is_custom")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id        String             @id @default(uuid())
+  tenantId  String             @map("tenant_id") @db.Uuid
+  name      String // contoh: "Order Created", "Order Paid", "Custom Reminder"
+  event     NotificationEvent? // optional, jika null berarti custom
+  message   String // isi pesan dengan {{variable}}
+  isActive  Boolean            @default(true) @map("is_active")
+  isCustom  Boolean            @default(false) @map("is_custom")
+  createdAt DateTime           @default(now()) @map("created_at")
+  updatedAt DateTime           @updatedAt @map("updated_at")
 
-  tenant      Tenant                 @relation(fields: [tenantId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([event])
 }
 
-
 model NotificationLog {
-  id          String   @id @default(uuid())
-  tenantId    String   @map("tenant_id") @db.Uuid
-  templateId  String?  @map("template_id") @db.Uuid
-  recipient   String
-  message     String
-  status      String   // success, failed
-  response    Json?
-  error       String?
-  createdAt   DateTime @default(now()) @map("created_at")
-  
-  tenant      Tenant                 @relation(fields: [tenantId], references: [id])
+  id         String   @id @default(uuid())
+  tenantId   String   @map("tenant_id") @db.Uuid
+  templateId String?  @map("template_id") @db.Uuid
+  recipient  String
+  message    String
+  status     String // success, failed
+  response   Json?
+  error      String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([templateId])
+  @@index([status])
+  @@index([createdAt])
 }
 
 // ---------------------------------------------------------
@@ -521,12 +597,16 @@ model NotificationLog {
 model TenantReport {
   id        String   @id @default(uuid()) @db.Uuid
   tenantId  String   @map("tenant_id") @db.Uuid
-  type      String   // profit_and_loss, sales, expense, dll
+  type      String // profit_and_loss, sales, expense, dll
   period    String
   title     String
-  data      Json     // simpan data laporan dalam bentuk JSON
+  data      Json // simpan data laporan dalam bentuk JSON
   pdfUrl    String?  @map("pdf_url") // link ke file PDF jika ada
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
-  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([type])
+  @@index([createdAt])
 }

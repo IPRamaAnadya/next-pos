@@ -68,6 +68,8 @@ model Tenant {
 
   // Relasi Laporan
   reports TenantReport[]
+
+  @@index([userId])
 }
 
 model Staff {
@@ -91,6 +93,7 @@ model Staff {
   payrollDetails PayrollDetail[]
 
   @@unique([tenantId, username])
+  @@index([tenantId])
 }
 
 // =========================================================
@@ -113,6 +116,10 @@ model Customer {
   updatedAt           DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   tenant              Tenant?   @relation(fields: [tenantId], references: [id])
   orders              Order[]
+
+  @@index([tenantId])
+  @@index([name])
+  @@index([phone])
 }
 
 model Discount {
@@ -134,6 +141,10 @@ model Discount {
   updatedAt       DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   tenant          Tenant?   @relation(fields: [tenantId], references: [id])
   orders          Order[]
+
+  @@index([tenantId])
+  @@index([validFrom])
+  @@index([validTo])
 }
 
 model Order {
@@ -170,6 +181,12 @@ model Order {
   discount               Discount?   @relation(fields: [discountId], references: [id])
   staff                  Staff?      @relation(fields: [staffId], references: [id])
   items                  OrderItem[]
+
+  @@index([tenantId])
+  @@index([createdAt])
+  @@index([tenantId, createdAt])
+  @@index([orderStatus])
+  @@index([paymentStatus])
 }
 
 model OrderItem {
@@ -185,6 +202,11 @@ model OrderItem {
   tenant       Tenant?   @relation(fields: [tenantId], references: [id])
   order        Order?    @relation(fields: [orderId], references: [id])
   product      Product?  @relation(fields: [productId], references: [id])
+
+  @@index([tenantId])
+  @@index([orderId])
+  @@index([productId])
+  @@index([createdAt])
 }
 
 model Product {
@@ -204,6 +226,11 @@ model Product {
   tenant            Tenant?          @relation(fields: [tenantId], references: [id])
   productCategory   ProductCategory? @relation(fields: [productCategoryId], references: [id])
   orderItems        OrderItem[]
+
+  @@index([tenantId])
+  @@index([productCategoryId])
+  @@index([name])
+  @@index([sku])
 }
 
 model ProductCategory {
@@ -218,6 +245,9 @@ model ProductCategory {
   parent      ProductCategory?  @relation("CategoryToCategory", fields: [parentId], references: [id])
   children    ProductCategory[] @relation("CategoryToCategory")
   products    Product[]
+
+  @@index([tenantId])
+  @@index([parentId])
 }
 
 // =========================================================
@@ -233,6 +263,9 @@ model ExpenseCategory {
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
   tenant    Tenant    @relation(fields: [tenantId], references: [id])
   expenses  Expense[]
+
+  @@index([tenantId])
+  @@index([code])
 }
 
 model Expense {
@@ -252,6 +285,11 @@ model Expense {
   staff             Staff           @relation(fields: [staffId], references: [id])
   payrollDetailId   String?         @map("payroll_detail_id") @db.Uuid
   payrollDetail     PayrollDetail?  @relation(fields: [payrollDetailId], references: [id])
+
+  @@index([tenantId])
+  @@index([expenseCategoryId])
+  @@index([staffId])
+  @@index([createdAt])
 }
 
 model Log {
@@ -263,6 +301,10 @@ model Log {
   data      Json?
   staff     Staff?   @relation(fields: [staffId], references: [id])
   tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([staffId])
+  @@index([createdAt])
 }
 
 // =========================================================
@@ -276,6 +318,8 @@ model TenantSetting {
   showTax      Boolean   @default(false) @map("show_tax")
   createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
   tenant       Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
 }
 
 model SubscriptionPlan {
@@ -291,6 +335,8 @@ model SubscriptionPlan {
 
   tenantSubscriptions         TenantSubscription[]
   tenantSubscriptionHistories TenantSubscriptionHistory[]
+
+  @@index([name])
 }
 
 model TenantSubscription {
@@ -307,6 +353,10 @@ model TenantSubscription {
 
   tenant           Tenant           @relation(fields: [tenantId], references: [id])
   subscriptionPlan SubscriptionPlan @relation(fields: [planId], references: [id])
+
+  @@index([tenantId])
+  @@index([planId])
+  @@index([status])
 }
 
 model TenantSubscriptionHistory {
@@ -324,6 +374,10 @@ model TenantSubscriptionHistory {
   tenant               Tenant                @relation(fields: [tenantId], references: [id])
   subscriptionPlan     SubscriptionPlan      @relation(fields: [planId], references: [id])
   subscriptionPayments SubscriptionPayment[]
+
+  @@index([tenantId])
+  @@index([planId])
+  @@index([status])
 }
 
 model SubscriptionPayment {
@@ -338,6 +392,10 @@ model SubscriptionPayment {
 
   tenantSubscriptionHistory TenantSubscriptionHistory @relation(fields: [tenantSubscriptionHistoryId], references: [id])
   tenant                    Tenant                    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantSubscriptionHistoryId])
+  @@index([transactionStatus])
 }
 
 // =========================================================
@@ -390,6 +448,8 @@ model Salary {
   type           SalaryType @default(MONTHLY) @map("salary_type")
   tenant         Tenant     @relation(fields: [tenantId], references: [id])
   staff          Staff      @relation(fields: [staffId], references: [id])
+
+  @@index([tenantId])
 }
 
 model Attendance {
@@ -407,6 +467,9 @@ model Attendance {
   staff        Staff     @relation(fields: [staffId], references: [id])
 
   @@unique([tenantId, staffId, date])
+  @@index([tenantId])
+  @@index([staffId])
+  @@index([date])
 }
 
 model PayrollPeriod {
@@ -421,6 +484,7 @@ model PayrollPeriod {
   payrollDetails PayrollDetail[]
 
   @@unique([tenantId, periodStart])
+  @@index([tenantId])
 }
 
 model PayrollDetail {
@@ -443,6 +507,11 @@ model PayrollDetail {
   payrollPeriod        PayrollPeriod @relation(fields: [payrollPeriodId], references: [id])
   staff                Staff         @relation(fields: [staffId], references: [id])
   expenses             Expense[]
+
+  @@index([tenantId])
+  @@index([payrollPeriodId])
+  @@index([staffId])
+  @@index([isPaid])
 }
 
 model StaffLeave {
@@ -495,6 +564,9 @@ model NotificationTemplate {
   updatedAt DateTime           @updatedAt @map("updated_at")
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([event])
 }
 
 model NotificationLog {
@@ -509,6 +581,11 @@ model NotificationLog {
   createdAt  DateTime @default(now()) @map("created_at")
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([templateId])
+  @@index([status])
+  @@index([createdAt])
 }
 
 // ---------------------------------------------------------
@@ -526,4 +603,8 @@ model TenantReport {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([type])
+  @@index([createdAt])
 }
