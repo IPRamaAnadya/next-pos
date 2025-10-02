@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { validateTenantAuth } from '@/lib/auth';
-import { getClientCurrentTime } from '@/app/api/utils/date';
+import { getClientCurrentDate, getClientCurrentTime } from '@/app/api/utils/date';
 
 type Params = Promise<{ tenantId: string }>;
 
@@ -16,7 +16,7 @@ export async function POST(req: Request, { params }: { params: Params }) {
 
     const { tenantId } = await params;
     const { staffId } = await req.json();
-    const date = new Date().toISOString().split('T')[0]; // Format tanggal YYYY-MM-DD
+    const currentDate = getClientCurrentDate(req);
 
     // Periksa apakah staffId valid
     const staff = await prisma.staff.findUnique({ where: { id: staffId } });
@@ -32,7 +32,7 @@ export async function POST(req: Request, { params }: { params: Params }) {
         tenantId_staffId_date: {
           tenantId,
           staffId,
-          date: new Date(date),
+          date: currentDate,
         },
       },
     });
@@ -47,9 +47,9 @@ export async function POST(req: Request, { params }: { params: Params }) {
       data: {
         tenantId,
         staffId,
-        date: new Date(date),
+        date: currentDate,
         checkInTime: getClientCurrentTime(req),
-        isWeekend: (new Date().getDay() === 0 || new Date().getDay() === 6),
+        isWeekend: (currentDate.getDay() === 0 || currentDate.getDay() === 6),
       },
     });
 
