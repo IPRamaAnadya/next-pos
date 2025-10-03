@@ -4,7 +4,7 @@ const orderItemSchema = yup.object({
   productId: yup.string().uuid().required(),
   productName: yup.string().required(),
   productPrice: yup.number().required().min(0),
-  qty: yup.number().required().min(1),
+  qty: yup.number().required().moreThan(0),
 });
 
 const orderBaseSchema = yup.object({
