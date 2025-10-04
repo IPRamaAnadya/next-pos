@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ['placehold.co', 'images.unsplash.com', 'upload.wikimedia.org', 'www.svgrepo.com'],
+  },
 };
 
 export default nextConfig;
