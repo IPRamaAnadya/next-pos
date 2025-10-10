@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { productCreateSchema } from '@/utils/validation/productSchema';
+import { enforceLimit } from '@/lib/subscriptionLimit';
+import { apiResponse } from '@/app/api/utils/response';
 
 export async function GET(req: Request, { params }: { params: { tenantId: string } }) {
   try {
@@ -61,6 +63,14 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     } catch (validationError: any) {
       return NextResponse.json({ error: 'Validation failed', details: validationError.errors }, { status: 400 });
     }
+
+    try {
+      await enforceLimit(tenantIdFromUrl, 'product', 1);
+    } catch (err: any) {
+      const limits = await (await import('@/lib/subscriptionLimit')).default.getLimitsForTenant(tenantIdFromUrl);
+      return apiResponse.limitExceeded('product', limits.product);
+    }
+
     const newProduct = await prisma.product.create({ data: { ...data, tenantId: tenantIdFromUrl } });
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error) {

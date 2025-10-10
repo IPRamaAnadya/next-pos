@@ -152,6 +152,19 @@ exports.Prisma.StaffScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  username: 'username',
+  email: 'email',
+  fullName: 'fullName',
+  password: 'password',
+  isActive: 'isActive',
+  lastLoginAt: 'lastLoginAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CustomerScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -498,6 +511,12 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.AdminRole = exports.$Enums.AdminRole = {
+  SUPERADMIN: 'SUPERADMIN',
+  ADMIN: 'ADMIN',
+  STAFF: 'STAFF'
+};
+
 exports.OvertimeCalculationType = exports.$Enums.OvertimeCalculationType = {
   HOURLY: 'HOURLY',
   MONTHLY: 'MONTHLY'
@@ -525,6 +544,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
   Staff: 'Staff',
+  Admin: 'Admin',
   Customer: 'Customer',
   Discount: 'Discount',
   Order: 'Order',

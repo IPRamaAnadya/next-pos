@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { generateToken } from '@/app/api/utils/jwt';
+import { generateToken, createAuthPayloadWithLimits } from '@/app/api/utils/jwt';
 import prisma from '@/lib/prisma';
 
 export async function POST(req: Request) {
@@ -20,14 +20,15 @@ export async function POST(req: Request) {
       }
     });
 
-    const payload = {
+    const basePayload = {
       userId: user.id,
       tenantId: user.tenants[0]?.id,
       role: 'staff',
-      staffId: staffAccount?.id
+      staffId: staffAccount?.id ?? null,
     };
-    const token = generateToken(payload);
-    return NextResponse.json({ token, user: payload });
+    const enriched = await createAuthPayloadWithLimits(basePayload);
+    const token = generateToken(enriched);
+    return NextResponse.json({ token, user: enriched });
   } catch (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

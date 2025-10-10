@@ -83,14 +83,14 @@ export async function POST(req: Request) {
 
       // 6. Cek dan assign Trial Subscription Plan
       const trialPlan = await tx.subscriptionPlan.findFirst({
-        where: { name: 'Trial' },
+        where: { isBetaTest: true },
       });
       if (trialPlan) {
         await tx.tenantSubscription.create({
           data: {
             tenantId: tenant.id,
             planId: trialPlan.id,
-            status: 'trial',
+            status: 'BETA',
             startDate: new Date(),
             endDate: new Date(new Date().setMonth(new Date().getMonth() + 2)), // 2 month trial
           },

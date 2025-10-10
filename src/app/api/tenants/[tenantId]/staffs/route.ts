@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { staffCreateSchema } from '@/utils/validation/staffSchema';
+import { enforceLimit } from '@/lib/subscriptionLimit';
+import { apiResponse } from '@/app/api/utils/response';
 import bcrypt from 'bcryptjs';
 
 // GET: Mengambil daftar semua staff
@@ -57,6 +59,13 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
       await staffCreateSchema.validate(data, { abortEarly: false });
     } catch (validationError: any) {
       return NextResponse.json({ error: 'Validation failed', details: validationError.errors }, { status: 400 });
+    }
+
+    // enforce staff limit
+    try {
+      await enforceLimit(tenantIdFromUrl, 'staff', 1);
+    } catch (err: any) {
+      return apiResponse.limitExceeded('staff', (await (await import('@/lib/subscriptionLimit')).default.getLimitsForTenant(tenantIdFromUrl)).staff);
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);

@@ -96,6 +96,27 @@ model Staff {
   @@index([tenantId])
 }
 
+enum AdminRole {
+  SUPERADMIN
+  ADMIN
+  STAFF
+}
+
+model Admin {
+  id          String    @id @default(uuid()) @db.Uuid
+  role        AdminRole @default(ADMIN)
+  username    String    @unique
+  email       String    @unique
+  fullName    String?
+  password    String
+  isActive    Boolean   @default(true)
+  lastLoginAt DateTime? @map("last_login_at") @db.Timestamptz(6)
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([email])
+}
+
 // =========================================================
 //  BUSINESS OPERATIONS
 // =========================================================

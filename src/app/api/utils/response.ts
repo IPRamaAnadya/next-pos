@@ -101,6 +101,15 @@ namespace apiResponse {
   export function success({ data, message, pagination }: { data?: any; message?: string; pagination?: ApiPagination }) {
     return apiResponse({ data, message: message || 'Success', pagination });
   }
+
+  // error for limit exceeded
+  export function limitExceeded(resource: string, limit: number) {
+    return apiResponse({
+      error: ErrorType.FORBIDDEN,
+      message: `Batas ${resource} telah terlampaui. Maksimum yang diizinkan adalah ${limit}. silakan upgrade paket Anda atau hubungi administrator.`,
+      status: 403
+    });
+  }
 }
 
 

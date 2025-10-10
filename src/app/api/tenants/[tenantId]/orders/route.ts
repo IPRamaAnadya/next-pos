@@ -3,6 +3,22 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { orderCreateSchema } from '@/utils/validation/orderSchema';
+import { enforceLimit } from '@/lib/subscriptionLimit';
+
+// compact encoder for positive integers using digits + UPPERCASE (radix 36)
+// used for compact order numbers (digits + uppercase letters only)
+function encodeBase62(num: number) {
+  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (num <= 0) return '0';
+  let n = num;
+  let out = '';
+  while (n > 0) {
+    const rem = n % 36;
+    out = chars[rem] + out;
+    n = Math.floor(n / 36);
+  }
+  return out;
+}
 
 // GET: Get list of orders
 export async function GET(req: Request, { params }: { params: { tenantId: string } }) {
@@ -98,7 +114,14 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     const paymentDate = body.paymentStatus == 'paid' ? new Date(): null;
 
     const { orderItems, ...orderData } = body;
-    const orderNo = `ORD-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+  const orderNo = `0${encodeBase62(Date.now())}`;
+
+    // enforce transaction limit (counting this new order as increment)
+    try {
+      await enforceLimit(tenantIdFromUrl, 'transaction', 1);
+    } catch (err: any) {
+      return NextResponse.json({ error: err.message }, { status: 403 });
+    }
 
     const newOrder = await prisma.$transaction(async (prisma) => {
       const createdOrder = await prisma.order.create({
