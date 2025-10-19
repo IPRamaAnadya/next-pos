@@ -111,10 +111,10 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
     }
 
     // PaymentDate
-    const paymentDate = body.paymentStatus == 'paid' ? new Date(): null;
+    const paymentDate = body.paymentStatus == 'paid' ? new Date() : null;
 
     const { orderItems, ...orderData } = body;
-  const orderNo = `0${encodeBase62(Date.now())}`;
+    const orderNo = `0${encodeBase62(Date.now())}`;
 
     // enforce transaction limit (counting this new order as increment)
     try {
@@ -177,16 +177,30 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
         include: { items: true },
       });
 
+
+
       // Send notification after order creation
       if (ord) {
         try {
+
+
+
+          // add totalPrice to each item
+          // e.g. Math.round(item.productPrice * item.qty),
+          ord.items = ord.items.map(item => {
+            return {
+              ...item,
+              totalPrice: Math.round(Number(item.productPrice) * Number(item.qty)),
+            };
+          });
+
           const customer = await prisma.customer.findUnique({ where: { id: ord.customerId ?? '' } });
 
-            const notificationVars = {
+          const notificationVars = {
             phone: customer?.phone || '',
             customerName: customer?.name || '',
             grandTotal: `Rp${Number(ord.grandTotal).toLocaleString('id-ID')}`,
-            };
+          };
           if (ord.paymentStatus === 'paid') {
             await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
               sendOrderNotification({
@@ -210,7 +224,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
           console.log('Notification error:', notifyError);
         }
       }
-
       return ord;
     });
 
@@ -219,7 +232,7 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
         'order': newOrder
       }
     }
-    
+
     return NextResponse.json(jsonResponse, { status: 201 });
   } catch (error) {
     console.error('Error creating order:', error);
