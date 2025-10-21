@@ -4,6 +4,7 @@ import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MinimalProvider } from "@/context/MinimalContext";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MinimalProvider>{children}</MinimalProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <MinimalProvider>{children}</MinimalProvider>
+        </Suspense>
       </body>
     </html>
   );
