@@ -482,6 +482,18 @@ exports.Prisma.TenantReportScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BannerCampaignScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  isActive: 'isActive',
+  publishAt: 'publishAt',
+  publishUntil: 'publishUntil',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -568,7 +580,8 @@ exports.Prisma.ModelName = {
   TenantNotificationConfig: 'TenantNotificationConfig',
   NotificationTemplate: 'NotificationTemplate',
   NotificationLog: 'NotificationLog',
-  TenantReport: 'TenantReport'
+  TenantReport: 'TenantReport',
+  BannerCampaign: 'BannerCampaign'
 };
 
 /**

@@ -153,6 +153,11 @@ export type NotificationLog = $Result.DefaultSelection<Prisma.$NotificationLogPa
  * 
  */
 export type TenantReport = $Result.DefaultSelection<Prisma.$TenantReportPayload>
+/**
+ * Model BannerCampaign
+ * 
+ */
+export type BannerCampaign = $Result.DefaultSelection<Prisma.$BannerCampaignPayload>
 
 /**
  * Enums
@@ -620,6 +625,16 @@ export class PrismaClient<
     * ```
     */
   get tenantReport(): Prisma.TenantReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bannerCampaign`: Exposes CRUD operations for the **BannerCampaign** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BannerCampaigns
+    * const bannerCampaigns = await prisma.bannerCampaign.findMany()
+    * ```
+    */
+  get bannerCampaign(): Prisma.BannerCampaignDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1087,7 +1102,8 @@ export namespace Prisma {
     TenantNotificationConfig: 'TenantNotificationConfig',
     NotificationTemplate: 'NotificationTemplate',
     NotificationLog: 'NotificationLog',
-    TenantReport: 'TenantReport'
+    TenantReport: 'TenantReport',
+    BannerCampaign: 'BannerCampaign'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1106,7 +1122,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "tenant" | "staff" | "admin" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog" | "tenantReport"
+      modelProps: "user" | "tenant" | "staff" | "admin" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog" | "tenantReport" | "bannerCampaign"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3182,6 +3198,80 @@ export namespace Prisma {
           }
         }
       }
+      BannerCampaign: {
+        payload: Prisma.$BannerCampaignPayload<ExtArgs>
+        fields: Prisma.BannerCampaignFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BannerCampaignFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BannerCampaignFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>
+          }
+          findFirst: {
+            args: Prisma.BannerCampaignFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BannerCampaignFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>
+          }
+          findMany: {
+            args: Prisma.BannerCampaignFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>[]
+          }
+          create: {
+            args: Prisma.BannerCampaignCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>
+          }
+          createMany: {
+            args: Prisma.BannerCampaignCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BannerCampaignCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>[]
+          }
+          delete: {
+            args: Prisma.BannerCampaignDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>
+          }
+          update: {
+            args: Prisma.BannerCampaignUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>
+          }
+          deleteMany: {
+            args: Prisma.BannerCampaignDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BannerCampaignUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BannerCampaignUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>[]
+          }
+          upsert: {
+            args: Prisma.BannerCampaignUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannerCampaignPayload>
+          }
+          aggregate: {
+            args: Prisma.BannerCampaignAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBannerCampaign>
+          }
+          groupBy: {
+            args: Prisma.BannerCampaignGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BannerCampaignGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BannerCampaignCountArgs<ExtArgs>
+            result: $Utils.Optional<BannerCampaignCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3302,6 +3392,7 @@ export namespace Prisma {
     notificationTemplate?: NotificationTemplateOmit
     notificationLog?: NotificationLogOmit
     tenantReport?: TenantReportOmit
+    bannerCampaign?: BannerCampaignOmit
   }
 
   /* Types for Logging */
@@ -37531,6 +37622,1053 @@ export namespace Prisma {
 
 
   /**
+   * Model BannerCampaign
+   */
+
+  export type AggregateBannerCampaign = {
+    _count: BannerCampaignCountAggregateOutputType | null
+    _min: BannerCampaignMinAggregateOutputType | null
+    _max: BannerCampaignMaxAggregateOutputType | null
+  }
+
+  export type BannerCampaignMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    imageUrl: string | null
+    isActive: boolean | null
+    publishAt: Date | null
+    publishUntil: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BannerCampaignMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    imageUrl: string | null
+    isActive: boolean | null
+    publishAt: Date | null
+    publishUntil: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BannerCampaignCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    imageUrl: number
+    isActive: number
+    publishAt: number
+    publishUntil: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BannerCampaignMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    imageUrl?: true
+    isActive?: true
+    publishAt?: true
+    publishUntil?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BannerCampaignMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    imageUrl?: true
+    isActive?: true
+    publishAt?: true
+    publishUntil?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BannerCampaignCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    imageUrl?: true
+    isActive?: true
+    publishAt?: true
+    publishUntil?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BannerCampaignAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannerCampaign to aggregate.
+     */
+    where?: BannerCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannerCampaigns to fetch.
+     */
+    orderBy?: BannerCampaignOrderByWithRelationInput | BannerCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BannerCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannerCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannerCampaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BannerCampaigns
+    **/
+    _count?: true | BannerCampaignCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BannerCampaignMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BannerCampaignMaxAggregateInputType
+  }
+
+  export type GetBannerCampaignAggregateType<T extends BannerCampaignAggregateArgs> = {
+        [P in keyof T & keyof AggregateBannerCampaign]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBannerCampaign[P]>
+      : GetScalarType<T[P], AggregateBannerCampaign[P]>
+  }
+
+
+
+
+  export type BannerCampaignGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BannerCampaignWhereInput
+    orderBy?: BannerCampaignOrderByWithAggregationInput | BannerCampaignOrderByWithAggregationInput[]
+    by: BannerCampaignScalarFieldEnum[] | BannerCampaignScalarFieldEnum
+    having?: BannerCampaignScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BannerCampaignCountAggregateInputType | true
+    _min?: BannerCampaignMinAggregateInputType
+    _max?: BannerCampaignMaxAggregateInputType
+  }
+
+  export type BannerCampaignGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    imageUrl: string
+    isActive: boolean
+    publishAt: Date
+    publishUntil: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: BannerCampaignCountAggregateOutputType | null
+    _min: BannerCampaignMinAggregateOutputType | null
+    _max: BannerCampaignMaxAggregateOutputType | null
+  }
+
+  type GetBannerCampaignGroupByPayload<T extends BannerCampaignGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BannerCampaignGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BannerCampaignGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BannerCampaignGroupByOutputType[P]>
+            : GetScalarType<T[P], BannerCampaignGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BannerCampaignSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    isActive?: boolean
+    publishAt?: boolean
+    publishUntil?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["bannerCampaign"]>
+
+  export type BannerCampaignSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    isActive?: boolean
+    publishAt?: boolean
+    publishUntil?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["bannerCampaign"]>
+
+  export type BannerCampaignSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    isActive?: boolean
+    publishAt?: boolean
+    publishUntil?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["bannerCampaign"]>
+
+  export type BannerCampaignSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    isActive?: boolean
+    publishAt?: boolean
+    publishUntil?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BannerCampaignOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "imageUrl" | "isActive" | "publishAt" | "publishUntil" | "createdAt" | "updatedAt", ExtArgs["result"]["bannerCampaign"]>
+
+  export type $BannerCampaignPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BannerCampaign"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      imageUrl: string
+      isActive: boolean
+      publishAt: Date
+      publishUntil: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["bannerCampaign"]>
+    composites: {}
+  }
+
+  type BannerCampaignGetPayload<S extends boolean | null | undefined | BannerCampaignDefaultArgs> = $Result.GetResult<Prisma.$BannerCampaignPayload, S>
+
+  type BannerCampaignCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BannerCampaignFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BannerCampaignCountAggregateInputType | true
+    }
+
+  export interface BannerCampaignDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BannerCampaign'], meta: { name: 'BannerCampaign' } }
+    /**
+     * Find zero or one BannerCampaign that matches the filter.
+     * @param {BannerCampaignFindUniqueArgs} args - Arguments to find a BannerCampaign
+     * @example
+     * // Get one BannerCampaign
+     * const bannerCampaign = await prisma.bannerCampaign.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BannerCampaignFindUniqueArgs>(args: SelectSubset<T, BannerCampaignFindUniqueArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BannerCampaign that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BannerCampaignFindUniqueOrThrowArgs} args - Arguments to find a BannerCampaign
+     * @example
+     * // Get one BannerCampaign
+     * const bannerCampaign = await prisma.bannerCampaign.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BannerCampaignFindUniqueOrThrowArgs>(args: SelectSubset<T, BannerCampaignFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BannerCampaign that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannerCampaignFindFirstArgs} args - Arguments to find a BannerCampaign
+     * @example
+     * // Get one BannerCampaign
+     * const bannerCampaign = await prisma.bannerCampaign.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BannerCampaignFindFirstArgs>(args?: SelectSubset<T, BannerCampaignFindFirstArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BannerCampaign that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannerCampaignFindFirstOrThrowArgs} args - Arguments to find a BannerCampaign
+     * @example
+     * // Get one BannerCampaign
+     * const bannerCampaign = await prisma.bannerCampaign.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BannerCampaignFindFirstOrThrowArgs>(args?: SelectSubset<T, BannerCampaignFindFirstOrThrowArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BannerCampaigns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannerCampaignFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BannerCampaigns
+     * const bannerCampaigns = await prisma.bannerCampaign.findMany()
+     * 
+     * // Get first 10 BannerCampaigns
+     * const bannerCampaigns = await prisma.bannerCampaign.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bannerCampaignWithIdOnly = await prisma.bannerCampaign.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BannerCampaignFindManyArgs>(args?: SelectSubset<T, BannerCampaignFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BannerCampaign.
+     * @param {BannerCampaignCreateArgs} args - Arguments to create a BannerCampaign.
+     * @example
+     * // Create one BannerCampaign
+     * const BannerCampaign = await prisma.bannerCampaign.create({
+     *   data: {
+     *     // ... data to create a BannerCampaign
+     *   }
+     * })
+     * 
+     */
+    create<T extends BannerCampaignCreateArgs>(args: SelectSubset<T, BannerCampaignCreateArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BannerCampaigns.
+     * @param {BannerCampaignCreateManyArgs} args - Arguments to create many BannerCampaigns.
+     * @example
+     * // Create many BannerCampaigns
+     * const bannerCampaign = await prisma.bannerCampaign.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BannerCampaignCreateManyArgs>(args?: SelectSubset<T, BannerCampaignCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BannerCampaigns and returns the data saved in the database.
+     * @param {BannerCampaignCreateManyAndReturnArgs} args - Arguments to create many BannerCampaigns.
+     * @example
+     * // Create many BannerCampaigns
+     * const bannerCampaign = await prisma.bannerCampaign.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BannerCampaigns and only return the `id`
+     * const bannerCampaignWithIdOnly = await prisma.bannerCampaign.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BannerCampaignCreateManyAndReturnArgs>(args?: SelectSubset<T, BannerCampaignCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BannerCampaign.
+     * @param {BannerCampaignDeleteArgs} args - Arguments to delete one BannerCampaign.
+     * @example
+     * // Delete one BannerCampaign
+     * const BannerCampaign = await prisma.bannerCampaign.delete({
+     *   where: {
+     *     // ... filter to delete one BannerCampaign
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BannerCampaignDeleteArgs>(args: SelectSubset<T, BannerCampaignDeleteArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BannerCampaign.
+     * @param {BannerCampaignUpdateArgs} args - Arguments to update one BannerCampaign.
+     * @example
+     * // Update one BannerCampaign
+     * const bannerCampaign = await prisma.bannerCampaign.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BannerCampaignUpdateArgs>(args: SelectSubset<T, BannerCampaignUpdateArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BannerCampaigns.
+     * @param {BannerCampaignDeleteManyArgs} args - Arguments to filter BannerCampaigns to delete.
+     * @example
+     * // Delete a few BannerCampaigns
+     * const { count } = await prisma.bannerCampaign.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BannerCampaignDeleteManyArgs>(args?: SelectSubset<T, BannerCampaignDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BannerCampaigns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannerCampaignUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BannerCampaigns
+     * const bannerCampaign = await prisma.bannerCampaign.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BannerCampaignUpdateManyArgs>(args: SelectSubset<T, BannerCampaignUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BannerCampaigns and returns the data updated in the database.
+     * @param {BannerCampaignUpdateManyAndReturnArgs} args - Arguments to update many BannerCampaigns.
+     * @example
+     * // Update many BannerCampaigns
+     * const bannerCampaign = await prisma.bannerCampaign.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BannerCampaigns and only return the `id`
+     * const bannerCampaignWithIdOnly = await prisma.bannerCampaign.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BannerCampaignUpdateManyAndReturnArgs>(args: SelectSubset<T, BannerCampaignUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BannerCampaign.
+     * @param {BannerCampaignUpsertArgs} args - Arguments to update or create a BannerCampaign.
+     * @example
+     * // Update or create a BannerCampaign
+     * const bannerCampaign = await prisma.bannerCampaign.upsert({
+     *   create: {
+     *     // ... data to create a BannerCampaign
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BannerCampaign we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BannerCampaignUpsertArgs>(args: SelectSubset<T, BannerCampaignUpsertArgs<ExtArgs>>): Prisma__BannerCampaignClient<$Result.GetResult<Prisma.$BannerCampaignPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BannerCampaigns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannerCampaignCountArgs} args - Arguments to filter BannerCampaigns to count.
+     * @example
+     * // Count the number of BannerCampaigns
+     * const count = await prisma.bannerCampaign.count({
+     *   where: {
+     *     // ... the filter for the BannerCampaigns we want to count
+     *   }
+     * })
+    **/
+    count<T extends BannerCampaignCountArgs>(
+      args?: Subset<T, BannerCampaignCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BannerCampaignCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BannerCampaign.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannerCampaignAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BannerCampaignAggregateArgs>(args: Subset<T, BannerCampaignAggregateArgs>): Prisma.PrismaPromise<GetBannerCampaignAggregateType<T>>
+
+    /**
+     * Group by BannerCampaign.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannerCampaignGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BannerCampaignGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BannerCampaignGroupByArgs['orderBy'] }
+        : { orderBy?: BannerCampaignGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BannerCampaignGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBannerCampaignGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BannerCampaign model
+   */
+  readonly fields: BannerCampaignFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BannerCampaign.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BannerCampaignClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BannerCampaign model
+   */
+  interface BannerCampaignFieldRefs {
+    readonly id: FieldRef<"BannerCampaign", 'String'>
+    readonly name: FieldRef<"BannerCampaign", 'String'>
+    readonly description: FieldRef<"BannerCampaign", 'String'>
+    readonly imageUrl: FieldRef<"BannerCampaign", 'String'>
+    readonly isActive: FieldRef<"BannerCampaign", 'Boolean'>
+    readonly publishAt: FieldRef<"BannerCampaign", 'DateTime'>
+    readonly publishUntil: FieldRef<"BannerCampaign", 'DateTime'>
+    readonly createdAt: FieldRef<"BannerCampaign", 'DateTime'>
+    readonly updatedAt: FieldRef<"BannerCampaign", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BannerCampaign findUnique
+   */
+  export type BannerCampaignFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * Filter, which BannerCampaign to fetch.
+     */
+    where: BannerCampaignWhereUniqueInput
+  }
+
+  /**
+   * BannerCampaign findUniqueOrThrow
+   */
+  export type BannerCampaignFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * Filter, which BannerCampaign to fetch.
+     */
+    where: BannerCampaignWhereUniqueInput
+  }
+
+  /**
+   * BannerCampaign findFirst
+   */
+  export type BannerCampaignFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * Filter, which BannerCampaign to fetch.
+     */
+    where?: BannerCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannerCampaigns to fetch.
+     */
+    orderBy?: BannerCampaignOrderByWithRelationInput | BannerCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannerCampaigns.
+     */
+    cursor?: BannerCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannerCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannerCampaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannerCampaigns.
+     */
+    distinct?: BannerCampaignScalarFieldEnum | BannerCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * BannerCampaign findFirstOrThrow
+   */
+  export type BannerCampaignFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * Filter, which BannerCampaign to fetch.
+     */
+    where?: BannerCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannerCampaigns to fetch.
+     */
+    orderBy?: BannerCampaignOrderByWithRelationInput | BannerCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannerCampaigns.
+     */
+    cursor?: BannerCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannerCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannerCampaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannerCampaigns.
+     */
+    distinct?: BannerCampaignScalarFieldEnum | BannerCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * BannerCampaign findMany
+   */
+  export type BannerCampaignFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * Filter, which BannerCampaigns to fetch.
+     */
+    where?: BannerCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannerCampaigns to fetch.
+     */
+    orderBy?: BannerCampaignOrderByWithRelationInput | BannerCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BannerCampaigns.
+     */
+    cursor?: BannerCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannerCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannerCampaigns.
+     */
+    skip?: number
+    distinct?: BannerCampaignScalarFieldEnum | BannerCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * BannerCampaign create
+   */
+  export type BannerCampaignCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * The data needed to create a BannerCampaign.
+     */
+    data: XOR<BannerCampaignCreateInput, BannerCampaignUncheckedCreateInput>
+  }
+
+  /**
+   * BannerCampaign createMany
+   */
+  export type BannerCampaignCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BannerCampaigns.
+     */
+    data: BannerCampaignCreateManyInput | BannerCampaignCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BannerCampaign createManyAndReturn
+   */
+  export type BannerCampaignCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * The data used to create many BannerCampaigns.
+     */
+    data: BannerCampaignCreateManyInput | BannerCampaignCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BannerCampaign update
+   */
+  export type BannerCampaignUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * The data needed to update a BannerCampaign.
+     */
+    data: XOR<BannerCampaignUpdateInput, BannerCampaignUncheckedUpdateInput>
+    /**
+     * Choose, which BannerCampaign to update.
+     */
+    where: BannerCampaignWhereUniqueInput
+  }
+
+  /**
+   * BannerCampaign updateMany
+   */
+  export type BannerCampaignUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BannerCampaigns.
+     */
+    data: XOR<BannerCampaignUpdateManyMutationInput, BannerCampaignUncheckedUpdateManyInput>
+    /**
+     * Filter which BannerCampaigns to update
+     */
+    where?: BannerCampaignWhereInput
+    /**
+     * Limit how many BannerCampaigns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BannerCampaign updateManyAndReturn
+   */
+  export type BannerCampaignUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * The data used to update BannerCampaigns.
+     */
+    data: XOR<BannerCampaignUpdateManyMutationInput, BannerCampaignUncheckedUpdateManyInput>
+    /**
+     * Filter which BannerCampaigns to update
+     */
+    where?: BannerCampaignWhereInput
+    /**
+     * Limit how many BannerCampaigns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BannerCampaign upsert
+   */
+  export type BannerCampaignUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * The filter to search for the BannerCampaign to update in case it exists.
+     */
+    where: BannerCampaignWhereUniqueInput
+    /**
+     * In case the BannerCampaign found by the `where` argument doesn't exist, create a new BannerCampaign with this data.
+     */
+    create: XOR<BannerCampaignCreateInput, BannerCampaignUncheckedCreateInput>
+    /**
+     * In case the BannerCampaign was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BannerCampaignUpdateInput, BannerCampaignUncheckedUpdateInput>
+  }
+
+  /**
+   * BannerCampaign delete
+   */
+  export type BannerCampaignDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+    /**
+     * Filter which BannerCampaign to delete.
+     */
+    where: BannerCampaignWhereUniqueInput
+  }
+
+  /**
+   * BannerCampaign deleteMany
+   */
+  export type BannerCampaignDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannerCampaigns to delete
+     */
+    where?: BannerCampaignWhereInput
+    /**
+     * Limit how many BannerCampaigns to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BannerCampaign without action
+   */
+  export type BannerCampaignDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannerCampaign
+     */
+    select?: BannerCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannerCampaign
+     */
+    omit?: BannerCampaignOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37988,6 +39126,21 @@ export namespace Prisma {
   };
 
   export type TenantReportScalarFieldEnum = (typeof TenantReportScalarFieldEnum)[keyof typeof TenantReportScalarFieldEnum]
+
+
+  export const BannerCampaignScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    imageUrl: 'imageUrl',
+    isActive: 'isActive',
+    publishAt: 'publishAt',
+    publishUntil: 'publishUntil',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BannerCampaignScalarFieldEnum = (typeof BannerCampaignScalarFieldEnum)[keyof typeof BannerCampaignScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -40654,6 +41807,78 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"TenantReport"> | Date | string
   }
 
+  export type BannerCampaignWhereInput = {
+    AND?: BannerCampaignWhereInput | BannerCampaignWhereInput[]
+    OR?: BannerCampaignWhereInput[]
+    NOT?: BannerCampaignWhereInput | BannerCampaignWhereInput[]
+    id?: UuidFilter<"BannerCampaign"> | string
+    name?: StringFilter<"BannerCampaign"> | string
+    description?: StringNullableFilter<"BannerCampaign"> | string | null
+    imageUrl?: StringFilter<"BannerCampaign"> | string
+    isActive?: BoolFilter<"BannerCampaign"> | boolean
+    publishAt?: DateTimeFilter<"BannerCampaign"> | Date | string
+    publishUntil?: DateTimeFilter<"BannerCampaign"> | Date | string
+    createdAt?: DateTimeFilter<"BannerCampaign"> | Date | string
+    updatedAt?: DateTimeFilter<"BannerCampaign"> | Date | string
+  }
+
+  export type BannerCampaignOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    imageUrl?: SortOrder
+    isActive?: SortOrder
+    publishAt?: SortOrder
+    publishUntil?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BannerCampaignWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BannerCampaignWhereInput | BannerCampaignWhereInput[]
+    OR?: BannerCampaignWhereInput[]
+    NOT?: BannerCampaignWhereInput | BannerCampaignWhereInput[]
+    name?: StringFilter<"BannerCampaign"> | string
+    description?: StringNullableFilter<"BannerCampaign"> | string | null
+    imageUrl?: StringFilter<"BannerCampaign"> | string
+    isActive?: BoolFilter<"BannerCampaign"> | boolean
+    publishAt?: DateTimeFilter<"BannerCampaign"> | Date | string
+    publishUntil?: DateTimeFilter<"BannerCampaign"> | Date | string
+    createdAt?: DateTimeFilter<"BannerCampaign"> | Date | string
+    updatedAt?: DateTimeFilter<"BannerCampaign"> | Date | string
+  }, "id">
+
+  export type BannerCampaignOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    imageUrl?: SortOrder
+    isActive?: SortOrder
+    publishAt?: SortOrder
+    publishUntil?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BannerCampaignCountOrderByAggregateInput
+    _max?: BannerCampaignMaxOrderByAggregateInput
+    _min?: BannerCampaignMinOrderByAggregateInput
+  }
+
+  export type BannerCampaignScalarWhereWithAggregatesInput = {
+    AND?: BannerCampaignScalarWhereWithAggregatesInput | BannerCampaignScalarWhereWithAggregatesInput[]
+    OR?: BannerCampaignScalarWhereWithAggregatesInput[]
+    NOT?: BannerCampaignScalarWhereWithAggregatesInput | BannerCampaignScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"BannerCampaign"> | string
+    name?: StringWithAggregatesFilter<"BannerCampaign"> | string
+    description?: StringNullableWithAggregatesFilter<"BannerCampaign"> | string | null
+    imageUrl?: StringWithAggregatesFilter<"BannerCampaign"> | string
+    isActive?: BoolWithAggregatesFilter<"BannerCampaign"> | boolean
+    publishAt?: DateTimeWithAggregatesFilter<"BannerCampaign"> | Date | string
+    publishUntil?: DateTimeWithAggregatesFilter<"BannerCampaign"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"BannerCampaign"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BannerCampaign"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -43317,6 +44542,90 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BannerCampaignCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    imageUrl: string
+    isActive?: boolean
+    publishAt: Date | string
+    publishUntil: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BannerCampaignUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    imageUrl: string
+    isActive?: boolean
+    publishAt: Date | string
+    publishUntil: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BannerCampaignUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    publishUntil?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BannerCampaignUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    publishUntil?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BannerCampaignCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    imageUrl: string
+    isActive?: boolean
+    publishAt: Date | string
+    publishUntil: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BannerCampaignUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    publishUntil?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BannerCampaignUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    publishUntil?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -45377,6 +46686,42 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedJsonFilter<$PrismaModel>
     _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type BannerCampaignCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    isActive?: SortOrder
+    publishAt?: SortOrder
+    publishUntil?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BannerCampaignMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    isActive?: SortOrder
+    publishAt?: SortOrder
+    publishUntil?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BannerCampaignMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    isActive?: SortOrder
+    publishAt?: SortOrder
+    publishUntil?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TenantCreateNestedManyWithoutUserInput = {

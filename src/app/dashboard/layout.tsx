@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "../globals.css";
 export const metadata = {
   title: 'Admin Dashboard',
 };
@@ -17,6 +17,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <a href="/dashboard/subscriptions" style={{ color: '#cbd5e1', display: 'block', marginBottom: 8 }}>Subscriptions</a>
               <a href="/dashboard/tenant-subscriptions" style={{ color: '#cbd5e1', display: 'block', marginBottom: 8 }}>Tenant Subscriptions</a>
               <a href="/dashboard/users" style={{ color: '#cbd5e1', display: 'block', marginBottom: 8 }}>Users</a>
+              <a href="/dashboard/banner" style={{ color: '#cbd5e1', display: 'block', marginBottom: 8 }}>Banner</a>
             </nav>
           </aside>
 
