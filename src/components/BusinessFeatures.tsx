@@ -10,23 +10,23 @@ interface Feature {
 export default function BusinessFeatures() {
   const features: Feature[] = [
     {
-      title: "Suitable For All Types Businesses",
-      description: "From restaurants to retail stores, our POS adapts to your business needs",
+      title: "Cocok Untuk Semua Jenis Bisnis",
+      description: "Dari restoran hingga toko ritel, POS kami beradaptasi dengan kebutuhan bisnis Anda",
       icon: "🏪"
     },
     {
-      title: "Cost Effective With Affordable Price",
-      description: "Get enterprise-level features without breaking the bank",
+      title: "Efektif Biaya dengan Harga Terjangkau",
+      description: "Dapatkan fitur setara perusahaan tanpa menguras kantong",
       icon: "💰"
     },
     {
-      title: "Easy to Setup & No IT knowledge Need",
-      description: "Start selling in minutes with our intuitive setup process",
+      title: "Mudah Diatur & Tidak Membutuhkan Pengetahuan IT",
+      description: "Mulai berjualan dalam hitungan menit dengan proses pengaturan yang intuitif",
       icon: "⚡"
     },
     {
-      title: "Modern & Attractive User Dashboard",
-      description: "Beautiful, responsive interface that your team will love to use",
+      title: "Dashboard Pengguna Modern & Menarik",
+      description: "Antarmuka yang indah dan responsif yang akan disukai tim Anda",
       icon: "📊"
     }
   ]
@@ -36,10 +36,10 @@ export default function BusinessFeatures() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Why Choose Puni POS?
+            Kenapa Memilih Puni POS?
           </h2>
           <p className="text-xl text-gray-600">
-            Everything you need to manage your business efficiently
+            Semua yang Anda butuhkan untuk mengelola bisnis Anda dengan efisien
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

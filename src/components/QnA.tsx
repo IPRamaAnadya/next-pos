@@ -13,16 +13,16 @@ export default function QnA() {
 
   const faqs: FAQ[] = [
     {
-      question: "Is Puni POS really free?",
-      answer: "Yes! We offer a free plan that includes all basic features you need to get started. You can upgrade to premium plans as your business grows."
+      question: "Apakah Puni POS benar-benar gratis?",
+      answer: "Ya! Kami menawarkan paket gratis yang mencakup semua fitur dasar yang Anda butuhkan untuk memulai. Anda dapat meningkatkan ke paket premium saat bisnis Anda berkembang."
     },
     {
-      question: "Do I need any technical knowledge to set up Puni POS?",
-      answer: "No technical knowledge required! Our system is designed to be user-friendly. You can set up everything in just a few minutes with our step-by-step guide."
+      question: "Apakah saya perlu pengetahuan teknis untuk mengatur Puni POS?",
+      answer: "Tidak perlu pengetahuan teknis! Sistem kami dirancang agar mudah digunakan. Anda dapat mengatur semuanya hanya dalam beberapa menit dengan panduan langkah demi langkah kami."
     },
     {
-      question: "Can I use Puni POS on multiple devices?",
-      answer: "Yes, Puni POS works on multiple devices including tablets and smartphones. You can access your data from anywhere."
+      question: "Bisakah saya menggunakan Puni POS di beberapa perangkat?",
+      answer: "Ya, Puni POS dapat digunakan di beberapa perangkat termasuk tablet dan smartphone. Anda dapat mengakses data Anda dari mana saja."
     }
   ]
 
@@ -31,10 +31,10 @@ export default function QnA() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
+            Pertanyaan yang Sering Diajukan
           </h2>
           <p className="text-xl text-gray-600">
-            Everything you need to know about Puni POS
+            Semua yang perlu Anda ketahui tentang Puni POS
           </p>
         </div>
         <div className="space-y-4">

@@ -10,8 +10,8 @@ import QnA from '@/components/QnA'
 import ContactSection from '@/components/ContactSection'
 
 export const metadata: Metadata = {
-  title: 'Puni POS - Modern Point of Sale System',
-  description: 'Modern POS system for all types of businesses. Easy setup, cost-effective, and feature-rich.',
+  title: 'Puni POS - Sistem Point of Sale Modern',
+  description: 'Sistem POS modern untuk semua jenis bisnis. Mudah diatur, hemat biaya, dan kaya fitur.',
 }
 
 export default function Home() {

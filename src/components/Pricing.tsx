@@ -39,9 +39,9 @@ export default function Pricing() {
                   Email support
                 </li>
               </ul>
-              <button className="btn-primary w-full">
+              <a href="/register" className="btn-primary w-full">
                 Get Started Free
-              </button>
+              </a>
             </div>
           </div>
         </div>

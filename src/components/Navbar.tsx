@@ -19,10 +19,10 @@ export default function Navbar({
   logo = '/images/logo.png',
   appName = 'Puni POS',
   menus = [
-    { label: 'Features', href: '#features' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Reviews', href: '#reviews' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Fitur', href: '/#Fitur' },
+    { label: 'Harga', href: '/#Harga' },
+    { label: 'Ulasan', href: '/#Ulasan' },
+    { label: 'Kontak', href: '/#Kontak' },
   ]
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -50,10 +50,13 @@ export default function Navbar({
               </Link>
             ))}
             <Link href="/privacy" className="text-gray-700 hover:text-indigo-600 transition-colors duration-200">
-              Privacy
+              Privasi
             </Link>
-            <Link href="/contact" className="btn-primary">
-              Contact Us
+            <Link href="/bantuan" className="text-gray-700 hover:text-indigo-600 transition-colors duration-200">
+              Bantuan
+            </Link>
+            <Link href="/register" className="btn-primary  hover:text-indigo-600 transition-colors duration-200">
+              Daftar
             </Link>
           </div>
 
@@ -88,11 +91,17 @@ export default function Navbar({
                   {menu.label}
                 </Link>
               ))}
-              <Link href="/privacy" className="block px-3 py-2 text-gray-700 hover:text-indigo-600 transition-colors duration-200">
-                Privacy
+              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-indigo-600 transition-colors duration-200">
+                Privasi
               </Link>
-              <Link href="/contact" className="block px-3 py-2">
-                <span className="btn-primary w-full text-center">Contact Us</span>
+              <Link href="/" className="block px-3 py-2">
+                <span className="btn-primary w-full text-center">Hubungi Kami</span>
+              </Link>
+              <Link href="/bantuan" className="block px-3 py-2 text-gray-700 hover:text-indigo-600 transition-colors duration-200">
+                Bantuan
+              </Link>
+              <Link href="/register" className="block px-3 py-2 text-gray-700 hover:text-indigo-600 transition-colors duration-200">
+                Daftar
               </Link>
             </div>
           </div>

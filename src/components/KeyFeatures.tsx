@@ -12,23 +12,23 @@ interface KeyFeature {
 export default function KeyFeatures() {
   const keyFeatures: KeyFeature[] = [
     {
-      title: "Inventory Management",
-      description: "Track stock levels, manage suppliers, and get low-stock alerts in real-time",
+      title: "Manajemen Inventaris",
+      description: "Pantau stok, kelola pemasok, dan dapatkan peringatan stok rendah secara real-time",
       image: "https://images.unsplash.com/photo-1721937718756-3bfec49f42a2?q=80&w=737&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
-      title: "Sales & Payment Process",
-      description: "Accept multiple payment methods, process refunds, and manage transactions seamlessly",
+      title: "Proses Penjualan & Pembayaran",
+      description: "Terima berbagai metode pembayaran, proses pengembalian dana, dan kelola transaksi dengan mudah",
       image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
-      title: "Report and Analysis",
-      description: "Get detailed insights with comprehensive sales reports and analytics dashboard",
+      title: "Laporan dan Analisis",
+      description: "Dapatkan wawasan mendalam dengan laporan penjualan yang lengkap dan dasbor analitik",
       image: "https://images.unsplash.com/photo-1560221328-12fe60f83ab8?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       title: "Multi Tenant",
-      description: "Manage multiple stores or locations from a single dashboard with ease",
+      description: "Kelola beberapa toko atau lokasi dari satu dasbor dengan mudah",
       image: "https://images.unsplash.com/photo-1575193506520-45ff0a377fb8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
   ]
@@ -38,10 +38,10 @@ export default function KeyFeatures() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Key Features
+            Fitur Utama
           </h2>
           <p className="text-xl text-gray-600">
-            Powerful tools to streamline your business operations
+            Alat canggih untuk mempermudah operasional bisnis Anda
           </p>
         </div>
         <div className="space-y-20">

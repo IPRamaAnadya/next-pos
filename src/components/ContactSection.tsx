@@ -13,7 +13,7 @@ export default function ContactSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const phone = '6287862175374';
-    const text = `Contact Form\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`;
+    const text = `Formulir Kontak\nNama: ${formData.name}\nEmail: ${formData.email}\nPesan: ${formData.message}`;
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     window.open(waUrl, '_blank');
   }
@@ -30,17 +30,17 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Get In Touch
+            Hubungi Kami
           </h2>
           <p className="text-xl text-gray-600">
-            Have questions? We'd love to hear from you!
+            Ada pertanyaan? Kami senang mendengarnya!
           </p>
         </div>
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8">
             <div className="mb-6">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                Name
+                Nama
               </label>
               <input
                 type="text"
@@ -68,7 +68,7 @@ export default function ContactSection() {
             </div>
             <div className="mb-6">
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                Message
+                Pesan
               </label>
               <textarea
                 id="message"
@@ -81,7 +81,7 @@ export default function ContactSection() {
               />
             </div>
             <button type="submit" className="btn-primary w-full">
-              Send Message
+              Kirim Pesan
             </button>
           </form>
         </div>
