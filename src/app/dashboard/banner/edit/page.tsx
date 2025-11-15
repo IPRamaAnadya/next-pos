@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface FormData {
@@ -13,6 +13,16 @@ interface FormData {
 }
 
 export default function EditBannerPage() {
+  const router = useRouter();
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EditBannerContent router={router} />
+    </Suspense>
+  );
+}
+
+function EditBannerContent({ router }: { router: ReturnType<typeof useRouter> }) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     description: "",
@@ -23,7 +33,6 @@ export default function EditBannerPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const router = useRouter();
   const searchParams = useSearchParams();
   const bannerId = searchParams.get("id");
 
@@ -125,6 +134,7 @@ export default function EditBannerPage() {
             value={formData.description}
             onChange={handleChange}
             className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            required
           />
         </div>
         <div>
