@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyToken } from '@/app/api/utils/jwt';
 import { orderUpdateSchema } from '@/utils/validation/orderSchema';
-import { json } from 'stream/consumers';
 
 // GET: Get order details (replacing get_order_detail)
 export async function GET(req: Request, { params }: { params: { tenantId: string, id: string } }) {
@@ -129,7 +128,6 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
         });
       }
 
-      // ...existing code...
       // Send notification after order update
       try {
         const customer = await prisma.customer.findUnique({ where: { id: orderData.customerId ?? '' } });
@@ -159,7 +157,12 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
           );
         }
       } catch (notifyError) {
-        console.error('Notification error:', notifyError);
+        // Log notification error but don't throw - order update should succeed even if notification fails
+        console.error('Failed to send order notification, but order was updated successfully:', {
+          orderId: updatedOrder.id,
+          tenantId,
+          error: notifyError instanceof Error ? notifyError.message : String(notifyError)
+        });
       }
       return updatedOrder;
     });

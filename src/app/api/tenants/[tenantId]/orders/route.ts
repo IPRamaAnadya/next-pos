@@ -182,9 +182,6 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
       // Send notification after order creation
       if (ord) {
         try {
-
-
-
           // add totalPrice to each item
           // e.g. Math.round(item.productPrice * item.qty),
           ord.items = ord.items.map(item => {
@@ -221,7 +218,12 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
             );
           }
         } catch (notifyError) {
-          console.log('Notification error:', notifyError);
+          // Log notification error but don't throw - order creation should succeed even if notification fails
+          console.error('Failed to send order notification, but order was created successfully:', {
+            orderId: ord.id,
+            tenantId: tenantIdFromUrl,
+            error: notifyError instanceof Error ? notifyError.message : String(notifyError)
+          });
         }
       }
       return ord;
