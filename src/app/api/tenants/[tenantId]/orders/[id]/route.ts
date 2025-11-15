@@ -127,43 +127,6 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
           data: { lastPointsAccumulation: updatedCustomer?.points },
         });
       }
-
-      // Send notification after order update
-      try {
-        const customer = await prisma.customer.findUnique({ where: { id: orderData.customerId ?? '' } });
-
-        const notificationVars = {
-          phone: customer?.phone || '',
-          customerName: customer?.name || '',
-          grandTotal: `Rp${Number(orderData.grandTotal).toLocaleString('id-ID')}`,
-        };
-        if (updatedOrder.paymentStatus === 'paid') {
-          await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
-            sendOrderNotification({
-              tenantId,
-              event: 'ORDER_PAID',
-              orderId: updatedOrder.id,
-              variables: notificationVars
-            })
-          );
-        } else {
-          await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
-            sendOrderNotification({
-              tenantId,
-              event: 'ORDER_CREATED',
-              orderId: updatedOrder.id,
-              variables: notificationVars
-            })
-          );
-        }
-      } catch (notifyError) {
-        // Log notification error but don't throw - order update should succeed even if notification fails
-        console.error('Failed to send order notification, but order was updated successfully:', {
-          orderId: updatedOrder.id,
-          tenantId,
-          error: notifyError instanceof Error ? notifyError.message : String(notifyError)
-        });
-      }
       return updatedOrder;
     });
 
@@ -182,6 +145,44 @@ export async function PUT(req: Request, { params }: { params: { tenantId: string
         totalPrice: Math.round(item.productPrice * item.qty),
       })),
     };
+
+    // Send notification after order update (outside transaction)
+    try {
+      const customer = await prisma.customer.findUnique({ where: { id: orderWithTotal.customerId ?? '' } });
+
+      const notificationVars = {
+        phone: customer?.phone || '',
+        customerName: customer?.name || '',
+        grandTotal: `Rp${Number(orderWithTotal.grandTotal).toLocaleString('id-ID')}`,
+      };
+      if (orderWithTotal.paymentStatus === 'paid') {
+        await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+          sendOrderNotification({
+            tenantId,
+            event: 'ORDER_PAID',
+            orderId: orderWithTotal.id,
+            variables: notificationVars
+          })
+        );
+      } else {
+        await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+          sendOrderNotification({
+            tenantId,
+            event: 'ORDER_CREATED',
+            orderId: orderWithTotal.id,
+            variables: notificationVars
+          })
+        );
+      }
+    } catch (notifyError) {
+      // Log notification error but don't throw - order update should succeed even if notification fails
+      console.error('Failed to send order notification, but order was updated successfully:', {
+        orderId: orderWithTotal.id,
+        tenantId,
+        error: notifyError instanceof Error ? notifyError.message : String(notifyError)
+      });
+    }
+
     const jsonResponse = {
       data: {
         order: orderWithTotal

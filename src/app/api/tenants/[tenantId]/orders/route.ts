@@ -177,57 +177,55 @@ export async function POST(req: Request, { params }: { params: { tenantId: strin
         include: { items: true },
       });
 
-
-
-      // Send notification after order creation
-      if (ord) {
-        try {
-          // add totalPrice to each item
-          // e.g. Math.round(item.productPrice * item.qty),
-          ord.items = ord.items.map(item => {
-            return {
-              ...item,
-              totalPrice: Math.round(Number(item.productPrice) * Number(item.qty)),
-            };
-          });
-
-          const customer = await prisma.customer.findUnique({ where: { id: ord.customerId ?? '' } });
-
-          const notificationVars = {
-            phone: customer?.phone || '',
-            customerName: customer?.name || '',
-            grandTotal: `Rp${Number(ord.grandTotal).toLocaleString('id-ID')}`,
-          };
-          if (ord.paymentStatus === 'paid') {
-            await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
-              sendOrderNotification({
-                tenantId: tenantIdFromUrl,
-                event: 'ORDER_PAID',
-                orderId: ord.id,
-                variables: notificationVars
-              })
-            );
-          } else {
-            await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
-              sendOrderNotification({
-                tenantId: tenantIdFromUrl,
-                event: 'ORDER_CREATED',
-                orderId: ord.id,
-                variables: notificationVars
-              })
-            );
-          }
-        } catch (notifyError) {
-          // Log notification error but don't throw - order creation should succeed even if notification fails
-          console.error('Failed to send order notification, but order was created successfully:', {
-            orderId: ord.id,
-            tenantId: tenantIdFromUrl,
-            error: notifyError instanceof Error ? notifyError.message : String(notifyError)
-          });
-        }
-      }
       return ord;
     });
+
+    // Send notification after order creation (outside transaction)
+    if (newOrder) {
+      try {
+        // add totalPrice to each item
+        newOrder.items = newOrder.items.map(item => {
+          return {
+            ...item,
+            totalPrice: Math.round(Number(item.productPrice) * Number(item.qty)),
+          };
+        });
+
+        const customer = await prisma.customer.findUnique({ where: { id: newOrder.customerId ?? '' } });
+
+        const notificationVars = {
+          phone: customer?.phone || '',
+          customerName: customer?.name || '',
+          grandTotal: `Rp${Number(newOrder.grandTotal).toLocaleString('id-ID')}`,
+        };
+        if (newOrder.paymentStatus === 'paid') {
+          await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+            sendOrderNotification({
+              tenantId: tenantIdFromUrl,
+              event: 'ORDER_PAID',
+              orderId: newOrder.id,
+              variables: notificationVars
+            })
+          );
+        } else {
+          await import('@/lib/orderNotificationService').then(({ sendOrderNotification }) =>
+            sendOrderNotification({
+              tenantId: tenantIdFromUrl,
+              event: 'ORDER_CREATED',
+              orderId: newOrder.id,
+              variables: notificationVars
+            })
+          );
+        }
+      } catch (notifyError) {
+        // Log notification error but don't throw - order creation should succeed even if notification fails
+        console.error('Failed to send order notification, but order was created successfully:', {
+          orderId: newOrder.id,
+          tenantId: tenantIdFromUrl,
+          error: notifyError instanceof Error ? notifyError.message : String(notifyError)
+        });
+      }
+    }
 
     const jsonResponse = {
       'data': {
