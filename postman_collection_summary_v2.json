@@ -1,0 +1,450 @@
+{
+  "info": {
+    "name": "Summary V2 API Collection",
+    "description": "Collection of Summary V2 endpoints with UTC datetime handling and optimized queries",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "summary-v2-api"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "tenant_id",
+      "value": "your-tenant-id-here",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Daily Orders Summary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-orders?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "daily-orders"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-01-01T00:00:00.000Z",
+              "description": "Start date in UTC ISO format"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-01-31T23:59:59.999Z",
+              "description": "End date in UTC ISO format"
+            }
+          ]
+        },
+        "description": "Get daily aggregated summaries including orders, revenue, expenses, and net profit for a date range."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-orders?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Daily orders summary retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": [\n    {\n      \"date\": \"2025-01-01\",\n      \"total_orders\": 15,\n      \"total_revenue\": 1500000,\n      \"total_expenses\": 300000,\n      \"total_payments_received\": 1500000,\n      \"net_profit\": 1200000\n    },\n    {\n      \"date\": \"2025-01-02\",\n      \"total_orders\": 20,\n      \"total_revenue\": 2200000,\n      \"total_expenses\": 450000,\n      \"total_payments_received\": 2200000,\n      \"net_profit\": 1750000\n    },\n    {\n      \"date\": \"2025-01-03\",\n      \"total_orders\": 12,\n      \"total_revenue\": 980000,\n      \"total_expenses\": 220000,\n      \"total_payments_received\": 980000,\n      \"net_profit\": 760000\n    }\n  ],\n  \"pagination\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Payment Method Summary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/payment-methods?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "payment-methods"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-01-01T00:00:00.000Z",
+              "description": "Start date in UTC ISO format"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-01-31T23:59:59.999Z",
+              "description": "End date in UTC ISO format"
+            }
+          ]
+        },
+        "description": "Get breakdown of orders by payment method and expenses by payment type."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/payment-methods?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Payment method summary retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"tenant_id\": \"tenant-123\",\n    \"date_range\": {\n      \"start_date\": \"2025-01-01T00:00:00.000Z\",\n      \"end_date\": \"2025-01-31T23:59:59.999Z\"\n    },\n    \"payment_breakdown\": [\n      {\n        \"payment_method\": \"cash\",\n        \"total_amount\": 8500000\n      },\n      {\n        \"payment_method\": \"card\",\n        \"total_amount\": 7200000\n      },\n      {\n        \"payment_method\": \"qris\",\n        \"total_amount\": 3500000\n      },\n      {\n        \"payment_method\": \"transfer\",\n        \"total_amount\": 2100000\n      }\n    ],\n    \"expense_breakdown\": [\n      {\n        \"payment_type\": \"cash\",\n        \"total_amount\": 1200000\n      },\n      {\n        \"payment_type\": \"transfer\",\n        \"total_amount\": 800000\n      }\n    ]\n  },\n  \"pagination\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Today's Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/today-orders?todayStart=2025-11-22T00:00:00.000Z&todayEnd=2025-11-22T23:59:59.999Z",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "today-orders"],
+          "query": [
+            {
+              "key": "todayStart",
+              "value": "2025-11-22T00:00:00.000Z",
+              "description": "Start of today in UTC"
+            },
+            {
+              "key": "todayEnd",
+              "value": "2025-11-22T23:59:59.999Z",
+              "description": "End of today in UTC"
+            }
+          ]
+        },
+        "description": "Get list of today's paid orders with customer information."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/today-orders?todayStart=2025-11-22T00:00:00.000Z&todayEnd=2025-11-22T23:59:59.999Z"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Today's orders retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"orders\": [\n      {\n        \"grand_total\": 125000,\n        \"payment_date\": \"2025-11-22T02:15:30.000Z\",\n        \"customer_name\": \"John Doe\"\n      },\n      {\n        \"grand_total\": 85000,\n        \"payment_date\": \"2025-11-22T03:45:12.000Z\",\n        \"customer_name\": \"Jane Smith\"\n      },\n      {\n        \"grand_total\": 200000,\n        \"payment_date\": \"2025-11-22T05:20:55.000Z\",\n        \"customer_name\": \"Bob Johnson\"\n      },\n      {\n        \"grand_total\": 67500,\n        \"payment_date\": \"2025-11-22T07:10:22.000Z\",\n        \"customer_name\": null\n      }\n    ],\n    \"total_orders\": 4,\n    \"total_revenue\": 477500\n  },\n  \"pagination\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Today's Expenses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/today-expenses?todayStart=2025-11-22T00:00:00.000Z",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "today-expenses"],
+          "query": [
+            {
+              "key": "todayStart",
+              "value": "2025-11-22T00:00:00.000Z",
+              "description": "Start of today in UTC"
+            }
+          ]
+        },
+        "description": "Get today's total expenses amount."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/today-expenses?todayStart=2025-11-22T00:00:00.000Z"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Today's expenses retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"total_amount\": 350000,\n    \"date\": \"2025-11-22T00:00:00.000Z\"\n  },\n  \"pagination\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Top Customers",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/top-customers?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "top-customers"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-01-01T00:00:00.000Z",
+              "description": "Start date in UTC ISO format"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-01-31T23:59:59.999Z",
+              "description": "End date in UTC ISO format"
+            },
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Number of customers to return (default: 20)"
+            }
+          ]
+        },
+        "description": "Get top customers by spending with order counts."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/top-customers?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z&limit=10"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Top customers retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"customers\": [\n      {\n        \"customer_id\": \"cust-001\",\n        \"name\": \"John Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"phone\": \"+6281234567890\",\n        \"total_spent\": 5750000,\n        \"orders_count\": 28\n      },\n      {\n        \"customer_id\": \"cust-002\",\n        \"name\": \"Jane Smith\",\n        \"email\": \"jane.smith@example.com\",\n        \"phone\": \"+6281234567891\",\n        \"total_spent\": 4200000,\n        \"orders_count\": 22\n      },\n      {\n        \"customer_id\": \"cust-003\",\n        \"name\": \"Bob Johnson\",\n        \"email\": null,\n        \"phone\": \"+6281234567892\",\n        \"total_spent\": 3850000,\n        \"orders_count\": 19\n      },\n      {\n        \"customer_id\": \"cust-004\",\n        \"name\": \"Alice Williams\",\n        \"email\": \"alice.w@example.com\",\n        \"phone\": \"+6281234567893\",\n        \"total_spent\": 3120000,\n        \"orders_count\": 16\n      },\n      {\n        \"customer_id\": \"cust-005\",\n        \"name\": \"Charlie Brown\",\n        \"email\": \"charlie.b@example.com\",\n        \"phone\": null,\n        \"total_spent\": 2890000,\n        \"orders_count\": 15\n      }\n    ],\n    \"date_range\": {\n      \"start_date\": \"2025-01-01T00:00:00.000Z\",\n      \"end_date\": \"2025-01-31T23:59:59.999Z\"\n    }\n  },\n  \"pagination\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Daily Payment Received",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-payment-received?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "daily-payment-received"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-01-01T00:00:00.000Z",
+              "description": "Start date in UTC ISO format"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-01-31T23:59:59.999Z",
+              "description": "End date in UTC ISO format"
+            }
+          ]
+        },
+        "description": "Get total payment received in a date range."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-payment-received?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Daily payment received retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"total_payment_received\": 21300000,\n    \"date_range\": {\n      \"start_date\": \"2025-01-01T00:00:00.000Z\",\n      \"end_date\": \"2025-01-31T23:59:59.999Z\"\n    }\n  },\n  \"pagination\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Error - Validation Error",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-orders?startDate=invalid-date&endDate=2025-01-31T23:59:59.999Z",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "daily-orders"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "invalid-date",
+              "description": "Invalid date format"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-01-31T23:59:59.999Z"
+            }
+          ]
+        },
+        "description": "Example of validation error when invalid date format is provided."
+      },
+      "response": [
+        {
+          "name": "Validation Error Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-orders?startDate=invalid-date&endDate=2025-01-31T23:59:59.999Z"
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Validation failed\",\n    \"success\": false,\n    \"code\": 400,\n    \"errors\": [\n      {\n        \"field\": \"query\",\n        \"message\": \"Start date must be a valid ISO UTC datetime\"\n      }\n    ]\n  },\n  \"data\": null,\n  \"pagination\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Error - Unauthorized",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer invalid-token",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-orders?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenant_id}}", "summaries", "daily-orders"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-01-01T00:00:00.000Z"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-01-31T23:59:59.999Z"
+            }
+          ]
+        },
+        "description": "Example of unauthorized error when invalid token or tenant ID mismatch."
+      },
+      "response": [
+        {
+          "name": "Unauthorized Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/summaries/daily-orders?startDate=2025-01-01T00:00:00.000Z&endDate=2025-01-31T23:59:59.999Z"
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"meta\": {\n    \"message\": \"Tenant ID mismatch\",\n    \"success\": false,\n    \"code\": 401,\n    \"errors\": []\n  },\n  \"data\": null,\n  \"pagination\": null\n}"
+        }
+      ]
+    }
+  ]
+}

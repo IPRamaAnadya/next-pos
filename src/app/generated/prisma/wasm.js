@@ -124,6 +124,11 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
+  displayName: 'displayName',
+  photoURL: 'photoURL',
+  provider: 'provider',
+  providerId: 'providerId',
+  emailVerified: 'emailVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -255,6 +260,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   sku: 'sku',
   imageUrl: 'imageUrl',
   alias: 'alias',
+  isCountable: 'isCountable',
+  unit: 'unit',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -388,6 +395,7 @@ exports.Prisma.AttendanceScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   staffId: 'staffId',
+  shiftId: 'shiftId',
   date: 'date',
   checkInTime: 'checkInTime',
   checkOutTime: 'checkOutTime',
@@ -494,6 +502,83 @@ exports.Prisma.BannerCampaignScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ShiftScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isActive: 'isActive',
+  calculateBeforeStartTime: 'calculateBeforeStartTime',
+  hasBreakTime: 'hasBreakTime',
+  breakDuration: 'breakDuration',
+  minWorkingHours: 'minWorkingHours',
+  maxWorkingHours: 'maxWorkingHours',
+  overtimeMultiplier: 'overtimeMultiplier',
+  lateThreshold: 'lateThreshold',
+  earlyCheckInAllowed: 'earlyCheckInAllowed',
+  color: 'color',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StaffShiftScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  staffId: 'staffId',
+  shiftId: 'shiftId',
+  date: 'date',
+  checkInTime: 'checkInTime',
+  checkOutTime: 'checkOutTime',
+  actualBreakDuration: 'actualBreakDuration',
+  totalWorkedMinutes: 'totalWorkedMinutes',
+  lateMinutes: 'lateMinutes',
+  overtimeMinutes: 'overtimeMinutes',
+  isCompleted: 'isCompleted',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DonationPaymentMethodScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  type: 'type',
+  transactionFee: 'transactionFee',
+  feePercentage: 'feePercentage',
+  taxPercentage: 'taxPercentage',
+  minAmount: 'minAmount',
+  maxAmount: 'maxAmount',
+  isActive: 'isActive',
+  iconUrl: 'iconUrl',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TenantDonationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  paymentMethodId: 'paymentMethodId',
+  midtransOrderId: 'midtransOrderId',
+  snapToken: 'snapToken',
+  amount: 'amount',
+  transactionFee: 'transactionFee',
+  netAmount: 'netAmount',
+  status: 'status',
+  paymentType: 'paymentType',
+  transactionTime: 'transactionTime',
+  settlementTime: 'settlementTime',
+  expiryTime: 'expiryTime',
+  message: 'message',
+  midtransResponse: 'midtransResponse',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -552,6 +637,13 @@ exports.NotificationEvent = exports.$Enums.NotificationEvent = {
   ORDER_PAID: 'ORDER_PAID'
 };
 
+exports.DonationStatus = exports.$Enums.DonationStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
@@ -581,7 +673,11 @@ exports.Prisma.ModelName = {
   NotificationTemplate: 'NotificationTemplate',
   NotificationLog: 'NotificationLog',
   TenantReport: 'TenantReport',
-  BannerCampaign: 'BannerCampaign'
+  BannerCampaign: 'BannerCampaign',
+  Shift: 'Shift',
+  StaffShift: 'StaffShift',
+  DonationPaymentMethod: 'DonationPaymentMethod',
+  TenantDonation: 'TenantDonation'
 };
 
 /**

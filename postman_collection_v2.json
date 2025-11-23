@@ -1,0 +1,4074 @@
+{
+	"info": {
+		"_postman_id": "next-pos-v2-api-collection",
+		"name": "Next POS V2 API Collection",
+		"description": "Complete API collection for Next POS V2 with Clean Architecture implementation including Google Auth, Tenant Management, and Order Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "next-pos-v2"
+	},
+	"item": [
+		{
+			"name": "Authentication V2",
+			"item": [
+				{
+					"name": "Test Authentication",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/test/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"test",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\",\n  \"displayName\": \"{{user_display_name}}\",\n  \"tenantName\": \"{{tenant_name}}\",\n  \"tenantAddress\": \"{{tenant_address}}\",\n  \"tenantPhone\": \"{{tenant_phone}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idToken\": \"{{google_id_token}}\",\n  \"tenantName\": \"{{tenant_name}}\",\n  \"tenantAddress\": \"{{tenant_address}}\",\n  \"tenantPhone\": \"{{tenant_phone}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/auth/login/google",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"login",
+								"google"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cashier Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"{{cashier_username}}\",\n  \"password\": \"{{cashier_password}}\",\n  \"tenantId\": \"{{tenant_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/auth/login/cashier",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"login",
+								"cashier"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/auth/validate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tenant Management V2",
+			"item": [
+				{
+					"name": "Get All Tenants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants?p_page={{page}}&p_limit={{limit}}&p_sort_by={{sort_by}}&p_sort_dir={{sort_dir}}&p_name={{search_name}}&p_email={{search_email}}&p_user_id={{filter_user_id}}&p_is_subscribed={{is_subscribed}}&p_subscription_status={{subscription_status}}&p_expiring_soon={{expiring_days}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants"
+							],
+							"query": [
+								{
+									"key": "p_page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "p_limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "p_sort_by",
+									"value": "{{sort_by}}"
+								},
+								{
+									"key": "p_sort_dir",
+									"value": "{{sort_dir}}"
+								},
+								{
+									"key": "p_name",
+									"value": "{{search_name}}"
+								},
+								{
+									"key": "p_email",
+									"value": "{{search_email}}"
+								},
+								{
+									"key": "p_user_id",
+									"value": "{{filter_user_id}}"
+								},
+								{
+									"key": "p_is_subscribed",
+									"value": "{{is_subscribed}}"
+								},
+								{
+									"key": "p_subscription_status",
+									"value": "{{subscription_status}}"
+								},
+								{
+									"key": "p_expiring_soon",
+									"value": "{{expiring_days}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tenant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"{{user_id}}\",\n  \"name\": \"{{tenant_name}}\",\n  \"email\": \"{{tenant_email}}\",\n  \"address\": \"{{tenant_address}}\",\n  \"phone\": \"{{tenant_phone}}\",\n  \"isSubscribed\": {{tenant_is_subscribed}},\n  \"subscribedUntil\": \"{{tenant_subscribed_until}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tenant by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tenant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{tenant_name_updated}}\",\n  \"email\": \"{{tenant_email_updated}}\",\n  \"address\": \"{{tenant_address_updated}}\",\n  \"phone\": \"{{tenant_phone_updated}}\",\n  \"isSubscribed\": {{tenant_is_subscribed_updated}},\n  \"subscribedUntil\": \"{{tenant_subscribed_until_updated}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tenant",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tenant Metrics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/metrics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"metrics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Extend Tenant Trial",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"days\": {{trial_extension_days}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/extend-trial",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"extend-trial"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Tenants Management",
+			"item": [
+				{
+					"name": "Get User Tenants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/users/{{user_id}}/tenants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"{{user_id}}",
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Active Tenants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/users/{{user_id}}/tenants/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"{{user_id}}",
+								"tenants",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count User Tenants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/users/{{user_id}}/tenants/count",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"{{user_id}}",
+								"tenants",
+								"count"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Tenant Management",
+			"item": [
+				{
+					"name": "Get Expiring Tenants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/admin/tenants/expiring?p_days={{expiring_days}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"admin",
+								"tenants",
+								"expiring"
+							],
+							"query": [
+								{
+									"key": "p_days",
+									"value": "{{expiring_days}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attendance Management V2",
+			"item": [
+				{
+					"name": "Check In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"staffId\": \"{{staff_id}}\",\n  \"shiftId\": \"{{shift_id}}\",\n  \"location\": \"{{checkin_location}}\",\n  \"notes\": \"{{checkin_notes}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/checkin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"checkin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attendanceId\": \"{{attendance_id}}\",\n  \"location\": \"{{checkout_location}}\",\n  \"notes\": \"{{checkout_notes}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/checkout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Attendance List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance?page={{page}}&limit={{limit}}&staffId={{staff_id}}&startDate={{start_date}}&endDate={{end_date}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "staffId",
+									"value": "{{staff_id}}"
+								},
+								{
+									"key": "startDate",
+									"value": "{{start_date}}"
+								},
+								{
+									"key": "endDate",
+									"value": "{{end_date}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Attendance Record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"staffId\": \"{{staff_id}}\",\n  \"shiftId\": \"{{shift_id}}\",\n  \"checkInTime\": \"{{checkin_time}}\",\n  \"checkOutTime\": \"{{checkout_time}}\",\n  \"status\": \"{{attendance_status}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Attendance by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/{{attendance_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"{{attendance_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Attendance",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"checkInTime\": \"{{checkin_time_updated}}\",\n  \"checkOutTime\": \"{{checkout_time_updated}}\",\n  \"status\": \"{{attendance_status_updated}}\",\n  \"notes\": \"{{attendance_notes}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/{{attendance_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"{{attendance_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Attendance",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/{{attendance_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"{{attendance_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Attendance Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/summary?staffId={{staff_id}}&period={{period}}&startDate={{start_date}}&endDate={{end_date}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "staffId",
+									"value": "{{staff_id}}"
+								},
+								{
+									"key": "period",
+									"value": "{{period}}"
+								},
+								{
+									"key": "startDate",
+									"value": "{{start_date}}"
+								},
+								{
+									"key": "endDate",
+									"value": "{{end_date}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Work Hours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/{{attendance_id}}/calculate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"{{attendance_id}}",
+								"calculate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Suggest Shift for Attendance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/{{attendance_id}}/suggest-shift",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"{{attendance_id}}",
+								"suggest-shift"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Assign Shifts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attendanceIds\": [\"{{attendance_id_1}}\", \"{{attendance_id_2}}\"],\n  \"shiftId\": \"{{shift_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/attendance/bulk-assign-shifts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"attendance",
+								"bulk-assign-shifts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shift Management V2",
+			"item": [
+				{
+					"name": "Get Tenant Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts?page={{page}}&limit={{limit}}&isActive={{is_active}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "isActive",
+									"value": "{{is_active}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Shift",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{shift_name}}\",\n  \"startTime\": \"{{shift_start_time}}\",\n  \"endTime\": \"{{shift_end_time}}\",\n  \"isActive\": {{shift_is_active}},\n  \"description\": \"{{shift_description}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Default Shift",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts/default",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shift by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts/{{shift_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts",
+								"{{shift_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Shift",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{shift_name_updated}}\",\n  \"startTime\": \"{{shift_start_time_updated}}\",\n  \"endTime\": \"{{shift_end_time_updated}}\",\n  \"isActive\": {{shift_is_active_updated}},\n  \"description\": \"{{shift_description_updated}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts/{{shift_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts",
+								"{{shift_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shift",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts/{{shift_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts",
+								"{{shift_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Shift Active Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/shifts/{{shift_id}}/toggle-active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"shifts",
+								"{{shift_id}}",
+								"toggle-active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Staff Management V2",
+			"item": [
+				{
+					"name": "Get Tenant Staff",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs?page={{page}}&limit={{limit}}&role={{staff_role}}&isActive={{is_active}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "role",
+									"value": "{{staff_role}}"
+								},
+								{
+									"key": "isActive",
+									"value": "{{is_active}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Staff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"{{staff_username}}\",\n  \"password\": \"{{staff_password}}\",\n  \"role\": \"{{staff_role}}\",\n  \"email\": \"{{staff_email}}\",\n  \"fullName\": \"{{staff_full_name}}\",\n  \"phone\": \"{{staff_phone}}\",\n  \"isOwner\": {{staff_is_owner}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Staff by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs/{{staff_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs",
+								"{{staff_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Staff",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"{{staff_username_updated}}\",\n  \"role\": \"{{staff_role_updated}}\",\n  \"email\": \"{{staff_email_updated}}\",\n  \"fullName\": \"{{staff_full_name_updated}}\",\n  \"phone\": \"{{staff_phone_updated}}\",\n  \"isActive\": {{staff_is_active_updated}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs/{{staff_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs",
+								"{{staff_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Staff",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs/{{staff_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs",
+								"{{staff_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Staff Attendance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs/{{staff_id}}/attendance?startDate={{start_date}}&endDate={{end_date}}&page={{page}}&limit={{limit}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs",
+								"{{staff_id}}",
+								"attendance"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "{{start_date}}"
+								},
+								{
+									"key": "endDate",
+									"value": "{{end_date}}"
+								},
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Staff Check In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"shiftId\": \"{{shift_id}}\",\n  \"location\": \"{{checkin_location}}\",\n  \"notes\": \"{{checkin_notes}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs/{{staff_id}}/checkin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs",
+								"{{staff_id}}",
+								"checkin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Staff Check Out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attendanceId\": \"{{attendance_id}}\",\n  \"location\": \"{{checkout_location}}\",\n  \"notes\": \"{{checkout_notes}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs/{{staff_id}}/checkout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs",
+								"{{staff_id}}",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Staff Salary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staffs/{{staff_id}}/salary?period={{salary_period}}&year={{salary_year}}&month={{salary_month}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staffs",
+								"{{staff_id}}",
+								"salary"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "{{salary_period}}"
+								},
+								{
+									"key": "year",
+									"value": "{{salary_year}}"
+								},
+								{
+									"key": "month",
+									"value": "{{salary_month}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Management V2",
+			"item": [
+				{
+					"name": "Get Customers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/customers?page={{page}}&limit={{limit}}&search={{customer_search}}&isActive={{is_active}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "search",
+									"value": "{{customer_search}}"
+								},
+								{
+									"key": "isActive",
+									"value": "{{is_active}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{customer_name}}\",\n  \"email\": \"{{customer_email}}\",\n  \"phone\": \"{{customer_phone}}\",\n  \"address\": \"{{customer_address}}\",\n  \"birthDate\": \"{{customer_birth_date}}\",\n  \"gender\": \"{{customer_gender}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{customer_name_updated}}\",\n  \"email\": \"{{customer_email_updated}}\",\n  \"phone\": \"{{customer_phone_updated}}\",\n  \"address\": \"{{customer_address_updated}}\",\n  \"birthDate\": \"{{customer_birth_date_updated}}\",\n  \"gender\": \"{{customer_gender_updated}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Points",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/customers/{{customer_id}}/points",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"customers",
+								"{{customer_id}}",
+								"points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer Points",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"points\": {{customer_points}},\n  \"operation\": \"{{points_operation}}\",\n  \"reason\": \"{{points_reason}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/customers/{{customer_id}}/points",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"customers",
+								"{{customer_id}}",
+								"points"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Discount Management V2",
+			"item": [
+				{
+					"name": "Get Discounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/discounts?page={{page}}&limit={{limit}}&isActive={{is_active}}&role={{user_role}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"discounts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "isActive",
+									"value": "{{is_active}}"
+								},
+								{
+									"key": "role",
+									"value": "{{user_role}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Discount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{discount_name}}\",\n  \"description\": \"{{discount_description}}\",\n  \"type\": \"{{discount_type}}\",\n  \"value\": {{discount_value}},\n  \"code\": \"{{discount_code}}\",\n  \"minOrderAmount\": {{discount_min_order}},\n  \"maxDiscount\": {{discount_max_amount}},\n  \"usageLimit\": {{discount_usage_limit}},\n  \"validFrom\": \"{{discount_valid_from}}\",\n  \"validUntil\": \"{{discount_valid_until}}\",\n  \"isActive\": {{discount_is_active}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/discounts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"discounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Discounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/discounts/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"discounts",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Discount by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/discounts/{{discount_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"discounts",
+								"{{discount_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Discount",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{discount_name_updated}}\",\n  \"description\": \"{{discount_description_updated}}\",\n  \"type\": \"{{discount_type_updated}}\",\n  \"value\": {{discount_value_updated}},\n  \"code\": \"{{discount_code_updated}}\",\n  \"minOrderAmount\": {{discount_min_order_updated}},\n  \"maxDiscount\": {{discount_max_amount_updated}},\n  \"usageLimit\": {{discount_usage_limit_updated}},\n  \"validFrom\": \"{{discount_valid_from_updated}}\",\n  \"validUntil\": \"{{discount_valid_until_updated}}\",\n  \"isActive\": {{discount_is_active_updated}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/discounts/{{discount_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"discounts",
+								"{{discount_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Discount",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/discounts/{{discount_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"discounts",
+								"{{discount_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Discount Code",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/discounts/code/{{discount_code}}?orderAmount={{order_amount}}&customerId={{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"discounts",
+								"code",
+								"{{discount_code}}"
+							],
+							"query": [
+								{
+									"key": "orderAmount",
+									"value": "{{order_amount}}"
+								},
+								{
+									"key": "customerId",
+									"value": "{{customer_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payroll Management V2",
+			"item": [
+				{
+					"name": "Get Payroll Reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/payroll/reports?period={{payroll_period}}&year={{payroll_year}}&month={{payroll_month}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"payroll",
+								"reports"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "{{payroll_period}}"
+								},
+								{
+									"key": "year",
+									"value": "{{payroll_year}}"
+								},
+								{
+									"key": "month",
+									"value": "{{payroll_month}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payroll Periods",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/payroll/periods?page={{page}}&limit={{limit}}&year={{payroll_year}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"payroll",
+								"periods"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "year",
+									"value": "{{payroll_year}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Payroll Period",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{payroll_period_name}}\",\n  \"startDate\": \"{{payroll_start_date}}\",\n  \"endDate\": \"{{payroll_end_date}}\",\n  \"paymentDate\": \"{{payroll_payment_date}}\",\n  \"description\": \"{{payroll_description}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/payroll/periods",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"payroll",
+								"periods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payroll Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/payroll/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"payroll",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Payroll Settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"overtimeRate\": {{overtime_rate}},\n  \"taxRate\": {{tax_rate}},\n  \"allowances\": {{allowances}},\n  \"deductions\": {{deductions}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/payroll/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"payroll",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Management V2",
+			"item": [
+				{
+					"name": "Get Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/orders?p_page={{page}}&p_limit={{limit}}&p_sort_by={{sort_by}}&p_sort_dir={{sort_dir}}&p_status={{order_status}}&p_customer_id={{customer_id}}&p_date_from={{date_from}}&p_date_to={{date_to}}&p_min_total={{min_total}}&p_max_total={{max_total}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "p_page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "p_limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "p_sort_by",
+									"value": "{{sort_by}}"
+								},
+								{
+									"key": "p_sort_dir",
+									"value": "{{sort_dir}}"
+								},
+								{
+									"key": "p_status",
+									"value": "{{order_status}}"
+								},
+								{
+									"key": "p_customer_id",
+									"value": "{{customer_id}}"
+								},
+								{
+									"key": "p_date_from",
+									"value": "{{date_from}}"
+								},
+								{
+									"key": "p_date_to",
+									"value": "{{date_to}}"
+								},
+								{
+									"key": "p_min_total",
+									"value": "{{min_total}}"
+								},
+								{
+									"key": "p_max_total",
+									"value": "{{max_total}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"{{customer_id}}\",\n  \"items\": [\n    {\n      \"productId\": \"{{product_id_1}}\",\n      \"quantity\": {{item_quantity_1}},\n      \"unitPrice\": {{item_unit_price_1}},\n      \"notes\": \"{{item_notes_1}}\"\n    },\n    {\n      \"productId\": \"{{product_id_2}}\",\n      \"quantity\": {{item_quantity_2}},\n      \"unitPrice\": {{item_unit_price_2}},\n      \"notes\": \"{{item_notes_2}}\"\n    }\n  ],\n  \"discountId\": \"{{discount_id}}\",\n  \"taxAmount\": {{tax_amount}},\n  \"notes\": \"{{order_notes}}\",\n  \"paymentMethod\": \"{{payment_method}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/orders/{{order_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"orders",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"{{order_status_updated}}\",\n  \"items\": [\n    {\n      \"productId\": \"{{product_id_1}}\",\n      \"quantity\": {{item_quantity_1_updated}},\n      \"unitPrice\": {{item_unit_price_1_updated}},\n      \"notes\": \"{{item_notes_1_updated}}\"\n    }\n  ],\n  \"discountId\": \"{{discount_id_updated}}\",\n  \"taxAmount\": {{tax_amount_updated}},\n  \"notes\": \"{{order_notes_updated}}\",\n  \"paymentMethod\": \"{{payment_method_updated}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/orders/{{order_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"orders",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/orders/{{order_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"orders",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Management V2",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/products?page={{page}}&limit={{limit}}&search={{product_search}}&categoryId={{category_id}}&isActive={{is_active}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "search",
+									"value": "{{product_search}}"
+								},
+								{
+									"key": "categoryId",
+									"value": "{{category_id}}"
+								},
+								{
+									"key": "isActive",
+									"value": "{{is_active}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{product_name}}\",\n  \"description\": \"{{product_description}}\",\n  \"price\": {{product_price}},\n  \"cost\": {{product_cost}},\n  \"stock\": {{product_stock}},\n  \"categoryId\": \"{{category_id}}\",\n  \"sku\": \"{{product_sku}}\",\n  \"barcode\": \"{{product_barcode}}\",\n  \"type\": \"{{product_type}}\",\n  \"isActive\": {{product_is_active}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/products/{{product_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{product_name_updated}}\",\n  \"description\": \"{{product_description_updated}}\",\n  \"price\": {{product_price_updated}},\n  \"cost\": {{product_cost_updated}},\n  \"stock\": {{product_stock_updated}},\n  \"categoryId\": \"{{category_id_updated}}\",\n  \"sku\": \"{{product_sku_updated}}\",\n  \"barcode\": \"{{product_barcode_updated}}\",\n  \"isActive\": {{product_is_active_updated}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/products/{{product_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/products/{{product_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Category Management V2",
+			"item": [
+				{
+					"name": "Get Product Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/product-categories?page={{page}}&limit={{limit}}&isActive={{is_active}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"product-categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "isActive",
+									"value": "{{is_active}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{category_name}}\",\n  \"description\": \"{{category_description}}\",\n  \"isActive\": {{category_is_active}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/product-categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"product-categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Expense Categories Management V2",
+			"item": [
+				{
+					"name": "Get Expense Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expense-categories?page={{page}}&limit={{limit}}&search={{category_search}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expense-categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "search",
+									"value": "{{category_search}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Expense Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{expense_category_name}}\",\n  \"description\": \"{{expense_category_description}}\",\n  \"is_active\": {{expense_category_is_active}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expense-categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expense-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Expense Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expense-categories/{{expense_category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expense-categories",
+								"{{expense_category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Expense Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{expense_category_name_updated}}\",\n  \"description\": \"{{expense_category_description_updated}}\",\n  \"is_active\": {{expense_category_is_active_updated}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expense-categories/{{expense_category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expense-categories",
+								"{{expense_category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Expense Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expense-categories/{{expense_category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expense-categories",
+								"{{expense_category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Visible Expense Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expense-categories/visible",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expense-categories",
+								"visible"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Expense Category Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"{{expense_category_code}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expense-categories/validate-code",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expense-categories",
+								"validate-code"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Expense Management V2",
+			"item": [
+				{
+					"name": "Get Expenses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expenses?page={{page}}&limit={{limit}}&startDate={{start_date}}&endDate={{end_date}}&categoryId={{expense_category_id}}&isCashier={{is_cashier}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "startDate",
+									"value": "{{start_date}}"
+								},
+								{
+									"key": "endDate",
+									"value": "{{end_date}}"
+								},
+								{
+									"key": "categoryId",
+									"value": "{{expense_category_id}}"
+								},
+								{
+									"key": "isCashier",
+									"value": "{{is_cashier}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"{{expense_description}}\",\n  \"amount\": {{expense_amount}},\n  \"categoryId\": \"{{expense_category_id}}\",\n  \"paymentType\": \"{{expense_payment_type}}\",\n  \"notes\": \"{{expense_notes}}\",\n  \"isShow\": {{expense_is_show}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expenses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expenses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Expense by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expenses/{{expense_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expenses",
+								"{{expense_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Expense",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"{{expense_description_updated}}\",\n  \"amount\": {{expense_amount_updated}},\n  \"categoryId\": \"{{expense_category_id_updated}}\",\n  \"paymentType\": \"{{expense_payment_type_updated}}\",\n  \"notes\": \"{{expense_notes_updated}}\",\n  \"isShow\": {{expense_is_show_updated}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expenses/{{expense_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expenses",
+								"{{expense_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Expense",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expenses/{{expense_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expenses",
+								"{{expense_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Expenses by Date Range",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/expenses/date-range?startDate={{start_date}}&endDate={{end_date}}&page={{page}}&limit={{limit}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"expenses",
+								"date-range"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "{{start_date}}"
+								},
+								{
+									"key": "endDate",
+									"value": "{{end_date}}"
+								},
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Staff Shift Management V2",
+			"item": [
+				{
+					"name": "Get Staff Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staff-shifts?staffId={{staff_id}}&shiftId={{shift_id}}&date={{shift_date}}&page={{page}}&limit={{limit}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staff-shifts"
+							],
+							"query": [
+								{
+									"key": "staffId",
+									"value": "{{staff_id}}"
+								},
+								{
+									"key": "shiftId",
+									"value": "{{shift_id}}"
+								},
+								{
+									"key": "date",
+									"value": "{{shift_date}}"
+								},
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Staff to Shift",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"staffId\": \"{{staff_id}}\",\n  \"shiftId\": \"{{shift_id}}\",\n  \"date\": \"{{shift_date}}\",\n  \"notes\": \"{{shift_assignment_notes}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/staff-shifts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"staff-shifts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports V2",
+			"item": [
+				{
+					"name": "Get Available Report Periods",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/report/available-period",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"report",
+								"available-period"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Monthly Report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/report/monthly?period={{report_period}}&format={{report_format}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenant_id}}",
+								"report",
+								"monthly"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "{{report_period}}"
+								},
+								{
+									"key": "format",
+									"value": "{{report_format}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "user_12345",
+			"type": "string"
+		},
+		{
+			"key": "tenant_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "order_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customer_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "product_id_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "product_id_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "discount_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_email",
+			"value": "user@example.com",
+			"type": "string"
+		},
+		{
+			"key": "user_password",
+			"value": "password123",
+			"type": "string"
+		},
+		{
+			"key": "user_display_name",
+			"value": "John Doe",
+			"type": "string"
+		},
+		{
+			"key": "google_id_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "tenant_name",
+			"value": "My Business",
+			"type": "string"
+		},
+		{
+			"key": "tenant_email",
+			"value": "business@example.com",
+			"type": "string"
+		},
+		{
+			"key": "tenant_address",
+			"value": "123 Main Street",
+			"type": "string"
+		},
+		{
+			"key": "tenant_phone",
+			"value": "+1234567890",
+			"type": "string"
+		},
+		{
+			"key": "tenant_is_subscribed",
+			"value": "false",
+			"type": "string"
+		},
+		{
+			"key": "tenant_subscribed_until",
+			"value": "2024-12-31T23:59:59Z",
+			"type": "string"
+		},
+		{
+			"key": "tenant_name_updated",
+			"value": "Updated Business Name",
+			"type": "string"
+		},
+		{
+			"key": "tenant_email_updated",
+			"value": "updated@example.com",
+			"type": "string"
+		},
+		{
+			"key": "tenant_address_updated",
+			"value": "456 Updated Street",
+			"type": "string"
+		},
+		{
+			"key": "tenant_phone_updated",
+			"value": "+9876543210",
+			"type": "string"
+		},
+		{
+			"key": "tenant_is_subscribed_updated",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "tenant_subscribed_until_updated",
+			"value": "2025-01-31T23:59:59Z",
+			"type": "string"
+		},
+		{
+			"key": "trial_extension_days",
+			"value": "30",
+			"type": "string"
+		},
+		{
+			"key": "page",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "limit",
+			"value": "10",
+			"type": "string"
+		},
+		{
+			"key": "sort_by",
+			"value": "created_at",
+			"type": "string"
+		},
+		{
+			"key": "sort_dir",
+			"value": "desc",
+			"type": "string"
+		},
+		{
+			"key": "search_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "search_email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "filter_user_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "is_subscribed",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "subscription_status",
+			"value": "active",
+			"type": "string"
+		},
+		{
+			"key": "expiring_days",
+			"value": "30",
+			"type": "string"
+		},
+		{
+			"key": "order_status",
+			"value": "pending",
+			"type": "string"
+		},
+		{
+			"key": "date_from",
+			"value": "2024-01-01",
+			"type": "string"
+		},
+		{
+			"key": "date_to",
+			"value": "2024-12-31",
+			"type": "string"
+		},
+		{
+			"key": "min_total",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "max_total",
+			"value": "1000",
+			"type": "string"
+		},
+		{
+			"key": "item_quantity_1",
+			"value": "2",
+			"type": "string"
+		},
+		{
+			"key": "item_unit_price_1",
+			"value": "25000",
+			"type": "string"
+		},
+		{
+			"key": "item_notes_1",
+			"value": "Extra spicy",
+			"type": "string"
+		},
+		{
+			"key": "item_quantity_2",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "item_unit_price_2",
+			"value": "15000",
+			"type": "string"
+		},
+		{
+			"key": "item_notes_2",
+			"value": "No ice",
+			"type": "string"
+		},
+		{
+			"key": "tax_amount",
+			"value": "6500",
+			"type": "string"
+		},
+		{
+			"key": "order_notes",
+			"value": "Table 5 - Rush order",
+			"type": "string"
+		},
+		{
+			"key": "payment_method",
+			"value": "cash",
+			"type": "string"
+		},
+		{
+			"key": "order_status_updated",
+			"value": "completed",
+			"type": "string"
+		},
+		{
+			"key": "item_quantity_1_updated",
+			"value": "3",
+			"type": "string"
+		},
+		{
+			"key": "item_unit_price_1_updated",
+			"value": "30000",
+			"type": "string"
+		},
+		{
+			"key": "item_notes_1_updated",
+			"value": "Medium spicy",
+			"type": "string"
+		},
+		{
+			"key": "tax_amount_updated",
+			"value": "9000",
+			"type": "string"
+		},
+		{
+			"key": "order_notes_updated",
+			"value": "Order completed - Table 5",
+			"type": "string"
+		},
+		{
+			"key": "payment_method_updated",
+			"value": "credit_card",
+			"type": "string"
+		},
+		{
+			"key": "discount_id_updated",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "cashier_username",
+			"value": "cashier01",
+			"type": "string"
+		},
+		{
+			"key": "cashier_password",
+			"value": "cashier123",
+			"type": "string"
+		},
+		{
+			"key": "staff_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "staff_username",
+			"value": "staff01",
+			"type": "string"
+		},
+		{
+			"key": "staff_password",
+			"value": "staff123",
+			"type": "string"
+		},
+		{
+			"key": "staff_role",
+			"value": "cashier",
+			"type": "string"
+		},
+		{
+			"key": "staff_email",
+			"value": "staff@example.com",
+			"type": "string"
+		},
+		{
+			"key": "staff_full_name",
+			"value": "John Staff",
+			"type": "string"
+		},
+		{
+			"key": "staff_phone",
+			"value": "+1234567890",
+			"type": "string"
+		},
+		{
+			"key": "staff_is_owner",
+			"value": "false",
+			"type": "string"
+		},
+		{
+			"key": "shift_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "shift_name",
+			"value": "Morning Shift",
+			"type": "string"
+		},
+		{
+			"key": "shift_start_time",
+			"value": "08:00:00",
+			"type": "string"
+		},
+		{
+			"key": "shift_end_time",
+			"value": "16:00:00",
+			"type": "string"
+		},
+		{
+			"key": "shift_is_active",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "shift_description",
+			"value": "Regular morning shift",
+			"type": "string"
+		},
+		{
+			"key": "attendance_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "checkin_location",
+			"value": "Office",
+			"type": "string"
+		},
+		{
+			"key": "checkout_location",
+			"value": "Office",
+			"type": "string"
+		},
+		{
+			"key": "checkin_notes",
+			"value": "On time",
+			"type": "string"
+		},
+		{
+			"key": "checkout_notes",
+			"value": "Completed shift",
+			"type": "string"
+		},
+		{
+			"key": "checkin_time",
+			"value": "2024-01-01T08:00:00Z",
+			"type": "string"
+		},
+		{
+			"key": "checkout_time",
+			"value": "2024-01-01T16:00:00Z",
+			"type": "string"
+		},
+		{
+			"key": "attendance_status",
+			"value": "present",
+			"type": "string"
+		},
+		{
+			"key": "customer_search",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customer_name",
+			"value": "John Customer",
+			"type": "string"
+		},
+		{
+			"key": "customer_email",
+			"value": "customer@example.com",
+			"type": "string"
+		},
+		{
+			"key": "customer_phone",
+			"value": "+1234567890",
+			"type": "string"
+		},
+		{
+			"key": "customer_address",
+			"value": "123 Customer Street",
+			"type": "string"
+		},
+		{
+			"key": "customer_birth_date",
+			"value": "1990-01-01",
+			"type": "string"
+		},
+		{
+			"key": "customer_gender",
+			"value": "male",
+			"type": "string"
+		},
+		{
+			"key": "customer_points",
+			"value": "100",
+			"type": "string"
+		},
+		{
+			"key": "points_operation",
+			"value": "add",
+			"type": "string"
+		},
+		{
+			"key": "points_reason",
+			"value": "Purchase reward",
+			"type": "string"
+		},
+		{
+			"key": "discount_name",
+			"value": "New Year Discount",
+			"type": "string"
+		},
+		{
+			"key": "discount_description",
+			"value": "Special discount for new year",
+			"type": "string"
+		},
+		{
+			"key": "discount_type",
+			"value": "percentage",
+			"type": "string"
+		},
+		{
+			"key": "discount_value",
+			"value": "10",
+			"type": "string"
+		},
+		{
+			"key": "discount_code",
+			"value": "NEWYEAR2024",
+			"type": "string"
+		},
+		{
+			"key": "discount_min_order",
+			"value": "50000",
+			"type": "string"
+		},
+		{
+			"key": "discount_max_amount",
+			"value": "25000",
+			"type": "string"
+		},
+		{
+			"key": "discount_usage_limit",
+			"value": "100",
+			"type": "string"
+		},
+		{
+			"key": "discount_valid_from",
+			"value": "2024-01-01T00:00:00Z",
+			"type": "string"
+		},
+		{
+			"key": "discount_valid_until",
+			"value": "2024-12-31T23:59:59Z",
+			"type": "string"
+		},
+		{
+			"key": "discount_is_active",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "user_role",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "is_active",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "start_date",
+			"value": "2024-01-01",
+			"type": "string"
+		},
+		{
+			"key": "end_date",
+			"value": "2024-12-31",
+			"type": "string"
+		},
+		{
+			"key": "period",
+			"value": "monthly",
+			"type": "string"
+		},
+		{
+			"key": "payroll_period",
+			"value": "monthly",
+			"type": "string"
+		},
+		{
+			"key": "payroll_year",
+			"value": "2024",
+			"type": "string"
+		},
+		{
+			"key": "payroll_month",
+			"value": "01",
+			"type": "string"
+		},
+		{
+			"key": "payroll_period_name",
+			"value": "January 2024",
+			"type": "string"
+		},
+		{
+			"key": "payroll_start_date",
+			"value": "2024-01-01",
+			"type": "string"
+		},
+		{
+			"key": "payroll_end_date",
+			"value": "2024-01-31",
+			"type": "string"
+		},
+		{
+			"key": "payroll_payment_date",
+			"value": "2024-02-05",
+			"type": "string"
+		},
+		{
+			"key": "payroll_description",
+			"value": "Monthly payroll for January 2024",
+			"type": "string"
+		},
+		{
+			"key": "overtime_rate",
+			"value": "1.5",
+			"type": "string"
+		},
+		{
+			"key": "tax_rate",
+			"value": "0.1",
+			"type": "string"
+		},
+		{
+			"key": "allowances",
+			"value": "500000",
+			"type": "string"
+		},
+		{
+			"key": "deductions",
+			"value": "100000",
+			"type": "string"
+		},
+		{
+			"key": "salary_period",
+			"value": "monthly",
+			"type": "string"
+		},
+		{
+			"key": "salary_year",
+			"value": "2024",
+			"type": "string"
+		},
+		{
+			"key": "salary_month",
+			"value": "01",
+			"type": "string"
+		},
+		{
+			"key": "order_amount",
+			"value": "100000",
+			"type": "string"
+		},
+		{
+			"key": "attendance_id_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "attendance_id_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "product_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "product_search",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "product_name",
+			"value": "Coffee Latte",
+			"type": "string"
+		},
+		{
+			"key": "product_description",
+			"value": "Premium coffee latte",
+			"type": "string"
+		},
+		{
+			"key": "product_price",
+			"value": "25000",
+			"type": "string"
+		},
+		{
+			"key": "product_cost",
+			"value": "15000",
+			"type": "string"
+		},
+		{
+			"key": "product_stock",
+			"value": "100",
+			"type": "string"
+		},
+		{
+			"key": "product_sku",
+			"value": "LATTE001",
+			"type": "string"
+		},
+		{
+			"key": "product_barcode",
+			"value": "1234567890123",
+			"type": "string"
+		},
+		{
+			"key": "product_type",
+			"value": "beverage",
+			"type": "string"
+		},
+		{
+			"key": "product_is_active",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "category_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "category_name",
+			"value": "Beverages",
+			"type": "string"
+		},
+		{
+			"key": "category_description",
+			"value": "Hot and cold beverages",
+			"type": "string"
+		},
+		{
+			"key": "category_is_active",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "expense_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "expense_description",
+			"value": "Office supplies",
+			"type": "string"
+		},
+		{
+			"key": "expense_amount",
+			"value": "150000",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "expense_payment_type",
+			"value": "cash",
+			"type": "string"
+		},
+		{
+			"key": "expense_notes",
+			"value": "Monthly office supplies",
+			"type": "string"
+		},
+		{
+			"key": "expense_is_show",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "is_cashier",
+			"value": "false",
+			"type": "string"
+		},
+		{
+			"key": "shift_date",
+			"value": "2024-01-01",
+			"type": "string"
+		},
+		{
+			"key": "shift_assignment_notes",
+			"value": "Regular assignment",
+			"type": "string"
+		},
+		{
+			"key": "report_period",
+			"value": "2024-01",
+			"type": "string"
+		},
+		{
+			"key": "report_format",
+			"value": "json",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_name",
+			"value": "Office Supplies",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_description",
+			"value": "General office supplies and materials",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_is_active",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_name_updated",
+			"value": "Office Equipment",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_description_updated",
+			"value": "Office equipment and supplies",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_is_active_updated",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "category_search",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "expense_category_code",
+			"value": "OFFICE_SUPPLIES",
+			"type": "string"
+		}
+	]
+}

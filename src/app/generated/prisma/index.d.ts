@@ -158,6 +158,26 @@ export type TenantReport = $Result.DefaultSelection<Prisma.$TenantReportPayload>
  * 
  */
 export type BannerCampaign = $Result.DefaultSelection<Prisma.$BannerCampaignPayload>
+/**
+ * Model Shift
+ * 
+ */
+export type Shift = $Result.DefaultSelection<Prisma.$ShiftPayload>
+/**
+ * Model StaffShift
+ * 
+ */
+export type StaffShift = $Result.DefaultSelection<Prisma.$StaffShiftPayload>
+/**
+ * Model DonationPaymentMethod
+ * 
+ */
+export type DonationPaymentMethod = $Result.DefaultSelection<Prisma.$DonationPaymentMethodPayload>
+/**
+ * Model TenantDonation
+ * 
+ */
+export type TenantDonation = $Result.DefaultSelection<Prisma.$TenantDonationPayload>
 
 /**
  * Enums
@@ -206,6 +226,16 @@ export const NotificationEvent: {
 
 export type NotificationEvent = (typeof NotificationEvent)[keyof typeof NotificationEvent]
 
+
+export const DonationStatus: {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  EXPIRED: 'EXPIRED'
+};
+
+export type DonationStatus = (typeof DonationStatus)[keyof typeof DonationStatus]
+
 }
 
 export type AdminRole = $Enums.AdminRole
@@ -227,6 +257,10 @@ export const OvertimeCalculationType: typeof $Enums.OvertimeCalculationType
 export type NotificationEvent = $Enums.NotificationEvent
 
 export const NotificationEvent: typeof $Enums.NotificationEvent
+
+export type DonationStatus = $Enums.DonationStatus
+
+export const DonationStatus: typeof $Enums.DonationStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -635,6 +669,46 @@ export class PrismaClient<
     * ```
     */
   get bannerCampaign(): Prisma.BannerCampaignDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.shift`: Exposes CRUD operations for the **Shift** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Shifts
+    * const shifts = await prisma.shift.findMany()
+    * ```
+    */
+  get shift(): Prisma.ShiftDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.staffShift`: Exposes CRUD operations for the **StaffShift** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StaffShifts
+    * const staffShifts = await prisma.staffShift.findMany()
+    * ```
+    */
+  get staffShift(): Prisma.StaffShiftDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.donationPaymentMethod`: Exposes CRUD operations for the **DonationPaymentMethod** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DonationPaymentMethods
+    * const donationPaymentMethods = await prisma.donationPaymentMethod.findMany()
+    * ```
+    */
+  get donationPaymentMethod(): Prisma.DonationPaymentMethodDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tenantDonation`: Exposes CRUD operations for the **TenantDonation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TenantDonations
+    * const tenantDonations = await prisma.tenantDonation.findMany()
+    * ```
+    */
+  get tenantDonation(): Prisma.TenantDonationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1103,7 +1177,11 @@ export namespace Prisma {
     NotificationTemplate: 'NotificationTemplate',
     NotificationLog: 'NotificationLog',
     TenantReport: 'TenantReport',
-    BannerCampaign: 'BannerCampaign'
+    BannerCampaign: 'BannerCampaign',
+    Shift: 'Shift',
+    StaffShift: 'StaffShift',
+    DonationPaymentMethod: 'DonationPaymentMethod',
+    TenantDonation: 'TenantDonation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1122,7 +1200,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "tenant" | "staff" | "admin" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog" | "tenantReport" | "bannerCampaign"
+      modelProps: "user" | "tenant" | "staff" | "admin" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog" | "tenantReport" | "bannerCampaign" | "shift" | "staffShift" | "donationPaymentMethod" | "tenantDonation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3272,6 +3350,302 @@ export namespace Prisma {
           }
         }
       }
+      Shift: {
+        payload: Prisma.$ShiftPayload<ExtArgs>
+        fields: Prisma.ShiftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ShiftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ShiftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          findFirst: {
+            args: Prisma.ShiftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ShiftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          findMany: {
+            args: Prisma.ShiftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>[]
+          }
+          create: {
+            args: Prisma.ShiftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          createMany: {
+            args: Prisma.ShiftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ShiftCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>[]
+          }
+          delete: {
+            args: Prisma.ShiftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          update: {
+            args: Prisma.ShiftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          deleteMany: {
+            args: Prisma.ShiftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ShiftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ShiftUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>[]
+          }
+          upsert: {
+            args: Prisma.ShiftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          aggregate: {
+            args: Prisma.ShiftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateShift>
+          }
+          groupBy: {
+            args: Prisma.ShiftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ShiftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ShiftCountArgs<ExtArgs>
+            result: $Utils.Optional<ShiftCountAggregateOutputType> | number
+          }
+        }
+      }
+      StaffShift: {
+        payload: Prisma.$StaffShiftPayload<ExtArgs>
+        fields: Prisma.StaffShiftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StaffShiftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StaffShiftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>
+          }
+          findFirst: {
+            args: Prisma.StaffShiftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StaffShiftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>
+          }
+          findMany: {
+            args: Prisma.StaffShiftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>[]
+          }
+          create: {
+            args: Prisma.StaffShiftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>
+          }
+          createMany: {
+            args: Prisma.StaffShiftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StaffShiftCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>[]
+          }
+          delete: {
+            args: Prisma.StaffShiftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>
+          }
+          update: {
+            args: Prisma.StaffShiftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>
+          }
+          deleteMany: {
+            args: Prisma.StaffShiftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StaffShiftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StaffShiftUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>[]
+          }
+          upsert: {
+            args: Prisma.StaffShiftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffShiftPayload>
+          }
+          aggregate: {
+            args: Prisma.StaffShiftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStaffShift>
+          }
+          groupBy: {
+            args: Prisma.StaffShiftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StaffShiftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StaffShiftCountArgs<ExtArgs>
+            result: $Utils.Optional<StaffShiftCountAggregateOutputType> | number
+          }
+        }
+      }
+      DonationPaymentMethod: {
+        payload: Prisma.$DonationPaymentMethodPayload<ExtArgs>
+        fields: Prisma.DonationPaymentMethodFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DonationPaymentMethodFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DonationPaymentMethodFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>
+          }
+          findFirst: {
+            args: Prisma.DonationPaymentMethodFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DonationPaymentMethodFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>
+          }
+          findMany: {
+            args: Prisma.DonationPaymentMethodFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>[]
+          }
+          create: {
+            args: Prisma.DonationPaymentMethodCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>
+          }
+          createMany: {
+            args: Prisma.DonationPaymentMethodCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DonationPaymentMethodCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>[]
+          }
+          delete: {
+            args: Prisma.DonationPaymentMethodDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>
+          }
+          update: {
+            args: Prisma.DonationPaymentMethodUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>
+          }
+          deleteMany: {
+            args: Prisma.DonationPaymentMethodDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DonationPaymentMethodUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DonationPaymentMethodUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>[]
+          }
+          upsert: {
+            args: Prisma.DonationPaymentMethodUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonationPaymentMethodPayload>
+          }
+          aggregate: {
+            args: Prisma.DonationPaymentMethodAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDonationPaymentMethod>
+          }
+          groupBy: {
+            args: Prisma.DonationPaymentMethodGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DonationPaymentMethodGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DonationPaymentMethodCountArgs<ExtArgs>
+            result: $Utils.Optional<DonationPaymentMethodCountAggregateOutputType> | number
+          }
+        }
+      }
+      TenantDonation: {
+        payload: Prisma.$TenantDonationPayload<ExtArgs>
+        fields: Prisma.TenantDonationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TenantDonationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TenantDonationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>
+          }
+          findFirst: {
+            args: Prisma.TenantDonationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TenantDonationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>
+          }
+          findMany: {
+            args: Prisma.TenantDonationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>[]
+          }
+          create: {
+            args: Prisma.TenantDonationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>
+          }
+          createMany: {
+            args: Prisma.TenantDonationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TenantDonationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>[]
+          }
+          delete: {
+            args: Prisma.TenantDonationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>
+          }
+          update: {
+            args: Prisma.TenantDonationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>
+          }
+          deleteMany: {
+            args: Prisma.TenantDonationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TenantDonationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TenantDonationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>[]
+          }
+          upsert: {
+            args: Prisma.TenantDonationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantDonationPayload>
+          }
+          aggregate: {
+            args: Prisma.TenantDonationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantDonation>
+          }
+          groupBy: {
+            args: Prisma.TenantDonationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantDonationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TenantDonationCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantDonationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3393,6 +3767,10 @@ export namespace Prisma {
     notificationLog?: NotificationLogOmit
     tenantReport?: TenantReportOmit
     bannerCampaign?: BannerCampaignOmit
+    shift?: ShiftOmit
+    staffShift?: StaffShiftOmit
+    donationPaymentMethod?: DonationPaymentMethodOmit
+    tenantDonation?: TenantDonationOmit
   }
 
   /* Types for Logging */
@@ -3523,6 +3901,9 @@ export namespace Prisma {
     notificationTemplates: number
     notificationLogs: number
     reports: number
+    shifts: number
+    staffShifts: number
+    donations: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3545,6 +3926,9 @@ export namespace Prisma {
     notificationTemplates?: boolean | TenantCountOutputTypeCountNotificationTemplatesArgs
     notificationLogs?: boolean | TenantCountOutputTypeCountNotificationLogsArgs
     reports?: boolean | TenantCountOutputTypeCountReportsArgs
+    shifts?: boolean | TenantCountOutputTypeCountShiftsArgs
+    staffShifts?: boolean | TenantCountOutputTypeCountStaffShiftsArgs
+    donations?: boolean | TenantCountOutputTypeCountDonationsArgs
   }
 
   // Custom InputTypes
@@ -3691,6 +4075,27 @@ export namespace Prisma {
     where?: TenantReportWhereInput
   }
 
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountShiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShiftWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountStaffShiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffShiftWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDonationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantDonationWhereInput
+  }
+
 
   /**
    * Count Type StaffCountOutputType
@@ -3703,6 +4108,7 @@ export namespace Prisma {
     staffLeaves: number
     attendances: number
     payrollDetails: number
+    staffShifts: number
   }
 
   export type StaffCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3712,6 +4118,7 @@ export namespace Prisma {
     staffLeaves?: boolean | StaffCountOutputTypeCountStaffLeavesArgs
     attendances?: boolean | StaffCountOutputTypeCountAttendancesArgs
     payrollDetails?: boolean | StaffCountOutputTypeCountPayrollDetailsArgs
+    staffShifts?: boolean | StaffCountOutputTypeCountStaffShiftsArgs
   }
 
   // Custom InputTypes
@@ -3765,6 +4172,13 @@ export namespace Prisma {
    */
   export type StaffCountOutputTypeCountPayrollDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PayrollDetailWhereInput
+  }
+
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountStaffShiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffShiftWhereInput
   }
 
 
@@ -4097,6 +4511,77 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ShiftCountOutputType
+   */
+
+  export type ShiftCountOutputType = {
+    staffShifts: number
+    attendances: number
+  }
+
+  export type ShiftCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staffShifts?: boolean | ShiftCountOutputTypeCountStaffShiftsArgs
+    attendances?: boolean | ShiftCountOutputTypeCountAttendancesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftCountOutputType
+     */
+    select?: ShiftCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountStaffShiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffShiftWhereInput
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountAttendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceWhereInput
+  }
+
+
+  /**
+   * Count Type DonationPaymentMethodCountOutputType
+   */
+
+  export type DonationPaymentMethodCountOutputType = {
+    donations: number
+  }
+
+  export type DonationPaymentMethodCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donations?: boolean | DonationPaymentMethodCountOutputTypeCountDonationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DonationPaymentMethodCountOutputType without action
+   */
+  export type DonationPaymentMethodCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethodCountOutputType
+     */
+    select?: DonationPaymentMethodCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DonationPaymentMethodCountOutputType without action
+   */
+  export type DonationPaymentMethodCountOutputTypeCountDonationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantDonationWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -4114,6 +4599,11 @@ export namespace Prisma {
     id: string | null
     email: string | null
     password: string | null
+    displayName: string | null
+    photoURL: string | null
+    provider: string | null
+    providerId: string | null
+    emailVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4122,6 +4612,11 @@ export namespace Prisma {
     id: string | null
     email: string | null
     password: string | null
+    displayName: string | null
+    photoURL: string | null
+    provider: string | null
+    providerId: string | null
+    emailVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4130,6 +4625,11 @@ export namespace Prisma {
     id: number
     email: number
     password: number
+    displayName: number
+    photoURL: number
+    provider: number
+    providerId: number
+    emailVerified: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4140,6 +4640,11 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
+    displayName?: true
+    photoURL?: true
+    provider?: true
+    providerId?: true
+    emailVerified?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4148,6 +4653,11 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
+    displayName?: true
+    photoURL?: true
+    provider?: true
+    providerId?: true
+    emailVerified?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4156,6 +4666,11 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
+    displayName?: true
+    photoURL?: true
+    provider?: true
+    providerId?: true
+    emailVerified?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4237,6 +4752,11 @@ export namespace Prisma {
     id: string
     email: string
     password: string
+    displayName: string | null
+    photoURL: string | null
+    provider: string | null
+    providerId: string | null
+    emailVerified: boolean | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -4262,6 +4782,11 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
+    displayName?: boolean
+    photoURL?: boolean
+    provider?: boolean
+    providerId?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenants?: boolean | User$tenantsArgs<ExtArgs>
@@ -4272,6 +4797,11 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
+    displayName?: boolean
+    photoURL?: boolean
+    provider?: boolean
+    providerId?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -4280,6 +4810,11 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
+    displayName?: boolean
+    photoURL?: boolean
+    provider?: boolean
+    providerId?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -4288,11 +4823,16 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
+    displayName?: boolean
+    photoURL?: boolean
+    provider?: boolean
+    providerId?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "displayName" | "photoURL" | "provider" | "providerId" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenants?: boolean | User$tenantsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -4309,6 +4849,11 @@ export namespace Prisma {
       id: string
       email: string
       password: string
+      displayName: string | null
+      photoURL: string | null
+      provider: string | null
+      providerId: string | null
+      emailVerified: boolean | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -4738,6 +5283,11 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly displayName: FieldRef<"User", 'String'>
+    readonly photoURL: FieldRef<"User", 'String'>
+    readonly provider: FieldRef<"User", 'String'>
+    readonly providerId: FieldRef<"User", 'String'>
+    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -5398,6 +5948,9 @@ export namespace Prisma {
     notificationTemplates?: boolean | Tenant$notificationTemplatesArgs<ExtArgs>
     notificationLogs?: boolean | Tenant$notificationLogsArgs<ExtArgs>
     reports?: boolean | Tenant$reportsArgs<ExtArgs>
+    shifts?: boolean | Tenant$shiftsArgs<ExtArgs>
+    staffShifts?: boolean | Tenant$staffShiftsArgs<ExtArgs>
+    donations?: boolean | Tenant$donationsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -5468,6 +6021,9 @@ export namespace Prisma {
     notificationTemplates?: boolean | Tenant$notificationTemplatesArgs<ExtArgs>
     notificationLogs?: boolean | Tenant$notificationLogsArgs<ExtArgs>
     reports?: boolean | Tenant$reportsArgs<ExtArgs>
+    shifts?: boolean | Tenant$shiftsArgs<ExtArgs>
+    staffShifts?: boolean | Tenant$staffShiftsArgs<ExtArgs>
+    donations?: boolean | Tenant$donationsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5504,6 +6060,9 @@ export namespace Prisma {
       notificationTemplates: Prisma.$NotificationTemplatePayload<ExtArgs>[]
       notificationLogs: Prisma.$NotificationLogPayload<ExtArgs>[]
       reports: Prisma.$TenantReportPayload<ExtArgs>[]
+      shifts: Prisma.$ShiftPayload<ExtArgs>[]
+      staffShifts: Prisma.$StaffShiftPayload<ExtArgs>[]
+      donations: Prisma.$TenantDonationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5934,6 +6493,9 @@ export namespace Prisma {
     notificationTemplates<T extends Tenant$notificationTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notificationLogs<T extends Tenant$notificationLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reports<T extends Tenant$reportsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    shifts<T extends Tenant$shiftsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$shiftsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    staffShifts<T extends Tenant$staffShiftsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$staffShiftsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    donations<T extends Tenant$donationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$donationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6901,6 +7463,78 @@ export namespace Prisma {
   }
 
   /**
+   * Tenant.shifts
+   */
+  export type Tenant$shiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    where?: ShiftWhereInput
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    cursor?: ShiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ShiftScalarFieldEnum | ShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.staffShifts
+   */
+  export type Tenant$staffShiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    where?: StaffShiftWhereInput
+    orderBy?: StaffShiftOrderByWithRelationInput | StaffShiftOrderByWithRelationInput[]
+    cursor?: StaffShiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffShiftScalarFieldEnum | StaffShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.donations
+   */
+  export type Tenant$donationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    where?: TenantDonationWhereInput
+    orderBy?: TenantDonationOrderByWithRelationInput | TenantDonationOrderByWithRelationInput[]
+    cursor?: TenantDonationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantDonationScalarFieldEnum | TenantDonationScalarFieldEnum[]
+  }
+
+  /**
    * Tenant without action
    */
   export type TenantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7115,6 +7749,7 @@ export namespace Prisma {
     salary?: boolean | Staff$salaryArgs<ExtArgs>
     attendances?: boolean | Staff$attendancesArgs<ExtArgs>
     payrollDetails?: boolean | Staff$payrollDetailsArgs<ExtArgs>
+    staffShifts?: boolean | Staff$staffShiftsArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["staff"]>
 
@@ -7163,6 +7798,7 @@ export namespace Prisma {
     salary?: boolean | Staff$salaryArgs<ExtArgs>
     attendances?: boolean | Staff$attendancesArgs<ExtArgs>
     payrollDetails?: boolean | Staff$payrollDetailsArgs<ExtArgs>
+    staffShifts?: boolean | Staff$staffShiftsArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StaffIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7183,6 +7819,7 @@ export namespace Prisma {
       salary: Prisma.$SalaryPayload<ExtArgs> | null
       attendances: Prisma.$AttendancePayload<ExtArgs>[]
       payrollDetails: Prisma.$PayrollDetailPayload<ExtArgs>[]
+      staffShifts: Prisma.$StaffShiftPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7595,6 +8232,7 @@ export namespace Prisma {
     salary<T extends Staff$salaryArgs<ExtArgs> = {}>(args?: Subset<T, Staff$salaryArgs<ExtArgs>>): Prisma__SalaryClient<$Result.GetResult<Prisma.$SalaryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     attendances<T extends Staff$attendancesArgs<ExtArgs> = {}>(args?: Subset<T, Staff$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payrollDetails<T extends Staff$payrollDetailsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$payrollDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollDetailPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    staffShifts<T extends Staff$staffShiftsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$staffShiftsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8207,6 +8845,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PayrollDetailScalarFieldEnum | PayrollDetailScalarFieldEnum[]
+  }
+
+  /**
+   * Staff.staffShifts
+   */
+  export type Staff$staffShiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    where?: StaffShiftWhereInput
+    orderBy?: StaffShiftOrderByWithRelationInput | StaffShiftOrderByWithRelationInput[]
+    cursor?: StaffShiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffShiftScalarFieldEnum | StaffShiftScalarFieldEnum[]
   }
 
   /**
@@ -14637,6 +15299,8 @@ export namespace Prisma {
     sku: string | null
     imageUrl: string | null
     alias: string | null
+    isCountable: boolean | null
+    unit: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14653,6 +15317,8 @@ export namespace Prisma {
     sku: string | null
     imageUrl: string | null
     alias: string | null
+    isCountable: boolean | null
+    unit: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14669,6 +15335,8 @@ export namespace Prisma {
     sku: number
     imageUrl: number
     alias: number
+    isCountable: number
+    unit: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -14697,6 +15365,8 @@ export namespace Prisma {
     sku?: true
     imageUrl?: true
     alias?: true
+    isCountable?: true
+    unit?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14713,6 +15383,8 @@ export namespace Prisma {
     sku?: true
     imageUrl?: true
     alias?: true
+    isCountable?: true
+    unit?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14729,6 +15401,8 @@ export namespace Prisma {
     sku?: true
     imageUrl?: true
     alias?: true
+    isCountable?: true
+    unit?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -14832,6 +15506,8 @@ export namespace Prisma {
     sku: string | null
     imageUrl: string | null
     alias: string | null
+    isCountable: boolean
+    unit: string
     createdAt: Date | null
     updatedAt: Date | null
     _count: ProductCountAggregateOutputType | null
@@ -14867,6 +15543,8 @@ export namespace Prisma {
     sku?: boolean
     imageUrl?: boolean
     alias?: boolean
+    isCountable?: boolean
+    unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | Product$tenantArgs<ExtArgs>
@@ -14887,6 +15565,8 @@ export namespace Prisma {
     sku?: boolean
     imageUrl?: boolean
     alias?: boolean
+    isCountable?: boolean
+    unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | Product$tenantArgs<ExtArgs>
@@ -14905,6 +15585,8 @@ export namespace Prisma {
     sku?: boolean
     imageUrl?: boolean
     alias?: boolean
+    isCountable?: boolean
+    unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | Product$tenantArgs<ExtArgs>
@@ -14923,11 +15605,13 @@ export namespace Prisma {
     sku?: boolean
     imageUrl?: boolean
     alias?: boolean
+    isCountable?: boolean
+    unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "productCategoryId" | "name" | "description" | "price" | "type" | "stock" | "sku" | "imageUrl" | "alias" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "productCategoryId" | "name" | "description" | "price" | "type" | "stock" | "sku" | "imageUrl" | "alias" | "isCountable" | "unit" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | Product$tenantArgs<ExtArgs>
     productCategory?: boolean | Product$productCategoryArgs<ExtArgs>
@@ -14962,6 +15646,8 @@ export namespace Prisma {
       sku: string | null
       imageUrl: string | null
       alias: string | null
+      isCountable: boolean
+      unit: string
       createdAt: Date | null
       updatedAt: Date | null
     }, ExtArgs["result"]["product"]>
@@ -15401,6 +16087,8 @@ export namespace Prisma {
     readonly sku: FieldRef<"Product", 'String'>
     readonly imageUrl: FieldRef<"Product", 'String'>
     readonly alias: FieldRef<"Product", 'String'>
+    readonly isCountable: FieldRef<"Product", 'Boolean'>
+    readonly unit: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
   }
@@ -28571,6 +29259,7 @@ export namespace Prisma {
     id: string | null
     tenantId: string | null
     staffId: string | null
+    shiftId: string | null
     date: Date | null
     checkInTime: string | null
     checkOutTime: string | null
@@ -28584,6 +29273,7 @@ export namespace Prisma {
     id: string | null
     tenantId: string | null
     staffId: string | null
+    shiftId: string | null
     date: Date | null
     checkInTime: string | null
     checkOutTime: string | null
@@ -28597,6 +29287,7 @@ export namespace Prisma {
     id: number
     tenantId: number
     staffId: number
+    shiftId: number
     date: number
     checkInTime: number
     checkOutTime: number
@@ -28620,6 +29311,7 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     staffId?: true
+    shiftId?: true
     date?: true
     checkInTime?: true
     checkOutTime?: true
@@ -28633,6 +29325,7 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     staffId?: true
+    shiftId?: true
     date?: true
     checkInTime?: true
     checkOutTime?: true
@@ -28646,6 +29339,7 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     staffId?: true
+    shiftId?: true
     date?: true
     checkInTime?: true
     checkOutTime?: true
@@ -28746,6 +29440,7 @@ export namespace Prisma {
     id: string
     tenantId: string
     staffId: string
+    shiftId: string | null
     date: Date
     checkInTime: string | null
     checkOutTime: string | null
@@ -28778,6 +29473,7 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     staffId?: boolean
+    shiftId?: boolean
     date?: boolean
     checkInTime?: boolean
     checkOutTime?: boolean
@@ -28787,12 +29483,14 @@ export namespace Prisma {
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | Attendance$shiftArgs<ExtArgs>
   }, ExtArgs["result"]["attendance"]>
 
   export type AttendanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
     staffId?: boolean
+    shiftId?: boolean
     date?: boolean
     checkInTime?: boolean
     checkOutTime?: boolean
@@ -28802,12 +29500,14 @@ export namespace Prisma {
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | Attendance$shiftArgs<ExtArgs>
   }, ExtArgs["result"]["attendance"]>
 
   export type AttendanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
     staffId?: boolean
+    shiftId?: boolean
     date?: boolean
     checkInTime?: boolean
     checkOutTime?: boolean
@@ -28817,12 +29517,14 @@ export namespace Prisma {
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | Attendance$shiftArgs<ExtArgs>
   }, ExtArgs["result"]["attendance"]>
 
   export type AttendanceSelectScalar = {
     id?: boolean
     tenantId?: boolean
     staffId?: boolean
+    shiftId?: boolean
     date?: boolean
     checkInTime?: boolean
     checkOutTime?: boolean
@@ -28832,18 +29534,21 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "staffId" | "date" | "checkInTime" | "checkOutTime" | "totalHours" | "isWeekend" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
+  export type AttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "staffId" | "shiftId" | "date" | "checkInTime" | "checkOutTime" | "totalHours" | "isWeekend" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
   export type AttendanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | Attendance$shiftArgs<ExtArgs>
   }
   export type AttendanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | Attendance$shiftArgs<ExtArgs>
   }
   export type AttendanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | Attendance$shiftArgs<ExtArgs>
   }
 
   export type $AttendancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28851,11 +29556,13 @@ export namespace Prisma {
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
       staff: Prisma.$StaffPayload<ExtArgs>
+      shift: Prisma.$ShiftPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string
       staffId: string
+      shiftId: string | null
       date: Date
       checkInTime: string | null
       checkOutTime: string | null
@@ -29259,6 +29966,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     staff<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    shift<T extends Attendance$shiftArgs<ExtArgs> = {}>(args?: Subset<T, Attendance$shiftArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29291,6 +29999,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Attendance", 'String'>
     readonly tenantId: FieldRef<"Attendance", 'String'>
     readonly staffId: FieldRef<"Attendance", 'String'>
+    readonly shiftId: FieldRef<"Attendance", 'String'>
     readonly date: FieldRef<"Attendance", 'DateTime'>
     readonly checkInTime: FieldRef<"Attendance", 'String'>
     readonly checkOutTime: FieldRef<"Attendance", 'String'>
@@ -29691,6 +30400,25 @@ export namespace Prisma {
      * Limit how many Attendances to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Attendance.shift
+   */
+  export type Attendance$shiftArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    where?: ShiftWhereInput
   }
 
   /**
@@ -38669,6 +39397,5128 @@ export namespace Prisma {
 
 
   /**
+   * Model Shift
+   */
+
+  export type AggregateShift = {
+    _count: ShiftCountAggregateOutputType | null
+    _avg: ShiftAvgAggregateOutputType | null
+    _sum: ShiftSumAggregateOutputType | null
+    _min: ShiftMinAggregateOutputType | null
+    _max: ShiftMaxAggregateOutputType | null
+  }
+
+  export type ShiftAvgAggregateOutputType = {
+    breakDuration: number | null
+    minWorkingHours: number | null
+    maxWorkingHours: number | null
+    overtimeMultiplier: number | null
+    lateThreshold: number | null
+    earlyCheckInAllowed: number | null
+  }
+
+  export type ShiftSumAggregateOutputType = {
+    breakDuration: number | null
+    minWorkingHours: number | null
+    maxWorkingHours: number | null
+    overtimeMultiplier: number | null
+    lateThreshold: number | null
+    earlyCheckInAllowed: number | null
+  }
+
+  export type ShiftMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    startTime: string | null
+    endTime: string | null
+    isActive: boolean | null
+    calculateBeforeStartTime: boolean | null
+    hasBreakTime: boolean | null
+    breakDuration: number | null
+    minWorkingHours: number | null
+    maxWorkingHours: number | null
+    overtimeMultiplier: number | null
+    lateThreshold: number | null
+    earlyCheckInAllowed: number | null
+    color: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ShiftMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    startTime: string | null
+    endTime: string | null
+    isActive: boolean | null
+    calculateBeforeStartTime: boolean | null
+    hasBreakTime: boolean | null
+    breakDuration: number | null
+    minWorkingHours: number | null
+    maxWorkingHours: number | null
+    overtimeMultiplier: number | null
+    lateThreshold: number | null
+    earlyCheckInAllowed: number | null
+    color: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ShiftCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    name: number
+    startTime: number
+    endTime: number
+    isActive: number
+    calculateBeforeStartTime: number
+    hasBreakTime: number
+    breakDuration: number
+    minWorkingHours: number
+    maxWorkingHours: number
+    overtimeMultiplier: number
+    lateThreshold: number
+    earlyCheckInAllowed: number
+    color: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ShiftAvgAggregateInputType = {
+    breakDuration?: true
+    minWorkingHours?: true
+    maxWorkingHours?: true
+    overtimeMultiplier?: true
+    lateThreshold?: true
+    earlyCheckInAllowed?: true
+  }
+
+  export type ShiftSumAggregateInputType = {
+    breakDuration?: true
+    minWorkingHours?: true
+    maxWorkingHours?: true
+    overtimeMultiplier?: true
+    lateThreshold?: true
+    earlyCheckInAllowed?: true
+  }
+
+  export type ShiftMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    startTime?: true
+    endTime?: true
+    isActive?: true
+    calculateBeforeStartTime?: true
+    hasBreakTime?: true
+    breakDuration?: true
+    minWorkingHours?: true
+    maxWorkingHours?: true
+    overtimeMultiplier?: true
+    lateThreshold?: true
+    earlyCheckInAllowed?: true
+    color?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ShiftMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    startTime?: true
+    endTime?: true
+    isActive?: true
+    calculateBeforeStartTime?: true
+    hasBreakTime?: true
+    breakDuration?: true
+    minWorkingHours?: true
+    maxWorkingHours?: true
+    overtimeMultiplier?: true
+    lateThreshold?: true
+    earlyCheckInAllowed?: true
+    color?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ShiftCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    startTime?: true
+    endTime?: true
+    isActive?: true
+    calculateBeforeStartTime?: true
+    hasBreakTime?: true
+    breakDuration?: true
+    minWorkingHours?: true
+    maxWorkingHours?: true
+    overtimeMultiplier?: true
+    lateThreshold?: true
+    earlyCheckInAllowed?: true
+    color?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ShiftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Shift to aggregate.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Shifts
+    **/
+    _count?: true | ShiftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ShiftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ShiftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ShiftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ShiftMaxAggregateInputType
+  }
+
+  export type GetShiftAggregateType<T extends ShiftAggregateArgs> = {
+        [P in keyof T & keyof AggregateShift]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateShift[P]>
+      : GetScalarType<T[P], AggregateShift[P]>
+  }
+
+
+
+
+  export type ShiftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShiftWhereInput
+    orderBy?: ShiftOrderByWithAggregationInput | ShiftOrderByWithAggregationInput[]
+    by: ShiftScalarFieldEnum[] | ShiftScalarFieldEnum
+    having?: ShiftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ShiftCountAggregateInputType | true
+    _avg?: ShiftAvgAggregateInputType
+    _sum?: ShiftSumAggregateInputType
+    _min?: ShiftMinAggregateInputType
+    _max?: ShiftMaxAggregateInputType
+  }
+
+  export type ShiftGroupByOutputType = {
+    id: string
+    tenantId: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive: boolean
+    calculateBeforeStartTime: boolean
+    hasBreakTime: boolean
+    breakDuration: number
+    minWorkingHours: number
+    maxWorkingHours: number
+    overtimeMultiplier: number
+    lateThreshold: number
+    earlyCheckInAllowed: number
+    color: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ShiftCountAggregateOutputType | null
+    _avg: ShiftAvgAggregateOutputType | null
+    _sum: ShiftSumAggregateOutputType | null
+    _min: ShiftMinAggregateOutputType | null
+    _max: ShiftMaxAggregateOutputType | null
+  }
+
+  type GetShiftGroupByPayload<T extends ShiftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ShiftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ShiftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ShiftGroupByOutputType[P]>
+            : GetScalarType<T[P], ShiftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ShiftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: boolean
+    minWorkingHours?: boolean
+    maxWorkingHours?: boolean
+    overtimeMultiplier?: boolean
+    lateThreshold?: boolean
+    earlyCheckInAllowed?: boolean
+    color?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staffShifts?: boolean | Shift$staffShiftsArgs<ExtArgs>
+    attendances?: boolean | Shift$attendancesArgs<ExtArgs>
+    _count?: boolean | ShiftCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["shift"]>
+
+  export type ShiftSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: boolean
+    minWorkingHours?: boolean
+    maxWorkingHours?: boolean
+    overtimeMultiplier?: boolean
+    lateThreshold?: boolean
+    earlyCheckInAllowed?: boolean
+    color?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["shift"]>
+
+  export type ShiftSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: boolean
+    minWorkingHours?: boolean
+    maxWorkingHours?: boolean
+    overtimeMultiplier?: boolean
+    lateThreshold?: boolean
+    earlyCheckInAllowed?: boolean
+    color?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["shift"]>
+
+  export type ShiftSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: boolean
+    minWorkingHours?: boolean
+    maxWorkingHours?: boolean
+    overtimeMultiplier?: boolean
+    lateThreshold?: boolean
+    earlyCheckInAllowed?: boolean
+    color?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ShiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "name" | "startTime" | "endTime" | "isActive" | "calculateBeforeStartTime" | "hasBreakTime" | "breakDuration" | "minWorkingHours" | "maxWorkingHours" | "overtimeMultiplier" | "lateThreshold" | "earlyCheckInAllowed" | "color" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["shift"]>
+  export type ShiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staffShifts?: boolean | Shift$staffShiftsArgs<ExtArgs>
+    attendances?: boolean | Shift$attendancesArgs<ExtArgs>
+    _count?: boolean | ShiftCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ShiftIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type ShiftIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $ShiftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Shift"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      staffShifts: Prisma.$StaffShiftPayload<ExtArgs>[]
+      attendances: Prisma.$AttendancePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      name: string
+      startTime: string
+      endTime: string
+      isActive: boolean
+      calculateBeforeStartTime: boolean
+      hasBreakTime: boolean
+      breakDuration: number
+      minWorkingHours: number
+      maxWorkingHours: number
+      overtimeMultiplier: number
+      lateThreshold: number
+      earlyCheckInAllowed: number
+      color: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["shift"]>
+    composites: {}
+  }
+
+  type ShiftGetPayload<S extends boolean | null | undefined | ShiftDefaultArgs> = $Result.GetResult<Prisma.$ShiftPayload, S>
+
+  type ShiftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ShiftFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ShiftCountAggregateInputType | true
+    }
+
+  export interface ShiftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Shift'], meta: { name: 'Shift' } }
+    /**
+     * Find zero or one Shift that matches the filter.
+     * @param {ShiftFindUniqueArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ShiftFindUniqueArgs>(args: SelectSubset<T, ShiftFindUniqueArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Shift that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ShiftFindUniqueOrThrowArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ShiftFindUniqueOrThrowArgs>(args: SelectSubset<T, ShiftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Shift that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftFindFirstArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ShiftFindFirstArgs>(args?: SelectSubset<T, ShiftFindFirstArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Shift that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftFindFirstOrThrowArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ShiftFindFirstOrThrowArgs>(args?: SelectSubset<T, ShiftFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Shifts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Shifts
+     * const shifts = await prisma.shift.findMany()
+     * 
+     * // Get first 10 Shifts
+     * const shifts = await prisma.shift.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const shiftWithIdOnly = await prisma.shift.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ShiftFindManyArgs>(args?: SelectSubset<T, ShiftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Shift.
+     * @param {ShiftCreateArgs} args - Arguments to create a Shift.
+     * @example
+     * // Create one Shift
+     * const Shift = await prisma.shift.create({
+     *   data: {
+     *     // ... data to create a Shift
+     *   }
+     * })
+     * 
+     */
+    create<T extends ShiftCreateArgs>(args: SelectSubset<T, ShiftCreateArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Shifts.
+     * @param {ShiftCreateManyArgs} args - Arguments to create many Shifts.
+     * @example
+     * // Create many Shifts
+     * const shift = await prisma.shift.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ShiftCreateManyArgs>(args?: SelectSubset<T, ShiftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Shifts and returns the data saved in the database.
+     * @param {ShiftCreateManyAndReturnArgs} args - Arguments to create many Shifts.
+     * @example
+     * // Create many Shifts
+     * const shift = await prisma.shift.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Shifts and only return the `id`
+     * const shiftWithIdOnly = await prisma.shift.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ShiftCreateManyAndReturnArgs>(args?: SelectSubset<T, ShiftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Shift.
+     * @param {ShiftDeleteArgs} args - Arguments to delete one Shift.
+     * @example
+     * // Delete one Shift
+     * const Shift = await prisma.shift.delete({
+     *   where: {
+     *     // ... filter to delete one Shift
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ShiftDeleteArgs>(args: SelectSubset<T, ShiftDeleteArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Shift.
+     * @param {ShiftUpdateArgs} args - Arguments to update one Shift.
+     * @example
+     * // Update one Shift
+     * const shift = await prisma.shift.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ShiftUpdateArgs>(args: SelectSubset<T, ShiftUpdateArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Shifts.
+     * @param {ShiftDeleteManyArgs} args - Arguments to filter Shifts to delete.
+     * @example
+     * // Delete a few Shifts
+     * const { count } = await prisma.shift.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ShiftDeleteManyArgs>(args?: SelectSubset<T, ShiftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Shifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Shifts
+     * const shift = await prisma.shift.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ShiftUpdateManyArgs>(args: SelectSubset<T, ShiftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Shifts and returns the data updated in the database.
+     * @param {ShiftUpdateManyAndReturnArgs} args - Arguments to update many Shifts.
+     * @example
+     * // Update many Shifts
+     * const shift = await prisma.shift.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Shifts and only return the `id`
+     * const shiftWithIdOnly = await prisma.shift.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ShiftUpdateManyAndReturnArgs>(args: SelectSubset<T, ShiftUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Shift.
+     * @param {ShiftUpsertArgs} args - Arguments to update or create a Shift.
+     * @example
+     * // Update or create a Shift
+     * const shift = await prisma.shift.upsert({
+     *   create: {
+     *     // ... data to create a Shift
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Shift we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ShiftUpsertArgs>(args: SelectSubset<T, ShiftUpsertArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Shifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftCountArgs} args - Arguments to filter Shifts to count.
+     * @example
+     * // Count the number of Shifts
+     * const count = await prisma.shift.count({
+     *   where: {
+     *     // ... the filter for the Shifts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ShiftCountArgs>(
+      args?: Subset<T, ShiftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ShiftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Shift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ShiftAggregateArgs>(args: Subset<T, ShiftAggregateArgs>): Prisma.PrismaPromise<GetShiftAggregateType<T>>
+
+    /**
+     * Group by Shift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ShiftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ShiftGroupByArgs['orderBy'] }
+        : { orderBy?: ShiftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ShiftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShiftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Shift model
+   */
+  readonly fields: ShiftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Shift.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ShiftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    staffShifts<T extends Shift$staffShiftsArgs<ExtArgs> = {}>(args?: Subset<T, Shift$staffShiftsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    attendances<T extends Shift$attendancesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Shift model
+   */
+  interface ShiftFieldRefs {
+    readonly id: FieldRef<"Shift", 'String'>
+    readonly tenantId: FieldRef<"Shift", 'String'>
+    readonly name: FieldRef<"Shift", 'String'>
+    readonly startTime: FieldRef<"Shift", 'String'>
+    readonly endTime: FieldRef<"Shift", 'String'>
+    readonly isActive: FieldRef<"Shift", 'Boolean'>
+    readonly calculateBeforeStartTime: FieldRef<"Shift", 'Boolean'>
+    readonly hasBreakTime: FieldRef<"Shift", 'Boolean'>
+    readonly breakDuration: FieldRef<"Shift", 'Int'>
+    readonly minWorkingHours: FieldRef<"Shift", 'Float'>
+    readonly maxWorkingHours: FieldRef<"Shift", 'Float'>
+    readonly overtimeMultiplier: FieldRef<"Shift", 'Float'>
+    readonly lateThreshold: FieldRef<"Shift", 'Int'>
+    readonly earlyCheckInAllowed: FieldRef<"Shift", 'Int'>
+    readonly color: FieldRef<"Shift", 'String'>
+    readonly description: FieldRef<"Shift", 'String'>
+    readonly createdAt: FieldRef<"Shift", 'DateTime'>
+    readonly updatedAt: FieldRef<"Shift", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Shift findUnique
+   */
+  export type ShiftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift findUniqueOrThrow
+   */
+  export type ShiftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift findFirst
+   */
+  export type ShiftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shifts.
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shifts.
+     */
+    distinct?: ShiftScalarFieldEnum | ShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Shift findFirstOrThrow
+   */
+  export type ShiftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shifts.
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shifts.
+     */
+    distinct?: ShiftScalarFieldEnum | ShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Shift findMany
+   */
+  export type ShiftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shifts to fetch.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Shifts.
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    distinct?: ShiftScalarFieldEnum | ShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Shift create
+   */
+  export type ShiftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Shift.
+     */
+    data: XOR<ShiftCreateInput, ShiftUncheckedCreateInput>
+  }
+
+  /**
+   * Shift createMany
+   */
+  export type ShiftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Shifts.
+     */
+    data: ShiftCreateManyInput | ShiftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Shift createManyAndReturn
+   */
+  export type ShiftCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * The data used to create many Shifts.
+     */
+    data: ShiftCreateManyInput | ShiftCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Shift update
+   */
+  export type ShiftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Shift.
+     */
+    data: XOR<ShiftUpdateInput, ShiftUncheckedUpdateInput>
+    /**
+     * Choose, which Shift to update.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift updateMany
+   */
+  export type ShiftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Shifts.
+     */
+    data: XOR<ShiftUpdateManyMutationInput, ShiftUncheckedUpdateManyInput>
+    /**
+     * Filter which Shifts to update
+     */
+    where?: ShiftWhereInput
+    /**
+     * Limit how many Shifts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Shift updateManyAndReturn
+   */
+  export type ShiftUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * The data used to update Shifts.
+     */
+    data: XOR<ShiftUpdateManyMutationInput, ShiftUncheckedUpdateManyInput>
+    /**
+     * Filter which Shifts to update
+     */
+    where?: ShiftWhereInput
+    /**
+     * Limit how many Shifts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Shift upsert
+   */
+  export type ShiftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Shift to update in case it exists.
+     */
+    where: ShiftWhereUniqueInput
+    /**
+     * In case the Shift found by the `where` argument doesn't exist, create a new Shift with this data.
+     */
+    create: XOR<ShiftCreateInput, ShiftUncheckedCreateInput>
+    /**
+     * In case the Shift was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ShiftUpdateInput, ShiftUncheckedUpdateInput>
+  }
+
+  /**
+   * Shift delete
+   */
+  export type ShiftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter which Shift to delete.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift deleteMany
+   */
+  export type ShiftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Shifts to delete
+     */
+    where?: ShiftWhereInput
+    /**
+     * Limit how many Shifts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Shift.staffShifts
+   */
+  export type Shift$staffShiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    where?: StaffShiftWhereInput
+    orderBy?: StaffShiftOrderByWithRelationInput | StaffShiftOrderByWithRelationInput[]
+    cursor?: StaffShiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffShiftScalarFieldEnum | StaffShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Shift.attendances
+   */
+  export type Shift$attendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    where?: AttendanceWhereInput
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    cursor?: AttendanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Shift without action
+   */
+  export type ShiftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StaffShift
+   */
+
+  export type AggregateStaffShift = {
+    _count: StaffShiftCountAggregateOutputType | null
+    _avg: StaffShiftAvgAggregateOutputType | null
+    _sum: StaffShiftSumAggregateOutputType | null
+    _min: StaffShiftMinAggregateOutputType | null
+    _max: StaffShiftMaxAggregateOutputType | null
+  }
+
+  export type StaffShiftAvgAggregateOutputType = {
+    actualBreakDuration: number | null
+    totalWorkedMinutes: number | null
+    lateMinutes: number | null
+    overtimeMinutes: number | null
+  }
+
+  export type StaffShiftSumAggregateOutputType = {
+    actualBreakDuration: number | null
+    totalWorkedMinutes: number | null
+    lateMinutes: number | null
+    overtimeMinutes: number | null
+  }
+
+  export type StaffShiftMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    staffId: string | null
+    shiftId: string | null
+    date: Date | null
+    checkInTime: string | null
+    checkOutTime: string | null
+    actualBreakDuration: number | null
+    totalWorkedMinutes: number | null
+    lateMinutes: number | null
+    overtimeMinutes: number | null
+    isCompleted: boolean | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffShiftMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    staffId: string | null
+    shiftId: string | null
+    date: Date | null
+    checkInTime: string | null
+    checkOutTime: string | null
+    actualBreakDuration: number | null
+    totalWorkedMinutes: number | null
+    lateMinutes: number | null
+    overtimeMinutes: number | null
+    isCompleted: boolean | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffShiftCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    staffId: number
+    shiftId: number
+    date: number
+    checkInTime: number
+    checkOutTime: number
+    actualBreakDuration: number
+    totalWorkedMinutes: number
+    lateMinutes: number
+    overtimeMinutes: number
+    isCompleted: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StaffShiftAvgAggregateInputType = {
+    actualBreakDuration?: true
+    totalWorkedMinutes?: true
+    lateMinutes?: true
+    overtimeMinutes?: true
+  }
+
+  export type StaffShiftSumAggregateInputType = {
+    actualBreakDuration?: true
+    totalWorkedMinutes?: true
+    lateMinutes?: true
+    overtimeMinutes?: true
+  }
+
+  export type StaffShiftMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    staffId?: true
+    shiftId?: true
+    date?: true
+    checkInTime?: true
+    checkOutTime?: true
+    actualBreakDuration?: true
+    totalWorkedMinutes?: true
+    lateMinutes?: true
+    overtimeMinutes?: true
+    isCompleted?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffShiftMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    staffId?: true
+    shiftId?: true
+    date?: true
+    checkInTime?: true
+    checkOutTime?: true
+    actualBreakDuration?: true
+    totalWorkedMinutes?: true
+    lateMinutes?: true
+    overtimeMinutes?: true
+    isCompleted?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffShiftCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    staffId?: true
+    shiftId?: true
+    date?: true
+    checkInTime?: true
+    checkOutTime?: true
+    actualBreakDuration?: true
+    totalWorkedMinutes?: true
+    lateMinutes?: true
+    overtimeMinutes?: true
+    isCompleted?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StaffShiftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffShift to aggregate.
+     */
+    where?: StaffShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffShifts to fetch.
+     */
+    orderBy?: StaffShiftOrderByWithRelationInput | StaffShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StaffShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffShifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffShifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StaffShifts
+    **/
+    _count?: true | StaffShiftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StaffShiftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StaffShiftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StaffShiftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StaffShiftMaxAggregateInputType
+  }
+
+  export type GetStaffShiftAggregateType<T extends StaffShiftAggregateArgs> = {
+        [P in keyof T & keyof AggregateStaffShift]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStaffShift[P]>
+      : GetScalarType<T[P], AggregateStaffShift[P]>
+  }
+
+
+
+
+  export type StaffShiftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffShiftWhereInput
+    orderBy?: StaffShiftOrderByWithAggregationInput | StaffShiftOrderByWithAggregationInput[]
+    by: StaffShiftScalarFieldEnum[] | StaffShiftScalarFieldEnum
+    having?: StaffShiftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StaffShiftCountAggregateInputType | true
+    _avg?: StaffShiftAvgAggregateInputType
+    _sum?: StaffShiftSumAggregateInputType
+    _min?: StaffShiftMinAggregateInputType
+    _max?: StaffShiftMaxAggregateInputType
+  }
+
+  export type StaffShiftGroupByOutputType = {
+    id: string
+    tenantId: string
+    staffId: string
+    shiftId: string
+    date: Date
+    checkInTime: string | null
+    checkOutTime: string | null
+    actualBreakDuration: number | null
+    totalWorkedMinutes: number | null
+    lateMinutes: number
+    overtimeMinutes: number
+    isCompleted: boolean
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: StaffShiftCountAggregateOutputType | null
+    _avg: StaffShiftAvgAggregateOutputType | null
+    _sum: StaffShiftSumAggregateOutputType | null
+    _min: StaffShiftMinAggregateOutputType | null
+    _max: StaffShiftMaxAggregateOutputType | null
+  }
+
+  type GetStaffShiftGroupByPayload<T extends StaffShiftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StaffShiftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StaffShiftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StaffShiftGroupByOutputType[P]>
+            : GetScalarType<T[P], StaffShiftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StaffShiftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    staffId?: boolean
+    shiftId?: boolean
+    date?: boolean
+    checkInTime?: boolean
+    checkOutTime?: boolean
+    actualBreakDuration?: boolean
+    totalWorkedMinutes?: boolean
+    lateMinutes?: boolean
+    overtimeMinutes?: boolean
+    isCompleted?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | ShiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffShift"]>
+
+  export type StaffShiftSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    staffId?: boolean
+    shiftId?: boolean
+    date?: boolean
+    checkInTime?: boolean
+    checkOutTime?: boolean
+    actualBreakDuration?: boolean
+    totalWorkedMinutes?: boolean
+    lateMinutes?: boolean
+    overtimeMinutes?: boolean
+    isCompleted?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | ShiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffShift"]>
+
+  export type StaffShiftSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    staffId?: boolean
+    shiftId?: boolean
+    date?: boolean
+    checkInTime?: boolean
+    checkOutTime?: boolean
+    actualBreakDuration?: boolean
+    totalWorkedMinutes?: boolean
+    lateMinutes?: boolean
+    overtimeMinutes?: boolean
+    isCompleted?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | ShiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffShift"]>
+
+  export type StaffShiftSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    staffId?: boolean
+    shiftId?: boolean
+    date?: boolean
+    checkInTime?: boolean
+    checkOutTime?: boolean
+    actualBreakDuration?: boolean
+    totalWorkedMinutes?: boolean
+    lateMinutes?: boolean
+    overtimeMinutes?: boolean
+    isCompleted?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StaffShiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "staffId" | "shiftId" | "date" | "checkInTime" | "checkOutTime" | "actualBreakDuration" | "totalWorkedMinutes" | "lateMinutes" | "overtimeMinutes" | "isCompleted" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["staffShift"]>
+  export type StaffShiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | ShiftDefaultArgs<ExtArgs>
+  }
+  export type StaffShiftIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | ShiftDefaultArgs<ExtArgs>
+  }
+  export type StaffShiftIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    shift?: boolean | ShiftDefaultArgs<ExtArgs>
+  }
+
+  export type $StaffShiftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StaffShift"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      staff: Prisma.$StaffPayload<ExtArgs>
+      shift: Prisma.$ShiftPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      staffId: string
+      shiftId: string
+      date: Date
+      checkInTime: string | null
+      checkOutTime: string | null
+      actualBreakDuration: number | null
+      totalWorkedMinutes: number | null
+      lateMinutes: number
+      overtimeMinutes: number
+      isCompleted: boolean
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["staffShift"]>
+    composites: {}
+  }
+
+  type StaffShiftGetPayload<S extends boolean | null | undefined | StaffShiftDefaultArgs> = $Result.GetResult<Prisma.$StaffShiftPayload, S>
+
+  type StaffShiftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StaffShiftFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StaffShiftCountAggregateInputType | true
+    }
+
+  export interface StaffShiftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StaffShift'], meta: { name: 'StaffShift' } }
+    /**
+     * Find zero or one StaffShift that matches the filter.
+     * @param {StaffShiftFindUniqueArgs} args - Arguments to find a StaffShift
+     * @example
+     * // Get one StaffShift
+     * const staffShift = await prisma.staffShift.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StaffShiftFindUniqueArgs>(args: SelectSubset<T, StaffShiftFindUniqueArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StaffShift that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StaffShiftFindUniqueOrThrowArgs} args - Arguments to find a StaffShift
+     * @example
+     * // Get one StaffShift
+     * const staffShift = await prisma.staffShift.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StaffShiftFindUniqueOrThrowArgs>(args: SelectSubset<T, StaffShiftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StaffShift that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffShiftFindFirstArgs} args - Arguments to find a StaffShift
+     * @example
+     * // Get one StaffShift
+     * const staffShift = await prisma.staffShift.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StaffShiftFindFirstArgs>(args?: SelectSubset<T, StaffShiftFindFirstArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StaffShift that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffShiftFindFirstOrThrowArgs} args - Arguments to find a StaffShift
+     * @example
+     * // Get one StaffShift
+     * const staffShift = await prisma.staffShift.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StaffShiftFindFirstOrThrowArgs>(args?: SelectSubset<T, StaffShiftFindFirstOrThrowArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StaffShifts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffShiftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StaffShifts
+     * const staffShifts = await prisma.staffShift.findMany()
+     * 
+     * // Get first 10 StaffShifts
+     * const staffShifts = await prisma.staffShift.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const staffShiftWithIdOnly = await prisma.staffShift.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StaffShiftFindManyArgs>(args?: SelectSubset<T, StaffShiftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StaffShift.
+     * @param {StaffShiftCreateArgs} args - Arguments to create a StaffShift.
+     * @example
+     * // Create one StaffShift
+     * const StaffShift = await prisma.staffShift.create({
+     *   data: {
+     *     // ... data to create a StaffShift
+     *   }
+     * })
+     * 
+     */
+    create<T extends StaffShiftCreateArgs>(args: SelectSubset<T, StaffShiftCreateArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StaffShifts.
+     * @param {StaffShiftCreateManyArgs} args - Arguments to create many StaffShifts.
+     * @example
+     * // Create many StaffShifts
+     * const staffShift = await prisma.staffShift.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StaffShiftCreateManyArgs>(args?: SelectSubset<T, StaffShiftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StaffShifts and returns the data saved in the database.
+     * @param {StaffShiftCreateManyAndReturnArgs} args - Arguments to create many StaffShifts.
+     * @example
+     * // Create many StaffShifts
+     * const staffShift = await prisma.staffShift.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StaffShifts and only return the `id`
+     * const staffShiftWithIdOnly = await prisma.staffShift.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StaffShiftCreateManyAndReturnArgs>(args?: SelectSubset<T, StaffShiftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StaffShift.
+     * @param {StaffShiftDeleteArgs} args - Arguments to delete one StaffShift.
+     * @example
+     * // Delete one StaffShift
+     * const StaffShift = await prisma.staffShift.delete({
+     *   where: {
+     *     // ... filter to delete one StaffShift
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StaffShiftDeleteArgs>(args: SelectSubset<T, StaffShiftDeleteArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StaffShift.
+     * @param {StaffShiftUpdateArgs} args - Arguments to update one StaffShift.
+     * @example
+     * // Update one StaffShift
+     * const staffShift = await prisma.staffShift.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StaffShiftUpdateArgs>(args: SelectSubset<T, StaffShiftUpdateArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StaffShifts.
+     * @param {StaffShiftDeleteManyArgs} args - Arguments to filter StaffShifts to delete.
+     * @example
+     * // Delete a few StaffShifts
+     * const { count } = await prisma.staffShift.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StaffShiftDeleteManyArgs>(args?: SelectSubset<T, StaffShiftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffShifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffShiftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StaffShifts
+     * const staffShift = await prisma.staffShift.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StaffShiftUpdateManyArgs>(args: SelectSubset<T, StaffShiftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffShifts and returns the data updated in the database.
+     * @param {StaffShiftUpdateManyAndReturnArgs} args - Arguments to update many StaffShifts.
+     * @example
+     * // Update many StaffShifts
+     * const staffShift = await prisma.staffShift.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StaffShifts and only return the `id`
+     * const staffShiftWithIdOnly = await prisma.staffShift.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StaffShiftUpdateManyAndReturnArgs>(args: SelectSubset<T, StaffShiftUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StaffShift.
+     * @param {StaffShiftUpsertArgs} args - Arguments to update or create a StaffShift.
+     * @example
+     * // Update or create a StaffShift
+     * const staffShift = await prisma.staffShift.upsert({
+     *   create: {
+     *     // ... data to create a StaffShift
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StaffShift we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StaffShiftUpsertArgs>(args: SelectSubset<T, StaffShiftUpsertArgs<ExtArgs>>): Prisma__StaffShiftClient<$Result.GetResult<Prisma.$StaffShiftPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StaffShifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffShiftCountArgs} args - Arguments to filter StaffShifts to count.
+     * @example
+     * // Count the number of StaffShifts
+     * const count = await prisma.staffShift.count({
+     *   where: {
+     *     // ... the filter for the StaffShifts we want to count
+     *   }
+     * })
+    **/
+    count<T extends StaffShiftCountArgs>(
+      args?: Subset<T, StaffShiftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StaffShiftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StaffShift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffShiftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StaffShiftAggregateArgs>(args: Subset<T, StaffShiftAggregateArgs>): Prisma.PrismaPromise<GetStaffShiftAggregateType<T>>
+
+    /**
+     * Group by StaffShift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffShiftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StaffShiftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StaffShiftGroupByArgs['orderBy'] }
+        : { orderBy?: StaffShiftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StaffShiftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStaffShiftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StaffShift model
+   */
+  readonly fields: StaffShiftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StaffShift.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StaffShiftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    staff<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StaffShift model
+   */
+  interface StaffShiftFieldRefs {
+    readonly id: FieldRef<"StaffShift", 'String'>
+    readonly tenantId: FieldRef<"StaffShift", 'String'>
+    readonly staffId: FieldRef<"StaffShift", 'String'>
+    readonly shiftId: FieldRef<"StaffShift", 'String'>
+    readonly date: FieldRef<"StaffShift", 'DateTime'>
+    readonly checkInTime: FieldRef<"StaffShift", 'String'>
+    readonly checkOutTime: FieldRef<"StaffShift", 'String'>
+    readonly actualBreakDuration: FieldRef<"StaffShift", 'Int'>
+    readonly totalWorkedMinutes: FieldRef<"StaffShift", 'Int'>
+    readonly lateMinutes: FieldRef<"StaffShift", 'Int'>
+    readonly overtimeMinutes: FieldRef<"StaffShift", 'Int'>
+    readonly isCompleted: FieldRef<"StaffShift", 'Boolean'>
+    readonly notes: FieldRef<"StaffShift", 'String'>
+    readonly createdAt: FieldRef<"StaffShift", 'DateTime'>
+    readonly updatedAt: FieldRef<"StaffShift", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StaffShift findUnique
+   */
+  export type StaffShiftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffShift to fetch.
+     */
+    where: StaffShiftWhereUniqueInput
+  }
+
+  /**
+   * StaffShift findUniqueOrThrow
+   */
+  export type StaffShiftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffShift to fetch.
+     */
+    where: StaffShiftWhereUniqueInput
+  }
+
+  /**
+   * StaffShift findFirst
+   */
+  export type StaffShiftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffShift to fetch.
+     */
+    where?: StaffShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffShifts to fetch.
+     */
+    orderBy?: StaffShiftOrderByWithRelationInput | StaffShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffShifts.
+     */
+    cursor?: StaffShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffShifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffShifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffShifts.
+     */
+    distinct?: StaffShiftScalarFieldEnum | StaffShiftScalarFieldEnum[]
+  }
+
+  /**
+   * StaffShift findFirstOrThrow
+   */
+  export type StaffShiftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffShift to fetch.
+     */
+    where?: StaffShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffShifts to fetch.
+     */
+    orderBy?: StaffShiftOrderByWithRelationInput | StaffShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffShifts.
+     */
+    cursor?: StaffShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffShifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffShifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffShifts.
+     */
+    distinct?: StaffShiftScalarFieldEnum | StaffShiftScalarFieldEnum[]
+  }
+
+  /**
+   * StaffShift findMany
+   */
+  export type StaffShiftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffShifts to fetch.
+     */
+    where?: StaffShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffShifts to fetch.
+     */
+    orderBy?: StaffShiftOrderByWithRelationInput | StaffShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StaffShifts.
+     */
+    cursor?: StaffShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffShifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffShifts.
+     */
+    skip?: number
+    distinct?: StaffShiftScalarFieldEnum | StaffShiftScalarFieldEnum[]
+  }
+
+  /**
+   * StaffShift create
+   */
+  export type StaffShiftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StaffShift.
+     */
+    data: XOR<StaffShiftCreateInput, StaffShiftUncheckedCreateInput>
+  }
+
+  /**
+   * StaffShift createMany
+   */
+  export type StaffShiftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StaffShifts.
+     */
+    data: StaffShiftCreateManyInput | StaffShiftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StaffShift createManyAndReturn
+   */
+  export type StaffShiftCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * The data used to create many StaffShifts.
+     */
+    data: StaffShiftCreateManyInput | StaffShiftCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffShift update
+   */
+  export type StaffShiftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StaffShift.
+     */
+    data: XOR<StaffShiftUpdateInput, StaffShiftUncheckedUpdateInput>
+    /**
+     * Choose, which StaffShift to update.
+     */
+    where: StaffShiftWhereUniqueInput
+  }
+
+  /**
+   * StaffShift updateMany
+   */
+  export type StaffShiftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StaffShifts.
+     */
+    data: XOR<StaffShiftUpdateManyMutationInput, StaffShiftUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffShifts to update
+     */
+    where?: StaffShiftWhereInput
+    /**
+     * Limit how many StaffShifts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StaffShift updateManyAndReturn
+   */
+  export type StaffShiftUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * The data used to update StaffShifts.
+     */
+    data: XOR<StaffShiftUpdateManyMutationInput, StaffShiftUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffShifts to update
+     */
+    where?: StaffShiftWhereInput
+    /**
+     * Limit how many StaffShifts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffShift upsert
+   */
+  export type StaffShiftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StaffShift to update in case it exists.
+     */
+    where: StaffShiftWhereUniqueInput
+    /**
+     * In case the StaffShift found by the `where` argument doesn't exist, create a new StaffShift with this data.
+     */
+    create: XOR<StaffShiftCreateInput, StaffShiftUncheckedCreateInput>
+    /**
+     * In case the StaffShift was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StaffShiftUpdateInput, StaffShiftUncheckedUpdateInput>
+  }
+
+  /**
+   * StaffShift delete
+   */
+  export type StaffShiftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+    /**
+     * Filter which StaffShift to delete.
+     */
+    where: StaffShiftWhereUniqueInput
+  }
+
+  /**
+   * StaffShift deleteMany
+   */
+  export type StaffShiftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffShifts to delete
+     */
+    where?: StaffShiftWhereInput
+    /**
+     * Limit how many StaffShifts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StaffShift without action
+   */
+  export type StaffShiftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffShift
+     */
+    select?: StaffShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StaffShift
+     */
+    omit?: StaffShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffShiftInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DonationPaymentMethod
+   */
+
+  export type AggregateDonationPaymentMethod = {
+    _count: DonationPaymentMethodCountAggregateOutputType | null
+    _avg: DonationPaymentMethodAvgAggregateOutputType | null
+    _sum: DonationPaymentMethodSumAggregateOutputType | null
+    _min: DonationPaymentMethodMinAggregateOutputType | null
+    _max: DonationPaymentMethodMaxAggregateOutputType | null
+  }
+
+  export type DonationPaymentMethodAvgAggregateOutputType = {
+    transactionFee: Decimal | null
+    feePercentage: Decimal | null
+    taxPercentage: Decimal | null
+    minAmount: Decimal | null
+    maxAmount: Decimal | null
+    displayOrder: number | null
+  }
+
+  export type DonationPaymentMethodSumAggregateOutputType = {
+    transactionFee: Decimal | null
+    feePercentage: Decimal | null
+    taxPercentage: Decimal | null
+    minAmount: Decimal | null
+    maxAmount: Decimal | null
+    displayOrder: number | null
+  }
+
+  export type DonationPaymentMethodMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    type: string | null
+    transactionFee: Decimal | null
+    feePercentage: Decimal | null
+    taxPercentage: Decimal | null
+    minAmount: Decimal | null
+    maxAmount: Decimal | null
+    isActive: boolean | null
+    iconUrl: string | null
+    description: string | null
+    displayOrder: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DonationPaymentMethodMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    type: string | null
+    transactionFee: Decimal | null
+    feePercentage: Decimal | null
+    taxPercentage: Decimal | null
+    minAmount: Decimal | null
+    maxAmount: Decimal | null
+    isActive: boolean | null
+    iconUrl: string | null
+    description: string | null
+    displayOrder: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DonationPaymentMethodCountAggregateOutputType = {
+    id: number
+    name: number
+    code: number
+    type: number
+    transactionFee: number
+    feePercentage: number
+    taxPercentage: number
+    minAmount: number
+    maxAmount: number
+    isActive: number
+    iconUrl: number
+    description: number
+    displayOrder: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DonationPaymentMethodAvgAggregateInputType = {
+    transactionFee?: true
+    feePercentage?: true
+    taxPercentage?: true
+    minAmount?: true
+    maxAmount?: true
+    displayOrder?: true
+  }
+
+  export type DonationPaymentMethodSumAggregateInputType = {
+    transactionFee?: true
+    feePercentage?: true
+    taxPercentage?: true
+    minAmount?: true
+    maxAmount?: true
+    displayOrder?: true
+  }
+
+  export type DonationPaymentMethodMinAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    type?: true
+    transactionFee?: true
+    feePercentage?: true
+    taxPercentage?: true
+    minAmount?: true
+    maxAmount?: true
+    isActive?: true
+    iconUrl?: true
+    description?: true
+    displayOrder?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DonationPaymentMethodMaxAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    type?: true
+    transactionFee?: true
+    feePercentage?: true
+    taxPercentage?: true
+    minAmount?: true
+    maxAmount?: true
+    isActive?: true
+    iconUrl?: true
+    description?: true
+    displayOrder?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DonationPaymentMethodCountAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    type?: true
+    transactionFee?: true
+    feePercentage?: true
+    taxPercentage?: true
+    minAmount?: true
+    maxAmount?: true
+    isActive?: true
+    iconUrl?: true
+    description?: true
+    displayOrder?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DonationPaymentMethodAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonationPaymentMethod to aggregate.
+     */
+    where?: DonationPaymentMethodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonationPaymentMethods to fetch.
+     */
+    orderBy?: DonationPaymentMethodOrderByWithRelationInput | DonationPaymentMethodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DonationPaymentMethodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonationPaymentMethods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonationPaymentMethods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DonationPaymentMethods
+    **/
+    _count?: true | DonationPaymentMethodCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DonationPaymentMethodAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DonationPaymentMethodSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DonationPaymentMethodMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DonationPaymentMethodMaxAggregateInputType
+  }
+
+  export type GetDonationPaymentMethodAggregateType<T extends DonationPaymentMethodAggregateArgs> = {
+        [P in keyof T & keyof AggregateDonationPaymentMethod]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDonationPaymentMethod[P]>
+      : GetScalarType<T[P], AggregateDonationPaymentMethod[P]>
+  }
+
+
+
+
+  export type DonationPaymentMethodGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonationPaymentMethodWhereInput
+    orderBy?: DonationPaymentMethodOrderByWithAggregationInput | DonationPaymentMethodOrderByWithAggregationInput[]
+    by: DonationPaymentMethodScalarFieldEnum[] | DonationPaymentMethodScalarFieldEnum
+    having?: DonationPaymentMethodScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DonationPaymentMethodCountAggregateInputType | true
+    _avg?: DonationPaymentMethodAvgAggregateInputType
+    _sum?: DonationPaymentMethodSumAggregateInputType
+    _min?: DonationPaymentMethodMinAggregateInputType
+    _max?: DonationPaymentMethodMaxAggregateInputType
+  }
+
+  export type DonationPaymentMethodGroupByOutputType = {
+    id: string
+    name: string
+    code: string
+    type: string
+    transactionFee: Decimal
+    feePercentage: Decimal | null
+    taxPercentage: Decimal | null
+    minAmount: Decimal
+    maxAmount: Decimal | null
+    isActive: boolean
+    iconUrl: string | null
+    description: string | null
+    displayOrder: number
+    createdAt: Date
+    updatedAt: Date
+    _count: DonationPaymentMethodCountAggregateOutputType | null
+    _avg: DonationPaymentMethodAvgAggregateOutputType | null
+    _sum: DonationPaymentMethodSumAggregateOutputType | null
+    _min: DonationPaymentMethodMinAggregateOutputType | null
+    _max: DonationPaymentMethodMaxAggregateOutputType | null
+  }
+
+  type GetDonationPaymentMethodGroupByPayload<T extends DonationPaymentMethodGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DonationPaymentMethodGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DonationPaymentMethodGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DonationPaymentMethodGroupByOutputType[P]>
+            : GetScalarType<T[P], DonationPaymentMethodGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DonationPaymentMethodSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    type?: boolean
+    transactionFee?: boolean
+    feePercentage?: boolean
+    taxPercentage?: boolean
+    minAmount?: boolean
+    maxAmount?: boolean
+    isActive?: boolean
+    iconUrl?: boolean
+    description?: boolean
+    displayOrder?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    donations?: boolean | DonationPaymentMethod$donationsArgs<ExtArgs>
+    _count?: boolean | DonationPaymentMethodCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donationPaymentMethod"]>
+
+  export type DonationPaymentMethodSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    type?: boolean
+    transactionFee?: boolean
+    feePercentage?: boolean
+    taxPercentage?: boolean
+    minAmount?: boolean
+    maxAmount?: boolean
+    isActive?: boolean
+    iconUrl?: boolean
+    description?: boolean
+    displayOrder?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["donationPaymentMethod"]>
+
+  export type DonationPaymentMethodSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    type?: boolean
+    transactionFee?: boolean
+    feePercentage?: boolean
+    taxPercentage?: boolean
+    minAmount?: boolean
+    maxAmount?: boolean
+    isActive?: boolean
+    iconUrl?: boolean
+    description?: boolean
+    displayOrder?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["donationPaymentMethod"]>
+
+  export type DonationPaymentMethodSelectScalar = {
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    type?: boolean
+    transactionFee?: boolean
+    feePercentage?: boolean
+    taxPercentage?: boolean
+    minAmount?: boolean
+    maxAmount?: boolean
+    isActive?: boolean
+    iconUrl?: boolean
+    description?: boolean
+    displayOrder?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DonationPaymentMethodOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "type" | "transactionFee" | "feePercentage" | "taxPercentage" | "minAmount" | "maxAmount" | "isActive" | "iconUrl" | "description" | "displayOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["donationPaymentMethod"]>
+  export type DonationPaymentMethodInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donations?: boolean | DonationPaymentMethod$donationsArgs<ExtArgs>
+    _count?: boolean | DonationPaymentMethodCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DonationPaymentMethodIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DonationPaymentMethodIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DonationPaymentMethodPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DonationPaymentMethod"
+    objects: {
+      donations: Prisma.$TenantDonationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      code: string
+      type: string
+      transactionFee: Prisma.Decimal
+      feePercentage: Prisma.Decimal | null
+      taxPercentage: Prisma.Decimal | null
+      minAmount: Prisma.Decimal
+      maxAmount: Prisma.Decimal | null
+      isActive: boolean
+      iconUrl: string | null
+      description: string | null
+      displayOrder: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["donationPaymentMethod"]>
+    composites: {}
+  }
+
+  type DonationPaymentMethodGetPayload<S extends boolean | null | undefined | DonationPaymentMethodDefaultArgs> = $Result.GetResult<Prisma.$DonationPaymentMethodPayload, S>
+
+  type DonationPaymentMethodCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DonationPaymentMethodFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DonationPaymentMethodCountAggregateInputType | true
+    }
+
+  export interface DonationPaymentMethodDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DonationPaymentMethod'], meta: { name: 'DonationPaymentMethod' } }
+    /**
+     * Find zero or one DonationPaymentMethod that matches the filter.
+     * @param {DonationPaymentMethodFindUniqueArgs} args - Arguments to find a DonationPaymentMethod
+     * @example
+     * // Get one DonationPaymentMethod
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DonationPaymentMethodFindUniqueArgs>(args: SelectSubset<T, DonationPaymentMethodFindUniqueArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DonationPaymentMethod that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DonationPaymentMethodFindUniqueOrThrowArgs} args - Arguments to find a DonationPaymentMethod
+     * @example
+     * // Get one DonationPaymentMethod
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DonationPaymentMethodFindUniqueOrThrowArgs>(args: SelectSubset<T, DonationPaymentMethodFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonationPaymentMethod that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonationPaymentMethodFindFirstArgs} args - Arguments to find a DonationPaymentMethod
+     * @example
+     * // Get one DonationPaymentMethod
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DonationPaymentMethodFindFirstArgs>(args?: SelectSubset<T, DonationPaymentMethodFindFirstArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonationPaymentMethod that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonationPaymentMethodFindFirstOrThrowArgs} args - Arguments to find a DonationPaymentMethod
+     * @example
+     * // Get one DonationPaymentMethod
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DonationPaymentMethodFindFirstOrThrowArgs>(args?: SelectSubset<T, DonationPaymentMethodFindFirstOrThrowArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DonationPaymentMethods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonationPaymentMethodFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DonationPaymentMethods
+     * const donationPaymentMethods = await prisma.donationPaymentMethod.findMany()
+     * 
+     * // Get first 10 DonationPaymentMethods
+     * const donationPaymentMethods = await prisma.donationPaymentMethod.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const donationPaymentMethodWithIdOnly = await prisma.donationPaymentMethod.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DonationPaymentMethodFindManyArgs>(args?: SelectSubset<T, DonationPaymentMethodFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DonationPaymentMethod.
+     * @param {DonationPaymentMethodCreateArgs} args - Arguments to create a DonationPaymentMethod.
+     * @example
+     * // Create one DonationPaymentMethod
+     * const DonationPaymentMethod = await prisma.donationPaymentMethod.create({
+     *   data: {
+     *     // ... data to create a DonationPaymentMethod
+     *   }
+     * })
+     * 
+     */
+    create<T extends DonationPaymentMethodCreateArgs>(args: SelectSubset<T, DonationPaymentMethodCreateArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DonationPaymentMethods.
+     * @param {DonationPaymentMethodCreateManyArgs} args - Arguments to create many DonationPaymentMethods.
+     * @example
+     * // Create many DonationPaymentMethods
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DonationPaymentMethodCreateManyArgs>(args?: SelectSubset<T, DonationPaymentMethodCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DonationPaymentMethods and returns the data saved in the database.
+     * @param {DonationPaymentMethodCreateManyAndReturnArgs} args - Arguments to create many DonationPaymentMethods.
+     * @example
+     * // Create many DonationPaymentMethods
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DonationPaymentMethods and only return the `id`
+     * const donationPaymentMethodWithIdOnly = await prisma.donationPaymentMethod.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DonationPaymentMethodCreateManyAndReturnArgs>(args?: SelectSubset<T, DonationPaymentMethodCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DonationPaymentMethod.
+     * @param {DonationPaymentMethodDeleteArgs} args - Arguments to delete one DonationPaymentMethod.
+     * @example
+     * // Delete one DonationPaymentMethod
+     * const DonationPaymentMethod = await prisma.donationPaymentMethod.delete({
+     *   where: {
+     *     // ... filter to delete one DonationPaymentMethod
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DonationPaymentMethodDeleteArgs>(args: SelectSubset<T, DonationPaymentMethodDeleteArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DonationPaymentMethod.
+     * @param {DonationPaymentMethodUpdateArgs} args - Arguments to update one DonationPaymentMethod.
+     * @example
+     * // Update one DonationPaymentMethod
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DonationPaymentMethodUpdateArgs>(args: SelectSubset<T, DonationPaymentMethodUpdateArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DonationPaymentMethods.
+     * @param {DonationPaymentMethodDeleteManyArgs} args - Arguments to filter DonationPaymentMethods to delete.
+     * @example
+     * // Delete a few DonationPaymentMethods
+     * const { count } = await prisma.donationPaymentMethod.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DonationPaymentMethodDeleteManyArgs>(args?: SelectSubset<T, DonationPaymentMethodDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonationPaymentMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonationPaymentMethodUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DonationPaymentMethods
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DonationPaymentMethodUpdateManyArgs>(args: SelectSubset<T, DonationPaymentMethodUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonationPaymentMethods and returns the data updated in the database.
+     * @param {DonationPaymentMethodUpdateManyAndReturnArgs} args - Arguments to update many DonationPaymentMethods.
+     * @example
+     * // Update many DonationPaymentMethods
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DonationPaymentMethods and only return the `id`
+     * const donationPaymentMethodWithIdOnly = await prisma.donationPaymentMethod.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DonationPaymentMethodUpdateManyAndReturnArgs>(args: SelectSubset<T, DonationPaymentMethodUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DonationPaymentMethod.
+     * @param {DonationPaymentMethodUpsertArgs} args - Arguments to update or create a DonationPaymentMethod.
+     * @example
+     * // Update or create a DonationPaymentMethod
+     * const donationPaymentMethod = await prisma.donationPaymentMethod.upsert({
+     *   create: {
+     *     // ... data to create a DonationPaymentMethod
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DonationPaymentMethod we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DonationPaymentMethodUpsertArgs>(args: SelectSubset<T, DonationPaymentMethodUpsertArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DonationPaymentMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonationPaymentMethodCountArgs} args - Arguments to filter DonationPaymentMethods to count.
+     * @example
+     * // Count the number of DonationPaymentMethods
+     * const count = await prisma.donationPaymentMethod.count({
+     *   where: {
+     *     // ... the filter for the DonationPaymentMethods we want to count
+     *   }
+     * })
+    **/
+    count<T extends DonationPaymentMethodCountArgs>(
+      args?: Subset<T, DonationPaymentMethodCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DonationPaymentMethodCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DonationPaymentMethod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonationPaymentMethodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DonationPaymentMethodAggregateArgs>(args: Subset<T, DonationPaymentMethodAggregateArgs>): Prisma.PrismaPromise<GetDonationPaymentMethodAggregateType<T>>
+
+    /**
+     * Group by DonationPaymentMethod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonationPaymentMethodGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DonationPaymentMethodGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DonationPaymentMethodGroupByArgs['orderBy'] }
+        : { orderBy?: DonationPaymentMethodGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DonationPaymentMethodGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDonationPaymentMethodGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DonationPaymentMethod model
+   */
+  readonly fields: DonationPaymentMethodFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DonationPaymentMethod.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DonationPaymentMethodClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    donations<T extends DonationPaymentMethod$donationsArgs<ExtArgs> = {}>(args?: Subset<T, DonationPaymentMethod$donationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DonationPaymentMethod model
+   */
+  interface DonationPaymentMethodFieldRefs {
+    readonly id: FieldRef<"DonationPaymentMethod", 'String'>
+    readonly name: FieldRef<"DonationPaymentMethod", 'String'>
+    readonly code: FieldRef<"DonationPaymentMethod", 'String'>
+    readonly type: FieldRef<"DonationPaymentMethod", 'String'>
+    readonly transactionFee: FieldRef<"DonationPaymentMethod", 'Decimal'>
+    readonly feePercentage: FieldRef<"DonationPaymentMethod", 'Decimal'>
+    readonly taxPercentage: FieldRef<"DonationPaymentMethod", 'Decimal'>
+    readonly minAmount: FieldRef<"DonationPaymentMethod", 'Decimal'>
+    readonly maxAmount: FieldRef<"DonationPaymentMethod", 'Decimal'>
+    readonly isActive: FieldRef<"DonationPaymentMethod", 'Boolean'>
+    readonly iconUrl: FieldRef<"DonationPaymentMethod", 'String'>
+    readonly description: FieldRef<"DonationPaymentMethod", 'String'>
+    readonly displayOrder: FieldRef<"DonationPaymentMethod", 'Int'>
+    readonly createdAt: FieldRef<"DonationPaymentMethod", 'DateTime'>
+    readonly updatedAt: FieldRef<"DonationPaymentMethod", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DonationPaymentMethod findUnique
+   */
+  export type DonationPaymentMethodFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * Filter, which DonationPaymentMethod to fetch.
+     */
+    where: DonationPaymentMethodWhereUniqueInput
+  }
+
+  /**
+   * DonationPaymentMethod findUniqueOrThrow
+   */
+  export type DonationPaymentMethodFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * Filter, which DonationPaymentMethod to fetch.
+     */
+    where: DonationPaymentMethodWhereUniqueInput
+  }
+
+  /**
+   * DonationPaymentMethod findFirst
+   */
+  export type DonationPaymentMethodFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * Filter, which DonationPaymentMethod to fetch.
+     */
+    where?: DonationPaymentMethodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonationPaymentMethods to fetch.
+     */
+    orderBy?: DonationPaymentMethodOrderByWithRelationInput | DonationPaymentMethodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonationPaymentMethods.
+     */
+    cursor?: DonationPaymentMethodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonationPaymentMethods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonationPaymentMethods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonationPaymentMethods.
+     */
+    distinct?: DonationPaymentMethodScalarFieldEnum | DonationPaymentMethodScalarFieldEnum[]
+  }
+
+  /**
+   * DonationPaymentMethod findFirstOrThrow
+   */
+  export type DonationPaymentMethodFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * Filter, which DonationPaymentMethod to fetch.
+     */
+    where?: DonationPaymentMethodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonationPaymentMethods to fetch.
+     */
+    orderBy?: DonationPaymentMethodOrderByWithRelationInput | DonationPaymentMethodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonationPaymentMethods.
+     */
+    cursor?: DonationPaymentMethodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonationPaymentMethods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonationPaymentMethods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonationPaymentMethods.
+     */
+    distinct?: DonationPaymentMethodScalarFieldEnum | DonationPaymentMethodScalarFieldEnum[]
+  }
+
+  /**
+   * DonationPaymentMethod findMany
+   */
+  export type DonationPaymentMethodFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * Filter, which DonationPaymentMethods to fetch.
+     */
+    where?: DonationPaymentMethodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonationPaymentMethods to fetch.
+     */
+    orderBy?: DonationPaymentMethodOrderByWithRelationInput | DonationPaymentMethodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DonationPaymentMethods.
+     */
+    cursor?: DonationPaymentMethodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonationPaymentMethods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonationPaymentMethods.
+     */
+    skip?: number
+    distinct?: DonationPaymentMethodScalarFieldEnum | DonationPaymentMethodScalarFieldEnum[]
+  }
+
+  /**
+   * DonationPaymentMethod create
+   */
+  export type DonationPaymentMethodCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DonationPaymentMethod.
+     */
+    data: XOR<DonationPaymentMethodCreateInput, DonationPaymentMethodUncheckedCreateInput>
+  }
+
+  /**
+   * DonationPaymentMethod createMany
+   */
+  export type DonationPaymentMethodCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DonationPaymentMethods.
+     */
+    data: DonationPaymentMethodCreateManyInput | DonationPaymentMethodCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DonationPaymentMethod createManyAndReturn
+   */
+  export type DonationPaymentMethodCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * The data used to create many DonationPaymentMethods.
+     */
+    data: DonationPaymentMethodCreateManyInput | DonationPaymentMethodCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DonationPaymentMethod update
+   */
+  export type DonationPaymentMethodUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DonationPaymentMethod.
+     */
+    data: XOR<DonationPaymentMethodUpdateInput, DonationPaymentMethodUncheckedUpdateInput>
+    /**
+     * Choose, which DonationPaymentMethod to update.
+     */
+    where: DonationPaymentMethodWhereUniqueInput
+  }
+
+  /**
+   * DonationPaymentMethod updateMany
+   */
+  export type DonationPaymentMethodUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DonationPaymentMethods.
+     */
+    data: XOR<DonationPaymentMethodUpdateManyMutationInput, DonationPaymentMethodUncheckedUpdateManyInput>
+    /**
+     * Filter which DonationPaymentMethods to update
+     */
+    where?: DonationPaymentMethodWhereInput
+    /**
+     * Limit how many DonationPaymentMethods to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonationPaymentMethod updateManyAndReturn
+   */
+  export type DonationPaymentMethodUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * The data used to update DonationPaymentMethods.
+     */
+    data: XOR<DonationPaymentMethodUpdateManyMutationInput, DonationPaymentMethodUncheckedUpdateManyInput>
+    /**
+     * Filter which DonationPaymentMethods to update
+     */
+    where?: DonationPaymentMethodWhereInput
+    /**
+     * Limit how many DonationPaymentMethods to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonationPaymentMethod upsert
+   */
+  export type DonationPaymentMethodUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DonationPaymentMethod to update in case it exists.
+     */
+    where: DonationPaymentMethodWhereUniqueInput
+    /**
+     * In case the DonationPaymentMethod found by the `where` argument doesn't exist, create a new DonationPaymentMethod with this data.
+     */
+    create: XOR<DonationPaymentMethodCreateInput, DonationPaymentMethodUncheckedCreateInput>
+    /**
+     * In case the DonationPaymentMethod was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DonationPaymentMethodUpdateInput, DonationPaymentMethodUncheckedUpdateInput>
+  }
+
+  /**
+   * DonationPaymentMethod delete
+   */
+  export type DonationPaymentMethodDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    /**
+     * Filter which DonationPaymentMethod to delete.
+     */
+    where: DonationPaymentMethodWhereUniqueInput
+  }
+
+  /**
+   * DonationPaymentMethod deleteMany
+   */
+  export type DonationPaymentMethodDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonationPaymentMethods to delete
+     */
+    where?: DonationPaymentMethodWhereInput
+    /**
+     * Limit how many DonationPaymentMethods to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonationPaymentMethod.donations
+   */
+  export type DonationPaymentMethod$donationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    where?: TenantDonationWhereInput
+    orderBy?: TenantDonationOrderByWithRelationInput | TenantDonationOrderByWithRelationInput[]
+    cursor?: TenantDonationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantDonationScalarFieldEnum | TenantDonationScalarFieldEnum[]
+  }
+
+  /**
+   * DonationPaymentMethod without action
+   */
+  export type DonationPaymentMethodDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TenantDonation
+   */
+
+  export type AggregateTenantDonation = {
+    _count: TenantDonationCountAggregateOutputType | null
+    _avg: TenantDonationAvgAggregateOutputType | null
+    _sum: TenantDonationSumAggregateOutputType | null
+    _min: TenantDonationMinAggregateOutputType | null
+    _max: TenantDonationMaxAggregateOutputType | null
+  }
+
+  export type TenantDonationAvgAggregateOutputType = {
+    amount: Decimal | null
+    transactionFee: Decimal | null
+    netAmount: Decimal | null
+  }
+
+  export type TenantDonationSumAggregateOutputType = {
+    amount: Decimal | null
+    transactionFee: Decimal | null
+    netAmount: Decimal | null
+  }
+
+  export type TenantDonationMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    paymentMethodId: string | null
+    midtransOrderId: string | null
+    snapToken: string | null
+    amount: Decimal | null
+    transactionFee: Decimal | null
+    netAmount: Decimal | null
+    status: $Enums.DonationStatus | null
+    paymentType: string | null
+    transactionTime: Date | null
+    settlementTime: Date | null
+    expiryTime: Date | null
+    message: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantDonationMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    paymentMethodId: string | null
+    midtransOrderId: string | null
+    snapToken: string | null
+    amount: Decimal | null
+    transactionFee: Decimal | null
+    netAmount: Decimal | null
+    status: $Enums.DonationStatus | null
+    paymentType: string | null
+    transactionTime: Date | null
+    settlementTime: Date | null
+    expiryTime: Date | null
+    message: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantDonationCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    paymentMethodId: number
+    midtransOrderId: number
+    snapToken: number
+    amount: number
+    transactionFee: number
+    netAmount: number
+    status: number
+    paymentType: number
+    transactionTime: number
+    settlementTime: number
+    expiryTime: number
+    message: number
+    midtransResponse: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TenantDonationAvgAggregateInputType = {
+    amount?: true
+    transactionFee?: true
+    netAmount?: true
+  }
+
+  export type TenantDonationSumAggregateInputType = {
+    amount?: true
+    transactionFee?: true
+    netAmount?: true
+  }
+
+  export type TenantDonationMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    paymentMethodId?: true
+    midtransOrderId?: true
+    snapToken?: true
+    amount?: true
+    transactionFee?: true
+    netAmount?: true
+    status?: true
+    paymentType?: true
+    transactionTime?: true
+    settlementTime?: true
+    expiryTime?: true
+    message?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantDonationMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    paymentMethodId?: true
+    midtransOrderId?: true
+    snapToken?: true
+    amount?: true
+    transactionFee?: true
+    netAmount?: true
+    status?: true
+    paymentType?: true
+    transactionTime?: true
+    settlementTime?: true
+    expiryTime?: true
+    message?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantDonationCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    paymentMethodId?: true
+    midtransOrderId?: true
+    snapToken?: true
+    amount?: true
+    transactionFee?: true
+    netAmount?: true
+    status?: true
+    paymentType?: true
+    transactionTime?: true
+    settlementTime?: true
+    expiryTime?: true
+    message?: true
+    midtransResponse?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TenantDonationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantDonation to aggregate.
+     */
+    where?: TenantDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantDonations to fetch.
+     */
+    orderBy?: TenantDonationOrderByWithRelationInput | TenantDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TenantDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantDonations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TenantDonations
+    **/
+    _count?: true | TenantDonationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TenantDonationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TenantDonationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TenantDonationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TenantDonationMaxAggregateInputType
+  }
+
+  export type GetTenantDonationAggregateType<T extends TenantDonationAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantDonation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTenantDonation[P]>
+      : GetScalarType<T[P], AggregateTenantDonation[P]>
+  }
+
+
+
+
+  export type TenantDonationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantDonationWhereInput
+    orderBy?: TenantDonationOrderByWithAggregationInput | TenantDonationOrderByWithAggregationInput[]
+    by: TenantDonationScalarFieldEnum[] | TenantDonationScalarFieldEnum
+    having?: TenantDonationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TenantDonationCountAggregateInputType | true
+    _avg?: TenantDonationAvgAggregateInputType
+    _sum?: TenantDonationSumAggregateInputType
+    _min?: TenantDonationMinAggregateInputType
+    _max?: TenantDonationMaxAggregateInputType
+  }
+
+  export type TenantDonationGroupByOutputType = {
+    id: string
+    tenantId: string
+    paymentMethodId: string | null
+    midtransOrderId: string
+    snapToken: string | null
+    amount: Decimal
+    transactionFee: Decimal
+    netAmount: Decimal
+    status: $Enums.DonationStatus
+    paymentType: string | null
+    transactionTime: Date | null
+    settlementTime: Date | null
+    expiryTime: Date | null
+    message: string | null
+    midtransResponse: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TenantDonationCountAggregateOutputType | null
+    _avg: TenantDonationAvgAggregateOutputType | null
+    _sum: TenantDonationSumAggregateOutputType | null
+    _min: TenantDonationMinAggregateOutputType | null
+    _max: TenantDonationMaxAggregateOutputType | null
+  }
+
+  type GetTenantDonationGroupByPayload<T extends TenantDonationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TenantDonationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TenantDonationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TenantDonationGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantDonationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TenantDonationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    paymentMethodId?: boolean
+    midtransOrderId?: boolean
+    snapToken?: boolean
+    amount?: boolean
+    transactionFee?: boolean
+    netAmount?: boolean
+    status?: boolean
+    paymentType?: boolean
+    transactionTime?: boolean
+    settlementTime?: boolean
+    expiryTime?: boolean
+    message?: boolean
+    midtransResponse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantDonation"]>
+
+  export type TenantDonationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    paymentMethodId?: boolean
+    midtransOrderId?: boolean
+    snapToken?: boolean
+    amount?: boolean
+    transactionFee?: boolean
+    netAmount?: boolean
+    status?: boolean
+    paymentType?: boolean
+    transactionTime?: boolean
+    settlementTime?: boolean
+    expiryTime?: boolean
+    message?: boolean
+    midtransResponse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantDonation"]>
+
+  export type TenantDonationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    paymentMethodId?: boolean
+    midtransOrderId?: boolean
+    snapToken?: boolean
+    amount?: boolean
+    transactionFee?: boolean
+    netAmount?: boolean
+    status?: boolean
+    paymentType?: boolean
+    transactionTime?: boolean
+    settlementTime?: boolean
+    expiryTime?: boolean
+    message?: boolean
+    midtransResponse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantDonation"]>
+
+  export type TenantDonationSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    paymentMethodId?: boolean
+    midtransOrderId?: boolean
+    snapToken?: boolean
+    amount?: boolean
+    transactionFee?: boolean
+    netAmount?: boolean
+    status?: boolean
+    paymentType?: boolean
+    transactionTime?: boolean
+    settlementTime?: boolean
+    expiryTime?: boolean
+    message?: boolean
+    midtransResponse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TenantDonationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "paymentMethodId" | "midtransOrderId" | "snapToken" | "amount" | "transactionFee" | "netAmount" | "status" | "paymentType" | "transactionTime" | "settlementTime" | "expiryTime" | "message" | "midtransResponse" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantDonation"]>
+  export type TenantDonationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+  }
+  export type TenantDonationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+  }
+  export type TenantDonationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+  }
+
+  export type $TenantDonationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantDonation"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      paymentMethod: Prisma.$DonationPaymentMethodPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      paymentMethodId: string | null
+      midtransOrderId: string
+      snapToken: string | null
+      amount: Prisma.Decimal
+      transactionFee: Prisma.Decimal
+      netAmount: Prisma.Decimal
+      status: $Enums.DonationStatus
+      paymentType: string | null
+      transactionTime: Date | null
+      settlementTime: Date | null
+      expiryTime: Date | null
+      message: string | null
+      midtransResponse: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["tenantDonation"]>
+    composites: {}
+  }
+
+  type TenantDonationGetPayload<S extends boolean | null | undefined | TenantDonationDefaultArgs> = $Result.GetResult<Prisma.$TenantDonationPayload, S>
+
+  type TenantDonationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantDonationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantDonationCountAggregateInputType | true
+    }
+
+  export interface TenantDonationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantDonation'], meta: { name: 'TenantDonation' } }
+    /**
+     * Find zero or one TenantDonation that matches the filter.
+     * @param {TenantDonationFindUniqueArgs} args - Arguments to find a TenantDonation
+     * @example
+     * // Get one TenantDonation
+     * const tenantDonation = await prisma.tenantDonation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TenantDonationFindUniqueArgs>(args: SelectSubset<T, TenantDonationFindUniqueArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TenantDonation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TenantDonationFindUniqueOrThrowArgs} args - Arguments to find a TenantDonation
+     * @example
+     * // Get one TenantDonation
+     * const tenantDonation = await prisma.tenantDonation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TenantDonationFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantDonationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantDonation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantDonationFindFirstArgs} args - Arguments to find a TenantDonation
+     * @example
+     * // Get one TenantDonation
+     * const tenantDonation = await prisma.tenantDonation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TenantDonationFindFirstArgs>(args?: SelectSubset<T, TenantDonationFindFirstArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantDonation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantDonationFindFirstOrThrowArgs} args - Arguments to find a TenantDonation
+     * @example
+     * // Get one TenantDonation
+     * const tenantDonation = await prisma.tenantDonation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TenantDonationFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantDonationFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TenantDonations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantDonationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TenantDonations
+     * const tenantDonations = await prisma.tenantDonation.findMany()
+     * 
+     * // Get first 10 TenantDonations
+     * const tenantDonations = await prisma.tenantDonation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tenantDonationWithIdOnly = await prisma.tenantDonation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TenantDonationFindManyArgs>(args?: SelectSubset<T, TenantDonationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TenantDonation.
+     * @param {TenantDonationCreateArgs} args - Arguments to create a TenantDonation.
+     * @example
+     * // Create one TenantDonation
+     * const TenantDonation = await prisma.tenantDonation.create({
+     *   data: {
+     *     // ... data to create a TenantDonation
+     *   }
+     * })
+     * 
+     */
+    create<T extends TenantDonationCreateArgs>(args: SelectSubset<T, TenantDonationCreateArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TenantDonations.
+     * @param {TenantDonationCreateManyArgs} args - Arguments to create many TenantDonations.
+     * @example
+     * // Create many TenantDonations
+     * const tenantDonation = await prisma.tenantDonation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TenantDonationCreateManyArgs>(args?: SelectSubset<T, TenantDonationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TenantDonations and returns the data saved in the database.
+     * @param {TenantDonationCreateManyAndReturnArgs} args - Arguments to create many TenantDonations.
+     * @example
+     * // Create many TenantDonations
+     * const tenantDonation = await prisma.tenantDonation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TenantDonations and only return the `id`
+     * const tenantDonationWithIdOnly = await prisma.tenantDonation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TenantDonationCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantDonationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TenantDonation.
+     * @param {TenantDonationDeleteArgs} args - Arguments to delete one TenantDonation.
+     * @example
+     * // Delete one TenantDonation
+     * const TenantDonation = await prisma.tenantDonation.delete({
+     *   where: {
+     *     // ... filter to delete one TenantDonation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TenantDonationDeleteArgs>(args: SelectSubset<T, TenantDonationDeleteArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TenantDonation.
+     * @param {TenantDonationUpdateArgs} args - Arguments to update one TenantDonation.
+     * @example
+     * // Update one TenantDonation
+     * const tenantDonation = await prisma.tenantDonation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TenantDonationUpdateArgs>(args: SelectSubset<T, TenantDonationUpdateArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TenantDonations.
+     * @param {TenantDonationDeleteManyArgs} args - Arguments to filter TenantDonations to delete.
+     * @example
+     * // Delete a few TenantDonations
+     * const { count } = await prisma.tenantDonation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TenantDonationDeleteManyArgs>(args?: SelectSubset<T, TenantDonationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantDonations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantDonationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TenantDonations
+     * const tenantDonation = await prisma.tenantDonation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TenantDonationUpdateManyArgs>(args: SelectSubset<T, TenantDonationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantDonations and returns the data updated in the database.
+     * @param {TenantDonationUpdateManyAndReturnArgs} args - Arguments to update many TenantDonations.
+     * @example
+     * // Update many TenantDonations
+     * const tenantDonation = await prisma.tenantDonation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TenantDonations and only return the `id`
+     * const tenantDonationWithIdOnly = await prisma.tenantDonation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TenantDonationUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantDonationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TenantDonation.
+     * @param {TenantDonationUpsertArgs} args - Arguments to update or create a TenantDonation.
+     * @example
+     * // Update or create a TenantDonation
+     * const tenantDonation = await prisma.tenantDonation.upsert({
+     *   create: {
+     *     // ... data to create a TenantDonation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TenantDonation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TenantDonationUpsertArgs>(args: SelectSubset<T, TenantDonationUpsertArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TenantDonations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantDonationCountArgs} args - Arguments to filter TenantDonations to count.
+     * @example
+     * // Count the number of TenantDonations
+     * const count = await prisma.tenantDonation.count({
+     *   where: {
+     *     // ... the filter for the TenantDonations we want to count
+     *   }
+     * })
+    **/
+    count<T extends TenantDonationCountArgs>(
+      args?: Subset<T, TenantDonationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TenantDonationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TenantDonation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantDonationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TenantDonationAggregateArgs>(args: Subset<T, TenantDonationAggregateArgs>): Prisma.PrismaPromise<GetTenantDonationAggregateType<T>>
+
+    /**
+     * Group by TenantDonation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantDonationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TenantDonationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TenantDonationGroupByArgs['orderBy'] }
+        : { orderBy?: TenantDonationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TenantDonationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantDonationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TenantDonation model
+   */
+  readonly fields: TenantDonationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TenantDonation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TenantDonationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    paymentMethod<T extends TenantDonation$paymentMethodArgs<ExtArgs> = {}>(args?: Subset<T, TenantDonation$paymentMethodArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TenantDonation model
+   */
+  interface TenantDonationFieldRefs {
+    readonly id: FieldRef<"TenantDonation", 'String'>
+    readonly tenantId: FieldRef<"TenantDonation", 'String'>
+    readonly paymentMethodId: FieldRef<"TenantDonation", 'String'>
+    readonly midtransOrderId: FieldRef<"TenantDonation", 'String'>
+    readonly snapToken: FieldRef<"TenantDonation", 'String'>
+    readonly amount: FieldRef<"TenantDonation", 'Decimal'>
+    readonly transactionFee: FieldRef<"TenantDonation", 'Decimal'>
+    readonly netAmount: FieldRef<"TenantDonation", 'Decimal'>
+    readonly status: FieldRef<"TenantDonation", 'DonationStatus'>
+    readonly paymentType: FieldRef<"TenantDonation", 'String'>
+    readonly transactionTime: FieldRef<"TenantDonation", 'DateTime'>
+    readonly settlementTime: FieldRef<"TenantDonation", 'DateTime'>
+    readonly expiryTime: FieldRef<"TenantDonation", 'DateTime'>
+    readonly message: FieldRef<"TenantDonation", 'String'>
+    readonly midtransResponse: FieldRef<"TenantDonation", 'Json'>
+    readonly createdAt: FieldRef<"TenantDonation", 'DateTime'>
+    readonly updatedAt: FieldRef<"TenantDonation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TenantDonation findUnique
+   */
+  export type TenantDonationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantDonation to fetch.
+     */
+    where: TenantDonationWhereUniqueInput
+  }
+
+  /**
+   * TenantDonation findUniqueOrThrow
+   */
+  export type TenantDonationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantDonation to fetch.
+     */
+    where: TenantDonationWhereUniqueInput
+  }
+
+  /**
+   * TenantDonation findFirst
+   */
+  export type TenantDonationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantDonation to fetch.
+     */
+    where?: TenantDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantDonations to fetch.
+     */
+    orderBy?: TenantDonationOrderByWithRelationInput | TenantDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantDonations.
+     */
+    cursor?: TenantDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantDonations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantDonations.
+     */
+    distinct?: TenantDonationScalarFieldEnum | TenantDonationScalarFieldEnum[]
+  }
+
+  /**
+   * TenantDonation findFirstOrThrow
+   */
+  export type TenantDonationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantDonation to fetch.
+     */
+    where?: TenantDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantDonations to fetch.
+     */
+    orderBy?: TenantDonationOrderByWithRelationInput | TenantDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantDonations.
+     */
+    cursor?: TenantDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantDonations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantDonations.
+     */
+    distinct?: TenantDonationScalarFieldEnum | TenantDonationScalarFieldEnum[]
+  }
+
+  /**
+   * TenantDonation findMany
+   */
+  export type TenantDonationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantDonations to fetch.
+     */
+    where?: TenantDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantDonations to fetch.
+     */
+    orderBy?: TenantDonationOrderByWithRelationInput | TenantDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TenantDonations.
+     */
+    cursor?: TenantDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantDonations.
+     */
+    skip?: number
+    distinct?: TenantDonationScalarFieldEnum | TenantDonationScalarFieldEnum[]
+  }
+
+  /**
+   * TenantDonation create
+   */
+  export type TenantDonationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TenantDonation.
+     */
+    data: XOR<TenantDonationCreateInput, TenantDonationUncheckedCreateInput>
+  }
+
+  /**
+   * TenantDonation createMany
+   */
+  export type TenantDonationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TenantDonations.
+     */
+    data: TenantDonationCreateManyInput | TenantDonationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TenantDonation createManyAndReturn
+   */
+  export type TenantDonationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * The data used to create many TenantDonations.
+     */
+    data: TenantDonationCreateManyInput | TenantDonationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantDonation update
+   */
+  export type TenantDonationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TenantDonation.
+     */
+    data: XOR<TenantDonationUpdateInput, TenantDonationUncheckedUpdateInput>
+    /**
+     * Choose, which TenantDonation to update.
+     */
+    where: TenantDonationWhereUniqueInput
+  }
+
+  /**
+   * TenantDonation updateMany
+   */
+  export type TenantDonationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TenantDonations.
+     */
+    data: XOR<TenantDonationUpdateManyMutationInput, TenantDonationUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantDonations to update
+     */
+    where?: TenantDonationWhereInput
+    /**
+     * Limit how many TenantDonations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantDonation updateManyAndReturn
+   */
+  export type TenantDonationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * The data used to update TenantDonations.
+     */
+    data: XOR<TenantDonationUpdateManyMutationInput, TenantDonationUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantDonations to update
+     */
+    where?: TenantDonationWhereInput
+    /**
+     * Limit how many TenantDonations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantDonation upsert
+   */
+  export type TenantDonationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TenantDonation to update in case it exists.
+     */
+    where: TenantDonationWhereUniqueInput
+    /**
+     * In case the TenantDonation found by the `where` argument doesn't exist, create a new TenantDonation with this data.
+     */
+    create: XOR<TenantDonationCreateInput, TenantDonationUncheckedCreateInput>
+    /**
+     * In case the TenantDonation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TenantDonationUpdateInput, TenantDonationUncheckedUpdateInput>
+  }
+
+  /**
+   * TenantDonation delete
+   */
+  export type TenantDonationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    /**
+     * Filter which TenantDonation to delete.
+     */
+    where: TenantDonationWhereUniqueInput
+  }
+
+  /**
+   * TenantDonation deleteMany
+   */
+  export type TenantDonationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantDonations to delete
+     */
+    where?: TenantDonationWhereInput
+    /**
+     * Limit how many TenantDonations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantDonation.paymentMethod
+   */
+  export type TenantDonation$paymentMethodArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonationPaymentMethod
+     */
+    select?: DonationPaymentMethodSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonationPaymentMethod
+     */
+    omit?: DonationPaymentMethodOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonationPaymentMethodInclude<ExtArgs> | null
+    where?: DonationPaymentMethodWhereInput
+  }
+
+  /**
+   * TenantDonation without action
+   */
+  export type TenantDonationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -38686,6 +44536,11 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     password: 'password',
+    displayName: 'displayName',
+    photoURL: 'photoURL',
+    provider: 'provider',
+    providerId: 'providerId',
+    emailVerified: 'emailVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -38841,6 +44696,8 @@ export namespace Prisma {
     sku: 'sku',
     imageUrl: 'imageUrl',
     alias: 'alias',
+    isCountable: 'isCountable',
+    unit: 'unit',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -39010,6 +44867,7 @@ export namespace Prisma {
     id: 'id',
     tenantId: 'tenantId',
     staffId: 'staffId',
+    shiftId: 'shiftId',
     date: 'date',
     checkInTime: 'checkInTime',
     checkOutTime: 'checkOutTime',
@@ -39143,6 +45001,95 @@ export namespace Prisma {
   export type BannerCampaignScalarFieldEnum = (typeof BannerCampaignScalarFieldEnum)[keyof typeof BannerCampaignScalarFieldEnum]
 
 
+  export const ShiftScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    name: 'name',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    isActive: 'isActive',
+    calculateBeforeStartTime: 'calculateBeforeStartTime',
+    hasBreakTime: 'hasBreakTime',
+    breakDuration: 'breakDuration',
+    minWorkingHours: 'minWorkingHours',
+    maxWorkingHours: 'maxWorkingHours',
+    overtimeMultiplier: 'overtimeMultiplier',
+    lateThreshold: 'lateThreshold',
+    earlyCheckInAllowed: 'earlyCheckInAllowed',
+    color: 'color',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ShiftScalarFieldEnum = (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum]
+
+
+  export const StaffShiftScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    staffId: 'staffId',
+    shiftId: 'shiftId',
+    date: 'date',
+    checkInTime: 'checkInTime',
+    checkOutTime: 'checkOutTime',
+    actualBreakDuration: 'actualBreakDuration',
+    totalWorkedMinutes: 'totalWorkedMinutes',
+    lateMinutes: 'lateMinutes',
+    overtimeMinutes: 'overtimeMinutes',
+    isCompleted: 'isCompleted',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StaffShiftScalarFieldEnum = (typeof StaffShiftScalarFieldEnum)[keyof typeof StaffShiftScalarFieldEnum]
+
+
+  export const DonationPaymentMethodScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    code: 'code',
+    type: 'type',
+    transactionFee: 'transactionFee',
+    feePercentage: 'feePercentage',
+    taxPercentage: 'taxPercentage',
+    minAmount: 'minAmount',
+    maxAmount: 'maxAmount',
+    isActive: 'isActive',
+    iconUrl: 'iconUrl',
+    description: 'description',
+    displayOrder: 'displayOrder',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DonationPaymentMethodScalarFieldEnum = (typeof DonationPaymentMethodScalarFieldEnum)[keyof typeof DonationPaymentMethodScalarFieldEnum]
+
+
+  export const TenantDonationScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    paymentMethodId: 'paymentMethodId',
+    midtransOrderId: 'midtransOrderId',
+    snapToken: 'snapToken',
+    amount: 'amount',
+    transactionFee: 'transactionFee',
+    netAmount: 'netAmount',
+    status: 'status',
+    paymentType: 'paymentType',
+    transactionTime: 'transactionTime',
+    settlementTime: 'settlementTime',
+    expiryTime: 'expiryTime',
+    message: 'message',
+    midtransResponse: 'midtransResponse',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TenantDonationScalarFieldEnum = (typeof TenantDonationScalarFieldEnum)[keyof typeof TenantDonationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -39211,6 +45158,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -39221,13 +45175,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -39369,6 +45316,20 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'DonationStatus'
+   */
+  export type EnumDonationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DonationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'DonationStatus[]'
+   */
+  export type ListEnumDonationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DonationStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -39381,6 +45342,11 @@ export namespace Prisma {
     id?: UuidFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    displayName?: StringNullableFilter<"User"> | string | null
+    photoURL?: StringNullableFilter<"User"> | string | null
+    provider?: StringNullableFilter<"User"> | string | null
+    providerId?: StringNullableFilter<"User"> | string | null
+    emailVerified?: BoolNullableFilter<"User"> | boolean | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tenants?: TenantListRelationFilter
@@ -39390,6 +45356,11 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    displayName?: SortOrderInput | SortOrder
+    photoURL?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
+    emailVerified?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenants?: TenantOrderByRelationAggregateInput
@@ -39398,19 +45369,30 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    provider_providerId?: UserProviderProviderIdCompoundUniqueInput
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
+    displayName?: StringNullableFilter<"User"> | string | null
+    photoURL?: StringNullableFilter<"User"> | string | null
+    provider?: StringNullableFilter<"User"> | string | null
+    providerId?: StringNullableFilter<"User"> | string | null
+    emailVerified?: BoolNullableFilter<"User"> | boolean | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tenants?: TenantListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "provider_providerId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    displayName?: SortOrderInput | SortOrder
+    photoURL?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
+    emailVerified?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -39425,6 +45407,11 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    displayName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    photoURL?: StringNullableWithAggregatesFilter<"User"> | string | null
+    provider?: StringNullableWithAggregatesFilter<"User"> | string | null
+    providerId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    emailVerified?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -39467,6 +45454,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateListRelationFilter
     notificationLogs?: NotificationLogListRelationFilter
     reports?: TenantReportListRelationFilter
+    shifts?: ShiftListRelationFilter
+    staffShifts?: StaffShiftListRelationFilter
+    donations?: TenantDonationListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -39504,6 +45494,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateOrderByRelationAggregateInput
     notificationLogs?: NotificationLogOrderByRelationAggregateInput
     reports?: TenantReportOrderByRelationAggregateInput
+    shifts?: ShiftOrderByRelationAggregateInput
+    staffShifts?: StaffShiftOrderByRelationAggregateInput
+    donations?: TenantDonationOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -39544,6 +45537,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateListRelationFilter
     notificationLogs?: NotificationLogListRelationFilter
     reports?: TenantReportListRelationFilter
+    shifts?: ShiftListRelationFilter
+    staffShifts?: StaffShiftListRelationFilter
+    donations?: TenantDonationListRelationFilter
   }, "id" | "email">
 
   export type TenantOrderByWithAggregationInput = {
@@ -39598,6 +45594,7 @@ export namespace Prisma {
     salary?: XOR<SalaryNullableScalarRelationFilter, SalaryWhereInput> | null
     attendances?: AttendanceListRelationFilter
     payrollDetails?: PayrollDetailListRelationFilter
+    staffShifts?: StaffShiftListRelationFilter
   }
 
   export type StaffOrderByWithRelationInput = {
@@ -39617,6 +45614,7 @@ export namespace Prisma {
     salary?: SalaryOrderByWithRelationInput
     attendances?: AttendanceOrderByRelationAggregateInput
     payrollDetails?: PayrollDetailOrderByRelationAggregateInput
+    staffShifts?: StaffShiftOrderByRelationAggregateInput
   }
 
   export type StaffWhereUniqueInput = Prisma.AtLeast<{
@@ -39640,6 +45638,7 @@ export namespace Prisma {
     salary?: XOR<SalaryNullableScalarRelationFilter, SalaryWhereInput> | null
     attendances?: AttendanceListRelationFilter
     payrollDetails?: PayrollDetailListRelationFilter
+    staffShifts?: StaffShiftListRelationFilter
   }, "id" | "tenantId_username">
 
   export type StaffOrderByWithAggregationInput = {
@@ -40244,6 +46243,8 @@ export namespace Prisma {
     sku?: StringNullableFilter<"Product"> | string | null
     imageUrl?: StringNullableFilter<"Product"> | string | null
     alias?: StringNullableFilter<"Product"> | string | null
+    isCountable?: BoolFilter<"Product"> | boolean
+    unit?: StringFilter<"Product"> | string
     createdAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
@@ -40263,6 +46264,8 @@ export namespace Prisma {
     sku?: SortOrderInput | SortOrder
     imageUrl?: SortOrderInput | SortOrder
     alias?: SortOrderInput | SortOrder
+    isCountable?: SortOrder
+    unit?: SortOrder
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
@@ -40285,6 +46288,8 @@ export namespace Prisma {
     sku?: StringNullableFilter<"Product"> | string | null
     imageUrl?: StringNullableFilter<"Product"> | string | null
     alias?: StringNullableFilter<"Product"> | string | null
+    isCountable?: BoolFilter<"Product"> | boolean
+    unit?: StringFilter<"Product"> | string
     createdAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
@@ -40304,6 +46309,8 @@ export namespace Prisma {
     sku?: SortOrderInput | SortOrder
     imageUrl?: SortOrderInput | SortOrder
     alias?: SortOrderInput | SortOrder
+    isCountable?: SortOrder
+    unit?: SortOrder
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -40328,6 +46335,8 @@ export namespace Prisma {
     sku?: StringNullableWithAggregatesFilter<"Product"> | string | null
     imageUrl?: StringNullableWithAggregatesFilter<"Product"> | string | null
     alias?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    isCountable?: BoolWithAggregatesFilter<"Product"> | boolean
+    unit?: StringWithAggregatesFilter<"Product"> | string
     createdAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
   }
@@ -41183,6 +47192,7 @@ export namespace Prisma {
     id?: UuidFilter<"Attendance"> | string
     tenantId?: UuidFilter<"Attendance"> | string
     staffId?: UuidFilter<"Attendance"> | string
+    shiftId?: UuidNullableFilter<"Attendance"> | string | null
     date?: DateTimeFilter<"Attendance"> | Date | string
     checkInTime?: StringNullableFilter<"Attendance"> | string | null
     checkOutTime?: StringNullableFilter<"Attendance"> | string | null
@@ -41192,12 +47202,14 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter<"Attendance"> | Date | string | null
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+    shift?: XOR<ShiftNullableScalarRelationFilter, ShiftWhereInput> | null
   }
 
   export type AttendanceOrderByWithRelationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     staffId?: SortOrder
+    shiftId?: SortOrderInput | SortOrder
     date?: SortOrder
     checkInTime?: SortOrderInput | SortOrder
     checkOutTime?: SortOrderInput | SortOrder
@@ -41207,16 +47219,17 @@ export namespace Prisma {
     updatedAt?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
     staff?: StaffOrderByWithRelationInput
+    shift?: ShiftOrderByWithRelationInput
   }
 
   export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    tenantId_staffId_date?: AttendanceTenantIdStaffIdDateCompoundUniqueInput
     AND?: AttendanceWhereInput | AttendanceWhereInput[]
     OR?: AttendanceWhereInput[]
     NOT?: AttendanceWhereInput | AttendanceWhereInput[]
     tenantId?: UuidFilter<"Attendance"> | string
     staffId?: UuidFilter<"Attendance"> | string
+    shiftId?: UuidNullableFilter<"Attendance"> | string | null
     date?: DateTimeFilter<"Attendance"> | Date | string
     checkInTime?: StringNullableFilter<"Attendance"> | string | null
     checkOutTime?: StringNullableFilter<"Attendance"> | string | null
@@ -41226,12 +47239,14 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter<"Attendance"> | Date | string | null
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
-  }, "id" | "tenantId_staffId_date">
+    shift?: XOR<ShiftNullableScalarRelationFilter, ShiftWhereInput> | null
+  }, "id">
 
   export type AttendanceOrderByWithAggregationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     staffId?: SortOrder
+    shiftId?: SortOrderInput | SortOrder
     date?: SortOrder
     checkInTime?: SortOrderInput | SortOrder
     checkOutTime?: SortOrderInput | SortOrder
@@ -41253,6 +47268,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"Attendance"> | string
     tenantId?: UuidWithAggregatesFilter<"Attendance"> | string
     staffId?: UuidWithAggregatesFilter<"Attendance"> | string
+    shiftId?: UuidNullableWithAggregatesFilter<"Attendance"> | string | null
     date?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
     checkInTime?: StringNullableWithAggregatesFilter<"Attendance"> | string | null
     checkOutTime?: StringNullableWithAggregatesFilter<"Attendance"> | string | null
@@ -41879,10 +47895,485 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"BannerCampaign"> | Date | string
   }
 
+  export type ShiftWhereInput = {
+    AND?: ShiftWhereInput | ShiftWhereInput[]
+    OR?: ShiftWhereInput[]
+    NOT?: ShiftWhereInput | ShiftWhereInput[]
+    id?: UuidFilter<"Shift"> | string
+    tenantId?: UuidFilter<"Shift"> | string
+    name?: StringFilter<"Shift"> | string
+    startTime?: StringFilter<"Shift"> | string
+    endTime?: StringFilter<"Shift"> | string
+    isActive?: BoolFilter<"Shift"> | boolean
+    calculateBeforeStartTime?: BoolFilter<"Shift"> | boolean
+    hasBreakTime?: BoolFilter<"Shift"> | boolean
+    breakDuration?: IntFilter<"Shift"> | number
+    minWorkingHours?: FloatFilter<"Shift"> | number
+    maxWorkingHours?: FloatFilter<"Shift"> | number
+    overtimeMultiplier?: FloatFilter<"Shift"> | number
+    lateThreshold?: IntFilter<"Shift"> | number
+    earlyCheckInAllowed?: IntFilter<"Shift"> | number
+    color?: StringFilter<"Shift"> | string
+    description?: StringNullableFilter<"Shift"> | string | null
+    createdAt?: DateTimeFilter<"Shift"> | Date | string
+    updatedAt?: DateTimeFilter<"Shift"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    staffShifts?: StaffShiftListRelationFilter
+    attendances?: AttendanceListRelationFilter
+  }
+
+  export type ShiftOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    isActive?: SortOrder
+    calculateBeforeStartTime?: SortOrder
+    hasBreakTime?: SortOrder
+    breakDuration?: SortOrder
+    minWorkingHours?: SortOrder
+    maxWorkingHours?: SortOrder
+    overtimeMultiplier?: SortOrder
+    lateThreshold?: SortOrder
+    earlyCheckInAllowed?: SortOrder
+    color?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    staffShifts?: StaffShiftOrderByRelationAggregateInput
+    attendances?: AttendanceOrderByRelationAggregateInput
+  }
+
+  export type ShiftWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_name?: ShiftTenantIdNameCompoundUniqueInput
+    AND?: ShiftWhereInput | ShiftWhereInput[]
+    OR?: ShiftWhereInput[]
+    NOT?: ShiftWhereInput | ShiftWhereInput[]
+    tenantId?: UuidFilter<"Shift"> | string
+    name?: StringFilter<"Shift"> | string
+    startTime?: StringFilter<"Shift"> | string
+    endTime?: StringFilter<"Shift"> | string
+    isActive?: BoolFilter<"Shift"> | boolean
+    calculateBeforeStartTime?: BoolFilter<"Shift"> | boolean
+    hasBreakTime?: BoolFilter<"Shift"> | boolean
+    breakDuration?: IntFilter<"Shift"> | number
+    minWorkingHours?: FloatFilter<"Shift"> | number
+    maxWorkingHours?: FloatFilter<"Shift"> | number
+    overtimeMultiplier?: FloatFilter<"Shift"> | number
+    lateThreshold?: IntFilter<"Shift"> | number
+    earlyCheckInAllowed?: IntFilter<"Shift"> | number
+    color?: StringFilter<"Shift"> | string
+    description?: StringNullableFilter<"Shift"> | string | null
+    createdAt?: DateTimeFilter<"Shift"> | Date | string
+    updatedAt?: DateTimeFilter<"Shift"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    staffShifts?: StaffShiftListRelationFilter
+    attendances?: AttendanceListRelationFilter
+  }, "id" | "tenantId_name">
+
+  export type ShiftOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    isActive?: SortOrder
+    calculateBeforeStartTime?: SortOrder
+    hasBreakTime?: SortOrder
+    breakDuration?: SortOrder
+    minWorkingHours?: SortOrder
+    maxWorkingHours?: SortOrder
+    overtimeMultiplier?: SortOrder
+    lateThreshold?: SortOrder
+    earlyCheckInAllowed?: SortOrder
+    color?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ShiftCountOrderByAggregateInput
+    _avg?: ShiftAvgOrderByAggregateInput
+    _max?: ShiftMaxOrderByAggregateInput
+    _min?: ShiftMinOrderByAggregateInput
+    _sum?: ShiftSumOrderByAggregateInput
+  }
+
+  export type ShiftScalarWhereWithAggregatesInput = {
+    AND?: ShiftScalarWhereWithAggregatesInput | ShiftScalarWhereWithAggregatesInput[]
+    OR?: ShiftScalarWhereWithAggregatesInput[]
+    NOT?: ShiftScalarWhereWithAggregatesInput | ShiftScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Shift"> | string
+    tenantId?: UuidWithAggregatesFilter<"Shift"> | string
+    name?: StringWithAggregatesFilter<"Shift"> | string
+    startTime?: StringWithAggregatesFilter<"Shift"> | string
+    endTime?: StringWithAggregatesFilter<"Shift"> | string
+    isActive?: BoolWithAggregatesFilter<"Shift"> | boolean
+    calculateBeforeStartTime?: BoolWithAggregatesFilter<"Shift"> | boolean
+    hasBreakTime?: BoolWithAggregatesFilter<"Shift"> | boolean
+    breakDuration?: IntWithAggregatesFilter<"Shift"> | number
+    minWorkingHours?: FloatWithAggregatesFilter<"Shift"> | number
+    maxWorkingHours?: FloatWithAggregatesFilter<"Shift"> | number
+    overtimeMultiplier?: FloatWithAggregatesFilter<"Shift"> | number
+    lateThreshold?: IntWithAggregatesFilter<"Shift"> | number
+    earlyCheckInAllowed?: IntWithAggregatesFilter<"Shift"> | number
+    color?: StringWithAggregatesFilter<"Shift"> | string
+    description?: StringNullableWithAggregatesFilter<"Shift"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
+  }
+
+  export type StaffShiftWhereInput = {
+    AND?: StaffShiftWhereInput | StaffShiftWhereInput[]
+    OR?: StaffShiftWhereInput[]
+    NOT?: StaffShiftWhereInput | StaffShiftWhereInput[]
+    id?: UuidFilter<"StaffShift"> | string
+    tenantId?: UuidFilter<"StaffShift"> | string
+    staffId?: UuidFilter<"StaffShift"> | string
+    shiftId?: UuidFilter<"StaffShift"> | string
+    date?: DateTimeFilter<"StaffShift"> | Date | string
+    checkInTime?: StringNullableFilter<"StaffShift"> | string | null
+    checkOutTime?: StringNullableFilter<"StaffShift"> | string | null
+    actualBreakDuration?: IntNullableFilter<"StaffShift"> | number | null
+    totalWorkedMinutes?: IntNullableFilter<"StaffShift"> | number | null
+    lateMinutes?: IntFilter<"StaffShift"> | number
+    overtimeMinutes?: IntFilter<"StaffShift"> | number
+    isCompleted?: BoolFilter<"StaffShift"> | boolean
+    notes?: StringNullableFilter<"StaffShift"> | string | null
+    createdAt?: DateTimeFilter<"StaffShift"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffShift"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+    shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+  }
+
+  export type StaffShiftOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    staffId?: SortOrder
+    shiftId?: SortOrder
+    date?: SortOrder
+    checkInTime?: SortOrderInput | SortOrder
+    checkOutTime?: SortOrderInput | SortOrder
+    actualBreakDuration?: SortOrderInput | SortOrder
+    totalWorkedMinutes?: SortOrderInput | SortOrder
+    lateMinutes?: SortOrder
+    overtimeMinutes?: SortOrder
+    isCompleted?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    staff?: StaffOrderByWithRelationInput
+    shift?: ShiftOrderByWithRelationInput
+  }
+
+  export type StaffShiftWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_staffId_shiftId_date?: StaffShiftTenantIdStaffIdShiftIdDateCompoundUniqueInput
+    AND?: StaffShiftWhereInput | StaffShiftWhereInput[]
+    OR?: StaffShiftWhereInput[]
+    NOT?: StaffShiftWhereInput | StaffShiftWhereInput[]
+    tenantId?: UuidFilter<"StaffShift"> | string
+    staffId?: UuidFilter<"StaffShift"> | string
+    shiftId?: UuidFilter<"StaffShift"> | string
+    date?: DateTimeFilter<"StaffShift"> | Date | string
+    checkInTime?: StringNullableFilter<"StaffShift"> | string | null
+    checkOutTime?: StringNullableFilter<"StaffShift"> | string | null
+    actualBreakDuration?: IntNullableFilter<"StaffShift"> | number | null
+    totalWorkedMinutes?: IntNullableFilter<"StaffShift"> | number | null
+    lateMinutes?: IntFilter<"StaffShift"> | number
+    overtimeMinutes?: IntFilter<"StaffShift"> | number
+    isCompleted?: BoolFilter<"StaffShift"> | boolean
+    notes?: StringNullableFilter<"StaffShift"> | string | null
+    createdAt?: DateTimeFilter<"StaffShift"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffShift"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    staff?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+    shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+  }, "id" | "tenantId_staffId_shiftId_date">
+
+  export type StaffShiftOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    staffId?: SortOrder
+    shiftId?: SortOrder
+    date?: SortOrder
+    checkInTime?: SortOrderInput | SortOrder
+    checkOutTime?: SortOrderInput | SortOrder
+    actualBreakDuration?: SortOrderInput | SortOrder
+    totalWorkedMinutes?: SortOrderInput | SortOrder
+    lateMinutes?: SortOrder
+    overtimeMinutes?: SortOrder
+    isCompleted?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StaffShiftCountOrderByAggregateInput
+    _avg?: StaffShiftAvgOrderByAggregateInput
+    _max?: StaffShiftMaxOrderByAggregateInput
+    _min?: StaffShiftMinOrderByAggregateInput
+    _sum?: StaffShiftSumOrderByAggregateInput
+  }
+
+  export type StaffShiftScalarWhereWithAggregatesInput = {
+    AND?: StaffShiftScalarWhereWithAggregatesInput | StaffShiftScalarWhereWithAggregatesInput[]
+    OR?: StaffShiftScalarWhereWithAggregatesInput[]
+    NOT?: StaffShiftScalarWhereWithAggregatesInput | StaffShiftScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"StaffShift"> | string
+    tenantId?: UuidWithAggregatesFilter<"StaffShift"> | string
+    staffId?: UuidWithAggregatesFilter<"StaffShift"> | string
+    shiftId?: UuidWithAggregatesFilter<"StaffShift"> | string
+    date?: DateTimeWithAggregatesFilter<"StaffShift"> | Date | string
+    checkInTime?: StringNullableWithAggregatesFilter<"StaffShift"> | string | null
+    checkOutTime?: StringNullableWithAggregatesFilter<"StaffShift"> | string | null
+    actualBreakDuration?: IntNullableWithAggregatesFilter<"StaffShift"> | number | null
+    totalWorkedMinutes?: IntNullableWithAggregatesFilter<"StaffShift"> | number | null
+    lateMinutes?: IntWithAggregatesFilter<"StaffShift"> | number
+    overtimeMinutes?: IntWithAggregatesFilter<"StaffShift"> | number
+    isCompleted?: BoolWithAggregatesFilter<"StaffShift"> | boolean
+    notes?: StringNullableWithAggregatesFilter<"StaffShift"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"StaffShift"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"StaffShift"> | Date | string
+  }
+
+  export type DonationPaymentMethodWhereInput = {
+    AND?: DonationPaymentMethodWhereInput | DonationPaymentMethodWhereInput[]
+    OR?: DonationPaymentMethodWhereInput[]
+    NOT?: DonationPaymentMethodWhereInput | DonationPaymentMethodWhereInput[]
+    id?: UuidFilter<"DonationPaymentMethod"> | string
+    name?: StringFilter<"DonationPaymentMethod"> | string
+    code?: StringFilter<"DonationPaymentMethod"> | string
+    type?: StringFilter<"DonationPaymentMethod"> | string
+    transactionFee?: DecimalFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string
+    feePercentage?: DecimalNullableFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: DecimalNullableFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string
+    maxAmount?: DecimalNullableFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFilter<"DonationPaymentMethod"> | boolean
+    iconUrl?: StringNullableFilter<"DonationPaymentMethod"> | string | null
+    description?: StringNullableFilter<"DonationPaymentMethod"> | string | null
+    displayOrder?: IntFilter<"DonationPaymentMethod"> | number
+    createdAt?: DateTimeFilter<"DonationPaymentMethod"> | Date | string
+    updatedAt?: DateTimeFilter<"DonationPaymentMethod"> | Date | string
+    donations?: TenantDonationListRelationFilter
+  }
+
+  export type DonationPaymentMethodOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    transactionFee?: SortOrder
+    feePercentage?: SortOrderInput | SortOrder
+    taxPercentage?: SortOrderInput | SortOrder
+    minAmount?: SortOrder
+    maxAmount?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    iconUrl?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    displayOrder?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    donations?: TenantDonationOrderByRelationAggregateInput
+  }
+
+  export type DonationPaymentMethodWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    code?: string
+    AND?: DonationPaymentMethodWhereInput | DonationPaymentMethodWhereInput[]
+    OR?: DonationPaymentMethodWhereInput[]
+    NOT?: DonationPaymentMethodWhereInput | DonationPaymentMethodWhereInput[]
+    type?: StringFilter<"DonationPaymentMethod"> | string
+    transactionFee?: DecimalFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string
+    feePercentage?: DecimalNullableFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: DecimalNullableFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string
+    maxAmount?: DecimalNullableFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFilter<"DonationPaymentMethod"> | boolean
+    iconUrl?: StringNullableFilter<"DonationPaymentMethod"> | string | null
+    description?: StringNullableFilter<"DonationPaymentMethod"> | string | null
+    displayOrder?: IntFilter<"DonationPaymentMethod"> | number
+    createdAt?: DateTimeFilter<"DonationPaymentMethod"> | Date | string
+    updatedAt?: DateTimeFilter<"DonationPaymentMethod"> | Date | string
+    donations?: TenantDonationListRelationFilter
+  }, "id" | "name" | "code">
+
+  export type DonationPaymentMethodOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    transactionFee?: SortOrder
+    feePercentage?: SortOrderInput | SortOrder
+    taxPercentage?: SortOrderInput | SortOrder
+    minAmount?: SortOrder
+    maxAmount?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    iconUrl?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    displayOrder?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DonationPaymentMethodCountOrderByAggregateInput
+    _avg?: DonationPaymentMethodAvgOrderByAggregateInput
+    _max?: DonationPaymentMethodMaxOrderByAggregateInput
+    _min?: DonationPaymentMethodMinOrderByAggregateInput
+    _sum?: DonationPaymentMethodSumOrderByAggregateInput
+  }
+
+  export type DonationPaymentMethodScalarWhereWithAggregatesInput = {
+    AND?: DonationPaymentMethodScalarWhereWithAggregatesInput | DonationPaymentMethodScalarWhereWithAggregatesInput[]
+    OR?: DonationPaymentMethodScalarWhereWithAggregatesInput[]
+    NOT?: DonationPaymentMethodScalarWhereWithAggregatesInput | DonationPaymentMethodScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"DonationPaymentMethod"> | string
+    name?: StringWithAggregatesFilter<"DonationPaymentMethod"> | string
+    code?: StringWithAggregatesFilter<"DonationPaymentMethod"> | string
+    type?: StringWithAggregatesFilter<"DonationPaymentMethod"> | string
+    transactionFee?: DecimalWithAggregatesFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string
+    feePercentage?: DecimalNullableWithAggregatesFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: DecimalNullableWithAggregatesFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalWithAggregatesFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string
+    maxAmount?: DecimalNullableWithAggregatesFilter<"DonationPaymentMethod"> | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolWithAggregatesFilter<"DonationPaymentMethod"> | boolean
+    iconUrl?: StringNullableWithAggregatesFilter<"DonationPaymentMethod"> | string | null
+    description?: StringNullableWithAggregatesFilter<"DonationPaymentMethod"> | string | null
+    displayOrder?: IntWithAggregatesFilter<"DonationPaymentMethod"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"DonationPaymentMethod"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DonationPaymentMethod"> | Date | string
+  }
+
+  export type TenantDonationWhereInput = {
+    AND?: TenantDonationWhereInput | TenantDonationWhereInput[]
+    OR?: TenantDonationWhereInput[]
+    NOT?: TenantDonationWhereInput | TenantDonationWhereInput[]
+    id?: UuidFilter<"TenantDonation"> | string
+    tenantId?: UuidFilter<"TenantDonation"> | string
+    paymentMethodId?: UuidNullableFilter<"TenantDonation"> | string | null
+    midtransOrderId?: StringFilter<"TenantDonation"> | string
+    snapToken?: StringNullableFilter<"TenantDonation"> | string | null
+    amount?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFilter<"TenantDonation"> | $Enums.DonationStatus
+    paymentType?: StringNullableFilter<"TenantDonation"> | string | null
+    transactionTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    settlementTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    expiryTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    message?: StringNullableFilter<"TenantDonation"> | string | null
+    midtransResponse?: JsonNullableFilter<"TenantDonation">
+    createdAt?: DateTimeFilter<"TenantDonation"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantDonation"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    paymentMethod?: XOR<DonationPaymentMethodNullableScalarRelationFilter, DonationPaymentMethodWhereInput> | null
+  }
+
+  export type TenantDonationOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    paymentMethodId?: SortOrderInput | SortOrder
+    midtransOrderId?: SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    transactionFee?: SortOrder
+    netAmount?: SortOrder
+    status?: SortOrder
+    paymentType?: SortOrderInput | SortOrder
+    transactionTime?: SortOrderInput | SortOrder
+    settlementTime?: SortOrderInput | SortOrder
+    expiryTime?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    midtransResponse?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    paymentMethod?: DonationPaymentMethodOrderByWithRelationInput
+  }
+
+  export type TenantDonationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    midtransOrderId?: string
+    AND?: TenantDonationWhereInput | TenantDonationWhereInput[]
+    OR?: TenantDonationWhereInput[]
+    NOT?: TenantDonationWhereInput | TenantDonationWhereInput[]
+    tenantId?: UuidFilter<"TenantDonation"> | string
+    paymentMethodId?: UuidNullableFilter<"TenantDonation"> | string | null
+    snapToken?: StringNullableFilter<"TenantDonation"> | string | null
+    amount?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFilter<"TenantDonation"> | $Enums.DonationStatus
+    paymentType?: StringNullableFilter<"TenantDonation"> | string | null
+    transactionTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    settlementTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    expiryTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    message?: StringNullableFilter<"TenantDonation"> | string | null
+    midtransResponse?: JsonNullableFilter<"TenantDonation">
+    createdAt?: DateTimeFilter<"TenantDonation"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantDonation"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    paymentMethod?: XOR<DonationPaymentMethodNullableScalarRelationFilter, DonationPaymentMethodWhereInput> | null
+  }, "id" | "midtransOrderId">
+
+  export type TenantDonationOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    paymentMethodId?: SortOrderInput | SortOrder
+    midtransOrderId?: SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    transactionFee?: SortOrder
+    netAmount?: SortOrder
+    status?: SortOrder
+    paymentType?: SortOrderInput | SortOrder
+    transactionTime?: SortOrderInput | SortOrder
+    settlementTime?: SortOrderInput | SortOrder
+    expiryTime?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    midtransResponse?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TenantDonationCountOrderByAggregateInput
+    _avg?: TenantDonationAvgOrderByAggregateInput
+    _max?: TenantDonationMaxOrderByAggregateInput
+    _min?: TenantDonationMinOrderByAggregateInput
+    _sum?: TenantDonationSumOrderByAggregateInput
+  }
+
+  export type TenantDonationScalarWhereWithAggregatesInput = {
+    AND?: TenantDonationScalarWhereWithAggregatesInput | TenantDonationScalarWhereWithAggregatesInput[]
+    OR?: TenantDonationScalarWhereWithAggregatesInput[]
+    NOT?: TenantDonationScalarWhereWithAggregatesInput | TenantDonationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"TenantDonation"> | string
+    tenantId?: UuidWithAggregatesFilter<"TenantDonation"> | string
+    paymentMethodId?: UuidNullableWithAggregatesFilter<"TenantDonation"> | string | null
+    midtransOrderId?: StringWithAggregatesFilter<"TenantDonation"> | string
+    snapToken?: StringNullableWithAggregatesFilter<"TenantDonation"> | string | null
+    amount?: DecimalWithAggregatesFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalWithAggregatesFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalWithAggregatesFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusWithAggregatesFilter<"TenantDonation"> | $Enums.DonationStatus
+    paymentType?: StringNullableWithAggregatesFilter<"TenantDonation"> | string | null
+    transactionTime?: DateTimeNullableWithAggregatesFilter<"TenantDonation"> | Date | string | null
+    settlementTime?: DateTimeNullableWithAggregatesFilter<"TenantDonation"> | Date | string | null
+    expiryTime?: DateTimeNullableWithAggregatesFilter<"TenantDonation"> | Date | string | null
+    message?: StringNullableWithAggregatesFilter<"TenantDonation"> | string | null
+    midtransResponse?: JsonNullableWithAggregatesFilter<"TenantDonation">
+    createdAt?: DateTimeWithAggregatesFilter<"TenantDonation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TenantDonation"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
     password: string
+    displayName?: string | null
+    photoURL?: string | null
+    provider?: string | null
+    providerId?: string | null
+    emailVerified?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tenants?: TenantCreateNestedManyWithoutUserInput
@@ -41892,6 +48383,11 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
+    displayName?: string | null
+    photoURL?: string | null
+    provider?: string | null
+    providerId?: string | null
+    emailVerified?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tenants?: TenantUncheckedCreateNestedManyWithoutUserInput
@@ -41901,6 +48397,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: TenantUpdateManyWithoutUserNestedInput
@@ -41910,6 +48411,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: TenantUncheckedUpdateManyWithoutUserNestedInput
@@ -41919,6 +48425,11 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
+    displayName?: string | null
+    photoURL?: string | null
+    provider?: string | null
+    providerId?: string | null
+    emailVerified?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -41927,6 +48438,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -41935,6 +48451,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -41973,6 +48494,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -42009,6 +48533,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -42045,6 +48572,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -42081,6 +48611,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -42137,6 +48670,7 @@ export namespace Prisma {
     salary?: SalaryCreateNestedOneWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateInput = {
@@ -42155,6 +48689,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUpdateInput = {
@@ -42173,6 +48708,7 @@ export namespace Prisma {
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateInput = {
@@ -42191,6 +48727,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffCreateManyInput = {
@@ -42875,6 +49412,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     tenant?: TenantCreateNestedOneWithoutProductsInput
@@ -42894,6 +49433,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -42909,6 +49450,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneWithoutProductsNestedInput
@@ -42928,6 +49471,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -42945,6 +49490,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
   }
@@ -42959,6 +49506,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -42975,6 +49524,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -43870,12 +50421,14 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     tenant: TenantCreateNestedOneWithoutAttendancesInput
     staff: StaffCreateNestedOneWithoutAttendancesInput
+    shift?: ShiftCreateNestedOneWithoutAttendancesInput
   }
 
   export type AttendanceUncheckedCreateInput = {
     id?: string
     tenantId: string
     staffId: string
+    shiftId?: string | null
     date: Date | string
     checkInTime?: string | null
     checkOutTime?: string | null
@@ -43896,12 +50449,14 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneRequiredWithoutAttendancesNestedInput
     staff?: StaffUpdateOneRequiredWithoutAttendancesNestedInput
+    shift?: ShiftUpdateOneWithoutAttendancesNestedInput
   }
 
   export type AttendanceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
     checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43915,6 +50470,7 @@ export namespace Prisma {
     id?: string
     tenantId: string
     staffId: string
+    shiftId?: string | null
     date: Date | string
     checkInTime?: string | null
     checkOutTime?: string | null
@@ -43939,6 +50495,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
     checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44626,6 +51183,551 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ShiftCreateInput = {
+    id?: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutShiftsInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutShiftInput
+    attendances?: AttendanceCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutShiftInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutShiftsNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutShiftNestedInput
+    attendances?: AttendanceUpdateManyWithoutShiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutShiftNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutShiftNestedInput
+  }
+
+  export type ShiftCreateManyInput = {
+    id?: string
+    tenantId: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ShiftUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ShiftUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffShiftCreateInput = {
+    id?: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffShiftsInput
+    staff: StaffCreateNestedOneWithoutStaffShiftsInput
+    shift: ShiftCreateNestedOneWithoutStaffShiftsInput
+  }
+
+  export type StaffShiftUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    staffId: string
+    shiftId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffShiftUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffShiftsNestedInput
+    staff?: StaffUpdateOneRequiredWithoutStaffShiftsNestedInput
+    shift?: ShiftUpdateOneRequiredWithoutStaffShiftsNestedInput
+  }
+
+  export type StaffShiftUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffShiftCreateManyInput = {
+    id?: string
+    tenantId: string
+    staffId: string
+    shiftId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffShiftUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffShiftUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonationPaymentMethodCreateInput = {
+    id?: string
+    name: string
+    code: string
+    type: string
+    transactionFee: Decimal | DecimalJsLike | number | string
+    feePercentage?: Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    minAmount: Decimal | DecimalJsLike | number | string
+    maxAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    iconUrl?: string | null
+    description?: string | null
+    displayOrder?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    donations?: TenantDonationCreateNestedManyWithoutPaymentMethodInput
+  }
+
+  export type DonationPaymentMethodUncheckedCreateInput = {
+    id?: string
+    name: string
+    code: string
+    type: string
+    transactionFee: Decimal | DecimalJsLike | number | string
+    feePercentage?: Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    minAmount: Decimal | DecimalJsLike | number | string
+    maxAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    iconUrl?: string | null
+    description?: string | null
+    displayOrder?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutPaymentMethodInput
+  }
+
+  export type DonationPaymentMethodUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    feePercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donations?: TenantDonationUpdateManyWithoutPaymentMethodNestedInput
+  }
+
+  export type DonationPaymentMethodUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    feePercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donations?: TenantDonationUncheckedUpdateManyWithoutPaymentMethodNestedInput
+  }
+
+  export type DonationPaymentMethodCreateManyInput = {
+    id?: string
+    name: string
+    code: string
+    type: string
+    transactionFee: Decimal | DecimalJsLike | number | string
+    feePercentage?: Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    minAmount: Decimal | DecimalJsLike | number | string
+    maxAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    iconUrl?: string | null
+    description?: string | null
+    displayOrder?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DonationPaymentMethodUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    feePercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonationPaymentMethodUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    feePercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantDonationCreateInput = {
+    id?: string
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDonationsInput
+    paymentMethod?: DonationPaymentMethodCreateNestedOneWithoutDonationsInput
+  }
+
+  export type TenantDonationUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    paymentMethodId?: string | null
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantDonationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDonationsNestedInput
+    paymentMethod?: DonationPaymentMethodUpdateOneWithoutDonationsNestedInput
+  }
+
+  export type TenantDonationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    paymentMethodId?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantDonationCreateManyInput = {
+    id?: string
+    tenantId: string
+    paymentMethodId?: string | null
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantDonationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantDonationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    paymentMethodId?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -44653,6 +51755,26 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -44670,14 +51792,29 @@ export namespace Prisma {
     none?: TenantWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type TenantOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type UserProviderProviderIdCompoundUniqueInput = {
+    provider: string
+    providerId: string
   }
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    displayName?: SortOrder
+    photoURL?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -44686,6 +51823,11 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    displayName?: SortOrder
+    photoURL?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -44694,6 +51836,11 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    displayName?: SortOrder
+    photoURL?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -44731,6 +51878,32 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -44745,21 +51918,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -44769,11 +51927,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type UserScalarRelationFilter = {
@@ -44915,9 +52068,22 @@ export namespace Prisma {
     none?: TenantReportWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type ShiftListRelationFilter = {
+    every?: ShiftWhereInput
+    some?: ShiftWhereInput
+    none?: ShiftWhereInput
+  }
+
+  export type StaffShiftListRelationFilter = {
+    every?: StaffShiftWhereInput
+    some?: StaffShiftWhereInput
+    none?: StaffShiftWhereInput
+  }
+
+  export type TenantDonationListRelationFilter = {
+    every?: TenantDonationWhereInput
+    some?: TenantDonationWhereInput
+    none?: TenantDonationWhereInput
   }
 
   export type CustomerOrderByRelationAggregateInput = {
@@ -44996,6 +52162,18 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ShiftOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffShiftOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TenantDonationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TenantCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -45035,24 +52213,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -45065,14 +52225,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type UuidNullableFilter<$PrismaModel = never> = {
@@ -45691,6 +52843,8 @@ export namespace Prisma {
     sku?: SortOrder
     imageUrl?: SortOrder
     alias?: SortOrder
+    isCountable?: SortOrder
+    unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -45712,6 +52866,8 @@ export namespace Prisma {
     sku?: SortOrder
     imageUrl?: SortOrder
     alias?: SortOrder
+    isCountable?: SortOrder
+    unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -45728,6 +52884,8 @@ export namespace Prisma {
     sku?: SortOrder
     imageUrl?: SortOrder
     alias?: SortOrder
+    isCountable?: SortOrder
+    unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -46271,16 +53429,16 @@ export namespace Prisma {
     _max?: NestedEnumSalaryTypeFilter<$PrismaModel>
   }
 
-  export type AttendanceTenantIdStaffIdDateCompoundUniqueInput = {
-    tenantId: string
-    staffId: string
-    date: Date | string
+  export type ShiftNullableScalarRelationFilter = {
+    is?: ShiftWhereInput | null
+    isNot?: ShiftWhereInput | null
   }
 
   export type AttendanceCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     staffId?: SortOrder
+    shiftId?: SortOrder
     date?: SortOrder
     checkInTime?: SortOrder
     checkOutTime?: SortOrder
@@ -46298,6 +53456,7 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     staffId?: SortOrder
+    shiftId?: SortOrder
     date?: SortOrder
     checkInTime?: SortOrder
     checkOutTime?: SortOrder
@@ -46311,6 +53470,7 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     staffId?: SortOrder
+    shiftId?: SortOrder
     date?: SortOrder
     checkInTime?: SortOrder
     checkOutTime?: SortOrder
@@ -46724,6 +53884,390 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type ShiftTenantIdNameCompoundUniqueInput = {
+    tenantId: string
+    name: string
+  }
+
+  export type ShiftCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    isActive?: SortOrder
+    calculateBeforeStartTime?: SortOrder
+    hasBreakTime?: SortOrder
+    breakDuration?: SortOrder
+    minWorkingHours?: SortOrder
+    maxWorkingHours?: SortOrder
+    overtimeMultiplier?: SortOrder
+    lateThreshold?: SortOrder
+    earlyCheckInAllowed?: SortOrder
+    color?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ShiftAvgOrderByAggregateInput = {
+    breakDuration?: SortOrder
+    minWorkingHours?: SortOrder
+    maxWorkingHours?: SortOrder
+    overtimeMultiplier?: SortOrder
+    lateThreshold?: SortOrder
+    earlyCheckInAllowed?: SortOrder
+  }
+
+  export type ShiftMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    isActive?: SortOrder
+    calculateBeforeStartTime?: SortOrder
+    hasBreakTime?: SortOrder
+    breakDuration?: SortOrder
+    minWorkingHours?: SortOrder
+    maxWorkingHours?: SortOrder
+    overtimeMultiplier?: SortOrder
+    lateThreshold?: SortOrder
+    earlyCheckInAllowed?: SortOrder
+    color?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ShiftMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    isActive?: SortOrder
+    calculateBeforeStartTime?: SortOrder
+    hasBreakTime?: SortOrder
+    breakDuration?: SortOrder
+    minWorkingHours?: SortOrder
+    maxWorkingHours?: SortOrder
+    overtimeMultiplier?: SortOrder
+    lateThreshold?: SortOrder
+    earlyCheckInAllowed?: SortOrder
+    color?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ShiftSumOrderByAggregateInput = {
+    breakDuration?: SortOrder
+    minWorkingHours?: SortOrder
+    maxWorkingHours?: SortOrder
+    overtimeMultiplier?: SortOrder
+    lateThreshold?: SortOrder
+    earlyCheckInAllowed?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type ShiftScalarRelationFilter = {
+    is?: ShiftWhereInput
+    isNot?: ShiftWhereInput
+  }
+
+  export type StaffShiftTenantIdStaffIdShiftIdDateCompoundUniqueInput = {
+    tenantId: string
+    staffId: string
+    shiftId: string
+    date: Date | string
+  }
+
+  export type StaffShiftCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    staffId?: SortOrder
+    shiftId?: SortOrder
+    date?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    actualBreakDuration?: SortOrder
+    totalWorkedMinutes?: SortOrder
+    lateMinutes?: SortOrder
+    overtimeMinutes?: SortOrder
+    isCompleted?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffShiftAvgOrderByAggregateInput = {
+    actualBreakDuration?: SortOrder
+    totalWorkedMinutes?: SortOrder
+    lateMinutes?: SortOrder
+    overtimeMinutes?: SortOrder
+  }
+
+  export type StaffShiftMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    staffId?: SortOrder
+    shiftId?: SortOrder
+    date?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    actualBreakDuration?: SortOrder
+    totalWorkedMinutes?: SortOrder
+    lateMinutes?: SortOrder
+    overtimeMinutes?: SortOrder
+    isCompleted?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffShiftMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    staffId?: SortOrder
+    shiftId?: SortOrder
+    date?: SortOrder
+    checkInTime?: SortOrder
+    checkOutTime?: SortOrder
+    actualBreakDuration?: SortOrder
+    totalWorkedMinutes?: SortOrder
+    lateMinutes?: SortOrder
+    overtimeMinutes?: SortOrder
+    isCompleted?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffShiftSumOrderByAggregateInput = {
+    actualBreakDuration?: SortOrder
+    totalWorkedMinutes?: SortOrder
+    lateMinutes?: SortOrder
+    overtimeMinutes?: SortOrder
+  }
+
+  export type DonationPaymentMethodCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    transactionFee?: SortOrder
+    feePercentage?: SortOrder
+    taxPercentage?: SortOrder
+    minAmount?: SortOrder
+    maxAmount?: SortOrder
+    isActive?: SortOrder
+    iconUrl?: SortOrder
+    description?: SortOrder
+    displayOrder?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DonationPaymentMethodAvgOrderByAggregateInput = {
+    transactionFee?: SortOrder
+    feePercentage?: SortOrder
+    taxPercentage?: SortOrder
+    minAmount?: SortOrder
+    maxAmount?: SortOrder
+    displayOrder?: SortOrder
+  }
+
+  export type DonationPaymentMethodMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    transactionFee?: SortOrder
+    feePercentage?: SortOrder
+    taxPercentage?: SortOrder
+    minAmount?: SortOrder
+    maxAmount?: SortOrder
+    isActive?: SortOrder
+    iconUrl?: SortOrder
+    description?: SortOrder
+    displayOrder?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DonationPaymentMethodMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    transactionFee?: SortOrder
+    feePercentage?: SortOrder
+    taxPercentage?: SortOrder
+    minAmount?: SortOrder
+    maxAmount?: SortOrder
+    isActive?: SortOrder
+    iconUrl?: SortOrder
+    description?: SortOrder
+    displayOrder?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DonationPaymentMethodSumOrderByAggregateInput = {
+    transactionFee?: SortOrder
+    feePercentage?: SortOrder
+    taxPercentage?: SortOrder
+    minAmount?: SortOrder
+    maxAmount?: SortOrder
+    displayOrder?: SortOrder
+  }
+
+  export type EnumDonationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DonationStatus | EnumDonationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDonationStatusFilter<$PrismaModel> | $Enums.DonationStatus
+  }
+
+  export type DonationPaymentMethodNullableScalarRelationFilter = {
+    is?: DonationPaymentMethodWhereInput | null
+    isNot?: DonationPaymentMethodWhereInput | null
+  }
+
+  export type TenantDonationCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    paymentMethodId?: SortOrder
+    midtransOrderId?: SortOrder
+    snapToken?: SortOrder
+    amount?: SortOrder
+    transactionFee?: SortOrder
+    netAmount?: SortOrder
+    status?: SortOrder
+    paymentType?: SortOrder
+    transactionTime?: SortOrder
+    settlementTime?: SortOrder
+    expiryTime?: SortOrder
+    message?: SortOrder
+    midtransResponse?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantDonationAvgOrderByAggregateInput = {
+    amount?: SortOrder
+    transactionFee?: SortOrder
+    netAmount?: SortOrder
+  }
+
+  export type TenantDonationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    paymentMethodId?: SortOrder
+    midtransOrderId?: SortOrder
+    snapToken?: SortOrder
+    amount?: SortOrder
+    transactionFee?: SortOrder
+    netAmount?: SortOrder
+    status?: SortOrder
+    paymentType?: SortOrder
+    transactionTime?: SortOrder
+    settlementTime?: SortOrder
+    expiryTime?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantDonationMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    paymentMethodId?: SortOrder
+    midtransOrderId?: SortOrder
+    snapToken?: SortOrder
+    amount?: SortOrder
+    transactionFee?: SortOrder
+    netAmount?: SortOrder
+    status?: SortOrder
+    paymentType?: SortOrder
+    transactionTime?: SortOrder
+    settlementTime?: SortOrder
+    expiryTime?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantDonationSumOrderByAggregateInput = {
+    amount?: SortOrder
+    transactionFee?: SortOrder
+    netAmount?: SortOrder
+  }
+
+  export type EnumDonationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DonationStatus | EnumDonationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDonationStatusWithAggregatesFilter<$PrismaModel> | $Enums.DonationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDonationStatusFilter<$PrismaModel>
+    _max?: NestedEnumDonationStatusFilter<$PrismaModel>
+  }
+
   export type TenantCreateNestedManyWithoutUserInput = {
     create?: XOR<TenantCreateWithoutUserInput, TenantUncheckedCreateWithoutUserInput> | TenantCreateWithoutUserInput[] | TenantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutUserInput | TenantCreateOrConnectWithoutUserInput[]
@@ -46740,6 +54284,14 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -46937,6 +54489,27 @@ export namespace Prisma {
     connect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
   }
 
+  export type ShiftCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ShiftCreateWithoutTenantInput, ShiftUncheckedCreateWithoutTenantInput> | ShiftCreateWithoutTenantInput[] | ShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftCreateOrConnectWithoutTenantInput | ShiftCreateOrConnectWithoutTenantInput[]
+    createMany?: ShiftCreateManyTenantInputEnvelope
+    connect?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+  }
+
+  export type StaffShiftCreateNestedManyWithoutTenantInput = {
+    create?: XOR<StaffShiftCreateWithoutTenantInput, StaffShiftUncheckedCreateWithoutTenantInput> | StaffShiftCreateWithoutTenantInput[] | StaffShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutTenantInput | StaffShiftCreateOrConnectWithoutTenantInput[]
+    createMany?: StaffShiftCreateManyTenantInputEnvelope
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+  }
+
+  export type TenantDonationCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TenantDonationCreateWithoutTenantInput, TenantDonationUncheckedCreateWithoutTenantInput> | TenantDonationCreateWithoutTenantInput[] | TenantDonationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutTenantInput | TenantDonationCreateOrConnectWithoutTenantInput[]
+    createMany?: TenantDonationCreateManyTenantInputEnvelope
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+  }
+
   export type CustomerUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<CustomerCreateWithoutTenantInput, CustomerUncheckedCreateWithoutTenantInput> | CustomerCreateWithoutTenantInput[] | CustomerUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutTenantInput | CustomerCreateOrConnectWithoutTenantInput[]
@@ -47094,16 +54667,29 @@ export namespace Prisma {
     connect?: TenantReportWhereUniqueInput | TenantReportWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type ShiftUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ShiftCreateWithoutTenantInput, ShiftUncheckedCreateWithoutTenantInput> | ShiftCreateWithoutTenantInput[] | ShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftCreateOrConnectWithoutTenantInput | ShiftCreateOrConnectWithoutTenantInput[]
+    createMany?: ShiftCreateManyTenantInputEnvelope
+    connect?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+  }
+
+  export type StaffShiftUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<StaffShiftCreateWithoutTenantInput, StaffShiftUncheckedCreateWithoutTenantInput> | StaffShiftCreateWithoutTenantInput[] | StaffShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutTenantInput | StaffShiftCreateOrConnectWithoutTenantInput[]
+    createMany?: StaffShiftCreateManyTenantInputEnvelope
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+  }
+
+  export type TenantDonationUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TenantDonationCreateWithoutTenantInput, TenantDonationUncheckedCreateWithoutTenantInput> | TenantDonationCreateWithoutTenantInput[] | TenantDonationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutTenantInput | TenantDonationCreateOrConnectWithoutTenantInput[]
+    createMany?: TenantDonationCreateManyTenantInputEnvelope
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-  }
-
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
   }
 
   export type UserUpdateOneRequiredWithoutTenantsNestedInput = {
@@ -47420,6 +55006,48 @@ export namespace Prisma {
     deleteMany?: TenantReportScalarWhereInput | TenantReportScalarWhereInput[]
   }
 
+  export type ShiftUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ShiftCreateWithoutTenantInput, ShiftUncheckedCreateWithoutTenantInput> | ShiftCreateWithoutTenantInput[] | ShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftCreateOrConnectWithoutTenantInput | ShiftCreateOrConnectWithoutTenantInput[]
+    upsert?: ShiftUpsertWithWhereUniqueWithoutTenantInput | ShiftUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ShiftCreateManyTenantInputEnvelope
+    set?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    disconnect?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    delete?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    connect?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    update?: ShiftUpdateWithWhereUniqueWithoutTenantInput | ShiftUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ShiftUpdateManyWithWhereWithoutTenantInput | ShiftUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ShiftScalarWhereInput | ShiftScalarWhereInput[]
+  }
+
+  export type StaffShiftUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<StaffShiftCreateWithoutTenantInput, StaffShiftUncheckedCreateWithoutTenantInput> | StaffShiftCreateWithoutTenantInput[] | StaffShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutTenantInput | StaffShiftCreateOrConnectWithoutTenantInput[]
+    upsert?: StaffShiftUpsertWithWhereUniqueWithoutTenantInput | StaffShiftUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: StaffShiftCreateManyTenantInputEnvelope
+    set?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    disconnect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    delete?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    update?: StaffShiftUpdateWithWhereUniqueWithoutTenantInput | StaffShiftUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: StaffShiftUpdateManyWithWhereWithoutTenantInput | StaffShiftUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
+  }
+
+  export type TenantDonationUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TenantDonationCreateWithoutTenantInput, TenantDonationUncheckedCreateWithoutTenantInput> | TenantDonationCreateWithoutTenantInput[] | TenantDonationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutTenantInput | TenantDonationCreateOrConnectWithoutTenantInput[]
+    upsert?: TenantDonationUpsertWithWhereUniqueWithoutTenantInput | TenantDonationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TenantDonationCreateManyTenantInputEnvelope
+    set?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    disconnect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    delete?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    update?: TenantDonationUpdateWithWhereUniqueWithoutTenantInput | TenantDonationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TenantDonationUpdateManyWithWhereWithoutTenantInput | TenantDonationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TenantDonationScalarWhereInput | TenantDonationScalarWhereInput[]
+  }
+
   export type CustomerUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<CustomerCreateWithoutTenantInput, CustomerUncheckedCreateWithoutTenantInput> | CustomerCreateWithoutTenantInput[] | CustomerUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutTenantInput | CustomerCreateOrConnectWithoutTenantInput[]
@@ -47726,6 +55354,48 @@ export namespace Prisma {
     deleteMany?: TenantReportScalarWhereInput | TenantReportScalarWhereInput[]
   }
 
+  export type ShiftUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ShiftCreateWithoutTenantInput, ShiftUncheckedCreateWithoutTenantInput> | ShiftCreateWithoutTenantInput[] | ShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftCreateOrConnectWithoutTenantInput | ShiftCreateOrConnectWithoutTenantInput[]
+    upsert?: ShiftUpsertWithWhereUniqueWithoutTenantInput | ShiftUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ShiftCreateManyTenantInputEnvelope
+    set?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    disconnect?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    delete?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    connect?: ShiftWhereUniqueInput | ShiftWhereUniqueInput[]
+    update?: ShiftUpdateWithWhereUniqueWithoutTenantInput | ShiftUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ShiftUpdateManyWithWhereWithoutTenantInput | ShiftUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ShiftScalarWhereInput | ShiftScalarWhereInput[]
+  }
+
+  export type StaffShiftUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<StaffShiftCreateWithoutTenantInput, StaffShiftUncheckedCreateWithoutTenantInput> | StaffShiftCreateWithoutTenantInput[] | StaffShiftUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutTenantInput | StaffShiftCreateOrConnectWithoutTenantInput[]
+    upsert?: StaffShiftUpsertWithWhereUniqueWithoutTenantInput | StaffShiftUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: StaffShiftCreateManyTenantInputEnvelope
+    set?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    disconnect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    delete?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    update?: StaffShiftUpdateWithWhereUniqueWithoutTenantInput | StaffShiftUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: StaffShiftUpdateManyWithWhereWithoutTenantInput | StaffShiftUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
+  }
+
+  export type TenantDonationUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TenantDonationCreateWithoutTenantInput, TenantDonationUncheckedCreateWithoutTenantInput> | TenantDonationCreateWithoutTenantInput[] | TenantDonationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutTenantInput | TenantDonationCreateOrConnectWithoutTenantInput[]
+    upsert?: TenantDonationUpsertWithWhereUniqueWithoutTenantInput | TenantDonationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TenantDonationCreateManyTenantInputEnvelope
+    set?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    disconnect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    delete?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    update?: TenantDonationUpdateWithWhereUniqueWithoutTenantInput | TenantDonationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TenantDonationUpdateManyWithWhereWithoutTenantInput | TenantDonationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TenantDonationScalarWhereInput | TenantDonationScalarWhereInput[]
+  }
+
   export type TenantCreateNestedOneWithoutStaffsInput = {
     create?: XOR<TenantCreateWithoutStaffsInput, TenantUncheckedCreateWithoutStaffsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutStaffsInput
@@ -47780,6 +55450,13 @@ export namespace Prisma {
     connect?: PayrollDetailWhereUniqueInput | PayrollDetailWhereUniqueInput[]
   }
 
+  export type StaffShiftCreateNestedManyWithoutStaffInput = {
+    create?: XOR<StaffShiftCreateWithoutStaffInput, StaffShiftUncheckedCreateWithoutStaffInput> | StaffShiftCreateWithoutStaffInput[] | StaffShiftUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutStaffInput | StaffShiftCreateOrConnectWithoutStaffInput[]
+    createMany?: StaffShiftCreateManyStaffInputEnvelope
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+  }
+
   export type ExpenseUncheckedCreateNestedManyWithoutStaffInput = {
     create?: XOR<ExpenseCreateWithoutStaffInput, ExpenseUncheckedCreateWithoutStaffInput> | ExpenseCreateWithoutStaffInput[] | ExpenseUncheckedCreateWithoutStaffInput[]
     connectOrCreate?: ExpenseCreateOrConnectWithoutStaffInput | ExpenseCreateOrConnectWithoutStaffInput[]
@@ -47826,6 +55503,13 @@ export namespace Prisma {
     connectOrCreate?: PayrollDetailCreateOrConnectWithoutStaffInput | PayrollDetailCreateOrConnectWithoutStaffInput[]
     createMany?: PayrollDetailCreateManyStaffInputEnvelope
     connect?: PayrollDetailWhereUniqueInput | PayrollDetailWhereUniqueInput[]
+  }
+
+  export type StaffShiftUncheckedCreateNestedManyWithoutStaffInput = {
+    create?: XOR<StaffShiftCreateWithoutStaffInput, StaffShiftUncheckedCreateWithoutStaffInput> | StaffShiftCreateWithoutStaffInput[] | StaffShiftUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutStaffInput | StaffShiftCreateOrConnectWithoutStaffInput[]
+    createMany?: StaffShiftCreateManyStaffInputEnvelope
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -47936,6 +55620,20 @@ export namespace Prisma {
     deleteMany?: PayrollDetailScalarWhereInput | PayrollDetailScalarWhereInput[]
   }
 
+  export type StaffShiftUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<StaffShiftCreateWithoutStaffInput, StaffShiftUncheckedCreateWithoutStaffInput> | StaffShiftCreateWithoutStaffInput[] | StaffShiftUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutStaffInput | StaffShiftCreateOrConnectWithoutStaffInput[]
+    upsert?: StaffShiftUpsertWithWhereUniqueWithoutStaffInput | StaffShiftUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: StaffShiftCreateManyStaffInputEnvelope
+    set?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    disconnect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    delete?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    update?: StaffShiftUpdateWithWhereUniqueWithoutStaffInput | StaffShiftUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: StaffShiftUpdateManyWithWhereWithoutStaffInput | StaffShiftUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
+  }
+
   export type ExpenseUncheckedUpdateManyWithoutStaffNestedInput = {
     create?: XOR<ExpenseCreateWithoutStaffInput, ExpenseUncheckedCreateWithoutStaffInput> | ExpenseCreateWithoutStaffInput[] | ExpenseUncheckedCreateWithoutStaffInput[]
     connectOrCreate?: ExpenseCreateOrConnectWithoutStaffInput | ExpenseCreateOrConnectWithoutStaffInput[]
@@ -48028,6 +55726,20 @@ export namespace Prisma {
     update?: PayrollDetailUpdateWithWhereUniqueWithoutStaffInput | PayrollDetailUpdateWithWhereUniqueWithoutStaffInput[]
     updateMany?: PayrollDetailUpdateManyWithWhereWithoutStaffInput | PayrollDetailUpdateManyWithWhereWithoutStaffInput[]
     deleteMany?: PayrollDetailScalarWhereInput | PayrollDetailScalarWhereInput[]
+  }
+
+  export type StaffShiftUncheckedUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<StaffShiftCreateWithoutStaffInput, StaffShiftUncheckedCreateWithoutStaffInput> | StaffShiftCreateWithoutStaffInput[] | StaffShiftUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutStaffInput | StaffShiftCreateOrConnectWithoutStaffInput[]
+    upsert?: StaffShiftUpsertWithWhereUniqueWithoutStaffInput | StaffShiftUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: StaffShiftCreateManyStaffInputEnvelope
+    set?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    disconnect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    delete?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    update?: StaffShiftUpdateWithWhereUniqueWithoutStaffInput | StaffShiftUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: StaffShiftUpdateManyWithWhereWithoutStaffInput | StaffShiftUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
   }
 
   export type EnumAdminRoleFieldUpdateOperationsInput = {
@@ -48958,6 +56670,12 @@ export namespace Prisma {
     connect?: StaffWhereUniqueInput
   }
 
+  export type ShiftCreateNestedOneWithoutAttendancesInput = {
+    create?: XOR<ShiftCreateWithoutAttendancesInput, ShiftUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutAttendancesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
   export type TenantUpdateOneRequiredWithoutAttendancesNestedInput = {
     create?: XOR<TenantCreateWithoutAttendancesInput, TenantUncheckedCreateWithoutAttendancesInput>
     connectOrCreate?: TenantCreateOrConnectWithoutAttendancesInput
@@ -48972,6 +56690,16 @@ export namespace Prisma {
     upsert?: StaffUpsertWithoutAttendancesInput
     connect?: StaffWhereUniqueInput
     update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutAttendancesInput, StaffUpdateWithoutAttendancesInput>, StaffUncheckedUpdateWithoutAttendancesInput>
+  }
+
+  export type ShiftUpdateOneWithoutAttendancesNestedInput = {
+    create?: XOR<ShiftCreateWithoutAttendancesInput, ShiftUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutAttendancesInput
+    upsert?: ShiftUpsertWithoutAttendancesInput
+    disconnect?: ShiftWhereInput | boolean
+    delete?: ShiftWhereInput | boolean
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutAttendancesInput, ShiftUpdateWithoutAttendancesInput>, ShiftUncheckedUpdateWithoutAttendancesInput>
   }
 
   export type TenantCreateNestedOneWithoutPayrollPeriodsInput = {
@@ -49192,6 +56920,238 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutReportsInput, TenantUpdateWithoutReportsInput>, TenantUncheckedUpdateWithoutReportsInput>
   }
 
+  export type TenantCreateNestedOneWithoutShiftsInput = {
+    create?: XOR<TenantCreateWithoutShiftsInput, TenantUncheckedCreateWithoutShiftsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutShiftsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type StaffShiftCreateNestedManyWithoutShiftInput = {
+    create?: XOR<StaffShiftCreateWithoutShiftInput, StaffShiftUncheckedCreateWithoutShiftInput> | StaffShiftCreateWithoutShiftInput[] | StaffShiftUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutShiftInput | StaffShiftCreateOrConnectWithoutShiftInput[]
+    createMany?: StaffShiftCreateManyShiftInputEnvelope
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+  }
+
+  export type AttendanceCreateNestedManyWithoutShiftInput = {
+    create?: XOR<AttendanceCreateWithoutShiftInput, AttendanceUncheckedCreateWithoutShiftInput> | AttendanceCreateWithoutShiftInput[] | AttendanceUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutShiftInput | AttendanceCreateOrConnectWithoutShiftInput[]
+    createMany?: AttendanceCreateManyShiftInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
+  export type StaffShiftUncheckedCreateNestedManyWithoutShiftInput = {
+    create?: XOR<StaffShiftCreateWithoutShiftInput, StaffShiftUncheckedCreateWithoutShiftInput> | StaffShiftCreateWithoutShiftInput[] | StaffShiftUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutShiftInput | StaffShiftCreateOrConnectWithoutShiftInput[]
+    createMany?: StaffShiftCreateManyShiftInputEnvelope
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+  }
+
+  export type AttendanceUncheckedCreateNestedManyWithoutShiftInput = {
+    create?: XOR<AttendanceCreateWithoutShiftInput, AttendanceUncheckedCreateWithoutShiftInput> | AttendanceCreateWithoutShiftInput[] | AttendanceUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutShiftInput | AttendanceCreateOrConnectWithoutShiftInput[]
+    createMany?: AttendanceCreateManyShiftInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type TenantUpdateOneRequiredWithoutShiftsNestedInput = {
+    create?: XOR<TenantCreateWithoutShiftsInput, TenantUncheckedCreateWithoutShiftsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutShiftsInput
+    upsert?: TenantUpsertWithoutShiftsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutShiftsInput, TenantUpdateWithoutShiftsInput>, TenantUncheckedUpdateWithoutShiftsInput>
+  }
+
+  export type StaffShiftUpdateManyWithoutShiftNestedInput = {
+    create?: XOR<StaffShiftCreateWithoutShiftInput, StaffShiftUncheckedCreateWithoutShiftInput> | StaffShiftCreateWithoutShiftInput[] | StaffShiftUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutShiftInput | StaffShiftCreateOrConnectWithoutShiftInput[]
+    upsert?: StaffShiftUpsertWithWhereUniqueWithoutShiftInput | StaffShiftUpsertWithWhereUniqueWithoutShiftInput[]
+    createMany?: StaffShiftCreateManyShiftInputEnvelope
+    set?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    disconnect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    delete?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    update?: StaffShiftUpdateWithWhereUniqueWithoutShiftInput | StaffShiftUpdateWithWhereUniqueWithoutShiftInput[]
+    updateMany?: StaffShiftUpdateManyWithWhereWithoutShiftInput | StaffShiftUpdateManyWithWhereWithoutShiftInput[]
+    deleteMany?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
+  }
+
+  export type AttendanceUpdateManyWithoutShiftNestedInput = {
+    create?: XOR<AttendanceCreateWithoutShiftInput, AttendanceUncheckedCreateWithoutShiftInput> | AttendanceCreateWithoutShiftInput[] | AttendanceUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutShiftInput | AttendanceCreateOrConnectWithoutShiftInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutShiftInput | AttendanceUpsertWithWhereUniqueWithoutShiftInput[]
+    createMany?: AttendanceCreateManyShiftInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutShiftInput | AttendanceUpdateWithWhereUniqueWithoutShiftInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutShiftInput | AttendanceUpdateManyWithWhereWithoutShiftInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
+  export type StaffShiftUncheckedUpdateManyWithoutShiftNestedInput = {
+    create?: XOR<StaffShiftCreateWithoutShiftInput, StaffShiftUncheckedCreateWithoutShiftInput> | StaffShiftCreateWithoutShiftInput[] | StaffShiftUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: StaffShiftCreateOrConnectWithoutShiftInput | StaffShiftCreateOrConnectWithoutShiftInput[]
+    upsert?: StaffShiftUpsertWithWhereUniqueWithoutShiftInput | StaffShiftUpsertWithWhereUniqueWithoutShiftInput[]
+    createMany?: StaffShiftCreateManyShiftInputEnvelope
+    set?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    disconnect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    delete?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    connect?: StaffShiftWhereUniqueInput | StaffShiftWhereUniqueInput[]
+    update?: StaffShiftUpdateWithWhereUniqueWithoutShiftInput | StaffShiftUpdateWithWhereUniqueWithoutShiftInput[]
+    updateMany?: StaffShiftUpdateManyWithWhereWithoutShiftInput | StaffShiftUpdateManyWithWhereWithoutShiftInput[]
+    deleteMany?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
+  }
+
+  export type AttendanceUncheckedUpdateManyWithoutShiftNestedInput = {
+    create?: XOR<AttendanceCreateWithoutShiftInput, AttendanceUncheckedCreateWithoutShiftInput> | AttendanceCreateWithoutShiftInput[] | AttendanceUncheckedCreateWithoutShiftInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutShiftInput | AttendanceCreateOrConnectWithoutShiftInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutShiftInput | AttendanceUpsertWithWhereUniqueWithoutShiftInput[]
+    createMany?: AttendanceCreateManyShiftInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutShiftInput | AttendanceUpdateWithWhereUniqueWithoutShiftInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutShiftInput | AttendanceUpdateManyWithWhereWithoutShiftInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutStaffShiftsInput = {
+    create?: XOR<TenantCreateWithoutStaffShiftsInput, TenantUncheckedCreateWithoutStaffShiftsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutStaffShiftsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type StaffCreateNestedOneWithoutStaffShiftsInput = {
+    create?: XOR<StaffCreateWithoutStaffShiftsInput, StaffUncheckedCreateWithoutStaffShiftsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutStaffShiftsInput
+    connect?: StaffWhereUniqueInput
+  }
+
+  export type ShiftCreateNestedOneWithoutStaffShiftsInput = {
+    create?: XOR<ShiftCreateWithoutStaffShiftsInput, ShiftUncheckedCreateWithoutStaffShiftsInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutStaffShiftsInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutStaffShiftsNestedInput = {
+    create?: XOR<TenantCreateWithoutStaffShiftsInput, TenantUncheckedCreateWithoutStaffShiftsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutStaffShiftsInput
+    upsert?: TenantUpsertWithoutStaffShiftsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutStaffShiftsInput, TenantUpdateWithoutStaffShiftsInput>, TenantUncheckedUpdateWithoutStaffShiftsInput>
+  }
+
+  export type StaffUpdateOneRequiredWithoutStaffShiftsNestedInput = {
+    create?: XOR<StaffCreateWithoutStaffShiftsInput, StaffUncheckedCreateWithoutStaffShiftsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutStaffShiftsInput
+    upsert?: StaffUpsertWithoutStaffShiftsInput
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutStaffShiftsInput, StaffUpdateWithoutStaffShiftsInput>, StaffUncheckedUpdateWithoutStaffShiftsInput>
+  }
+
+  export type ShiftUpdateOneRequiredWithoutStaffShiftsNestedInput = {
+    create?: XOR<ShiftCreateWithoutStaffShiftsInput, ShiftUncheckedCreateWithoutStaffShiftsInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutStaffShiftsInput
+    upsert?: ShiftUpsertWithoutStaffShiftsInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutStaffShiftsInput, ShiftUpdateWithoutStaffShiftsInput>, ShiftUncheckedUpdateWithoutStaffShiftsInput>
+  }
+
+  export type TenantDonationCreateNestedManyWithoutPaymentMethodInput = {
+    create?: XOR<TenantDonationCreateWithoutPaymentMethodInput, TenantDonationUncheckedCreateWithoutPaymentMethodInput> | TenantDonationCreateWithoutPaymentMethodInput[] | TenantDonationUncheckedCreateWithoutPaymentMethodInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutPaymentMethodInput | TenantDonationCreateOrConnectWithoutPaymentMethodInput[]
+    createMany?: TenantDonationCreateManyPaymentMethodInputEnvelope
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+  }
+
+  export type TenantDonationUncheckedCreateNestedManyWithoutPaymentMethodInput = {
+    create?: XOR<TenantDonationCreateWithoutPaymentMethodInput, TenantDonationUncheckedCreateWithoutPaymentMethodInput> | TenantDonationCreateWithoutPaymentMethodInput[] | TenantDonationUncheckedCreateWithoutPaymentMethodInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutPaymentMethodInput | TenantDonationCreateOrConnectWithoutPaymentMethodInput[]
+    createMany?: TenantDonationCreateManyPaymentMethodInputEnvelope
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+  }
+
+  export type TenantDonationUpdateManyWithoutPaymentMethodNestedInput = {
+    create?: XOR<TenantDonationCreateWithoutPaymentMethodInput, TenantDonationUncheckedCreateWithoutPaymentMethodInput> | TenantDonationCreateWithoutPaymentMethodInput[] | TenantDonationUncheckedCreateWithoutPaymentMethodInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutPaymentMethodInput | TenantDonationCreateOrConnectWithoutPaymentMethodInput[]
+    upsert?: TenantDonationUpsertWithWhereUniqueWithoutPaymentMethodInput | TenantDonationUpsertWithWhereUniqueWithoutPaymentMethodInput[]
+    createMany?: TenantDonationCreateManyPaymentMethodInputEnvelope
+    set?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    disconnect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    delete?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    update?: TenantDonationUpdateWithWhereUniqueWithoutPaymentMethodInput | TenantDonationUpdateWithWhereUniqueWithoutPaymentMethodInput[]
+    updateMany?: TenantDonationUpdateManyWithWhereWithoutPaymentMethodInput | TenantDonationUpdateManyWithWhereWithoutPaymentMethodInput[]
+    deleteMany?: TenantDonationScalarWhereInput | TenantDonationScalarWhereInput[]
+  }
+
+  export type TenantDonationUncheckedUpdateManyWithoutPaymentMethodNestedInput = {
+    create?: XOR<TenantDonationCreateWithoutPaymentMethodInput, TenantDonationUncheckedCreateWithoutPaymentMethodInput> | TenantDonationCreateWithoutPaymentMethodInput[] | TenantDonationUncheckedCreateWithoutPaymentMethodInput[]
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutPaymentMethodInput | TenantDonationCreateOrConnectWithoutPaymentMethodInput[]
+    upsert?: TenantDonationUpsertWithWhereUniqueWithoutPaymentMethodInput | TenantDonationUpsertWithWhereUniqueWithoutPaymentMethodInput[]
+    createMany?: TenantDonationCreateManyPaymentMethodInputEnvelope
+    set?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    disconnect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    delete?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    connect?: TenantDonationWhereUniqueInput | TenantDonationWhereUniqueInput[]
+    update?: TenantDonationUpdateWithWhereUniqueWithoutPaymentMethodInput | TenantDonationUpdateWithWhereUniqueWithoutPaymentMethodInput[]
+    updateMany?: TenantDonationUpdateManyWithWhereWithoutPaymentMethodInput | TenantDonationUpdateManyWithWhereWithoutPaymentMethodInput[]
+    deleteMany?: TenantDonationScalarWhereInput | TenantDonationScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutDonationsInput = {
+    create?: XOR<TenantCreateWithoutDonationsInput, TenantUncheckedCreateWithoutDonationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDonationsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type DonationPaymentMethodCreateNestedOneWithoutDonationsInput = {
+    create?: XOR<DonationPaymentMethodCreateWithoutDonationsInput, DonationPaymentMethodUncheckedCreateWithoutDonationsInput>
+    connectOrCreate?: DonationPaymentMethodCreateOrConnectWithoutDonationsInput
+    connect?: DonationPaymentMethodWhereUniqueInput
+  }
+
+  export type EnumDonationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DonationStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutDonationsNestedInput = {
+    create?: XOR<TenantCreateWithoutDonationsInput, TenantUncheckedCreateWithoutDonationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDonationsInput
+    upsert?: TenantUpsertWithoutDonationsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDonationsInput, TenantUpdateWithoutDonationsInput>, TenantUncheckedUpdateWithoutDonationsInput>
+  }
+
+  export type DonationPaymentMethodUpdateOneWithoutDonationsNestedInput = {
+    create?: XOR<DonationPaymentMethodCreateWithoutDonationsInput, DonationPaymentMethodUncheckedCreateWithoutDonationsInput>
+    connectOrCreate?: DonationPaymentMethodCreateOrConnectWithoutDonationsInput
+    upsert?: DonationPaymentMethodUpsertWithoutDonationsInput
+    disconnect?: DonationPaymentMethodWhereInput | boolean
+    delete?: DonationPaymentMethodWhereInput | boolean
+    connect?: DonationPaymentMethodWhereUniqueInput
+    update?: XOR<XOR<DonationPaymentMethodUpdateToOneWithWhereWithoutDonationsInput, DonationPaymentMethodUpdateWithoutDonationsInput>, DonationPaymentMethodUncheckedUpdateWithoutDonationsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -49215,6 +57175,25 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -49270,50 +57249,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -49342,6 +57277,39 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -49354,14 +57322,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedUuidNullableFilter<$PrismaModel = never> = {
@@ -49652,6 +57612,55 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDonationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DonationStatus | EnumDonationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDonationStatusFilter<$PrismaModel> | $Enums.DonationStatus
+  }
+
+  export type NestedEnumDonationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DonationStatus | EnumDonationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DonationStatus[] | ListEnumDonationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDonationStatusWithAggregatesFilter<$PrismaModel> | $Enums.DonationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDonationStatusFilter<$PrismaModel>
+    _max?: NestedEnumDonationStatusFilter<$PrismaModel>
+  }
+
   export type TenantCreateWithoutUserInput = {
     id?: string
     name: string
@@ -49685,6 +57694,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUserInput = {
@@ -49720,6 +57732,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUserInput = {
@@ -49768,6 +57783,11 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
+    displayName?: string | null
+    photoURL?: string | null
+    provider?: string | null
+    providerId?: string | null
+    emailVerified?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -49776,6 +57796,11 @@ export namespace Prisma {
     id?: string
     email: string
     password: string
+    displayName?: string | null
+    photoURL?: string | null
+    provider?: string | null
+    providerId?: string | null
+    emailVerified?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -50081,6 +58106,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     productCategory?: ProductCategoryCreateNestedOneWithoutProductsInput
@@ -50098,6 +58125,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -50160,6 +58189,7 @@ export namespace Prisma {
     salary?: SalaryCreateNestedOneWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutTenantInput = {
@@ -50177,6 +58207,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutTenantInput = {
@@ -50374,11 +58405,13 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     staff: StaffCreateNestedOneWithoutAttendancesInput
+    shift?: ShiftCreateNestedOneWithoutAttendancesInput
   }
 
   export type AttendanceUncheckedCreateWithoutTenantInput = {
     id?: string
     staffId: string
+    shiftId?: string | null
     date: Date | string
     checkInTime?: string | null
     checkOutTime?: string | null
@@ -50593,6 +58626,152 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ShiftCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staffShifts?: StaffShiftCreateNestedManyWithoutShiftInput
+    attendances?: AttendanceCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutShiftInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutTenantInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutTenantInput, ShiftUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ShiftCreateManyTenantInputEnvelope = {
+    data: ShiftCreateManyTenantInput | ShiftCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StaffShiftCreateWithoutTenantInput = {
+    id?: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staff: StaffCreateNestedOneWithoutStaffShiftsInput
+    shift: ShiftCreateNestedOneWithoutStaffShiftsInput
+  }
+
+  export type StaffShiftUncheckedCreateWithoutTenantInput = {
+    id?: string
+    staffId: string
+    shiftId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffShiftCreateOrConnectWithoutTenantInput = {
+    where: StaffShiftWhereUniqueInput
+    create: XOR<StaffShiftCreateWithoutTenantInput, StaffShiftUncheckedCreateWithoutTenantInput>
+  }
+
+  export type StaffShiftCreateManyTenantInputEnvelope = {
+    data: StaffShiftCreateManyTenantInput | StaffShiftCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantDonationCreateWithoutTenantInput = {
+    id?: string
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    paymentMethod?: DonationPaymentMethodCreateNestedOneWithoutDonationsInput
+  }
+
+  export type TenantDonationUncheckedCreateWithoutTenantInput = {
+    id?: string
+    paymentMethodId?: string | null
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantDonationCreateOrConnectWithoutTenantInput = {
+    where: TenantDonationWhereUniqueInput
+    create: XOR<TenantDonationCreateWithoutTenantInput, TenantDonationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TenantDonationCreateManyTenantInputEnvelope = {
+    data: TenantDonationCreateManyTenantInput | TenantDonationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutTenantsInput = {
     update: XOR<UserUpdateWithoutTenantsInput, UserUncheckedUpdateWithoutTenantsInput>
     create: XOR<UserCreateWithoutTenantsInput, UserUncheckedCreateWithoutTenantsInput>
@@ -50608,6 +58787,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -50616,6 +58800,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -50895,6 +59084,8 @@ export namespace Prisma {
     sku?: StringNullableFilter<"Product"> | string | null
     imageUrl?: StringNullableFilter<"Product"> | string | null
     alias?: StringNullableFilter<"Product"> | string | null
+    isCountable?: BoolFilter<"Product"> | boolean
+    unit?: StringFilter<"Product"> | string
     createdAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
   }
@@ -51171,6 +59362,7 @@ export namespace Prisma {
     id?: UuidFilter<"Attendance"> | string
     tenantId?: UuidFilter<"Attendance"> | string
     staffId?: UuidFilter<"Attendance"> | string
+    shiftId?: UuidNullableFilter<"Attendance"> | string | null
     date?: DateTimeFilter<"Attendance"> | Date | string
     checkInTime?: StringNullableFilter<"Attendance"> | string | null
     checkOutTime?: StringNullableFilter<"Attendance"> | string | null
@@ -51369,6 +59561,122 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TenantReport"> | Date | string
   }
 
+  export type ShiftUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ShiftWhereUniqueInput
+    update: XOR<ShiftUpdateWithoutTenantInput, ShiftUncheckedUpdateWithoutTenantInput>
+    create: XOR<ShiftCreateWithoutTenantInput, ShiftUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ShiftUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ShiftWhereUniqueInput
+    data: XOR<ShiftUpdateWithoutTenantInput, ShiftUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ShiftUpdateManyWithWhereWithoutTenantInput = {
+    where: ShiftScalarWhereInput
+    data: XOR<ShiftUpdateManyMutationInput, ShiftUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ShiftScalarWhereInput = {
+    AND?: ShiftScalarWhereInput | ShiftScalarWhereInput[]
+    OR?: ShiftScalarWhereInput[]
+    NOT?: ShiftScalarWhereInput | ShiftScalarWhereInput[]
+    id?: UuidFilter<"Shift"> | string
+    tenantId?: UuidFilter<"Shift"> | string
+    name?: StringFilter<"Shift"> | string
+    startTime?: StringFilter<"Shift"> | string
+    endTime?: StringFilter<"Shift"> | string
+    isActive?: BoolFilter<"Shift"> | boolean
+    calculateBeforeStartTime?: BoolFilter<"Shift"> | boolean
+    hasBreakTime?: BoolFilter<"Shift"> | boolean
+    breakDuration?: IntFilter<"Shift"> | number
+    minWorkingHours?: FloatFilter<"Shift"> | number
+    maxWorkingHours?: FloatFilter<"Shift"> | number
+    overtimeMultiplier?: FloatFilter<"Shift"> | number
+    lateThreshold?: IntFilter<"Shift"> | number
+    earlyCheckInAllowed?: IntFilter<"Shift"> | number
+    color?: StringFilter<"Shift"> | string
+    description?: StringNullableFilter<"Shift"> | string | null
+    createdAt?: DateTimeFilter<"Shift"> | Date | string
+    updatedAt?: DateTimeFilter<"Shift"> | Date | string
+  }
+
+  export type StaffShiftUpsertWithWhereUniqueWithoutTenantInput = {
+    where: StaffShiftWhereUniqueInput
+    update: XOR<StaffShiftUpdateWithoutTenantInput, StaffShiftUncheckedUpdateWithoutTenantInput>
+    create: XOR<StaffShiftCreateWithoutTenantInput, StaffShiftUncheckedCreateWithoutTenantInput>
+  }
+
+  export type StaffShiftUpdateWithWhereUniqueWithoutTenantInput = {
+    where: StaffShiftWhereUniqueInput
+    data: XOR<StaffShiftUpdateWithoutTenantInput, StaffShiftUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type StaffShiftUpdateManyWithWhereWithoutTenantInput = {
+    where: StaffShiftScalarWhereInput
+    data: XOR<StaffShiftUpdateManyMutationInput, StaffShiftUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type StaffShiftScalarWhereInput = {
+    AND?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
+    OR?: StaffShiftScalarWhereInput[]
+    NOT?: StaffShiftScalarWhereInput | StaffShiftScalarWhereInput[]
+    id?: UuidFilter<"StaffShift"> | string
+    tenantId?: UuidFilter<"StaffShift"> | string
+    staffId?: UuidFilter<"StaffShift"> | string
+    shiftId?: UuidFilter<"StaffShift"> | string
+    date?: DateTimeFilter<"StaffShift"> | Date | string
+    checkInTime?: StringNullableFilter<"StaffShift"> | string | null
+    checkOutTime?: StringNullableFilter<"StaffShift"> | string | null
+    actualBreakDuration?: IntNullableFilter<"StaffShift"> | number | null
+    totalWorkedMinutes?: IntNullableFilter<"StaffShift"> | number | null
+    lateMinutes?: IntFilter<"StaffShift"> | number
+    overtimeMinutes?: IntFilter<"StaffShift"> | number
+    isCompleted?: BoolFilter<"StaffShift"> | boolean
+    notes?: StringNullableFilter<"StaffShift"> | string | null
+    createdAt?: DateTimeFilter<"StaffShift"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffShift"> | Date | string
+  }
+
+  export type TenantDonationUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TenantDonationWhereUniqueInput
+    update: XOR<TenantDonationUpdateWithoutTenantInput, TenantDonationUncheckedUpdateWithoutTenantInput>
+    create: XOR<TenantDonationCreateWithoutTenantInput, TenantDonationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TenantDonationUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TenantDonationWhereUniqueInput
+    data: XOR<TenantDonationUpdateWithoutTenantInput, TenantDonationUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TenantDonationUpdateManyWithWhereWithoutTenantInput = {
+    where: TenantDonationScalarWhereInput
+    data: XOR<TenantDonationUpdateManyMutationInput, TenantDonationUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type TenantDonationScalarWhereInput = {
+    AND?: TenantDonationScalarWhereInput | TenantDonationScalarWhereInput[]
+    OR?: TenantDonationScalarWhereInput[]
+    NOT?: TenantDonationScalarWhereInput | TenantDonationScalarWhereInput[]
+    id?: UuidFilter<"TenantDonation"> | string
+    tenantId?: UuidFilter<"TenantDonation"> | string
+    paymentMethodId?: UuidNullableFilter<"TenantDonation"> | string | null
+    midtransOrderId?: StringFilter<"TenantDonation"> | string
+    snapToken?: StringNullableFilter<"TenantDonation"> | string | null
+    amount?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFilter<"TenantDonation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFilter<"TenantDonation"> | $Enums.DonationStatus
+    paymentType?: StringNullableFilter<"TenantDonation"> | string | null
+    transactionTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    settlementTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    expiryTime?: DateTimeNullableFilter<"TenantDonation"> | Date | string | null
+    message?: StringNullableFilter<"TenantDonation"> | string | null
+    midtransResponse?: JsonNullableFilter<"TenantDonation">
+    createdAt?: DateTimeFilter<"TenantDonation"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantDonation"> | Date | string
+  }
+
   export type TenantCreateWithoutStaffsInput = {
     id?: string
     name: string
@@ -51402,6 +59710,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffsInput = {
@@ -51437,6 +59748,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffsInput = {
@@ -51645,11 +59959,13 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     tenant: TenantCreateNestedOneWithoutAttendancesInput
+    shift?: ShiftCreateNestedOneWithoutAttendancesInput
   }
 
   export type AttendanceUncheckedCreateWithoutStaffInput = {
     id?: string
     tenantId: string
+    shiftId?: string | null
     date: Date | string
     checkInTime?: string | null
     checkOutTime?: string | null
@@ -51715,6 +60031,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StaffShiftCreateWithoutStaffInput = {
+    id?: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffShiftsInput
+    shift: ShiftCreateNestedOneWithoutStaffShiftsInput
+  }
+
+  export type StaffShiftUncheckedCreateWithoutStaffInput = {
+    id?: string
+    tenantId: string
+    shiftId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffShiftCreateOrConnectWithoutStaffInput = {
+    where: StaffShiftWhereUniqueInput
+    create: XOR<StaffShiftCreateWithoutStaffInput, StaffShiftUncheckedCreateWithoutStaffInput>
+  }
+
+  export type StaffShiftCreateManyStaffInputEnvelope = {
+    data: StaffShiftCreateManyStaffInput | StaffShiftCreateManyStaffInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutStaffsInput = {
     update: XOR<TenantUpdateWithoutStaffsInput, TenantUncheckedUpdateWithoutStaffsInput>
     create: XOR<TenantCreateWithoutStaffsInput, TenantUncheckedCreateWithoutStaffsInput>
@@ -51759,6 +60119,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffsInput = {
@@ -51794,6 +60157,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExpenseUpsertWithWhereUniqueWithoutStaffInput = {
@@ -51937,6 +60303,22 @@ export namespace Prisma {
     data: XOR<PayrollDetailUpdateManyMutationInput, PayrollDetailUncheckedUpdateManyWithoutStaffInput>
   }
 
+  export type StaffShiftUpsertWithWhereUniqueWithoutStaffInput = {
+    where: StaffShiftWhereUniqueInput
+    update: XOR<StaffShiftUpdateWithoutStaffInput, StaffShiftUncheckedUpdateWithoutStaffInput>
+    create: XOR<StaffShiftCreateWithoutStaffInput, StaffShiftUncheckedCreateWithoutStaffInput>
+  }
+
+  export type StaffShiftUpdateWithWhereUniqueWithoutStaffInput = {
+    where: StaffShiftWhereUniqueInput
+    data: XOR<StaffShiftUpdateWithoutStaffInput, StaffShiftUncheckedUpdateWithoutStaffInput>
+  }
+
+  export type StaffShiftUpdateManyWithWhereWithoutStaffInput = {
+    where: StaffShiftScalarWhereInput
+    data: XOR<StaffShiftUpdateManyMutationInput, StaffShiftUncheckedUpdateManyWithoutStaffInput>
+  }
+
   export type TenantCreateWithoutCustomersInput = {
     id?: string
     name: string
@@ -51970,6 +60352,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCustomersInput = {
@@ -52005,6 +60390,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCustomersInput = {
@@ -52128,6 +60516,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCustomersInput = {
@@ -52163,6 +60554,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type OrderUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -52214,6 +60608,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDiscountsInput = {
@@ -52249,6 +60646,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDiscountsInput = {
@@ -52372,6 +60772,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDiscountsInput = {
@@ -52407,6 +60810,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type OrderUpsertWithWhereUniqueWithoutDiscountInput = {
@@ -52458,6 +60864,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutOrdersInput = {
@@ -52493,6 +60902,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutOrdersInput = {
@@ -52595,6 +61007,7 @@ export namespace Prisma {
     salary?: SalaryCreateNestedOneWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutOrdersInput = {
@@ -52612,6 +61025,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutOrdersInput = {
@@ -52695,6 +61109,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutOrdersInput = {
@@ -52730,6 +61147,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type CustomerUpsertWithoutOrdersInput = {
@@ -52850,6 +61270,7 @@ export namespace Prisma {
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutOrdersInput = {
@@ -52867,6 +61288,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -52918,6 +61340,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutOrderItemsInput = {
@@ -52953,6 +61378,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutOrderItemsInput = {
@@ -53037,6 +61465,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     tenant?: TenantCreateNestedOneWithoutProductsInput
@@ -53055,6 +61485,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
   }
@@ -53108,6 +61540,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutOrderItemsInput = {
@@ -53143,6 +61578,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type OrderUpsertWithoutItemsInput = {
@@ -53239,6 +61677,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneWithoutProductsNestedInput
@@ -53257,6 +61697,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -53294,6 +61736,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProductsInput = {
@@ -53329,6 +61774,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProductsInput = {
@@ -53439,6 +61887,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProductsInput = {
@@ -53474,6 +61925,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProductCategoryUpsertWithoutProductsInput = {
@@ -53558,6 +62012,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProductCategoriesInput = {
@@ -53593,6 +62050,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProductCategoriesInput = {
@@ -53669,6 +62129,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     tenant?: TenantCreateNestedOneWithoutProductsInput
@@ -53686,6 +62148,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -53745,6 +62209,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProductCategoriesInput = {
@@ -53780,6 +62247,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProductCategoryUpsertWithoutChildrenInput = {
@@ -53880,6 +62350,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -53915,6 +62388,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -54004,6 +62480,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -54039,6 +62518,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExpenseUpsertWithWhereUniqueWithoutExpenseCategoryInput = {
@@ -54090,6 +62572,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExpensesInput = {
@@ -54125,6 +62610,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExpensesInput = {
@@ -54170,6 +62658,7 @@ export namespace Prisma {
     salary?: SalaryCreateNestedOneWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutExpensesInput = {
@@ -54187,6 +62676,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutExpensesInput = {
@@ -54279,6 +62769,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExpensesInput = {
@@ -54314,6 +62807,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExpenseCategoryUpsertWithoutExpensesInput = {
@@ -54371,6 +62867,7 @@ export namespace Prisma {
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutExpensesInput = {
@@ -54388,6 +62885,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type PayrollDetailUpsertWithoutExpensesInput = {
@@ -54452,6 +62950,7 @@ export namespace Prisma {
     salary?: SalaryCreateNestedOneWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutLogsInput = {
@@ -54469,6 +62968,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutLogsInput = {
@@ -54509,6 +63009,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLogsInput = {
@@ -54544,6 +63047,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLogsInput = {
@@ -54577,6 +63083,7 @@ export namespace Prisma {
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutLogsInput = {
@@ -54594,6 +63101,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type TenantUpsertWithoutLogsInput = {
@@ -54640,6 +63148,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLogsInput = {
@@ -54675,6 +63186,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSettingsInput = {
@@ -54710,6 +63224,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -54745,6 +63262,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -54796,6 +63316,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -54831,6 +63354,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantSubscriptionCreateWithoutSubscriptionPlanInput = {
@@ -54979,6 +63505,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionInput = {
@@ -55014,6 +63543,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionInput = {
@@ -55096,6 +63628,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionInput = {
@@ -55131,6 +63666,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubscriptionPlanUpsertWithoutTenantSubscriptionsInput = {
@@ -55203,6 +63741,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTenantSubscriptionHistoriesInput = {
@@ -55238,6 +63779,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTenantSubscriptionHistoriesInput = {
@@ -55350,6 +63894,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTenantSubscriptionHistoriesInput = {
@@ -55385,6 +63932,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubscriptionPlanUpsertWithoutTenantSubscriptionHistoriesInput = {
@@ -55502,6 +64052,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionPaymentsInput = {
@@ -55537,6 +64090,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionPaymentsInput = {
@@ -55623,6 +64179,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionPaymentsInput = {
@@ -55658,6 +64217,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutPayrollSettingsInput = {
@@ -55693,6 +64255,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollSettingsInput = {
@@ -55728,6 +64293,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollSettingsInput = {
@@ -55779,6 +64347,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollSettingsInput = {
@@ -55814,6 +64385,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSalariesInput = {
@@ -55849,6 +64423,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSalariesInput = {
@@ -55884,6 +64461,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSalariesInput = {
@@ -55906,6 +64486,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveCreateNestedManyWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutSalaryInput = {
@@ -55923,6 +64504,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutSalaryInput = {
@@ -55974,6 +64556,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSalariesInput = {
@@ -56009,6 +64594,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutSalaryInput = {
@@ -56037,6 +64625,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUpdateManyWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutSalaryInput = {
@@ -56054,6 +64643,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type TenantCreateWithoutAttendancesInput = {
@@ -56089,6 +64679,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAttendancesInput = {
@@ -56124,6 +64717,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAttendancesInput = {
@@ -56146,6 +64742,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveCreateNestedManyWithoutStaffInput
     salary?: SalaryCreateNestedOneWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutAttendancesInput = {
@@ -56163,11 +64760,61 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutAttendancesInput = {
     where: StaffWhereUniqueInput
     create: XOR<StaffCreateWithoutAttendancesInput, StaffUncheckedCreateWithoutAttendancesInput>
+  }
+
+  export type ShiftCreateWithoutAttendancesInput = {
+    id?: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutShiftsInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutAttendancesInput = {
+    id?: string
+    tenantId: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutAttendancesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutAttendancesInput, ShiftUncheckedCreateWithoutAttendancesInput>
   }
 
   export type TenantUpsertWithoutAttendancesInput = {
@@ -56214,6 +64861,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAttendancesInput = {
@@ -56249,6 +64899,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutAttendancesInput = {
@@ -56277,6 +64930,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUpdateManyWithoutStaffNestedInput
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutAttendancesInput = {
@@ -56294,6 +64948,62 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
+  }
+
+  export type ShiftUpsertWithoutAttendancesInput = {
+    update: XOR<ShiftUpdateWithoutAttendancesInput, ShiftUncheckedUpdateWithoutAttendancesInput>
+    create: XOR<ShiftCreateWithoutAttendancesInput, ShiftUncheckedCreateWithoutAttendancesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutAttendancesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutAttendancesInput, ShiftUncheckedUpdateWithoutAttendancesInput>
+  }
+
+  export type ShiftUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutShiftsNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutShiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutShiftNestedInput
   }
 
   export type TenantCreateWithoutPayrollPeriodsInput = {
@@ -56329,6 +65039,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollPeriodsInput = {
@@ -56364,6 +65077,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollPeriodsInput = {
@@ -56461,6 +65177,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollPeriodsInput = {
@@ -56496,6 +65215,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PayrollDetailUpsertWithWhereUniqueWithoutPayrollPeriodInput = {
@@ -56547,6 +65269,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollDetailsInput = {
@@ -56582,6 +65307,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollDetailsInput = {
@@ -56629,6 +65357,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveCreateNestedManyWithoutStaffInput
     salary?: SalaryCreateNestedOneWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutPayrollDetailsInput = {
@@ -56646,6 +65375,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutPayrollDetailsInput = {
@@ -56735,6 +65465,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollDetailsInput = {
@@ -56770,6 +65503,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PayrollPeriodUpsertWithoutPayrollDetailsInput = {
@@ -56829,6 +65565,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUpdateManyWithoutStaffNestedInput
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutPayrollDetailsInput = {
@@ -56846,6 +65583,7 @@ export namespace Prisma {
     staffLeaves?: StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type ExpenseUpsertWithWhereUniqueWithoutPayrollDetailInput = {
@@ -56879,6 +65617,7 @@ export namespace Prisma {
     salary?: SalaryCreateNestedOneWithoutStaffInput
     attendances?: AttendanceCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutStaffInput
   }
 
   export type StaffUncheckedCreateWithoutStaffLeavesInput = {
@@ -56896,6 +65635,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
     attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
     payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type StaffCreateOrConnectWithoutStaffLeavesInput = {
@@ -56929,6 +65669,7 @@ export namespace Prisma {
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutStaffLeavesInput = {
@@ -56946,6 +65687,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type TenantCreateWithoutNotificationConfigInput = {
@@ -56981,6 +65723,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationConfigInput = {
@@ -57016,6 +65761,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationConfigInput = {
@@ -57067,6 +65815,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationConfigInput = {
@@ -57102,6 +65853,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutNotificationTemplatesInput = {
@@ -57137,6 +65891,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationTemplatesInput = {
@@ -57172,6 +65929,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationTemplatesInput = {
@@ -57223,6 +65983,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationTemplatesInput = {
@@ -57258,6 +66021,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutNotificationLogsInput = {
@@ -57293,6 +66059,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationLogsInput = {
@@ -57328,6 +66097,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationLogsInput = {
@@ -57379,6 +66151,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationLogsInput = {
@@ -57414,6 +66189,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutReportsInput = {
@@ -57449,6 +66227,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutReportsInput = {
@@ -57484,6 +66265,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
     notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
     notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutReportsInput = {
@@ -57535,6 +66319,9 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutReportsInput = {
@@ -57570,6 +66357,969 @@ export namespace Prisma {
     notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutShiftsInput = {
+    id?: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTenantsInput
+    customers?: CustomerCreateNestedManyWithoutTenantInput
+    discounts?: DiscountCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseCreateNestedManyWithoutTenantInput
+    logs?: LogCreateNestedManyWithoutTenantInput
+    orders?: OrderCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemCreateNestedManyWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryCreateNestedManyWithoutTenantInput
+    staffs?: StaffCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingCreateNestedOneWithoutTenantInput
+    salaries?: SalaryCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutShiftsInput = {
+    id?: string
+    userId: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    logs?: LogUncheckedCreateNestedManyWithoutTenantInput
+    orders?: OrderUncheckedCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryUncheckedCreateNestedManyWithoutTenantInput
+    staffs?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingUncheckedCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionUncheckedCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingUncheckedCreateNestedOneWithoutTenantInput
+    salaries?: SalaryUncheckedCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodUncheckedCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutShiftsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutShiftsInput, TenantUncheckedCreateWithoutShiftsInput>
+  }
+
+  export type StaffShiftCreateWithoutShiftInput = {
+    id?: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffShiftsInput
+    staff: StaffCreateNestedOneWithoutStaffShiftsInput
+  }
+
+  export type StaffShiftUncheckedCreateWithoutShiftInput = {
+    id?: string
+    tenantId: string
+    staffId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffShiftCreateOrConnectWithoutShiftInput = {
+    where: StaffShiftWhereUniqueInput
+    create: XOR<StaffShiftCreateWithoutShiftInput, StaffShiftUncheckedCreateWithoutShiftInput>
+  }
+
+  export type StaffShiftCreateManyShiftInputEnvelope = {
+    data: StaffShiftCreateManyShiftInput | StaffShiftCreateManyShiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AttendanceCreateWithoutShiftInput = {
+    id?: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    totalHours?: Decimal | DecimalJsLike | number | string | null
+    isWeekend?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutAttendancesInput
+    staff: StaffCreateNestedOneWithoutAttendancesInput
+  }
+
+  export type AttendanceUncheckedCreateWithoutShiftInput = {
+    id?: string
+    tenantId: string
+    staffId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    totalHours?: Decimal | DecimalJsLike | number | string | null
+    isWeekend?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+  }
+
+  export type AttendanceCreateOrConnectWithoutShiftInput = {
+    where: AttendanceWhereUniqueInput
+    create: XOR<AttendanceCreateWithoutShiftInput, AttendanceUncheckedCreateWithoutShiftInput>
+  }
+
+  export type AttendanceCreateManyShiftInputEnvelope = {
+    data: AttendanceCreateManyShiftInput | AttendanceCreateManyShiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutShiftsInput = {
+    update: XOR<TenantUpdateWithoutShiftsInput, TenantUncheckedUpdateWithoutShiftsInput>
+    create: XOR<TenantCreateWithoutShiftsInput, TenantUncheckedCreateWithoutShiftsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutShiftsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutShiftsInput, TenantUncheckedUpdateWithoutShiftsInput>
+  }
+
+  export type TenantUpdateWithoutShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    customers?: CustomerUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUpdateManyWithoutTenantNestedInput
+    logs?: LogUpdateManyWithoutTenantNestedInput
+    orders?: OrderUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUpdateManyWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUncheckedUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    logs?: LogUncheckedUpdateManyWithoutTenantNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUncheckedUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUncheckedUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUncheckedUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUncheckedUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type StaffShiftUpsertWithWhereUniqueWithoutShiftInput = {
+    where: StaffShiftWhereUniqueInput
+    update: XOR<StaffShiftUpdateWithoutShiftInput, StaffShiftUncheckedUpdateWithoutShiftInput>
+    create: XOR<StaffShiftCreateWithoutShiftInput, StaffShiftUncheckedCreateWithoutShiftInput>
+  }
+
+  export type StaffShiftUpdateWithWhereUniqueWithoutShiftInput = {
+    where: StaffShiftWhereUniqueInput
+    data: XOR<StaffShiftUpdateWithoutShiftInput, StaffShiftUncheckedUpdateWithoutShiftInput>
+  }
+
+  export type StaffShiftUpdateManyWithWhereWithoutShiftInput = {
+    where: StaffShiftScalarWhereInput
+    data: XOR<StaffShiftUpdateManyMutationInput, StaffShiftUncheckedUpdateManyWithoutShiftInput>
+  }
+
+  export type AttendanceUpsertWithWhereUniqueWithoutShiftInput = {
+    where: AttendanceWhereUniqueInput
+    update: XOR<AttendanceUpdateWithoutShiftInput, AttendanceUncheckedUpdateWithoutShiftInput>
+    create: XOR<AttendanceCreateWithoutShiftInput, AttendanceUncheckedCreateWithoutShiftInput>
+  }
+
+  export type AttendanceUpdateWithWhereUniqueWithoutShiftInput = {
+    where: AttendanceWhereUniqueInput
+    data: XOR<AttendanceUpdateWithoutShiftInput, AttendanceUncheckedUpdateWithoutShiftInput>
+  }
+
+  export type AttendanceUpdateManyWithWhereWithoutShiftInput = {
+    where: AttendanceScalarWhereInput
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutShiftInput>
+  }
+
+  export type TenantCreateWithoutStaffShiftsInput = {
+    id?: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTenantsInput
+    customers?: CustomerCreateNestedManyWithoutTenantInput
+    discounts?: DiscountCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseCreateNestedManyWithoutTenantInput
+    logs?: LogCreateNestedManyWithoutTenantInput
+    orders?: OrderCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemCreateNestedManyWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryCreateNestedManyWithoutTenantInput
+    staffs?: StaffCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingCreateNestedOneWithoutTenantInput
+    salaries?: SalaryCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutStaffShiftsInput = {
+    id?: string
+    userId: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    logs?: LogUncheckedCreateNestedManyWithoutTenantInput
+    orders?: OrderUncheckedCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryUncheckedCreateNestedManyWithoutTenantInput
+    staffs?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingUncheckedCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionUncheckedCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingUncheckedCreateNestedOneWithoutTenantInput
+    salaries?: SalaryUncheckedCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodUncheckedCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutStaffShiftsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutStaffShiftsInput, TenantUncheckedCreateWithoutStaffShiftsInput>
+  }
+
+  export type StaffCreateWithoutStaffShiftsInput = {
+    id?: string
+    isOwner?: boolean
+    role: string
+    username: string
+    password: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    tenant?: TenantCreateNestedOneWithoutStaffsInput
+    expenses?: ExpenseCreateNestedManyWithoutStaffInput
+    logs?: LogCreateNestedManyWithoutStaffInput
+    orders?: OrderCreateNestedManyWithoutStaffInput
+    staffLeaves?: StaffLeaveCreateNestedManyWithoutStaffInput
+    salary?: SalaryCreateNestedOneWithoutStaffInput
+    attendances?: AttendanceCreateNestedManyWithoutStaffInput
+    payrollDetails?: PayrollDetailCreateNestedManyWithoutStaffInput
+  }
+
+  export type StaffUncheckedCreateWithoutStaffShiftsInput = {
+    id?: string
+    tenantId?: string | null
+    isOwner?: boolean
+    role: string
+    username: string
+    password: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutStaffInput
+    logs?: LogUncheckedCreateNestedManyWithoutStaffInput
+    orders?: OrderUncheckedCreateNestedManyWithoutStaffInput
+    staffLeaves?: StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+    salary?: SalaryUncheckedCreateNestedOneWithoutStaffInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutStaffInput
+    payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutStaffInput
+  }
+
+  export type StaffCreateOrConnectWithoutStaffShiftsInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutStaffShiftsInput, StaffUncheckedCreateWithoutStaffShiftsInput>
+  }
+
+  export type ShiftCreateWithoutStaffShiftsInput = {
+    id?: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutShiftsInput
+    attendances?: AttendanceCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutStaffShiftsInput = {
+    id?: string
+    tenantId: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutShiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutStaffShiftsInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutStaffShiftsInput, ShiftUncheckedCreateWithoutStaffShiftsInput>
+  }
+
+  export type TenantUpsertWithoutStaffShiftsInput = {
+    update: XOR<TenantUpdateWithoutStaffShiftsInput, TenantUncheckedUpdateWithoutStaffShiftsInput>
+    create: XOR<TenantCreateWithoutStaffShiftsInput, TenantUncheckedCreateWithoutStaffShiftsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutStaffShiftsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutStaffShiftsInput, TenantUncheckedUpdateWithoutStaffShiftsInput>
+  }
+
+  export type TenantUpdateWithoutStaffShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    customers?: CustomerUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUpdateManyWithoutTenantNestedInput
+    logs?: LogUpdateManyWithoutTenantNestedInput
+    orders?: OrderUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUpdateManyWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutStaffShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUncheckedUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    logs?: LogUncheckedUpdateManyWithoutTenantNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUncheckedUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUncheckedUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUncheckedUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUncheckedUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type StaffUpsertWithoutStaffShiftsInput = {
+    update: XOR<StaffUpdateWithoutStaffShiftsInput, StaffUncheckedUpdateWithoutStaffShiftsInput>
+    create: XOR<StaffCreateWithoutStaffShiftsInput, StaffUncheckedCreateWithoutStaffShiftsInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutStaffShiftsInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutStaffShiftsInput, StaffUncheckedUpdateWithoutStaffShiftsInput>
+  }
+
+  export type StaffUpdateWithoutStaffShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isOwner?: BoolFieldUpdateOperationsInput | boolean
+    role?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneWithoutStaffsNestedInput
+    expenses?: ExpenseUpdateManyWithoutStaffNestedInput
+    logs?: LogUpdateManyWithoutStaffNestedInput
+    orders?: OrderUpdateManyWithoutStaffNestedInput
+    staffLeaves?: StaffLeaveUpdateManyWithoutStaffNestedInput
+    salary?: SalaryUpdateOneWithoutStaffNestedInput
+    attendances?: AttendanceUpdateManyWithoutStaffNestedInput
+    payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutStaffShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: BoolFieldUpdateOperationsInput | boolean
+    role?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expenses?: ExpenseUncheckedUpdateManyWithoutStaffNestedInput
+    logs?: LogUncheckedUpdateManyWithoutStaffNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutStaffNestedInput
+    staffLeaves?: StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+    salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
+    payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+  }
+
+  export type ShiftUpsertWithoutStaffShiftsInput = {
+    update: XOR<ShiftUpdateWithoutStaffShiftsInput, ShiftUncheckedUpdateWithoutStaffShiftsInput>
+    create: XOR<ShiftCreateWithoutStaffShiftsInput, ShiftUncheckedCreateWithoutStaffShiftsInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutStaffShiftsInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutStaffShiftsInput, ShiftUncheckedUpdateWithoutStaffShiftsInput>
+  }
+
+  export type ShiftUpdateWithoutStaffShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutShiftsNestedInput
+    attendances?: AttendanceUpdateManyWithoutShiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutStaffShiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendances?: AttendanceUncheckedUpdateManyWithoutShiftNestedInput
+  }
+
+  export type TenantDonationCreateWithoutPaymentMethodInput = {
+    id?: string
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDonationsInput
+  }
+
+  export type TenantDonationUncheckedCreateWithoutPaymentMethodInput = {
+    id?: string
+    tenantId: string
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantDonationCreateOrConnectWithoutPaymentMethodInput = {
+    where: TenantDonationWhereUniqueInput
+    create: XOR<TenantDonationCreateWithoutPaymentMethodInput, TenantDonationUncheckedCreateWithoutPaymentMethodInput>
+  }
+
+  export type TenantDonationCreateManyPaymentMethodInputEnvelope = {
+    data: TenantDonationCreateManyPaymentMethodInput | TenantDonationCreateManyPaymentMethodInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantDonationUpsertWithWhereUniqueWithoutPaymentMethodInput = {
+    where: TenantDonationWhereUniqueInput
+    update: XOR<TenantDonationUpdateWithoutPaymentMethodInput, TenantDonationUncheckedUpdateWithoutPaymentMethodInput>
+    create: XOR<TenantDonationCreateWithoutPaymentMethodInput, TenantDonationUncheckedCreateWithoutPaymentMethodInput>
+  }
+
+  export type TenantDonationUpdateWithWhereUniqueWithoutPaymentMethodInput = {
+    where: TenantDonationWhereUniqueInput
+    data: XOR<TenantDonationUpdateWithoutPaymentMethodInput, TenantDonationUncheckedUpdateWithoutPaymentMethodInput>
+  }
+
+  export type TenantDonationUpdateManyWithWhereWithoutPaymentMethodInput = {
+    where: TenantDonationScalarWhereInput
+    data: XOR<TenantDonationUpdateManyMutationInput, TenantDonationUncheckedUpdateManyWithoutPaymentMethodInput>
+  }
+
+  export type TenantCreateWithoutDonationsInput = {
+    id?: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTenantsInput
+    customers?: CustomerCreateNestedManyWithoutTenantInput
+    discounts?: DiscountCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseCreateNestedManyWithoutTenantInput
+    logs?: LogCreateNestedManyWithoutTenantInput
+    orders?: OrderCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemCreateNestedManyWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryCreateNestedManyWithoutTenantInput
+    staffs?: StaffCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingCreateNestedOneWithoutTenantInput
+    salaries?: SalaryCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDonationsInput = {
+    id?: string
+    userId: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    logs?: LogUncheckedCreateNestedManyWithoutTenantInput
+    orders?: OrderUncheckedCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryUncheckedCreateNestedManyWithoutTenantInput
+    staffs?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingUncheckedCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionUncheckedCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingUncheckedCreateNestedOneWithoutTenantInput
+    salaries?: SalaryUncheckedCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodUncheckedCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDonationsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDonationsInput, TenantUncheckedCreateWithoutDonationsInput>
+  }
+
+  export type DonationPaymentMethodCreateWithoutDonationsInput = {
+    id?: string
+    name: string
+    code: string
+    type: string
+    transactionFee: Decimal | DecimalJsLike | number | string
+    feePercentage?: Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    minAmount: Decimal | DecimalJsLike | number | string
+    maxAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    iconUrl?: string | null
+    description?: string | null
+    displayOrder?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DonationPaymentMethodUncheckedCreateWithoutDonationsInput = {
+    id?: string
+    name: string
+    code: string
+    type: string
+    transactionFee: Decimal | DecimalJsLike | number | string
+    feePercentage?: Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    minAmount: Decimal | DecimalJsLike | number | string
+    maxAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    iconUrl?: string | null
+    description?: string | null
+    displayOrder?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DonationPaymentMethodCreateOrConnectWithoutDonationsInput = {
+    where: DonationPaymentMethodWhereUniqueInput
+    create: XOR<DonationPaymentMethodCreateWithoutDonationsInput, DonationPaymentMethodUncheckedCreateWithoutDonationsInput>
+  }
+
+  export type TenantUpsertWithoutDonationsInput = {
+    update: XOR<TenantUpdateWithoutDonationsInput, TenantUncheckedUpdateWithoutDonationsInput>
+    create: XOR<TenantCreateWithoutDonationsInput, TenantUncheckedCreateWithoutDonationsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDonationsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDonationsInput, TenantUncheckedUpdateWithoutDonationsInput>
+  }
+
+  export type TenantUpdateWithoutDonationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    customers?: CustomerUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUpdateManyWithoutTenantNestedInput
+    logs?: LogUpdateManyWithoutTenantNestedInput
+    orders?: OrderUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUpdateManyWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDonationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUncheckedUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    logs?: LogUncheckedUpdateManyWithoutTenantNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUncheckedUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUncheckedUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUncheckedUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUncheckedUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type DonationPaymentMethodUpsertWithoutDonationsInput = {
+    update: XOR<DonationPaymentMethodUpdateWithoutDonationsInput, DonationPaymentMethodUncheckedUpdateWithoutDonationsInput>
+    create: XOR<DonationPaymentMethodCreateWithoutDonationsInput, DonationPaymentMethodUncheckedCreateWithoutDonationsInput>
+    where?: DonationPaymentMethodWhereInput
+  }
+
+  export type DonationPaymentMethodUpdateToOneWithWhereWithoutDonationsInput = {
+    where?: DonationPaymentMethodWhereInput
+    data: XOR<DonationPaymentMethodUpdateWithoutDonationsInput, DonationPaymentMethodUncheckedUpdateWithoutDonationsInput>
+  }
+
+  export type DonationPaymentMethodUpdateWithoutDonationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    feePercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonationPaymentMethodUncheckedUpdateWithoutDonationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    feePercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    minAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TenantCreateManyUserInput = {
@@ -57617,6 +67367,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUserInput = {
@@ -57652,6 +67405,9 @@ export namespace Prisma {
     notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
     notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
     reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutUserInput = {
@@ -57781,6 +67537,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
   }
@@ -57838,6 +67596,7 @@ export namespace Prisma {
   export type AttendanceCreateManyTenantInput = {
     id?: string
     staffId: string
+    shiftId?: string | null
     date: Date | string
     checkInTime?: string | null
     checkOutTime?: string | null
@@ -57903,6 +67662,62 @@ export namespace Prisma {
     data: JsonNullValueInput | InputJsonValue
     pdfUrl?: string | null
     createdAt?: Date | string
+  }
+
+  export type ShiftCreateManyTenantInput = {
+    id?: string
+    name: string
+    startTime: string
+    endTime: string
+    isActive?: boolean
+    calculateBeforeStartTime?: boolean
+    hasBreakTime?: boolean
+    breakDuration?: number
+    minWorkingHours?: number
+    maxWorkingHours?: number
+    overtimeMultiplier?: number
+    lateThreshold?: number
+    earlyCheckInAllowed?: number
+    color?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffShiftCreateManyTenantInput = {
+    id?: string
+    staffId: string
+    shiftId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantDonationCreateManyTenantInput = {
+    id?: string
+    paymentMethodId?: string | null
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CustomerUpdateWithoutTenantInput = {
@@ -58235,6 +68050,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     productCategory?: ProductCategoryUpdateOneWithoutProductsNestedInput
@@ -58252,6 +68069,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -58268,6 +68087,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -58318,6 +68139,7 @@ export namespace Prisma {
     salary?: SalaryUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutTenantInput = {
@@ -58335,6 +68157,7 @@ export namespace Prisma {
     salary?: SalaryUncheckedUpdateOneWithoutStaffNestedInput
     attendances?: AttendanceUncheckedUpdateManyWithoutStaffNestedInput
     payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutStaffNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutTenantInput = {
@@ -58452,11 +68275,13 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     staff?: StaffUpdateOneRequiredWithoutAttendancesNestedInput
+    shift?: ShiftUpdateOneWithoutAttendancesNestedInput
   }
 
   export type AttendanceUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
     checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58469,6 +68294,7 @@ export namespace Prisma {
   export type AttendanceUncheckedUpdateManyWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
     checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58656,6 +68482,178 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ShiftUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staffShifts?: StaffShiftUpdateManyWithoutShiftNestedInput
+    attendances?: AttendanceUpdateManyWithoutShiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutShiftNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutShiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    calculateBeforeStartTime?: BoolFieldUpdateOperationsInput | boolean
+    hasBreakTime?: BoolFieldUpdateOperationsInput | boolean
+    breakDuration?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: FloatFieldUpdateOperationsInput | number
+    maxWorkingHours?: FloatFieldUpdateOperationsInput | number
+    overtimeMultiplier?: FloatFieldUpdateOperationsInput | number
+    lateThreshold?: IntFieldUpdateOperationsInput | number
+    earlyCheckInAllowed?: IntFieldUpdateOperationsInput | number
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffShiftUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff?: StaffUpdateOneRequiredWithoutStaffShiftsNestedInput
+    shift?: ShiftUpdateOneRequiredWithoutStaffShiftsNestedInput
+  }
+
+  export type StaffShiftUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffShiftUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    shiftId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantDonationUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paymentMethod?: DonationPaymentMethodUpdateOneWithoutDonationsNestedInput
+  }
+
+  export type TenantDonationUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentMethodId?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantDonationUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentMethodId?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ExpenseCreateManyStaffInput = {
     id?: string
     isShow?: boolean
@@ -58721,6 +68719,7 @@ export namespace Prisma {
   export type AttendanceCreateManyStaffInput = {
     id?: string
     tenantId: string
+    shiftId?: string | null
     date: Date | string
     checkInTime?: string | null
     checkOutTime?: string | null
@@ -58745,6 +68744,23 @@ export namespace Prisma {
     paidAt?: Date | string | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+  }
+
+  export type StaffShiftCreateManyStaffInput = {
+    id?: string
+    tenantId: string
+    shiftId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ExpenseUpdateWithoutStaffInput = {
@@ -58945,11 +68961,13 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneRequiredWithoutAttendancesNestedInput
+    shift?: ShiftUpdateOneWithoutAttendancesNestedInput
   }
 
   export type AttendanceUncheckedUpdateWithoutStaffInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    shiftId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
     checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58962,6 +68980,7 @@ export namespace Prisma {
   export type AttendanceUncheckedUpdateManyWithoutStaffInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    shiftId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
     checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59022,6 +69041,57 @@ export namespace Prisma {
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type StaffShiftUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffShiftsNestedInput
+    shift?: ShiftUpdateOneRequiredWithoutStaffShiftsNestedInput
+  }
+
+  export type StaffShiftUncheckedUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    shiftId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffShiftUncheckedUpdateManyWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    shiftId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderCreateManyCustomerInput = {
@@ -59376,6 +69446,8 @@ export namespace Prisma {
     sku?: string | null
     imageUrl?: string | null
     alias?: string | null
+    isCountable?: boolean
+    unit?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
   }
@@ -59421,6 +69493,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneWithoutProductsNestedInput
@@ -59438,6 +69512,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -59454,6 +69530,8 @@ export namespace Prisma {
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     alias?: NullableStringFieldUpdateOperationsInput | string | null
+    isCountable?: BoolFieldUpdateOperationsInput | boolean
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -59768,6 +69846,202 @@ export namespace Prisma {
     attachmentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     paymentType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type StaffShiftCreateManyShiftInput = {
+    id?: string
+    tenantId: string
+    staffId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    actualBreakDuration?: number | null
+    totalWorkedMinutes?: number | null
+    lateMinutes?: number
+    overtimeMinutes?: number
+    isCompleted?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceCreateManyShiftInput = {
+    id?: string
+    tenantId: string
+    staffId: string
+    date: Date | string
+    checkInTime?: string | null
+    checkOutTime?: string | null
+    totalHours?: Decimal | DecimalJsLike | number | string | null
+    isWeekend?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+  }
+
+  export type StaffShiftUpdateWithoutShiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffShiftsNestedInput
+    staff?: StaffUpdateOneRequiredWithoutStaffShiftsNestedInput
+  }
+
+  export type StaffShiftUncheckedUpdateWithoutShiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffShiftUncheckedUpdateManyWithoutShiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    actualBreakDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    totalWorkedMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    lateMinutes?: IntFieldUpdateOperationsInput | number
+    overtimeMinutes?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUpdateWithoutShiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutAttendancesNestedInput
+    staff?: StaffUpdateOneRequiredWithoutAttendancesNestedInput
+  }
+
+  export type AttendanceUncheckedUpdateWithoutShiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AttendanceUncheckedUpdateManyWithoutShiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkInTime?: NullableStringFieldUpdateOperationsInput | string | null
+    checkOutTime?: NullableStringFieldUpdateOperationsInput | string | null
+    totalHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isWeekend?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type TenantDonationCreateManyPaymentMethodInput = {
+    id?: string
+    tenantId: string
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantDonationUpdateWithoutPaymentMethodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDonationsNestedInput
+  }
+
+  export type TenantDonationUncheckedUpdateWithoutPaymentMethodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantDonationUncheckedUpdateManyWithoutPaymentMethodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

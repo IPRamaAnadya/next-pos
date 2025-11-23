@@ -8,7 +8,7 @@ export const productCreateSchema = yup.object({
   stock: yup.number().optional().min(0, 'Stok tidak boleh negatif.').integer('Stok harus berupa bilangan bulat.'),
   sku: yup.string().optional(),
   image_url: yup.string().optional().url('URL gambar tidak valid.'),
-  productCategoryId: yup.string().optional(),
+  productCategoryId: yup.string().required(),
 });
 export const productUpdateSchema = yup.object({
   name: yup.string().optional(),

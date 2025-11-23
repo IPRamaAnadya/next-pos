@@ -19,12 +19,19 @@ datasource db {
 // =========================================================
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @db.Timestamptz(6)
-  tenants   Tenant[]
+  id            String   @id @default(uuid()) @db.Uuid
+  email         String   @unique
+  password      String
+  displayName   String?
+  photoURL      String?
+  provider      String?  @default("email")
+  providerId    String?
+  emailVerified Boolean? @default(false)
+  createdAt     DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(6)
+  tenants       Tenant[]
+
+  @@unique([provider, providerId])
 }
 
 model Tenant {
@@ -69,6 +76,13 @@ model Tenant {
   // Relasi Laporan
   reports TenantReport[]
 
+  // Relasi Shift Management
+  shifts      Shift[]
+  staffShifts StaffShift[]
+
+  // Relasi Donation
+  donations TenantDonation[]
+
   @@index([userId])
 }
 
@@ -91,6 +105,9 @@ model Staff {
   salary         Salary?
   attendances    Attendance[]
   payrollDetails PayrollDetail[]
+
+  // Relasi Shift Management
+  staffShifts StaffShift[]
 
   @@unique([tenantId, username])
   @@index([tenantId])
@@ -242,6 +259,8 @@ model Product {
   sku               String?
   imageUrl          String?          @map("image_url")
   alias             String?
+  isCountable       Boolean          @default(true) @map("is_countable")
+  unit              String           @default("pcs")
   createdAt         DateTime?        @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt         DateTime?        @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   tenant            Tenant?          @relation(fields: [tenantId], references: [id])
@@ -477,6 +496,7 @@ model Attendance {
   id           String    @id @default(uuid()) @db.Uuid
   tenantId     String    @map("tenant_id") @db.Uuid
   staffId      String    @map("staff_id") @db.Uuid
+  shiftId      String?   @map("shift_id") @db.Uuid
   date         DateTime  @db.Date
   checkInTime  String?   @map("check_in_time")
   checkOutTime String?   @map("check_out_time")
@@ -486,11 +506,13 @@ model Attendance {
   updatedAt    DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   tenant       Tenant    @relation(fields: [tenantId], references: [id])
   staff        Staff     @relation(fields: [staffId], references: [id])
+  shift        Shift?    @relation(fields: [shiftId], references: [id])
 
-  @@unique([tenantId, staffId, date])
   @@index([tenantId])
   @@index([staffId])
+  @@index([shiftId])
   @@index([date])
+  @@index([tenantId, staffId, date])
 }
 
 model PayrollPeriod {
@@ -644,4 +666,134 @@ model BannerCampaign {
   @@index([isActive])
   @@index([publishAt])
   @@index([publishUntil])
+}
+
+// =========================================================
+//  SHIFT MANAGEMENT
+// =========================================================
+
+model Shift {
+  id                       String   @id @default(uuid()) @db.Uuid
+  tenantId                 String   @map("tenant_id") @db.Uuid
+  name                     String
+  startTime                String   @map("start_time") // Format: "HH:mm"
+  endTime                  String   @map("end_time") // Format: "HH:mm"
+  isActive                 Boolean  @default(true) @map("is_active")
+  calculateBeforeStartTime Boolean  @default(true) @map("calculate_before_start_time")
+  hasBreakTime             Boolean  @default(false) @map("has_break_time")
+  breakDuration            Int      @default(0) @map("break_duration") // in minutes
+  minWorkingHours          Float    @default(8) @map("min_working_hours")
+  maxWorkingHours          Float    @default(8) @map("max_working_hours")
+  overtimeMultiplier       Float    @default(1.5) @map("overtime_multiplier")
+  lateThreshold            Int      @default(15) @map("late_threshold") // in minutes
+  earlyCheckInAllowed      Int      @default(30) @map("early_checkin_allowed") // in minutes
+  color                    String   @default("#3B82F6")
+  description              String?
+  createdAt                DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  tenant      Tenant       @relation(fields: [tenantId], references: [id])
+  staffShifts StaffShift[]
+  attendances Attendance[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@index([isActive])
+  @@index([startTime])
+}
+
+model StaffShift {
+  id                  String   @id @default(uuid()) @db.Uuid
+  tenantId            String   @map("tenant_id") @db.Uuid
+  staffId             String   @map("staff_id") @db.Uuid
+  shiftId             String   @map("shift_id") @db.Uuid
+  date                DateTime @db.Date
+  checkInTime         String?  @map("check_in_time") // Format: "HH:mm"
+  checkOutTime        String?  @map("check_out_time") // Format: "HH:mm"
+  actualBreakDuration Int?     @map("actual_break_duration") // in minutes
+  totalWorkedMinutes  Int?     @map("total_worked_minutes")
+  lateMinutes         Int      @default(0) @map("late_minutes")
+  overtimeMinutes     Int      @default(0) @map("overtime_minutes")
+  isCompleted         Boolean  @default(false) @map("is_completed")
+  notes               String?
+  createdAt           DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  staff  Staff  @relation(fields: [staffId], references: [id])
+  shift  Shift  @relation(fields: [shiftId], references: [id])
+
+  @@unique([tenantId, staffId, shiftId, date])
+  @@index([tenantId])
+  @@index([staffId])
+  @@index([shiftId])
+  @@index([date])
+  @@index([isCompleted])
+}
+
+// =========================================================
+//  DONATION MANAGEMENT
+// =========================================================
+
+enum DonationStatus {
+  PENDING
+  PAID
+  FAILED
+  EXPIRED
+}
+
+model DonationPaymentMethod {
+  id             String   @id @default(uuid()) @db.Uuid
+  name           String   @unique // e.g., "BCA Virtual Account", "GoPay", "QRIS"
+  code           String   @unique // Midtrans payment code: "bca_va", "gopay", "qris"
+  type           String // "bank_transfer", "ewallet", "qris"
+  transactionFee Decimal  @map("transaction_fee") @db.Decimal(15, 2) // Fixed fee amount in IDR
+  feePercentage  Decimal? @map("fee_percentage") @db.Decimal(5, 2) // Optional percentage fee (e.g., 2% for GoPay)
+  taxPercentage  Decimal? @map("tax_percentage") @db.Decimal(5, 2) // Optional tax/PPN percentage (e.g., 11% for PPN)
+  minAmount      Decimal  @map("min_amount") @db.Decimal(15, 2) // Minimum transaction amount
+  maxAmount      Decimal? @map("max_amount") @db.Decimal(15, 2) // Optional maximum amount
+  isActive       Boolean  @default(true) @map("is_active")
+  iconUrl        String?  @map("icon_url")
+  description    String?
+  displayOrder   Int      @default(0) @map("display_order")
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  donations TenantDonation[]
+
+  @@index([isActive])
+  @@index([type])
+  @@index([displayOrder])
+}
+
+model TenantDonation {
+  id               String         @id @default(uuid()) @db.Uuid
+  tenantId         String         @map("tenant_id") @db.Uuid
+  paymentMethodId  String?        @map("payment_method_id") @db.Uuid
+  midtransOrderId  String         @unique @map("midtrans_order_id")
+  snapToken        String?        @map("snap_token")
+  amount           Decimal        @db.Decimal(15, 2)
+  transactionFee   Decimal        @default(0) @map("transaction_fee") @db.Decimal(15, 2)
+  netAmount        Decimal        @map("net_amount") @db.Decimal(15, 2) // amount - transactionFee
+  status           DonationStatus @default(PENDING)
+  paymentType      String?        @map("payment_type") // From Midtrans webhook
+  transactionTime  DateTime?      @map("transaction_time") @db.Timestamptz(6)
+  settlementTime   DateTime?      @map("settlement_time") @db.Timestamptz(6)
+  expiryTime       DateTime?      @map("expiry_time") @db.Timestamptz(6)
+  message          String? // Optional message from tenant
+  midtransResponse Json?          @map("midtrans_response") // Store full webhook response
+  createdAt        DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  tenant        Tenant                 @relation(fields: [tenantId], references: [id])
+  paymentMethod DonationPaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([tenantId, createdAt])
+  @@index([tenantId, status])
+  @@index([settlementTime])
 }

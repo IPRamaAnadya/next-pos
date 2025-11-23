@@ -174,11 +174,8 @@ const main = async () => {
   const order = await prisma.order.create({
     data: {
       tenantId: tenant.id,
-      staffId: staff1.id,
-      customerId: customer1.id,
       orderNo: `ORD-${Date.now()}`,
       subtotal: subtotal,
-      discountId: discount1.id,
       discountName: discount1.name,
       discountType: discount1.type,
       discountValue: discount1.value,
@@ -195,6 +192,9 @@ const main = async () => {
           data: orderItems,
         },
       },
+      staff: { connect: { id: staff1.id } },
+      customer: { connect: { id: customer1.id } },
+      discount: { connect: { id: discount1.id } },
     },
   });
 

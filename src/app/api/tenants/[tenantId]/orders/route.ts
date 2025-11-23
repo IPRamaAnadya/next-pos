@@ -20,6 +20,38 @@ function encodeBase62(num: number) {
   return out;
 }
 
+// Field mapping for API compatibility
+function mapSortField(field: string): string {
+  const fieldMapping: Record<string, string> = {
+    'created_at': 'createdAt',
+    'updated_at': 'updatedAt',
+    'customer_id': 'customerId',
+    'tenant_id': 'tenantId',
+    'total_amount': 'totalAmount',
+    'grand_total': 'grandTotal',
+    'order_no': 'orderNo',
+    'order_status': 'orderStatus',
+    'payment_status': 'paymentStatus',
+    'payment_method': 'paymentMethod',
+    'payment_date': 'paymentDate',
+    'customer_name': 'customerName',
+    'paid_amount': 'paidAmount',
+    'remaining_balance': 'remainingBalance',
+    'tax_amount': 'taxAmount',
+    'discount_id': 'discountId',
+    'discount_name': 'discountName',
+    'discount_type': 'discountType',
+    'discount_value': 'discountValue',
+    'discount_amount': 'discountAmount',
+    'discount_reward_type': 'discountRewardType',
+    'point_used': 'pointUsed',
+    'staff_id': 'staffId',
+    'last_points_accumulation': 'lastPointsAccumulation'
+  };
+  
+  return fieldMapping[field] || field;
+}
+
 // GET: Get list of orders
 export async function GET(req: Request, { params }: { params: { tenantId: string } }) {
   try {
@@ -39,7 +71,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
     const p_payment_status = searchParams.get('p_payment_status');
     const p_customer_name = searchParams.get('p_customer_name');
     const p_customer_id = searchParams.get('p_customer_id');
-    const p_sort_by = searchParams.get('p_sort_by') || 'created_at';
+    const p_sort_by = searchParams.get('p_sort_by') || 'createdAt';
     const p_sort_dir = searchParams.get('p_sort_dir') || 'desc';
 
     const whereClause: any = { tenantId: tenantIdFromUrl };
@@ -53,6 +85,10 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
 
     const totalCount = await prisma.order.count({ where: whereClause });
     const totalPages = Math.ceil(totalCount / p_limit);
+    
+    // Map the sort field to the correct Prisma field name
+    const mappedSortField = mapSortField(p_sort_by);
+    
     const orders = await prisma.order.findMany({
       where: whereClause,
       take: p_limit,
@@ -66,7 +102,7 @@ export async function GET(req: Request, { params }: { params: { tenantId: string
         paymentStatus: true,
       },
       skip: (p_page - 1) * p_limit,
-      orderBy: { [p_sort_by]: p_sort_dir },
+      orderBy: { [mappedSortField]: p_sort_dir },
     });
 
     const pagination = {

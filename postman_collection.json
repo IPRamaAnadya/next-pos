@@ -1,0 +1,1694 @@
+{
+  "info": {
+    "name": "Next.js POS System API",
+    "description": "Complete API collection for Next.js POS System with authentication, tenant management, orders, products, customers, and admin functionality",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tenant_id",
+      "value": "e6486350-800b-43eb-8396-2e9a940e58b8",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "User Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('auth_token', response.token);",
+                  "    pm.collectionVariables.set('tenant_id', response.user.tenantId);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"owner@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "User Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newowner@example.com\",\n  \"password\": \"password123\",\n  \"tenantName\": \"My New Restaurant\",\n  \"tenantAddress\": \"123 Main Street, City\",\n  \"tenantPhone\": \"+628123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/signup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Cashier Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"cashier1\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login/cashier",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login", "cashier"]
+            }
+          }
+        },
+        {
+          "name": "Tenant Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"owner@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "login"]
+            }
+          }
+        },
+        {
+          "name": "Admin Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('admin_token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@pos.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/admin",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "admin"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tenant Management",
+      "item": [
+        {
+          "name": "Get Tenant Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Tenant",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Restaurant Name\",\n  \"email\": \"updated@example.com\",\n  \"address\": \"456 New Street, City\",\n  \"phone\": \"+628987654321\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Get Orders List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/orders?p_limit=10&p_page=1&p_order_status=pending&p_payment_status=unpaid&p_sort_by=created_at&p_sort_dir=desc",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "orders"],
+              "query": [
+                {
+                  "key": "p_limit",
+                  "value": "10"
+                },
+                {
+                  "key": "p_page",
+                  "value": "1"
+                },
+                {
+                  "key": "p_order_status",
+                  "value": "pending"
+                },
+                {
+                  "key": "p_payment_status",
+                  "value": "unpaid"
+                },
+                {
+                  "key": "p_customer_name",
+                  "value": "John Doe",
+                  "disabled": true
+                },
+                {
+                  "key": "p_customer_id",
+                  "value": "customer-id",
+                  "disabled": true
+                },
+                {
+                  "key": "p_sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "p_sort_dir",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"John Doe\",\n  \"customerId\": \"customer-uuid\",\n  \"customerPhone\": \"+628123456789\",\n  \"totalAmount\": 75000,\n  \"discountAmount\": 5000,\n  \"discountType\": \"percentage\",\n  \"discountValue\": 10,\n  \"discountRewardType\": \"point\",\n  \"taxAmount\": 7500,\n  \"grandTotal\": 77500,\n  \"paidAmount\": 80000,\n  \"paymentMethod\": \"Cash\",\n  \"paymentStatus\": \"paid\",\n  \"orderStatus\": \"pending\",\n  \"pointUsed\": 0,\n  \"orderItems\": [\n    {\n      \"productId\": \"product-uuid-1\",\n      \"productName\": \"Nasi Goreng\",\n      \"productPrice\": 25000,\n      \"qty\": 2\n    },\n    {\n      \"productId\": \"product-uuid-2\",\n      \"productName\": \"Es Teh\",\n      \"productPrice\": 12500,\n      \"qty\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Get Order Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/orders/order-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "orders", "order-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"John Doe Updated\",\n  \"customerId\": \"customer-uuid\",\n  \"customerPhone\": \"+628123456789\",\n  \"totalAmount\": 85000,\n  \"discountAmount\": 0,\n  \"taxAmount\": 8500,\n  \"grandTotal\": 93500,\n  \"paidAmount\": 95000,\n  \"paymentMethod\": \"Cash\",\n  \"paymentStatus\": \"paid\",\n  \"orderStatus\": \"completed\",\n  \"pointUsed\": 0,\n  \"orderItems\": [\n    {\n      \"productId\": \"product-uuid-1\",\n      \"productName\": \"Nasi Goreng Special\",\n      \"productPrice\": 35000,\n      \"qty\": 2\n    },\n    {\n      \"productId\": \"product-uuid-2\",\n      \"productName\": \"Es Teh Manis\",\n      \"productPrice\": 15000,\n      \"qty\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/orders/order-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "orders", "order-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/orders/order-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "orders", "order-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get Products List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/products?p_limit=10&p_page=1&p_search_name=nasi&p_sort_by=name&p_sort_dir=asc",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "products"],
+              "query": [
+                {
+                  "key": "p_limit",
+                  "value": "10"
+                },
+                {
+                  "key": "p_page",
+                  "value": "1"
+                },
+                {
+                  "key": "p_search_name",
+                  "value": "nasi"
+                },
+                {
+                  "key": "p_category_id",
+                  "value": "category-uuid",
+                  "disabled": true
+                },
+                {
+                  "key": "p_sort_by",
+                  "value": "name"
+                },
+                {
+                  "key": "p_sort_dir",
+                  "value": "asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nasi Goreng Spesial\",\n  \"price\": 25000,\n  \"type\": \"food\",\n  \"productCategoryId\": \"category-uuid\",\n  \"description\": \"Nasi goreng dengan telur dan ayam\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Product Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/products/product-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "products", "product-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nasi Goreng Spesial Updated\",\n  \"price\": 30000,\n  \"type\": \"food\",\n  \"productCategoryId\": \"category-uuid\",\n  \"description\": \"Nasi goreng dengan telur, ayam, dan udang\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/products/product-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "products", "product-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/products/product-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "products", "product-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Product Categories",
+      "item": [
+        {
+          "name": "Get Product Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/product-categories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "product-categories"]
+            }
+          }
+        },
+        {
+          "name": "Create Product Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Main Course\",\n  \"description\": \"Main course dishes\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/product-categories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "product-categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Product Category Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/product-categories/category-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "product-categories", "category-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Product Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Main Course Updated\",\n  \"description\": \"Updated main course dishes\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/product-categories/category-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "product-categories", "category-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/product-categories/category-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "product-categories", "category-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "Get Customers List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/customers?p_limit=10&p_page=1&p_search_name=john&p_sort_by=name&p_sort_dir=asc",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "customers"],
+              "query": [
+                {
+                  "key": "p_limit",
+                  "value": "10"
+                },
+                {
+                  "key": "p_page",
+                  "value": "1"
+                },
+                {
+                  "key": "p_search_name",
+                  "value": "john"
+                },
+                {
+                  "key": "p_sort_by",
+                  "value": "name"
+                },
+                {
+                  "key": "p_sort_dir",
+                  "value": "asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"phone\": \"+628123456789\",\n  \"email\": \"john.doe@example.com\",\n  \"address\": \"123 Main Street, City\",\n  \"points\": 0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/customers",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Get Customer Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/customers/customer-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "customers", "customer-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Customer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe Updated\",\n  \"phone\": \"+628987654321\",\n  \"email\": \"john.updated@example.com\",\n  \"address\": \"456 Updated Street, City\",\n  \"points\": 100\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/customers/customer-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "customers", "customer-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Customer",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/customers/customer-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "customers", "customer-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Staff Management",
+      "item": [
+        {
+          "name": "Get Staff List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/staff",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "staff"]
+            }
+          }
+        },
+        {
+          "name": "Create Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Smith\",\n  \"username\": \"jane.smith\",\n  \"password\": \"password123\",\n  \"phone\": \"+628123456789\",\n  \"address\": \"123 Staff Street\",\n  \"salary\": 3000000,\n  \"isOwner\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/staff",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "staff"]
+            }
+          }
+        },
+        {
+          "name": "Get Staff Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/staff/staff-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "staff", "staff-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Staff",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Smith Updated\",\n  \"username\": \"jane.smith.updated\",\n  \"phone\": \"+628987654321\",\n  \"address\": \"456 Updated Staff Street\",\n  \"salary\": 3500000,\n  \"isOwner\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/staff/staff-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "staff", "staff-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Staff",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/staff/staff-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "staff", "staff-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendances",
+      "item": [
+        {
+          "name": "Get Attendances List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/attendances?date=2024-01-15",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "attendances"],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2024-01-15"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Check In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": \"staff-uuid\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/attendances/checkin",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "attendances", "checkin"]
+            }
+          }
+        },
+        {
+          "name": "Check Out",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": \"staff-uuid\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/attendances/checkout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "attendances", "checkout"]
+            }
+          }
+        },
+        {
+          "name": "Get Attendance Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/attendances/attendance-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "attendances", "attendance-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "Get Expenses List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/expenses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "expenses"]
+            }
+          }
+        },
+        {
+          "name": "Create Expense",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Office Supplies\",\n  \"amount\": 150000,\n  \"description\": \"Purchased office supplies for the restaurant\",\n  \"date\": \"2024-01-15\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/expenses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "expenses"]
+            }
+          }
+        },
+        {
+          "name": "Get Expense Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/expenses/expense-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "expenses", "expense-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Expense",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Office Supplies Updated\",\n  \"amount\": 200000,\n  \"description\": \"Updated office supplies expense\",\n  \"date\": \"2024-01-15\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/expenses/expense-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "expenses", "expense-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Expense",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/expenses/expense-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "expenses", "expense-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get Notification Config",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/notification-config",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "notification-config"]
+            }
+          }
+        },
+        {
+          "name": "Create/Update Notification Config",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"fonnte\",\n  \"apiToken\": \"your-fonnte-api-token\",\n  \"apiUrl\": \"https://api.fonnte.com/send\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/notification-config",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "notification-config"]
+            }
+          }
+        },
+        {
+          "name": "Get Notification Templates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/notification-templates",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "notification-templates"]
+            }
+          }
+        },
+        {
+          "name": "Create Notification Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Order Created\",\n  \"event\": \"ORDER_CREATED\",\n  \"message\": \"Hello {{customerName}}, your order has been created with total {{grandTotal}}. Thank you!\",\n  \"isActive\": true,\n  \"isCustom\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/notification-templates",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "notification-templates"]
+            }
+          }
+        },
+        {
+          "name": "Send Custom Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"templateId\": \"template-uuid\",\n  \"phone\": \"+628123456789\",\n  \"variables\": {\n    \"customerName\": \"John Doe\",\n    \"grandTotal\": \"Rp75,000\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/notification-templates/send-custom",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "notification-templates", "send-custom"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Get Reports List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/reports",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "reports"]
+            }
+          }
+        },
+        {
+          "name": "Generate Sales Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"sales\",\n  \"period\": \"daily\",\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-01-31\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/reports",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "reports"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Discounts",
+      "item": [
+        {
+          "name": "Get Discounts List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/discounts",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "discounts"]
+            }
+          }
+        },
+        {
+          "name": "Create Discount",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Customer Discount\",\n  \"type\": \"percentage\",\n  \"value\": 10,\n  \"minimumPurchase\": 50000,\n  \"isActive\": true,\n  \"description\": \"10% discount for new customers\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/discounts",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "discounts"]
+            }
+          }
+        },
+        {
+          "name": "Get Discount Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/discounts/discount-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "discounts", "discount-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Discount",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Customer Discount\",\n  \"type\": \"percentage\",\n  \"value\": 15,\n  \"minimumPurchase\": 75000,\n  \"isActive\": true,\n  \"description\": \"15% discount for valued customers\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/discounts/discount-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "discounts", "discount-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Discount",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/discounts/discount-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "discounts", "discount-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin APIs",
+      "item": [
+        {
+          "name": "Get All Tenants",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/tenants",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "tenants"]
+            }
+          }
+        },
+        {
+          "name": "Get All Orders (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get Subscription Plans (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/subscription-plans",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "subscription-plans"]
+            }
+          }
+        },
+        {
+          "name": "Create Subscription Plan (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Premium Plan\",\n  \"description\": \"Premium subscription with unlimited features\",\n  \"pricePerMonth\": 200000,\n  \"pricePerYear\": 2000000,\n  \"isBetaTest\": false,\n  \"customLimits\": {\n    \"transaction\": 1000,\n    \"product\": 500,\n    \"staff\": 10\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/subscription-plans",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "subscription-plans"]
+            }
+          }
+        },
+        {
+          "name": "Get Tenant Subscriptions (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/tenant-subscriptions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "tenant-subscriptions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subscription",
+      "item": [
+        {
+          "name": "Get Subscription History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/subscription/history",
+              "host": ["{{base_url}}"],
+              "path": ["api", "subscription", "history"]
+            }
+          }
+        },
+        {
+          "name": "Create Subscription Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"planId\": \"subscription-plan-uuid\",\n  \"billingType\": \"monthly\",\n  \"paymentMethod\": \"credit_card\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/subscription/payment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "subscription", "payment"]
+            }
+          }
+        },
+        {
+          "name": "Check Subscription Duration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenantId\": \"{{tenant_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/subscription/check-duration",
+              "host": ["{{base_url}}"],
+              "path": ["api", "subscription", "check-duration"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Banner",
+      "item": [
+        {
+          "name": "Get Banners",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/banner",
+              "host": ["{{base_url}}"],
+              "path": ["api", "banner"]
+            }
+          }
+        },
+        {
+          "name": "Create Banner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Special Promotion\",\n  \"description\": \"Get 20% off on all items\",\n  \"imageUrl\": \"https://example.com/banner-image.jpg\",\n  \"link\": \"https://example.com/promotion\",\n  \"isActive\": true,\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-01-31\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/banner",
+              "host": ["{{base_url}}"],
+              "path": ["api", "banner"]
+            }
+          }
+        },
+        {
+          "name": "Get Banner Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/banner/banner-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "banner", "banner-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Update Banner",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Special Promotion\",\n  \"description\": \"Get 25% off on all items\",\n  \"imageUrl\": \"https://example.com/updated-banner-image.jpg\",\n  \"link\": \"https://example.com/updated-promotion\",\n  \"isActive\": true,\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-02-29\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/banner/banner-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "banner", "banner-uuid"]
+            }
+          }
+        },
+        {
+          "name": "Delete Banner",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/banner/banner-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "banner", "banner-uuid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Points History",
+      "item": [
+        {
+          "name": "Get Points History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/points/history?customerId=customer-uuid",
+              "host": ["{{base_url}}"],
+              "path": ["api", "points", "history"],
+              "query": [
+                {
+                  "key": "customerId",
+                  "value": "customer-uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Logs",
+      "item": [
+        {
+          "name": "Get Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/logs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "logs"]
+            }
+          }
+        },
+        {
+          "name": "Create Log Entry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"CREATE_ORDER\",\n  \"description\": \"Order created successfully\",\n  \"entityType\": \"order\",\n  \"entityId\": \"order-uuid\",\n  \"metadata\": {\n    \"orderId\": \"order-uuid\",\n    \"customerName\": \"John Doe\",\n    \"totalAmount\": 75000\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/logs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "logs"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payroll",
+      "item": [
+        {
+          "name": "Get Payroll Periods",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/payroll-periods",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "payroll-periods"]
+            }
+          }
+        },
+        {
+          "name": "Create Payroll Period",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"January 2024 Payroll\",\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-01-31\",\n  \"payDate\": \"2024-02-01\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tenants/{{tenant_id}}/payroll-periods",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tenants", "{{tenant_id}}", "payroll-periods"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

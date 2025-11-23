@@ -1,0 +1,613 @@
+{
+  "info": {
+    "name": "Donation V2 API",
+    "description": "Complete API collection for Donation feature V2 with Midtrans integration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "donation-v2"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "tenant_id",
+      "value": "your-tenant-uuid-here",
+      "type": "string"
+    },
+    {
+      "key": "tenant_token",
+      "value": "your-tenant-jwt-token-here",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "your-admin-jwt-token-here",
+      "type": "string"
+    },
+    {
+      "key": "payment_method_id",
+      "value": "payment-method-uuid-here",
+      "type": "string"
+    },
+    {
+      "key": "donation_id",
+      "value": "donation-uuid-here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Public - Payment Methods",
+      "item": [
+        {
+          "name": "Get Active Payment Methods",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v2/payment-methods",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "payment-methods"]
+            },
+            "description": "Get all active payment methods available for donations (public endpoint)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Active payment methods retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"payment_methods\": [\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n        \"name\": \"GoPay\",\n        \"code\": \"gopay\",\n        \"type\": \"ewallet\",\n        \"transaction_fee\": 2500,\n        \"fee_percentage\": null,\n        \"min_amount\": 1000,\n        \"max_amount\": null,\n        \"is_active\": true,\n        \"icon_url\": \"https://example.com/gopay.png\",\n        \"description\": \"Pay with GoPay\",\n        \"display_order\": 1,\n        \"recommended_min_amount\": 7500,\n        \"created_at\": \"2024-11-22T10:00:00.000Z\",\n        \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n      },\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440002\",\n        \"name\": \"QRIS\",\n        \"code\": \"qris\",\n        \"type\": \"qris\",\n        \"transaction_fee\": 3000,\n        \"fee_percentage\": null,\n        \"min_amount\": 1000,\n        \"max_amount\": null,\n        \"is_active\": true,\n        \"icon_url\": \"https://example.com/qris.png\",\n        \"description\": \"Pay with QRIS\",\n        \"display_order\": 2,\n        \"recommended_min_amount\": 9000,\n        \"created_at\": \"2024-11-22T10:00:00.000Z\",\n        \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n      },\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440003\",\n        \"name\": \"BCA Virtual Account\",\n        \"code\": \"bca_va\",\n        \"type\": \"bank_transfer\",\n        \"transaction_fee\": 4000,\n        \"fee_percentage\": null,\n        \"min_amount\": 10000,\n        \"max_amount\": 50000000,\n        \"is_active\": true,\n        \"icon_url\": \"https://example.com/bca.png\",\n        \"description\": \"Transfer via BCA Virtual Account\",\n        \"display_order\": 3,\n        \"recommended_min_amount\": 12000,\n        \"created_at\": \"2024-11-22T10:00:00.000Z\",\n        \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Payment Method Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v2/payment-methods/{{payment_method_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "payment-methods", "{{payment_method_id}}"]
+            },
+            "description": "Get details of a specific payment method (public endpoint)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Payment method retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n    \"name\": \"GoPay\",\n    \"code\": \"gopay\",\n    \"type\": \"ewallet\",\n    \"transaction_fee\": 2500,\n    \"fee_percentage\": null,\n    \"min_amount\": 1000,\n    \"max_amount\": null,\n    \"is_active\": true,\n    \"icon_url\": \"https://example.com/gopay.png\",\n    \"description\": \"Pay with GoPay\",\n    \"display_order\": 1,\n    \"recommended_min_amount\": 7500,\n    \"created_at\": \"2024-11-22T10:00:00.000Z\",\n    \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tenant - Donations",
+      "item": [
+        {
+          "name": "Create Donation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tenant_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_method_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"amount\": 50000,\n  \"message\": \"Thank you for providing this amazing platform! Keep up the great work.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/donations",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenant_id}}", "donations"]
+            },
+            "description": "Create a new donation. Returns snap_token for Midtrans payment popup."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Donation created successfully\",\n    \"success\": true,\n    \"code\": 201\n  },\n  \"data\": {\n    \"donation\": {\n      \"id\": \"650e8400-e29b-41d4-a716-446655440010\",\n      \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n      \"payment_method_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n      \"midtrans_order_id\": \"DON-1732234567890-75e84000\",\n      \"snap_token\": \"66e4fa55-fdac-4ef9-91b5-733b97d1b862\",\n      \"amount\": 50000,\n      \"transaction_fee\": 2500,\n      \"net_amount\": 47500,\n      \"status\": \"PENDING\",\n      \"payment_type\": null,\n      \"transaction_time\": null,\n      \"settlement_time\": null,\n      \"expiry_time\": \"2024-11-22T11:00:00.000Z\",\n      \"message\": \"Thank you for providing this amazing platform! Keep up the great work.\",\n      \"created_at\": \"2024-11-22T10:00:00.000Z\",\n      \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n    },\n    \"snap_token\": \"66e4fa55-fdac-4ef9-91b5-733b97d1b862\",\n    \"recommended_amount\": 7500,\n    \"warning\": null\n  }\n}"
+            },
+            {
+              "name": "Below Recommended Amount",
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Donation created successfully\",\n    \"success\": true,\n    \"code\": 201\n  },\n  \"data\": {\n    \"donation\": {\n      \"id\": \"650e8400-e29b-41d4-a716-446655440011\",\n      \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n      \"payment_method_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n      \"midtrans_order_id\": \"DON-1732234567891-75e84001\",\n      \"snap_token\": \"77e4fa55-fdac-4ef9-91b5-733b97d1b863\",\n      \"amount\": 5000,\n      \"transaction_fee\": 2500,\n      \"net_amount\": 2500,\n      \"status\": \"PENDING\",\n      \"payment_type\": null,\n      \"transaction_time\": null,\n      \"settlement_time\": null,\n      \"expiry_time\": \"2024-11-22T11:00:00.000Z\",\n      \"message\": \"Small donation\",\n      \"created_at\": \"2024-11-22T10:00:00.000Z\",\n      \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n    },\n    \"snap_token\": \"77e4fa55-fdac-4ef9-91b5-733b97d1b863\",\n    \"recommended_amount\": 7500,\n    \"warning\": \"Your donation is below the recommended minimum of Rp 7,500. Consider donating more to maximize impact after transaction fees.\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "List Tenant Donations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tenant_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/donations/list?page=1&limit=10&status=PAID",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenant_id}}", "donations", "list"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page (default: 10, max: 100)"
+                },
+                {
+                  "key": "status",
+                  "value": "PAID",
+                  "description": "Filter by status: PENDING, PAID, FAILED, EXPIRED",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get list of donations for the tenant with pagination"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Donations retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"donations\": [\n      {\n        \"id\": \"650e8400-e29b-41d4-a716-446655440010\",\n        \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n        \"payment_method_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n        \"midtrans_order_id\": \"DON-1732234567890-75e84000\",\n        \"snap_token\": \"66e4fa55-fdac-4ef9-91b5-733b97d1b862\",\n        \"amount\": 50000,\n        \"transaction_fee\": 2500,\n        \"net_amount\": 47500,\n        \"status\": \"PAID\",\n        \"payment_type\": \"gopay\",\n        \"transaction_time\": \"2024-11-22T10:02:00.000Z\",\n        \"settlement_time\": \"2024-11-22T10:02:30.000Z\",\n        \"expiry_time\": \"2024-11-22T11:00:00.000Z\",\n        \"message\": \"Thank you for providing this amazing platform!\",\n        \"created_at\": \"2024-11-22T10:00:00.000Z\",\n        \"updated_at\": \"2024-11-22T10:02:30.000Z\"\n      },\n      {\n        \"id\": \"650e8400-e29b-41d4-a716-446655440011\",\n        \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n        \"payment_method_id\": \"550e8400-e29b-41d4-a716-446655440002\",\n        \"midtrans_order_id\": \"DON-1732147890123-75e84001\",\n        \"snap_token\": \"77e4fa55-fdac-4ef9-91b5-733b97d1b862\",\n        \"amount\": 100000,\n        \"transaction_fee\": 3000,\n        \"net_amount\": 97000,\n        \"status\": \"PAID\",\n        \"payment_type\": \"qris\",\n        \"transaction_time\": \"2024-11-21T15:30:00.000Z\",\n        \"settlement_time\": \"2024-11-21T15:30:45.000Z\",\n        \"expiry_time\": \"2024-11-21T16:30:00.000Z\",\n        \"message\": \"Great service!\",\n        \"created_at\": \"2024-11-21T15:25:00.000Z\",\n        \"updated_at\": \"2024-11-21T15:30:45.000Z\"\n      }\n    ]\n  },\n  \"pagination\": {\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"total\": 25\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Donation Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tenant_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/donations/{{donation_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenant_id}}", "donations", "{{donation_id}}"]
+            },
+            "description": "Get details of a specific donation"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Donation retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"id\": \"650e8400-e29b-41d4-a716-446655440010\",\n    \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n    \"payment_method_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n    \"midtrans_order_id\": \"DON-1732234567890-75e84000\",\n    \"snap_token\": \"66e4fa55-fdac-4ef9-91b5-733b97d1b862\",\n    \"amount\": 50000,\n    \"transaction_fee\": 2500,\n    \"net_amount\": 47500,\n    \"status\": \"PAID\",\n    \"payment_type\": \"gopay\",\n    \"transaction_time\": \"2024-11-22T10:02:00.000Z\",\n    \"settlement_time\": \"2024-11-22T10:02:30.000Z\",\n    \"expiry_time\": \"2024-11-22T11:00:00.000Z\",\n    \"message\": \"Thank you for providing this amazing platform!\",\n    \"created_at\": \"2024-11-22T10:00:00.000Z\",\n    \"updated_at\": \"2024-11-22T10:02:30.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Monthly Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tenant_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenant_id}}/donations/summary/monthly?year=2024&month=11",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenant_id}}", "donations", "summary", "monthly"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2024",
+                  "description": "Year (2020-2100)"
+                },
+                {
+                  "key": "month",
+                  "value": "11",
+                  "description": "Month (1-12)"
+                }
+              ]
+            },
+            "description": "Get monthly donation summary for the tenant"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Monthly donation summary retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n    \"year\": 2024,\n    \"month\": 11,\n    \"total_donations\": 5,\n    \"total_amount\": 300000,\n    \"total_net_amount\": 285000,\n    \"successful_donations\": 4,\n    \"pending_donations\": 1,\n    \"failed_donations\": 0\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Midtrans Donation Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction_time\": \"2024-11-22 10:02:00\",\n  \"transaction_status\": \"settlement\",\n  \"transaction_id\": \"be03df7d-2f97-4c8a-a53c-8959752131fe\",\n  \"status_message\": \"midtrans payment notification\",\n  \"status_code\": \"200\",\n  \"signature_key\": \"16d6f84b2fb0468e2a9cf99a8ac4e5d803d42180347aaa70cb2a7abb13b5c6130458ca9c71956a962c0827637cd3bc7d40d18bbc3c996892bc4e66d5cb6f29e4\",\n  \"settlement_time\": \"2024-11-22 10:02:30\",\n  \"payment_type\": \"gopay\",\n  \"order_id\": \"DON-1732234567890-75e84000\",\n  \"merchant_id\": \"G141532850\",\n  \"gross_amount\": \"50000.00\",\n  \"fraud_status\": \"accept\",\n  \"currency\": \"IDR\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/webhooks/midtrans/donation",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "webhooks", "midtrans", "donation"]
+            },
+            "description": "Webhook endpoint for Midtrans to notify donation payment status"
+          },
+          "response": [
+            {
+              "name": "Success - Settlement",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Webhook processed successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"donation_id\": \"650e8400-e29b-41d4-a716-446655440010\",\n    \"status\": \"PAID\"\n  }\n}"
+            },
+            {
+              "name": "Pending Payment",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Webhook processed successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"donation_id\": \"650e8400-e29b-41d4-a716-446655440010\",\n    \"status\": \"PENDING\"\n  }\n}"
+            },
+            {
+              "name": "Failed Payment",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Webhook processed successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"donation_id\": \"650e8400-e29b-41d4-a716-446655440010\",\n    \"status\": \"FAILED\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin - Donations",
+      "item": [
+        {
+          "name": "List All Donations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/donations?page=1&limit=20&status=PAID",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "donations"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "tenant_id",
+                  "value": "750e8400-e29b-41d4-a716-446655440020",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "PAID",
+                  "disabled": true
+                },
+                {
+                  "key": "payment_method_id",
+                  "value": "550e8400-e29b-41d4-a716-446655440001",
+                  "disabled": true
+                },
+                {
+                  "key": "start_date",
+                  "value": "2024-11-01T00:00:00Z",
+                  "disabled": true
+                },
+                {
+                  "key": "end_date",
+                  "value": "2024-11-30T23:59:59Z",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all donations across all tenants (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Donations retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"donations\": [\n      {\n        \"id\": \"650e8400-e29b-41d4-a716-446655440010\",\n        \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n        \"payment_method_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n        \"midtrans_order_id\": \"DON-1732234567890-75e84000\",\n        \"snap_token\": \"66e4fa55-fdac-4ef9-91b5-733b97d1b862\",\n        \"amount\": 50000,\n        \"transaction_fee\": 2500,\n        \"net_amount\": 47500,\n        \"status\": \"PAID\",\n        \"payment_type\": \"gopay\",\n        \"transaction_time\": \"2024-11-22T10:02:00.000Z\",\n        \"settlement_time\": \"2024-11-22T10:02:30.000Z\",\n        \"expiry_time\": \"2024-11-22T11:00:00.000Z\",\n        \"message\": \"Thank you!\",\n        \"created_at\": \"2024-11-22T10:00:00.000Z\",\n        \"updated_at\": \"2024-11-22T10:02:30.000Z\"\n      }\n    ]\n  },\n  \"pagination\": {\n    \"page\": 1,\n    \"pageSize\": 20,\n    \"total\": 150\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Donation Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/donations/statistics?start_date=2024-11-01T00:00:00Z&end_date=2024-11-30T23:59:59Z",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "donations", "statistics"],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2024-11-01T00:00:00Z",
+                  "disabled": true
+                },
+                {
+                  "key": "end_date",
+                  "value": "2024-11-30T23:59:59Z",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get overall donation statistics (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Donation statistics retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"total_donations\": 150,\n    \"total_amount\": 7500000,\n    \"total_net_amount\": 6900000,\n    \"total_transaction_fees\": 600000,\n    \"by_status\": {\n      \"pending\": 10,\n      \"paid\": 120,\n      \"failed\": 15,\n      \"expired\": 5\n    },\n    \"by_payment_method\": [\n      {\n        \"method_name\": \"GoPay\",\n        \"count\": 80,\n        \"amount\": 4000000\n      },\n      {\n        \"method_name\": \"BCA Virtual Account\",\n        \"count\": 40,\n        \"amount\": 2000000\n      },\n      {\n        \"method_name\": \"QRIS\",\n        \"count\": 30,\n        \"amount\": 1500000\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Monthly Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/donations/reports/monthly/2024/11",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "donations", "reports", "monthly", "2024", "11"]
+            },
+            "description": "Get monthly donation report by tenant (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Monthly donation report retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"year\": 2024,\n    \"month\": 11,\n    \"total_donations\": 150,\n    \"total_amount\": 7500000,\n    \"total_net_amount\": 6900000,\n    \"by_tenant\": [\n      {\n        \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440020\",\n        \"tenant_name\": \"Warung Makan Pak Budi\",\n        \"donation_count\": 5,\n        \"total_amount\": 300000\n      },\n      {\n        \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440021\",\n        \"tenant_name\": \"Toko Elektronik Jaya\",\n        \"donation_count\": 3,\n        \"total_amount\": 150000\n      },\n      {\n        \"tenant_id\": \"750e8400-e29b-41d4-a716-446655440022\",\n        \"tenant_name\": \"Kedai Kopi Corner\",\n        \"donation_count\": 8,\n        \"total_amount\": 500000\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Yearly Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/donations/reports/yearly/2024",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "donations", "reports", "yearly", "2024"]
+            },
+            "description": "Get yearly donation report by month (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Yearly donation report retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"year\": 2024,\n    \"total_donations\": 1500,\n    \"total_amount\": 75000000,\n    \"total_net_amount\": 69000000,\n    \"by_month\": [\n      {\n        \"month\": 1,\n        \"donation_count\": 120,\n        \"total_amount\": 6000000,\n        \"total_net_amount\": 5520000\n      },\n      {\n        \"month\": 2,\n        \"donation_count\": 115,\n        \"total_amount\": 5750000,\n        \"total_net_amount\": 5290000\n      },\n      {\n        \"month\": 3,\n        \"donation_count\": 130,\n        \"total_amount\": 6500000,\n        \"total_net_amount\": 5980000\n      },\n      {\n        \"month\": 4,\n        \"donation_count\": 125,\n        \"total_amount\": 6250000,\n        \"total_net_amount\": 5750000\n      },\n      {\n        \"month\": 5,\n        \"donation_count\": 135,\n        \"total_amount\": 6750000,\n        \"total_net_amount\": 6210000\n      },\n      {\n        \"month\": 6,\n        \"donation_count\": 128,\n        \"total_amount\": 6400000,\n        \"total_net_amount\": 5888000\n      },\n      {\n        \"month\": 7,\n        \"donation_count\": 122,\n        \"total_amount\": 6100000,\n        \"total_net_amount\": 5612000\n      },\n      {\n        \"month\": 8,\n        \"donation_count\": 118,\n        \"total_amount\": 5900000,\n        \"total_net_amount\": 5428000\n      },\n      {\n        \"month\": 9,\n        \"donation_count\": 140,\n        \"total_amount\": 7000000,\n        \"total_net_amount\": 6440000\n      },\n      {\n        \"month\": 10,\n        \"donation_count\": 145,\n        \"total_amount\": 7250000,\n        \"total_net_amount\": 6670000\n      },\n      {\n        \"month\": 11,\n        \"donation_count\": 150,\n        \"total_amount\": 7500000,\n        \"total_net_amount\": 6900000\n      },\n      {\n        \"month\": 12,\n        \"donation_count\": 172,\n        \"total_amount\": 8600000,\n        \"total_net_amount\": 7912000\n      }\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin - Payment Methods",
+      "item": [
+        {
+          "name": "List All Payment Methods",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/payment-methods",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "payment-methods"]
+            },
+            "description": "Get all payment methods including inactive ones (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Payment methods retrieved successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"payment_methods\": [\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n        \"name\": \"GoPay\",\n        \"code\": \"gopay\",\n        \"type\": \"ewallet\",\n        \"transaction_fee\": 2500,\n        \"fee_percentage\": null,\n        \"min_amount\": 1000,\n        \"max_amount\": null,\n        \"is_active\": true,\n        \"icon_url\": \"https://example.com/gopay.png\",\n        \"description\": \"Pay with GoPay\",\n        \"display_order\": 1,\n        \"recommended_min_amount\": 7500,\n        \"created_at\": \"2024-11-22T10:00:00.000Z\",\n        \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n      },\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440004\",\n        \"name\": \"OVO\",\n        \"code\": \"ovo\",\n        \"type\": \"ewallet\",\n        \"transaction_fee\": 2500,\n        \"fee_percentage\": null,\n        \"min_amount\": 1000,\n        \"max_amount\": null,\n        \"is_active\": false,\n        \"icon_url\": \"https://example.com/ovo.png\",\n        \"description\": \"Pay with OVO\",\n        \"display_order\": 10,\n        \"recommended_min_amount\": 7500,\n        \"created_at\": \"2024-11-22T10:00:00.000Z\",\n        \"updated_at\": \"2024-11-22T10:00:00.000Z\"\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Payment Method",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"BNI Virtual Account\",\n  \"code\": \"bni_va\",\n  \"type\": \"bank_transfer\",\n  \"transaction_fee\": 4000,\n  \"fee_percentage\": 0,\n  \"min_amount\": 10000,\n  \"max_amount\": 50000000,\n  \"icon_url\": \"https://example.com/bni.png\",\n  \"description\": \"Transfer via BNI Virtual Account\",\n  \"display_order\": 4\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/payment-methods",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "payment-methods"]
+            },
+            "description": "Create a new payment method (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Payment method created successfully\",\n    \"success\": true,\n    \"code\": 201\n  },\n  \"data\": {\n    \"id\": \"550e8400-e29b-41d4-a716-446655440005\",\n    \"name\": \"BNI Virtual Account\",\n    \"code\": \"bni_va\",\n    \"type\": \"bank_transfer\",\n    \"transaction_fee\": 4000,\n    \"fee_percentage\": null,\n    \"min_amount\": 10000,\n    \"max_amount\": 50000000,\n    \"is_active\": true,\n    \"icon_url\": \"https://example.com/bni.png\",\n    \"description\": \"Transfer via BNI Virtual Account\",\n    \"display_order\": 4,\n    \"recommended_min_amount\": 12000,\n    \"created_at\": \"2024-11-22T10:30:00.000Z\",\n    \"updated_at\": \"2024-11-22T10:30:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Payment Method",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction_fee\": 4500,\n  \"is_active\": true,\n  \"description\": \"Transfer via BNI Virtual Account (Updated fee)\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/payment-methods/{{payment_method_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "payment-methods", "{{payment_method_id}}"]
+            },
+            "description": "Update an existing payment method (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Payment method updated successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"id\": \"550e8400-e29b-41d4-a716-446655440005\",\n    \"name\": \"BNI Virtual Account\",\n    \"code\": \"bni_va\",\n    \"type\": \"bank_transfer\",\n    \"transaction_fee\": 4500,\n    \"fee_percentage\": null,\n    \"min_amount\": 10000,\n    \"max_amount\": 50000000,\n    \"is_active\": true,\n    \"icon_url\": \"https://example.com/bni.png\",\n    \"description\": \"Transfer via BNI Virtual Account (Updated fee)\",\n    \"display_order\": 4,\n    \"recommended_min_amount\": 13500,\n    \"created_at\": \"2024-11-22T10:30:00.000Z\",\n    \"updated_at\": \"2024-11-22T10:35:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Toggle Payment Method Active",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/payment-methods/{{payment_method_id}}/toggle",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "payment-methods", "{{payment_method_id}}", "toggle"]
+            },
+            "description": "Toggle payment method active status (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Payment method status toggled successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": {\n    \"id\": \"550e8400-e29b-41d4-a716-446655440004\",\n    \"name\": \"OVO\",\n    \"code\": \"ovo\",\n    \"type\": \"ewallet\",\n    \"transaction_fee\": 2500,\n    \"fee_percentage\": null,\n    \"min_amount\": 1000,\n    \"max_amount\": null,\n    \"is_active\": true,\n    \"icon_url\": \"https://example.com/ovo.png\",\n    \"description\": \"Pay with OVO\",\n    \"display_order\": 10,\n    \"recommended_min_amount\": 7500,\n    \"created_at\": \"2024-11-22T10:00:00.000Z\",\n    \"updated_at\": \"2024-11-22T10:40:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Payment Method",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v2/admin/payment-methods/{{payment_method_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "admin", "payment-methods", "{{payment_method_id}}"]
+            },
+            "description": "Delete a payment method (admin only)"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"meta\": {\n    \"message\": \"Payment method deleted successfully\",\n    \"success\": true,\n    \"code\": 200\n  },\n  \"data\": null\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
