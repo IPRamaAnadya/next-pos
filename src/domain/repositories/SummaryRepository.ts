@@ -55,12 +55,14 @@ export interface SummaryRepository {
   /**
    * Get today's total expenses
    * @param tenantId - The tenant ID
-   * @param todayStart - Start of today in UTC
+   * @param todayStart - Start date in UTC
+   * @param todayEnd - End date in UTC
    * @returns Today's expenses summary
    */
   getTodayExpenses(
     tenantId: string,
-    todayStart: Date
+    todayStart: Date,
+    todayEnd: Date
   ): Promise<TodayExpensesSummary>;
 
   /**

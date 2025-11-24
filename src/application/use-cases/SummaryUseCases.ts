@@ -64,8 +64,16 @@ export class GetTodayOrdersUseCase {
 export class GetTodayExpensesUseCase {
   constructor(private summaryRepository: SummaryRepository) {}
 
-  async execute(tenantId: string, todayStart: Date): Promise<TodayExpensesSummary> {
-    return await this.summaryRepository.getTodayExpenses(tenantId, todayStart);
+  async execute(
+    tenantId: string,
+    todayStart: Date,
+    todayEnd: Date
+  ): Promise<TodayExpensesSummary> {
+    return await this.summaryRepository.getTodayExpenses(
+      tenantId,
+      todayStart,
+      todayEnd
+    );
   }
 }
 

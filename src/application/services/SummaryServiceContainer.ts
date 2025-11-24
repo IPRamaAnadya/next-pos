@@ -13,7 +13,6 @@ import {
   GetDailyPaymentReceivedUseCase,
 } from '../use-cases/SummaryUseCases';
 import { SummaryController } from '@/presentation/controllers/SummaryController';
-import prisma from '@/lib/prisma';
 
 export class SummaryServiceContainer {
   private static summaryRepository: PrismaSummaryRepository;
@@ -27,7 +26,7 @@ export class SummaryServiceContainer {
 
   static getSummaryRepository(): PrismaSummaryRepository {
     if (!this.summaryRepository) {
-      this.summaryRepository = new PrismaSummaryRepository(prisma);
+      this.summaryRepository = new PrismaSummaryRepository();
     }
     return this.summaryRepository;
   }

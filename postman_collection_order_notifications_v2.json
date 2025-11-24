@@ -1,0 +1,990 @@
+{
+  "info": {
+    "name": "Order Notification V2 API",
+    "description": "API endpoints for order notification automation and custom messaging",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Message Templates",
+      "item": [
+        {
+          "name": "Get All Templates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates"]
+            },
+            "description": "Get all message templates for a tenant"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"template-uuid-1\",\n      \"tenantId\": \"tenant-uuid\",\n      \"name\": \"Order Created\",\n      \"event\": \"ORDER_CREATED\",\n      \"message\": \"Halo {{customerName}}, pesanan Anda sebesar {{grandTotal}} telah dibuat.\",\n      \"isCustom\": false,\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Template by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates/{{templateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates", "{{templateId}}"]
+            },
+            "description": "Get a specific message template by ID"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates/{{templateId}}"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"template-uuid-1\",\n    \"tenantId\": \"tenant-uuid\",\n    \"name\": \"Order Created\",\n    \"event\": \"ORDER_CREATED\",\n    \"message\": \"Halo {{customerName}}, pesanan Anda sebesar {{grandTotal}} telah dibuat.\",\n    \"isCustom\": false,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Template - ORDER_CREATED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Order Created\",\n  \"event\": \"ORDER_CREATED\",\n  \"message\": \"Halo {{customerName}}! Pesanan Anda sebesar {{grandTotal}} telah dibuat dengan nomor {{orderNumber}}. Terima kasih!\",\n  \"isCustom\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates"]
+            },
+            "description": "Create a template for ORDER_CREATED event"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates"
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"template-uuid-1\",\n    \"tenantId\": \"tenant-uuid\",\n    \"name\": \"Order Created\",\n    \"event\": \"ORDER_CREATED\",\n    \"message\": \"Halo {{customerName}}! Pesanan Anda sebesar {{grandTotal}} telah dibuat dengan nomor {{orderNumber}}. Terima kasih!\",\n    \"isCustom\": false,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Template - ORDER_PAID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Payment Received\",\n  \"event\": \"ORDER_PAID\",\n  \"message\": \"Terima kasih {{customerName}}! Pembayaran sebesar {{grandTotal}} untuk pesanan {{orderNumber}} telah diterima. ✓\",\n  \"isCustom\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates"]
+            },
+            "description": "Create a template for ORDER_PAID event"
+          }
+        },
+        {
+          "name": "Create Template - ORDER_UPDATED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Order Updated\",\n  \"event\": \"ORDER_UPDATED\",\n  \"message\": \"Halo {{customerName}}, pesanan Anda {{orderNumber}} telah diperbarui. Total: {{grandTotal}}.\",\n  \"isCustom\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates"]
+            },
+            "description": "Create a template for ORDER_UPDATED event"
+          }
+        },
+        {
+          "name": "Create Template - ORDER_COMPLETED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Order Completed\",\n  \"event\": \"ORDER_COMPLETED\",\n  \"message\": \"Halo {{customerName}}! Pesanan {{orderNumber}} Anda telah selesai. Total: {{grandTotal}}. Terima kasih telah berbelanja!\",\n  \"isCustom\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates"]
+            },
+            "description": "Create a template for ORDER_COMPLETED event"
+          }
+        },
+        {
+          "name": "Create Template - ORDER_CANCELLED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Order Cancelled\",\n  \"event\": \"ORDER_CANCELLED\",\n  \"message\": \"Halo {{customerName}}, pesanan {{orderNumber}} Anda telah dibatalkan. Jika ada pertanyaan, silakan hubungi kami.\",\n  \"isCustom\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates"]
+            },
+            "description": "Create a template for ORDER_CANCELLED event"
+          }
+        },
+        {
+          "name": "Create Custom Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Promotional Message\",\n  \"event\": \"CUSTOM\",\n  \"message\": \"Halo {{customerName}}! Ada promo spesial {{discount}} untuk Anda. Berlaku sampai {{validUntil}}. Buruan belanja!\",\n  \"isCustom\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates"]
+            },
+            "description": "Create a custom template for promotional or other custom messages"
+          }
+        },
+        {
+          "name": "Update Template",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Order Created - Updated\",\n  \"message\": \"Halo {{customerName}}! Pesanan Anda sebesar {{grandTotal}} telah berhasil dibuat dengan nomor {{orderNumber}}. Kami akan segera memprosesnya. Terima kasih!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates/{{templateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates", "{{templateId}}"]
+            },
+            "description": "Update an existing template"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "PUT",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates/{{templateId}}"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"template-uuid-1\",\n    \"tenantId\": \"tenant-uuid\",\n    \"name\": \"Order Created - Updated\",\n    \"event\": \"ORDER_CREATED\",\n    \"message\": \"Halo {{customerName}}! Pesanan Anda sebesar {{grandTotal}} telah berhasil dibuat dengan nomor {{orderNumber}}. Kami akan segera memprosesnya. Terima kasih!\",\n    \"isCustom\": false,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T01:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Template",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates/{{templateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "templates", "{{templateId}}"]
+            },
+            "description": "Delete a message template"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/templates/{{templateId}}"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Template deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Message Logs",
+      "item": [
+        {
+          "name": "Get All Message Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs?limit=50&page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "logs"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of logs per page"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "status",
+                  "value": "sent",
+                  "description": "Filter by status: sent, failed, pending, delivered",
+                  "disabled": true
+                },
+                {
+                  "key": "recipient",
+                  "value": "+628123456789",
+                  "description": "Filter by recipient phone number",
+                  "disabled": true
+                },
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01",
+                  "description": "Filter from date (YYYY-MM-DD)",
+                  "disabled": true
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31",
+                  "description": "Filter to date (YYYY-MM-DD)",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all message logs with optional filters for status, recipient, and date range"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"log-uuid-1\",\n      \"tenantId\": \"tenant-uuid\",\n      \"configId\": \"config-uuid\",\n      \"templateId\": \"template-uuid\",\n      \"recipient\": \"+628123456789\",\n      \"message\": \"Halo John Doe! Pesanan Anda sebesar Rp150.000 telah dibuat.\",\n      \"status\": \"sent\",\n      \"providerResponse\": \"{\\\"status\\\":\\\"success\\\"}\",\n      \"errorMessage\": null,\n      \"sentAt\": \"2024-01-01T10:00:00.000Z\",\n      \"deliveredAt\": null,\n      \"createdAt\": \"2024-01-01T10:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T10:00:00.000Z\"\n    },\n    {\n      \"id\": \"log-uuid-2\",\n      \"tenantId\": \"tenant-uuid\",\n      \"configId\": \"config-uuid\",\n      \"templateId\": \"template-uuid\",\n      \"recipient\": \"+628987654321\",\n      \"message\": \"Terima kasih! Pembayaran sebesar Rp200.000 telah diterima.\",\n      \"status\": \"delivered\",\n      \"providerResponse\": \"{\\\"status\\\":\\\"delivered\\\"}\",\n      \"errorMessage\": null,\n      \"sentAt\": \"2024-01-01T11:00:00.000Z\",\n      \"deliveredAt\": \"2024-01-01T11:05:00.000Z\",\n      \"createdAt\": \"2024-01-01T11:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T11:05:00.000Z\"\n    },\n    {\n      \"id\": \"log-uuid-3\",\n      \"tenantId\": \"tenant-uuid\",\n      \"configId\": \"config-uuid\",\n      \"templateId\": \"template-uuid\",\n      \"recipient\": \"+628111222333\",\n      \"message\": \"Pesanan Anda telah diperbarui.\",\n      \"status\": \"failed\",\n      \"providerResponse\": null,\n      \"errorMessage\": \"Invalid phone number\",\n      \"sentAt\": null,\n      \"deliveredAt\": null,\n      \"createdAt\": \"2024-01-01T12:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T12:00:00.000Z\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 50,\n    \"total\": 3,\n    \"totalPages\": 1\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Message Log by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs/{{logId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "logs", "{{logId}}"]
+            },
+            "description": "Get a specific message log by ID"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs/{{logId}}"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"log-uuid-1\",\n    \"tenantId\": \"tenant-uuid\",\n    \"configId\": \"config-uuid\",\n    \"templateId\": \"template-uuid\",\n    \"recipient\": \"+628123456789\",\n    \"message\": \"Halo John Doe! Pesanan Anda sebesar Rp150.000 telah dibuat.\",\n    \"status\": \"sent\",\n    \"providerResponse\": \"{\\\"status\\\":\\\"success\\\",\\\"message_id\\\":\\\"12345\\\"}\",\n    \"errorMessage\": null,\n    \"sentAt\": \"2024-01-01T10:00:00.000Z\",\n    \"deliveredAt\": null,\n    \"createdAt\": \"2024-01-01T10:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T10:00:00.000Z\",\n    \"template\": {\n      \"id\": \"template-uuid\",\n      \"name\": \"Order Created\",\n      \"event\": \"ORDER_CREATED\"\n    },\n    \"config\": {\n      \"id\": \"config-uuid\",\n      \"provider\": \"WHATSAPP\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Failed Message Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs?status=failed&limit=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "logs"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "failed"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Get all failed message logs for troubleshooting"
+          }
+        },
+        {
+          "name": "Get Logs by Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs?startDate=2024-11-01&endDate=2024-11-30",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "logs"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-11-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-11-30"
+                }
+              ]
+            },
+            "description": "Get message logs for a specific date range (e.g., monthly report)"
+          }
+        },
+        {
+          "name": "Get Logs by Recipient",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs?recipient=+628123456789",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "logs"],
+              "query": [
+                {
+                  "key": "recipient",
+                  "value": "+628123456789"
+                }
+              ]
+            },
+            "description": "Get all message logs sent to a specific customer phone number"
+          }
+        },
+        {
+          "name": "Get Today's Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/logs?startDate={{$isoTimestamp}}&limit=1000",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "logs"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "{{$isoTimestamp}}",
+                  "description": "Today's date"
+                },
+                {
+                  "key": "limit",
+                  "value": "1000"
+                }
+              ]
+            },
+            "description": "Get all message logs for today"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messaging Configuration",
+      "item": [
+        {
+          "name": "Get All Messaging Configs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "configs"]
+            },
+            "description": "Get all messaging provider configurations for a tenant"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"config-uuid\",\n      \"tenantId\": \"tenant-uuid\",\n      \"provider\": \"WHATSAPP\",\n      \"apiKey\": \"your-fonnte-token\",\n      \"apiUrl\": \"https://api.fonnte.com/send\",\n      \"isActive\": true,\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Messaging Config (Fonnte)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"WHATSAPP\",\n  \"config\": {\n    \"apiKey\": \"your-fonnte-api-token\",\n    \"apiUrl\": \"https://api.fonnte.com/send\"\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "configs"]
+            },
+            "description": "Create Fonnte (WhatsApp) messaging configuration. Get your API token from https://fonnte.com"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs"
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"config-uuid\",\n    \"tenantId\": \"tenant-uuid\",\n    \"provider\": \"WHATSAPP\",\n    \"apiKey\": \"your-fonnte-token\",\n    \"apiUrl\": \"https://api.fonnte.com/send\",\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Config by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs/{{configId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "configs", "{{configId}}"]
+            },
+            "description": "Get a specific messaging configuration by ID"
+          }
+        },
+        {
+          "name": "Update Messaging Config",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"apiKey\": \"new-fonnte-api-token\"\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs/{{configId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "configs", "{{configId}}"]
+            },
+            "description": "Update messaging configuration (e.g., change API token or activate/deactivate)"
+          }
+        },
+        {
+          "name": "Delete Messaging Config",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs/{{configId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "configs", "{{configId}}"]
+            },
+            "description": "Delete a messaging configuration"
+          }
+        },
+        {
+          "name": "Test Messaging Config",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient\": \"+628123456789\",\n  \"message\": \"This is a test message from your POS system!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs/{{configId}}/test",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "configs", "{{configId}}", "test"]
+            },
+            "description": "Send a test message to verify the configuration is working"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/configs/{{configId}}/test"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Test message sent successfully\",\n  \"data\": {\n    \"recipient\": \"+628123456789\",\n    \"status\": \"sent\",\n    \"providerResponse\": {\n      \"status\": \"success\",\n      \"message_id\": \"12345\"\n    }\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Notification Settings",
+      "item": [
+        {
+          "name": "Get Notification Settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "settings"]
+            },
+            "description": "Get notification settings for a tenant including enable/disable flags and template assignments for each event type"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/settings"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"enableOrderCreated\": true,\n    \"enableOrderUpdated\": false,\n    \"enableOrderPaid\": true,\n    \"enableOrderCompleted\": false,\n    \"enableOrderCancelled\": false,\n    \"orderCreatedTemplateId\": \"template-uuid-1\",\n    \"orderUpdatedTemplateId\": null,\n    \"orderPaidTemplateId\": \"template-uuid-2\",\n    \"orderCompletedTemplateId\": null,\n    \"orderCancelledTemplateId\": null\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Notification Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enableOrderCreated\": true,\n  \"enableOrderUpdated\": true,\n  \"enableOrderPaid\": true,\n  \"enableOrderCompleted\": false,\n  \"enableOrderCancelled\": false,\n  \"orderCreatedTemplateId\": \"template-uuid-1\",\n  \"orderUpdatedTemplateId\": \"template-uuid-2\",\n  \"orderPaidTemplateId\": \"template-uuid-3\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "settings"]
+            },
+            "description": "Update notification settings. All fields are optional. Only provided fields will be updated."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "PUT",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/settings"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"config-uuid\",\n    \"tenantId\": \"tenant-uuid\",\n    \"provider\": \"fonnte\",\n    \"apiToken\": \"...\",\n    \"apiUrl\": \"https://api.fonnte.com/send\",\n    \"isActive\": true,\n    \"enableOrderCreated\": true,\n    \"enableOrderUpdated\": true,\n    \"enableOrderPaid\": true,\n    \"enableOrderCompleted\": false,\n    \"enableOrderCancelled\": false,\n    \"orderCreatedTemplateId\": \"template-uuid-1\",\n    \"orderUpdatedTemplateId\": \"template-uuid-2\",\n    \"orderPaidTemplateId\": \"template-uuid-3\",\n    \"orderCompletedTemplateId\": null,\n    \"orderCancelledTemplateId\": null,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Custom Notifications",
+      "item": [
+        {
+          "name": "Send Custom Notification (Customer IDs + Template)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerIds\": [\n    \"customer-uuid-1\",\n    \"customer-uuid-2\",\n    \"customer-uuid-3\"\n  ],\n  \"templateId\": \"template-uuid\",\n  \"variables\": {\n    \"message\": \"Special promotion today!\",\n    \"discount\": \"20%\",\n    \"validUntil\": \"31 Dec 2024\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/send-custom",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "send-custom"]
+            },
+            "description": "Send custom notification to a list of customers using a template. Variables will be replaced in the template message."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/send-custom"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"total\": 3,\n    \"succeeded\": 3,\n    \"failed\": 0,\n    \"recipients\": [\n      \"+628123456789\",\n      \"+628987654321\",\n      \"+628111222333\"\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Send Custom Notification (Phone Numbers + Direct Message)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phoneNumbers\": [\n    \"0812-3456-789\",\n    \"08987654321\",\n    \"+62 811 222 333\",\n    \"62812345678\"\n  ],\n  \"message\": \"Your order is ready for pickup! Please come to the store before 5 PM. Thank you!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/send-custom",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "send-custom"]
+            },
+            "description": "Send custom notification directly to phone numbers without using a template. Phone numbers are automatically normalized:\n- Removes spaces, dashes, and symbols\n- Converts 0xxx to 62xxx (Indonesian format)\n- Validates minimum length"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/send-custom"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"total\": 2,\n    \"succeeded\": 2,\n    \"failed\": 0,\n    \"recipients\": [\n      \"+628123456789\",\n      \"+628987654321\"\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Send Custom Notification (Mixed)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerIds\": [\n    \"customer-uuid-1\",\n    \"customer-uuid-2\"\n  ],\n  \"phoneNumbers\": [\n    \"+628333444555\"\n  ],\n  \"templateId\": \"template-uuid\",\n  \"variables\": {\n    \"customerName\": \"Valued Customer\",\n    \"announcement\": \"Flash sale today!\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/messaging/send-custom",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "messaging", "send-custom"]
+            },
+            "description": "Send notification to both customer IDs and direct phone numbers in a single request."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Testing Order Notifications",
+      "item": [
+        {
+          "name": "Create Order (Unpaid) - Triggers ORDER_CREATED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"paymentMethodId\": \"{{paymentMethodId}}\",\n  \"paymentStatus\": \"unpaid\",\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 2,\n      \"price\": 50000\n    }\n  ],\n  \"subtotal\": 100000,\n  \"tax\": 10000,\n  \"grandTotal\": 110000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "orders"]
+            },
+            "description": "Create an unpaid order. This will trigger ORDER_CREATED notification if enabled in settings."
+          }
+        },
+        {
+          "name": "Create Order (Paid) - Triggers ORDER_PAID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"paymentMethodId\": \"{{paymentMethodId}}\",\n  \"paymentStatus\": \"paid\",\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 2,\n      \"price\": 50000\n    }\n  ],\n  \"subtotal\": 100000,\n  \"tax\": 10000,\n  \"grandTotal\": 110000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "orders"]
+            },
+            "description": "Create a paid order. This will trigger ORDER_PAID notification if enabled in settings."
+          }
+        },
+        {
+          "name": "Update Order Payment - Triggers ORDER_PAID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentStatus\": \"paid\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/orders/{{orderId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "orders", "{{orderId}}"]
+            },
+            "description": "Update order payment status to paid. This will trigger ORDER_PAID notification if enabled."
+          }
+        },
+        {
+          "name": "Update Order Details - Triggers ORDER_UPDATED",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Customer requested extra packaging\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/orders/{{orderId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "orders", "{{orderId}}"]
+            },
+            "description": "Update order details without changing payment. This will trigger ORDER_UPDATED notification if enabled."
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "tenantId",
+      "value": "your-tenant-uuid",
+      "type": "string"
+    },
+    {
+      "key": "configId",
+      "value": "config-uuid",
+      "type": "string"
+    },
+    {
+      "key": "templateId",
+      "value": "template-uuid",
+      "type": "string"
+    },
+    {
+      "key": "logId",
+      "value": "log-uuid",
+      "type": "string"
+    },
+    {
+      "key": "customerId",
+      "value": "customer-uuid",
+      "type": "string"
+    },
+    {
+      "key": "orderId",
+      "value": "order-uuid",
+      "type": "string"
+    },
+    {
+      "key": "productId",
+      "value": "product-uuid",
+      "type": "string"
+    },
+    {
+      "key": "paymentMethodId",
+      "value": "payment-method-uuid",
+      "type": "string"
+    }
+  ]
+}

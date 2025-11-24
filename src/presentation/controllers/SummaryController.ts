@@ -49,6 +49,19 @@ export class SummaryController {
   }
 
   /**
+   * Get default date range: first day of current month to today
+   */
+  private getDefaultDateRange(): { startDate: string; endDate: string } {
+    const now = new Date();
+    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    
+    return {
+      startDate: firstDayOfMonth.toISOString(),
+      endDate: now.toISOString(),
+    };
+  }
+
+  /**
    * Get daily orders summary
    */
   async getDailyOrders(req: NextRequest, tenantId: string) {
@@ -60,8 +73,9 @@ export class SummaryController {
 
       // Parse and validate query parameters
       const { searchParams } = new URL(req.url);
-      const startDate = searchParams.get('startDate') || searchParams.get('start_date');
-      const endDate = searchParams.get('endDate') || searchParams.get('end_date');
+      const defaults = this.getDefaultDateRange();
+      const startDate = searchParams.get('startDate') || searchParams.get('start_date') || defaults.startDate;
+      const endDate = searchParams.get('endDate') || searchParams.get('end_date') || defaults.endDate;
 
       const validatedData = await summaryDateRangeSchema.validate({
         startDate,
@@ -104,8 +118,9 @@ export class SummaryController {
       }
 
       const { searchParams } = new URL(req.url);
-      const startDate = searchParams.get('startDate') || searchParams.get('start_date');
-      const endDate = searchParams.get('endDate') || searchParams.get('end_date');
+      const defaults = this.getDefaultDateRange();
+      const startDate = searchParams.get('startDate') || searchParams.get('start_date') || defaults.startDate;
+      const endDate = searchParams.get('endDate') || searchParams.get('end_date') || defaults.endDate;
 
       const validatedData = await summaryDateRangeSchema.validate({
         startDate,
@@ -146,8 +161,9 @@ export class SummaryController {
       }
 
       const { searchParams } = new URL(req.url);
-      const todayStart = searchParams.get('todayStart') || searchParams.get('today_start');
-      const todayEnd = searchParams.get('todayEnd') || searchParams.get('today_end');
+      const defaults = this.getDefaultDateRange();
+      const todayStart = searchParams.get('todayStart') || searchParams.get('today_start') || searchParams.get('start_date') || defaults.startDate;
+      const todayEnd = searchParams.get('todayEnd') || searchParams.get('today_end') || searchParams.get('end_date') || defaults.endDate;
 
       const validatedData = await todayQuerySchema.validate({
         todayStart,
@@ -188,24 +204,21 @@ export class SummaryController {
       }
 
       const { searchParams } = new URL(req.url);
-      const todayStart = searchParams.get('todayStart') || searchParams.get('today_start');
+      const defaults = this.getDefaultDateRange();
+      const todayStart = searchParams.get('start_date') || defaults.startDate;
+      const todayEnd = searchParams.get('end_date') || defaults.endDate;
 
-      if (!todayStart) {
-        return apiResponse.validationError([
-          { field: 'todayStart', message: 'todayStart parameter is required' },
-        ]);
-      }
-
-      // Validate it's a valid ISO date
-      const date = new Date(todayStart);
-      if (isNaN(date.getTime())) {
-        return apiResponse.validationError([
-          { field: 'todayStart', message: 'todayStart must be a valid ISO UTC datetime' },
-        ]);
-      }
+      const validatedData = await todayQuerySchema.validate({
+        todayStart,
+        todayEnd,
+      });
 
       const useCase = SummaryServiceContainer.getGetTodayExpensesUseCase();
-      const result = await useCase.execute(tenantId, date);
+      const result = await useCase.execute(
+        tenantId,
+        new Date(validatedData.todayStart),
+        new Date(validatedData.todayEnd)
+      );
 
       return apiResponse.success({
         data: mapTodayExpensesSummaryResponse(result),
@@ -227,8 +240,9 @@ export class SummaryController {
       }
 
       const { searchParams } = new URL(req.url);
-      const startDate = searchParams.get('startDate') || searchParams.get('start_date');
-      const endDate = searchParams.get('endDate') || searchParams.get('end_date');
+      const defaults = this.getDefaultDateRange();
+      const startDate = searchParams.get('startDate') || searchParams.get('start_date') || defaults.startDate;
+      const endDate = searchParams.get('endDate') || searchParams.get('end_date') || defaults.endDate;
       const limit = searchParams.get('limit');
 
       const validatedData = await topCustomerQuerySchema.validate({
@@ -272,8 +286,9 @@ export class SummaryController {
       }
 
       const { searchParams } = new URL(req.url);
-      const startDate = searchParams.get('startDate') || searchParams.get('start_date');
-      const endDate = searchParams.get('endDate') || searchParams.get('end_date');
+      const defaults = this.getDefaultDateRange();
+      const startDate = searchParams.get('startDate') || searchParams.get('start_date') || defaults.startDate;
+      const endDate = searchParams.get('endDate') || searchParams.get('end_date') || defaults.endDate;
 
       const validatedData = await summaryDateRangeSchema.validate({
         startDate,

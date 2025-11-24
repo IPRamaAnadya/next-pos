@@ -50,6 +50,7 @@ import {
   ProviderInfoResponse,
   TestConnectionResponse,
 } from "@/presentation/dto/CustomerMessagingResponseDTO";
+import { MessageEvent } from "@/domain/entities/MessageTemplate";
 
 export class CustomerMessagingController {
   constructor(
@@ -164,9 +165,13 @@ export class CustomerMessagingController {
   async getMessageLogs(request: Request, tenantId: string) {
     try {
       const { searchParams } = new URL(request.url);
+      
+      // Support both 'limit' and 'page_size' for pagination
+      const limitParam = searchParams.get("limit") || searchParams.get("page_size");
+      
       const query = {
         page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-        page_size: searchParams.get("page_size") ? Number(searchParams.get("page_size")) : 10,
+        page_size: limitParam ? Number(limitParam) : 10,
         config_id: searchParams.get("config_id") || undefined,
         template_id: searchParams.get("template_id") || undefined,
         status: searchParams.get("status") || undefined,
@@ -246,12 +251,17 @@ export class CustomerMessagingController {
         abortEarly: false,
       });
 
+      // Determine if template is custom based on event
+      // If event is "CUSTOM" or not a system event, it's custom
+      const systemEvents = ["ORDER_CREATED", "ORDER_PAID", "ORDER_UPDATED", "ORDER_COMPLETED", "ORDER_CANCELLED", "PAYMENT_REMINDER"];
+      const isCustomTemplate = validatedData.event === "CUSTOM" || !systemEvents.includes(validatedData.event);
+
       const template = await this.createMessageTemplateUseCase.execute({
         tenantId,
         name: validatedData.name,
         event: validatedData.event as any,
         message: validatedData.message,
-        isCustom: validatedData.is_custom ?? true,
+        isCustom: isCustomTemplate,
       });
 
       return apiResponse.success({
@@ -293,6 +303,27 @@ export class CustomerMessagingController {
       });
     } catch (error: any) {
       console.error("Get templates error:", error);
+      return apiResponse.internalError();
+    }
+  }
+
+  /**
+   * Get Custom Message Templates (event is null)
+   */
+  async getCustomMessageTemplates(request: Request, tenantId: string) {
+    try {
+      const templates = await this.getMessageTemplatesUseCase.execute({
+        tenantId,
+        event: MessageEvent.CUSTOM,
+        isCustom: true,
+      });
+
+      return apiResponse.success({
+        data: templates.map(toMessageTemplateResponse),
+        message: "Custom templates retrieved successfully",
+      });
+    } catch (error: any) {
+      console.error("Get custom templates error:", error);
       return apiResponse.internalError();
     }
   }

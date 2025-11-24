@@ -1,0 +1,644 @@
+{
+  "info": {
+    "name": "Next POS - Reports & Summaries V2 API",
+    "_postman_id": "reports-summaries-v2-collection",
+    "description": "Complete API collection for Reports and Summaries V2 endpoints with clean architecture",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "tenantId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "reportId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Reports V2",
+      "item": [
+        {
+          "name": "Get Available Periods",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports/available-periods",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "reports", "available-periods"]
+            },
+            "description": "Get list of available report periods (excluding current month). Returns array of period strings in YYYY-MM-DD format."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports/available-periods",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "tenants", "{{tenantId}}", "reports", "available-periods"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"meta\": {\n    \"message\": \"Available periods retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": [\n    \"2025-01-01\",\n    \"2025-02-01\",\n    \"2025-03-01\",\n    \"2025-04-01\",\n    \"2025-05-01\",\n    \"2025-06-01\",\n    \"2025-07-01\",\n    \"2025-08-01\",\n    \"2025-09-01\",\n    \"2025-10-01\"\n  ],\n  \"pagination\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Generate Sales Report",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.data && response.data.id) {",
+                  "        pm.collectionVariables.set('reportId', response.data.id);",
+                  "        console.log('Report ID saved:', response.data.id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"SALES\",\n  \"start_date\": \"2025-10-01T00:00:00.000Z\",\n  \"end_date\": \"2025-11-01T00:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "reports"]
+            },
+            "description": "Generate a sales report for the specified period. If report already exists and is not stale, returns cached version. Otherwise generates PDF and uploads to S3."
+          },
+          "response": [
+            {
+              "name": "Success - Report Generated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"SALES\",\n  \"start_date\": \"2025-10-01T00:00:00.000Z\",\n  \"end_date\": \"2025-11-01T00:00:00.000Z\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "tenants", "{{tenantId}}", "reports"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"meta\": {\n    \"message\": \"Report generated successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"tenant_id\": \"8cbb2d6e-c644-4b2d-b812-3b6e353ee52f\",\n    \"type\": \"SALES\",\n    \"start_date\": \"2025-10-01T00:00:00.000Z\",\n    \"end_date\": \"2025-11-01T00:00:00.000Z\",\n    \"status\": \"GENERATED\",\n    \"pdf_url\": \"https://s3.amazonaws.com/bucket/reports/tenant/sales/Oktober_2025_1234567890.pdf\",\n    \"s3_key\": \"reports/tenant/sales/Oktober_2025_1234567890.pdf\",\n    \"data\": {\n      \"reportTitle\": \"Laporan Penjualan Toko ABC\",\n      \"period\": \"Oktober 2025\",\n      \"tenantName\": \"Toko ABC\",\n      \"summary\": {\n        \"totalSalesBruto\": 50000000,\n        \"totalOrders\": 150,\n        \"totalItems\": 450,\n        \"totalDiscounts\": 2500000,\n        \"totalSales\": 47500000\n      }\n    },\n    \"error\": null,\n    \"created_at\": \"2025-11-23T10:30:00.000Z\",\n    \"updated_at\": \"2025-11-23T10:30:15.000Z\"\n  },\n  \"pagination\": null\n}"
+            },
+            {
+              "name": "Error - Current Month",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"SALES\",\n  \"start_date\": \"2025-11-01T00:00:00.000Z\",\n  \"end_date\": \"2025-12-01T00:00:00.000Z\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "tenants", "{{tenantId}}", "reports"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"meta\": {\n    \"message\": \"Validation failed\",\n    \"success\": false,\n    \"code\": 400,\n    \"errors\": [\n      {\n        \"field\": \"general\",\n        \"message\": \"Cannot generate report for current month. Only previous months are allowed.\"\n      }\n    ]\n  },\n  \"data\": null,\n  \"pagination\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Generate Profit/Loss Report",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.data && response.data.id) {",
+                  "        pm.collectionVariables.set('reportId', response.data.id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"PROFIT_LOSS\",\n  \"start_date\": \"2025-10-01T00:00:00.000Z\",\n  \"end_date\": \"2025-11-01T00:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "reports"]
+            },
+            "description": "Generate a profit and loss report showing revenue, expenses, and net profit for the specified period."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"PROFIT_LOSS\",\n  \"start_date\": \"2025-10-01T00:00:00.000Z\",\n  \"end_date\": \"2025-11-01T00:00:00.000Z\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "tenants", "{{tenantId}}", "reports"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"meta\": {\n    \"message\": \"Report generated successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"id\": \"660e8400-e29b-41d4-a716-446655440001\",\n    \"tenant_id\": \"8cbb2d6e-c644-4b2d-b812-3b6e353ee52f\",\n    \"type\": \"PROFIT_LOSS\",\n    \"start_date\": \"2025-10-01T00:00:00.000Z\",\n    \"end_date\": \"2025-11-01T00:00:00.000Z\",\n    \"status\": \"GENERATED\",\n    \"pdf_url\": \"https://s3.amazonaws.com/bucket/reports/tenant/profit_loss/Oktober_2025_1234567891.pdf\",\n    \"s3_key\": \"reports/tenant/profit_loss/Oktober_2025_1234567891.pdf\",\n    \"data\": {\n      \"reportTitle\": \"Laporan Laba Rugi Toko ABC\",\n      \"period\": \"Oktober 2025\",\n      \"summary\": [\n        {\n          \"label\": \"Laba Sebelum Pajak\",\n          \"value\": 35000000,\n          \"percentage\": 0.7\n        },\n        {\n          \"label\": \"Pajak\",\n          \"value\": 0,\n          \"percentage\": 0\n        },\n        {\n          \"label\": \"Laba Bersih\",\n          \"value\": 35000000,\n          \"percentage\": 0.7\n        }\n      ]\n    },\n    \"error\": null,\n    \"created_at\": \"2025-11-23T10:35:00.000Z\",\n    \"updated_at\": \"2025-11-23T10:35:12.000Z\"\n  },\n  \"pagination\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports?p_limit=10&p_page=1&p_sort_by=created_at&p_sort_dir=desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "reports"],
+              "query": [
+                {
+                  "key": "p_limit",
+                  "value": "10",
+                  "description": "Number of items per page (1-100)"
+                },
+                {
+                  "key": "p_page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "p_sort_by",
+                  "value": "created_at",
+                  "description": "Sort field: id, type, status, created_at, updated_at, start_date, end_date"
+                },
+                {
+                  "key": "p_sort_dir",
+                  "value": "desc",
+                  "description": "Sort direction: asc or desc"
+                },
+                {
+                  "key": "p_type",
+                  "value": "SALES",
+                  "description": "Filter by report type: SALES or PROFIT_LOSS",
+                  "disabled": true
+                },
+                {
+                  "key": "p_status",
+                  "value": "GENERATED",
+                  "description": "Filter by status: PENDING, GENERATED, FAILED",
+                  "disabled": true
+                },
+                {
+                  "key": "p_start_date",
+                  "value": "2025-10-01T00:00:00.000Z",
+                  "description": "Filter reports with start date after this",
+                  "disabled": true
+                },
+                {
+                  "key": "p_end_date",
+                  "value": "2025-11-01T00:00:00.000Z",
+                  "description": "Filter reports with end date before this",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get list of all reports with pagination, sorting, and filtering options."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports?p_limit=10&p_page=1&p_sort_by=created_at&p_sort_dir=desc",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "tenants", "{{tenantId}}", "reports"],
+                  "query": [
+                    {
+                      "key": "p_limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "p_page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "p_sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "p_sort_dir",
+                      "value": "desc"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"meta\": {\n    \"message\": \"Reports retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": [\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"tenant_id\": \"8cbb2d6e-c644-4b2d-b812-3b6e353ee52f\",\n      \"type\": \"SALES\",\n      \"start_date\": \"2025-10-01T00:00:00.000Z\",\n      \"end_date\": \"2025-11-01T00:00:00.000Z\",\n      \"status\": \"GENERATED\",\n      \"pdf_url\": \"https://s3.amazonaws.com/bucket/reports/tenant/sales/Oktober_2025.pdf\",\n      \"s3_key\": \"reports/tenant/sales/Oktober_2025.pdf\",\n      \"data\": {},\n      \"error\": null,\n      \"created_at\": \"2025-11-23T10:30:00.000Z\",\n      \"updated_at\": \"2025-11-23T10:30:15.000Z\"\n    },\n    {\n      \"id\": \"660e8400-e29b-41d4-a716-446655440001\",\n      \"tenant_id\": \"8cbb2d6e-c644-4b2d-b812-3b6e353ee52f\",\n      \"type\": \"PROFIT_LOSS\",\n      \"start_date\": \"2025-09-01T00:00:00.000Z\",\n      \"end_date\": \"2025-10-01T00:00:00.000Z\",\n      \"status\": \"GENERATED\",\n      \"pdf_url\": \"https://s3.amazonaws.com/bucket/reports/tenant/profit_loss/September_2025.pdf\",\n      \"s3_key\": \"reports/tenant/profit_loss/September_2025.pdf\",\n      \"data\": {},\n      \"error\": null,\n      \"created_at\": \"2025-11-22T14:20:00.000Z\",\n      \"updated_at\": \"2025-11-22T14:20:08.000Z\"\n    }\n  ],\n  \"pagination\": {\n    \"total\": 25,\n    \"page\": 1,\n    \"limit\": 10,\n    \"pageSize\": 10,\n    \"totalPages\": 3\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Report by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports/{{reportId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "reports", "{{reportId}}"]
+            },
+            "description": "Get a specific report by ID, including PDF URL and cached data."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports/{{reportId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "tenants", "{{tenantId}}", "reports", "{{reportId}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"meta\": {\n    \"message\": \"Report retrieved successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": {\n    \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"tenant_id\": \"8cbb2d6e-c644-4b2d-b812-3b6e353ee52f\",\n    \"type\": \"SALES\",\n    \"start_date\": \"2025-10-01T00:00:00.000Z\",\n    \"end_date\": \"2025-11-01T00:00:00.000Z\",\n    \"status\": \"GENERATED\",\n    \"pdf_url\": \"https://s3.amazonaws.com/bucket/reports/tenant/sales/Oktober_2025.pdf\",\n    \"s3_key\": \"reports/tenant/sales/Oktober_2025.pdf\",\n    \"data\": {\n      \"reportTitle\": \"Laporan Penjualan Toko ABC\",\n      \"period\": \"Oktober 2025\",\n      \"summary\": {\n        \"totalSalesBruto\": 50000000,\n        \"totalOrders\": 150,\n        \"totalItems\": 450,\n        \"totalDiscounts\": 2500000,\n        \"totalSales\": 47500000\n      }\n    },\n    \"error\": null,\n    \"created_at\": \"2025-11-23T10:30:00.000Z\",\n    \"updated_at\": \"2025-11-23T10:30:15.000Z\"\n  },\n  \"pagination\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Report",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports/{{reportId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "reports", "{{reportId}}"]
+            },
+            "description": "Delete a report by ID. This removes the database record but does not delete the PDF from S3."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/reports/{{reportId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "tenants", "{{tenantId}}", "reports", "{{reportId}}"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"meta\": {\n    \"message\": \"Report deleted successfully\",\n    \"success\": true,\n    \"code\": 200,\n    \"errors\": []\n  },\n  \"data\": null,\n  \"pagination\": null\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Complete Report V2 API endpoints with clean architecture implementation"
+    },
+    {
+      "name": "Summaries V2",
+      "item": [
+        {
+          "name": "Get Daily Orders Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/summaries/daily-orders?start_date=2025-10-01T00:00:00.000Z&end_date=2025-11-01T00:00:00.000Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "summaries", "daily-orders"],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2025-10-01T00:00:00.000Z",
+                  "description": "Start date in UTC ISO format"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2025-11-01T00:00:00.000Z",
+                  "description": "End date in UTC ISO format"
+                }
+              ]
+            },
+            "description": "Get daily order summaries including revenue, expenses, and net profit for each day in the specified period."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Payment Method Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/summaries/payment-methods?start_date=2025-10-01T00:00:00.000Z&end_date=2025-11-01T00:00:00.000Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "summaries", "payment-methods"],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2025-10-01T00:00:00.000Z"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2025-11-01T00:00:00.000Z"
+                }
+              ]
+            },
+            "description": "Get summary of transactions grouped by payment method."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Today Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/summaries/today-orders?start_date=2025-11-23T00:00:00.000Z&end_date=2025-11-23T23:59:59.999Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "summaries", "today-orders"],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2025-11-23T00:00:00.000Z",
+                  "description": "Start date in UTC ISO format (default: today 00:00:00)"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2025-11-23T23:59:59.999Z",
+                  "description": "End date in UTC ISO format (default: today 23:59:59)"
+                }
+              ]
+            },
+            "description": "Get summary of orders for the specified date range (defaults to today). Client should send UTC datetime values."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Today Expenses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/summaries/today-expenses?start_date=2025-11-23T00:00:00.000Z&end_date=2025-11-23T23:59:59.999Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "summaries", "today-expenses"],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2025-11-23T00:00:00.000Z",
+                  "description": "Start date in UTC ISO format (default: today 00:00:00)"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2025-11-23T23:59:59.999Z",
+                  "description": "End date in UTC ISO format (default: today 23:59:59)"
+                }
+              ]
+            },
+            "description": "Get summary of expenses for the specified date range (defaults to today). Client should send UTC datetime values."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Top Customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/summaries/top-customers?start_date=2025-10-01T00:00:00.000Z&end_date=2025-11-01T00:00:00.000Z&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "summaries", "top-customers"],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2025-10-01T00:00:00.000Z"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2025-11-01T00:00:00.000Z"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of top customers to return (default: 10)"
+                }
+              ]
+            },
+            "description": "Get list of top customers by total spending in the specified period."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Daily Payment Received",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/{{tenantId}}/summaries/daily-payment-received?start_date=2025-10-01T00:00:00.000Z&end_date=2025-11-01T00:00:00.000Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "summaries", "daily-payment-received"],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2025-10-01T00:00:00.000Z"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2025-11-01T00:00:00.000Z"
+                }
+              ]
+            },
+            "description": "Get daily payment received summary showing cash flow by date."
+          },
+          "response": []
+        }
+      ],
+      "description": "Summary endpoints for dashboard analytics and statistics"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

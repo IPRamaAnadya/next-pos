@@ -46,6 +46,7 @@ export class PrismaMessageTemplateRepository implements MessageTemplateRepositor
   private mapEventToPrisma(event: MessageEvent): string | null {
     const eventMap: Record<MessageEvent, string> = {
       [MessageEvent.ORDER_CREATED]: "ORDER_CREATED",
+      [MessageEvent.ORDER_UPDATED]: "ORDER_UPDATED",
       [MessageEvent.ORDER_PAID]: "ORDER_PAID",
       [MessageEvent.ORDER_COMPLETED]: "ORDER_COMPLETED",
       [MessageEvent.ORDER_CANCELLED]: "ORDER_CANCELLED",
@@ -63,6 +64,7 @@ export class PrismaMessageTemplateRepository implements MessageTemplateRepositor
 
     const eventMap: Record<string, MessageEvent> = {
       ORDER_CREATED: MessageEvent.ORDER_CREATED,
+      ORDER_UPDATED: MessageEvent.ORDER_UPDATED,
       ORDER_PAID: MessageEvent.ORDER_PAID,
       ORDER_COMPLETED: MessageEvent.ORDER_COMPLETED,
       ORDER_CANCELLED: MessageEvent.ORDER_CANCELLED,
@@ -99,13 +101,26 @@ export class PrismaMessageTemplateRepository implements MessageTemplateRepositor
   }
 
   async findAll(filters: MessageTemplateFilters): Promise<MessageTemplate[]> {
+    // Build where clause dynamically
+    const where: any = {
+      tenantId: filters.tenantId,
+      isActive: true,
+    };
+
+    // Handle event filter - if undefined and isCustom is true, filter for null events
+    if (filters.event !== undefined) {
+      where.event = this.mapEventToPrisma(filters.event);
+    } else if (filters.isCustom === true) {
+      where.event = null; // Custom templates have null event
+    }
+
+    // Add isCustom filter if specified
+    if (filters.isCustom !== undefined) {
+      where.isCustom = filters.isCustom;
+    }
+
     const prismaTemplates = await prisma.notificationTemplate.findMany({
-      where: {
-        tenantId: filters.tenantId,
-        event: filters.event ? (this.mapEventToPrisma(filters.event) as any) : undefined,
-        isCustom: filters.isCustom,
-        isActive: true,
-      },
+      where,
       orderBy: {
         createdAt: "desc",
       },

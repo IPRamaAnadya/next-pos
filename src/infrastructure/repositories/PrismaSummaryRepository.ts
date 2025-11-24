@@ -3,7 +3,7 @@
  * Implements summary data access using Prisma ORM with optimized queries
  */
 
-import { PrismaClient } from '@/app/generated/prisma';
+import prisma from '@/lib/prisma';
 import { SummaryRepository } from '@/domain/repositories/SummaryRepository';
 import {
   DailyOrderSummary,
@@ -16,7 +16,7 @@ import {
 import { format } from 'date-fns';
 
 export class PrismaSummaryRepository implements SummaryRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor() {}
 
   async getDailyOrders(
     tenantId: string,
@@ -26,7 +26,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     // Fetch all data in parallel for date range
     const [orders, expenses, payments] = await Promise.all([
       // Aggregate orders by date
-      this.prisma.order.findMany({
+      prisma.order.findMany({
         where: {
           tenantId,
           paymentDate: {
@@ -41,7 +41,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
         },
       }),
       // Aggregate expenses by date
-      this.prisma.expense.findMany({
+      prisma.expense.findMany({
         where: {
           tenantId,
           createdAt: {
@@ -56,7 +56,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
         },
       }),
       // Aggregate payments by date
-      this.prisma.order.findMany({
+      prisma.order.findMany({
         where: {
           tenantId,
           paymentDate: {
@@ -72,13 +72,23 @@ export class PrismaSummaryRepository implements SummaryRepository {
       }),
     ]);
 
-    // Group data by date key (YYYY-MM-DD)
+    // Helper function to get 24-hour period key from timestamp
+    // Groups data by 24-hour periods starting from startDate
+    // This solves timezone issues where UTC times span two calendar days
+    const getPeriodKey = (timestamp: Date): string => {
+      const diffMs = timestamp.getTime() - startDate.getTime();
+      const dayIndex = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+      const periodStart = new Date(startDate.getTime() + dayIndex * 24 * 60 * 60 * 1000);
+      return periodStart.toISOString();
+    };
+
+    // Group data by 24-hour period starting from startDate
     const dailyData = new Map<string, DailyOrderSummary>();
 
     // Process orders
     orders.forEach((order) => {
       if (!order.paymentDate) return;
-      const dateKey = format(order.paymentDate, 'yyyy-MM-dd');
+      const dateKey = getPeriodKey(order.paymentDate);
       const existing = dailyData.get(dateKey) || {
         date: dateKey,
         totalOrders: 0,
@@ -95,7 +105,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     // Process expenses
     expenses.forEach((expense) => {
       if (!expense.createdAt) return;
-      const dateKey = format(expense.createdAt, 'yyyy-MM-dd');
+      const dateKey = getPeriodKey(expense.createdAt);
       const existing = dailyData.get(dateKey) || {
         date: dateKey,
         totalOrders: 0,
@@ -111,7 +121,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     // Process payments (already included in orders, so same data)
     payments.forEach((payment) => {
       if (!payment.paymentDate) return;
-      const dateKey = format(payment.paymentDate, 'yyyy-MM-dd');
+      const dateKey = getPeriodKey(payment.paymentDate);
       const existing = dailyData.get(dateKey);
       if (existing) {
         existing.totalPaymentsReceived += payment.grandTotal?.toNumber() || 0;
@@ -137,7 +147,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     // Execute queries in parallel for efficiency
     const [paymentBreakdown, expenseBreakdown] = await Promise.all([
       // Group orders by payment method
-      this.prisma.order.groupBy({
+      prisma.order.groupBy({
         by: ['paymentMethod'],
         where: {
           tenantId,
@@ -152,7 +162,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
         },
       }),
       // Group expenses by payment type
-      this.prisma.expense.groupBy({
+      prisma.expense.groupBy({
         by: ['paymentType'],
         where: {
           tenantId,
@@ -191,7 +201,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     todayEnd: Date
   ): Promise<TodayOrdersSummary> {
     // Fetch today's paid orders with customer info in single query
-    const orders = await this.prisma.order.findMany({
+    const orders = await prisma.order.findMany({
       where: {
         tenantId,
         paymentDate: {
@@ -234,14 +244,16 @@ export class PrismaSummaryRepository implements SummaryRepository {
 
   async getTodayExpenses(
     tenantId: string,
-    todayStart: Date
+    todayStart: Date,
+    todayEnd: Date
   ): Promise<TodayExpensesSummary> {
-    // Aggregate total expenses for today
-    const result = await this.prisma.expense.aggregate({
+    // Aggregate total expenses for the date range
+    const result = await prisma.expense.aggregate({
       where: {
         tenantId,
         createdAt: {
           gte: todayStart,
+          lte: todayEnd,
         },
         isShow: true,
       },
@@ -263,7 +275,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     limit: number
   ): Promise<TopCustomersSummary> {
     // Use groupBy to aggregate customer spending efficiently
-    const topCustomersData = await this.prisma.order.groupBy({
+    const topCustomersData = await prisma.order.groupBy({
       by: ['customerId'],
       where: {
         tenantId,
@@ -293,7 +305,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
       .map((c) => c.customerId)
       .filter((id): id is string => id !== null);
 
-    const customers = await this.prisma.customer.findMany({
+    const customers = await prisma.customer.findMany({
       where: {
         id: { in: customerIds },
       },
@@ -338,7 +350,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     endDate: Date
   ): Promise<DailyPaymentReceivedSummary> {
     // Aggregate total payments received in date range
-    const result = await this.prisma.order.aggregate({
+    const result = await prisma.order.aggregate({
       where: {
         tenantId,
         paymentStatus: 'paid',

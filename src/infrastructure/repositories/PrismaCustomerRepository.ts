@@ -48,14 +48,26 @@ export class PrismaCustomerRepository implements CustomerRepository {
 
   async findById(id: string, tenantId: string): Promise<Customer | null> {
     try {
-      const customer = await prisma.customer.findUnique({
-        where: { id, tenantId },
+      console.log('🔍 PrismaCustomerRepository.findById called with:', { id, tenantId });
+      
+      const customer = await prisma.customer.findFirst({
+        where: { 
+          id, 
+          tenantId 
+        },
       });
+
+      console.log('📊 Query result:', customer ? { 
+        id: customer.id, 
+        tenantId: customer.tenantId, 
+        name: customer.name, 
+        phone: customer.phone 
+      } : 'null');
 
       if (!customer) return null;
       return this.mapToEntity(customer);
     } catch (error) {
-      console.error('Error finding customer by ID:', error);
+      console.error('❌ Error finding customer by ID:', error);
       throw new Error(`Failed to find customer with ID: ${id}`);
     }
   }

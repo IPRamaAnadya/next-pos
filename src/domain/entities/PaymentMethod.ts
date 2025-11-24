@@ -40,7 +40,10 @@ export class PaymentMethod {
 
   /**
    * Calculate total fee for a given amount
-   * Fee = Fixed Fee + (Amount × Fee Percentage) + (Amount × Tax Percentage)
+   * Fee = Fixed Fee + (Amount × Fee Percentage)
+   * Total Fee with Tax = Fee + (Fee × Tax Percentage)
+   * Example: transactionFee = 4000, taxPercentage = 10%
+   *          Total = 4000 + (4000 × 10%) = 4000 + 400 = 4400
    */
   calculateTotalFee(amount: number): number {
     let fee = this.transactionFee;
@@ -50,9 +53,9 @@ export class PaymentMethod {
       fee += (amount * this.feePercentage) / 100;
     }
     
-    // Add tax/PPN (e.g., 11% PPN)
+    // Add tax/PPN to the transaction fee (e.g., 10% tax on the fee itself)
     if (this.taxPercentage && this.taxPercentage > 0) {
-      fee += (amount * this.taxPercentage) / 100;
+      fee += (fee * this.taxPercentage) / 100;
     }
     
     return Math.round(fee);

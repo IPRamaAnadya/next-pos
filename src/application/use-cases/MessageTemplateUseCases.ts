@@ -32,14 +32,8 @@ export class CreateMessageTemplateUseCase {
     message: string;
     isCustom: boolean;
   }): Promise<MessageTemplate> {
-    // Check if template with same event already exists (for non-custom templates)
-    if (!params.isCustom) {
-      const existing = await this.templateRepository.findByEvent(params.tenantId, params.event);
-      if (existing) {
-        throw new Error(`Template for event ${params.event} already exists`);
-      }
-    }
-
+    // Allow multiple templates for the same event
+    // No validation check - users can create as many templates as they want
     return await this.templateRepository.create(params);
   }
 }
@@ -127,17 +121,14 @@ export class UpdateMessageTemplateUseCase {
     name?: string;
     message?: string;
   }): Promise<MessageTemplate> {
-    // Check if template exists and is editable
+    // Check if template exists
     const template = await this.templateRepository.findById(params.id, params.tenantId);
 
     if (!template) {
       throw new Error(`Template not found: ${params.id}`);
     }
 
-    if (!template.isEditable()) {
-      throw new Error("Cannot edit system template");
-    }
-
+    // Allow editing both system and custom templates
     return await this.templateRepository.update(params.id, params.tenantId, {
       name: params.name,
       message: params.message,
@@ -165,17 +156,14 @@ export class DeleteMessageTemplateUseCase {
   }
 
   async execute(id: string, tenantId: string): Promise<void> {
-    // Check if template exists and is editable
+    // Check if template exists
     const template = await this.templateRepository.findById(id, tenantId);
 
     if (!template) {
       throw new Error(`Template not found: ${id}`);
     }
 
-    if (!template.isEditable()) {
-      throw new Error("Cannot delete system template");
-    }
-
+    // Allow deleting both system and custom templates
     await this.templateRepository.delete(id, tenantId);
   }
 }

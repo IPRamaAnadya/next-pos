@@ -6,14 +6,26 @@ import {
   SubscriptionLimitService 
 } from '../../domain/repositories/OrderRepository';
 import { SubscriptionLimitError } from '../../domain/errors/OrderErrors';
+import { SendOrderNotificationUseCase, OrderNotificationEvent } from './customer-messaging/SendOrderNotificationUseCase';
+import { fixPhoneNumber } from '@/lib/notificationUtils';
+import prisma from '@/lib/prisma';
 
 export class CreateOrderUseCase {
+  private sendOrderNotificationUseCase?: SendOrderNotificationUseCase;
+
   constructor(
     private orderRepository: OrderRepository,
     private customerRepository: CustomerRepository,
     private notificationService: NotificationService,
     private subscriptionLimitService: SubscriptionLimitService
   ) {}
+
+  private getNotificationUseCase(): SendOrderNotificationUseCase {
+    if (!this.sendOrderNotificationUseCase) {
+      this.sendOrderNotificationUseCase = new SendOrderNotificationUseCase();
+    }
+    return this.sendOrderNotificationUseCase;
+  }
 
   async execute(data: CreateOrderData, tenantId: string): Promise<Order> {
     // Check subscription limits
@@ -31,9 +43,12 @@ export class CreateOrderUseCase {
       await this.handleCustomerPoints(data);
     }
 
-    // Send notification (async, don't block the response)
-    this.sendOrderNotification(order, tenantId).catch(error => {
-      console.error('Failed to send order notification:', error);
+    // Send notification using new messaging system (async, don't block the response)
+    // Wrapped in setImmediate to ensure it doesn't block the response
+    setImmediate(() => {
+      this.sendOrderNotification(order, tenantId).catch(error => {
+        console.error('Failed to send order notification:', error);
+      });
     });
 
     return order;
@@ -54,24 +69,72 @@ export class CreateOrderUseCase {
   }
 
   private async sendOrderNotification(order: Order, tenantId: string): Promise<void> {
-    if (!order.customerId) return;
+    try {
+      console.log('📧 Starting order notification for order:', order.id);
+      console.log('Order details:', {
+        orderNo: order.orderNo,
+        customerId: order.customerId,
+        paymentStatus: order.paymentStatus,
+        grandTotal: order.grandTotal
+      });
 
-    const customer = await this.customerRepository.findById(tenantId, order.customerId);
-    if (!customer) return;
+      if (!order.customerId) {
+        console.log('⚠️ No customerId, skipping notification');
+        return;
+      }
+      
+      console.log('Tenant ID: ', tenantId);
+      console.log('customer ID: ', order.customerId);
 
-    const notificationVars = {
-      phone: customer.phone || '',
-      customerName: customer.name || '',
-      grandTotal: `Rp${Number(order.grandTotal).toLocaleString('id-ID')}`,
-    };
+      const customer = await this.customerRepository.findById(order.customerId, tenantId);
+      console.log('Customer found:', customer ? { id: customer.id, name: customer.name, phone: customer.phone } : 'null');
+      
+      if (!customer || !customer.phone) {
+        console.log('⚠️ Customer not found or no phone number, skipping notification');
+        return;
+      }
 
-    const event = order.paymentStatus === 'paid' ? 'ORDER_PAID' : 'ORDER_CREATED';
+      // Normalize phone number
+      const normalizedPhone = fixPhoneNumber(customer.phone);
+      console.log(`📞 Phone normalization: ${customer.phone} → ${normalizedPhone} (length: ${normalizedPhone.length})`);
+      
+      if (!normalizedPhone || normalizedPhone.length < 10) {
+        console.log('⚠️ Invalid phone number after normalization, skipping notification');
+        return;
+      }
 
-    await this.notificationService.sendOrderNotification({
-      tenantId,
-      event,
-      orderId: order.id,
-      variables: notificationVars
-    });
+      const variables = {
+        customerName: customer.name || 'Customer',
+        grandTotal: `Rp${Number(order.grandTotal).toLocaleString('id-ID')}`,
+        orderNumber: order.orderNo,
+      };
+
+      // Determine event based on payment status
+      const event = order.paymentStatus === 'paid' 
+        ? OrderNotificationEvent.ORDER_PAID 
+        : OrderNotificationEvent.ORDER_CREATED;
+
+      console.log(`📨 Sending ${event} notification to ${normalizedPhone}`);
+      console.log('Variables:', variables);
+
+      // Send notification using new messaging system
+      const result = await this.getNotificationUseCase().execute({
+        tenantId,
+        event,
+        recipient: normalizedPhone,
+        variables,
+      });
+
+      if (result.skipped) {
+        console.log(`⏭️ Notification skipped: ${result.message}`);
+      } else if (!result.success) {
+        console.error(`❌ Notification failed: ${result.message}`);
+      } else {
+        console.log(`✅ Notification sent successfully!`);
+      }
+    } catch (error) {
+      // Log error but don't throw - notifications should never break order operations
+      console.error('❌ Error in sendOrderNotification:', error);
+    }
   }
 }

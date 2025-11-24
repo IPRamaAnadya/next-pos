@@ -25,15 +25,11 @@ export class FonnteProvider implements IMessagingProvider {
       throw new Error("Fonnte requires apiUrl and apiToken");
     }
 
-    this.apiUrl = config.apiUrl;
+    this.apiUrl = 'https://api.fonnte.com';
     this.apiToken = config.apiToken;
 
     this.client = axios.create({
       baseURL: this.apiUrl,
-      headers: {
-        Authorization: this.apiToken,
-        "Content-Type": "application/json",
-      },
       timeout: 30000, // 30 seconds
     });
   }
@@ -43,10 +39,13 @@ export class FonnteProvider implements IMessagingProvider {
       // Format phone number (remove non-digits, ensure country code)
       const recipient = this.formatPhoneNumber(params.recipient);
 
-      const response = await this.client.post("/send", {
-        target: recipient,
-        message: params.message,
-        countryCode: "62", // Indonesia
+      // Fonnte uses GET request with query parameters
+      const response = await this.client.get("/send", {
+        params: {
+          token: this.apiToken,
+          target: recipient,
+          message: params.message,
+        },
       });
 
       if (response.data.status === true || response.data.status === "success") {

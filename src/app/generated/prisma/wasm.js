@@ -451,6 +451,16 @@ exports.Prisma.TenantNotificationConfigScalarFieldEnum = {
   apiToken: 'apiToken',
   apiUrl: 'apiUrl',
   isActive: 'isActive',
+  enableOrderCreated: 'enableOrderCreated',
+  enableOrderUpdated: 'enableOrderUpdated',
+  enableOrderPaid: 'enableOrderPaid',
+  enableOrderCompleted: 'enableOrderCompleted',
+  enableOrderCancelled: 'enableOrderCancelled',
+  orderCreatedTemplateId: 'orderCreatedTemplateId',
+  orderUpdatedTemplateId: 'orderUpdatedTemplateId',
+  orderPaidTemplateId: 'orderPaidTemplateId',
+  orderCompletedTemplateId: 'orderCompletedTemplateId',
+  orderCancelledTemplateId: 'orderCancelledTemplateId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -537,6 +547,21 @@ exports.Prisma.StaffShiftScalarFieldEnum = {
   overtimeMinutes: 'overtimeMinutes',
   isCompleted: 'isCompleted',
   notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReportScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  pdfUrl: 'pdfUrl',
+  s3Key: 's3Key',
+  data: 'data',
+  error: 'error',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -634,7 +659,23 @@ exports.LeaveType = exports.$Enums.LeaveType = {
 
 exports.NotificationEvent = exports.$Enums.NotificationEvent = {
   ORDER_CREATED: 'ORDER_CREATED',
-  ORDER_PAID: 'ORDER_PAID'
+  ORDER_UPDATED: 'ORDER_UPDATED',
+  ORDER_PAID: 'ORDER_PAID',
+  ORDER_COMPLETED: 'ORDER_COMPLETED',
+  ORDER_CANCELLED: 'ORDER_CANCELLED',
+  PAYMENT_REMINDER: 'PAYMENT_REMINDER',
+  CUSTOM: 'CUSTOM'
+};
+
+exports.ReportType = exports.$Enums.ReportType = {
+  SALES: 'SALES',
+  PROFIT_LOSS: 'PROFIT_LOSS'
+};
+
+exports.ReportStatus = exports.$Enums.ReportStatus = {
+  PENDING: 'PENDING',
+  GENERATED: 'GENERATED',
+  FAILED: 'FAILED'
 };
 
 exports.DonationStatus = exports.$Enums.DonationStatus = {
@@ -676,6 +717,7 @@ exports.Prisma.ModelName = {
   BannerCampaign: 'BannerCampaign',
   Shift: 'Shift',
   StaffShift: 'StaffShift',
+  Report: 'Report',
   DonationPaymentMethod: 'DonationPaymentMethod',
   TenantDonation: 'TenantDonation'
 };

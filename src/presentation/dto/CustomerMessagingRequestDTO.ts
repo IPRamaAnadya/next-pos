@@ -64,7 +64,7 @@ export const createMessageTemplateSchema = yup.object({
   event: yup
     .string()
     .oneOf(
-      ["ORDER_CREATED", "ORDER_PAID", "ORDER_COMPLETED", "ORDER_CANCELLED", "PAYMENT_REMINDER", "CUSTOM"],
+      ["ORDER_CREATED", "ORDER_PAID", "ORDER_COMPLETED", "ORDER_CANCELLED", "PAYMENT_REMINDER", "CUSTOM", "ORDER_UPDATED"],
       "Invalid event"
     )
     .required("Event is required"),
