@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { StaffShiftController } from '../../../../../../../../../presentation/controllers/StaffShiftController';
+import { StaffShiftController } from '@/presentation/controllers/StaffShiftController';
 
 // Use singleton to prevent memory leaks
 const getStaffShiftController = () => StaffShiftController.getInstance();

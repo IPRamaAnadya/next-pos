@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { ExpenseController } from '../../../../../../../../../presentation/controllers/ExpenseController';
+import { ExpenseController } from '@/presentation/controllers/ExpenseController';
 
 // Use singleton to prevent memory leaks
 const getExpenseController = () => ExpenseController.getInstance();

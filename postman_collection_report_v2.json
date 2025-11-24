@@ -1,0 +1,506 @@
+{
+	"info": {
+		"_postman_id": "report-v2-collection-2024",
+		"name": "Report V2 API",
+		"description": "Complete V2 Report API collection including available periods, sales reports, and profit & loss reports with PDF generation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "report-v2"
+	},
+	"item": [
+		{
+			"name": "Available Periods",
+			"item": [
+				{
+					"name": "Get Available Periods",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/available-period",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenantId}}",
+								"report",
+								"available-period"
+							]
+						},
+						"description": "Get list of available report periods based on order history. Returns periods from first order date to last month in YYYY-MM-01 format."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/available-period",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tenants",
+										"{{tenantId}}",
+										"report",
+										"available-period"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"message\": \"Success\"\n    },\n    \"data\": [\n        \"2025-01-01\",\n        \"2025-02-01\",\n        \"2025-03-01\",\n        \"2025-04-01\",\n        \"2025-05-01\",\n        \"2025-06-01\",\n        \"2025-07-01\",\n        \"2025-08-01\",\n        \"2025-09-01\",\n        \"2025-10-01\"\n    ]\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints to retrieve available report periods"
+		},
+		{
+			"name": "Sales Report",
+			"item": [
+				{
+					"name": "Get Sales Report Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/sales?period=2025-10-01",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenantId}}",
+								"report",
+								"sales"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "2025-10-01",
+									"description": "Report period in YYYY-MM-01 format. If omitted, returns previous month's report."
+								}
+							]
+						},
+						"description": "Get sales report data including product breakdown, quantities sold, revenue, and period information. Data includes timezone-adjusted calculations."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/sales?period=2025-10-01",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tenants",
+										"{{tenantId}}",
+										"report",
+										"sales"
+									],
+									"query": [
+										{
+											"key": "period",
+											"value": "2025-10-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"message\": \"\"\n    },\n    \"data\": {\n        \"reportTitle\": \"Laporan Penjualan\",\n        \"businessName\": \"Toko ABC\",\n        \"period\": \"2025-10-01\",\n        \"periodLabel\": \"Oktober 2025\",\n        \"timezone\": \"Asia/Makassar\",\n        \"products\": [\n            {\n                \"name\": \"Kopi Susu\",\n                \"category\": \"Minuman\",\n                \"qty\": 150,\n                \"unit\": \"cup\",\n                \"revenue\": 750000\n            },\n            {\n                \"name\": \"Nasi Goreng\",\n                \"category\": \"Makanan\",\n                \"qty\": 80,\n                \"unit\": \"porsi\",\n                \"revenue\": 640000\n            }\n        ],\n        \"totalRevenue\": 1390000,\n        \"totalQty\": 230\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Sales Report PDF",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data && jsonData.data.id) {",
+									"        pm.collectionVariables.set(\"salesReportId\", jsonData.data.id);",
+									"        console.log(\"Saved salesReportId:\", jsonData.data.id);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/sales/pdf?period=2025-10-01",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenantId}}",
+								"report",
+								"sales",
+								"pdf"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "2025-10-01",
+									"description": "Report period in YYYY-MM-01 format. If omitted, returns previous month's report."
+								}
+							]
+						},
+						"description": "Generate and retrieve sales report in PDF format. The PDF is cached in database and S3 for future requests. Returns report metadata including PDF URL."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/sales/pdf?period=2025-10-01",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tenants",
+										"{{tenantId}}",
+										"report",
+										"sales",
+										"pdf"
+									],
+									"query": [
+										{
+											"key": "period",
+											"value": "2025-10-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"message\": \"Success\"\n    },\n    \"data\": {\n        \"id\": \"clm1234567890abcdef\",\n        \"tenantId\": \"tenant123\",\n        \"type\": \"sales\",\n        \"period\": \"2025-10-01\",\n        \"title\": \"Laporan Penjualan Oktober 2025\",\n        \"pdfUrl\": \"https://s3.amazonaws.com/bucket/reports/sales-2025-10.pdf\",\n        \"createdAt\": \"2025-11-24T10:30:00.000Z\",\n        \"data\": {\n            \"reportTitle\": \"Laporan Penjualan\",\n            \"businessName\": \"Toko ABC\",\n            \"period\": \"2025-10-01\",\n            \"periodLabel\": \"Oktober 2025\",\n            \"products\": [],\n            \"totalRevenue\": 1390000\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Sales report endpoints for data and PDF generation"
+		},
+		{
+			"name": "Profit & Loss Report",
+			"item": [
+				{
+					"name": "Get Profit & Loss Report Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/profit-and-loss?period=2025-10-01",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenantId}}",
+								"report",
+								"profit-and-loss"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "2025-10-01",
+									"description": "Report period in YYYY-MM-01 format. If omitted, returns previous month's report."
+								}
+							]
+						},
+						"description": "Get profit and loss report data including revenue breakdown by payment methods and expense categories, with net profit/loss calculation."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/profit-and-loss?period=2025-10-01",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tenants",
+										"{{tenantId}}",
+										"report",
+										"profit-and-loss"
+									],
+									"query": [
+										{
+											"key": "period",
+											"value": "2025-10-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"message\": \"\"\n    },\n    \"data\": {\n        \"reportTitle\": \"Laporan Laba Rugi\",\n        \"businessName\": \"Toko ABC\",\n        \"period\": \"2025-10-01\",\n        \"periodLabel\": \"Oktober 2025\",\n        \"timezone\": \"Asia/Makassar\",\n        \"revenue\": {\n            \"items\": [\n                {\n                    \"label\": \"Cash\",\n                    \"amount\": 5000000\n                },\n                {\n                    \"label\": \"QRIS\",\n                    \"amount\": 3000000\n                },\n                {\n                    \"label\": \"Transfer\",\n                    \"amount\": 2000000\n                }\n            ],\n            \"total\": 10000000\n        },\n        \"expenses\": {\n            \"categories\": [\n                {\n                    \"name\": \"Bahan Baku\",\n                    \"items\": [\n                        {\n                            \"description\": \"Kopi Arabica\",\n                            \"amount\": 1500000\n                        },\n                        {\n                            \"description\": \"Susu\",\n                            \"amount\": 800000\n                        }\n                    ],\n                    \"total\": 2300000\n                },\n                {\n                    \"name\": \"Operasional\",\n                    \"items\": [\n                        {\n                            \"description\": \"Listrik\",\n                            \"amount\": 500000\n                        },\n                        {\n                            \"description\": \"Gaji Karyawan\",\n                            \"amount\": 3000000\n                        }\n                    ],\n                    \"total\": 3500000\n                }\n            ],\n            \"total\": 5800000\n        },\n        \"netProfit\": 4200000\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Profit & Loss Report PDF",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.data && jsonData.data.id) {",
+									"        pm.collectionVariables.set(\"profitLossReportId\", jsonData.data.id);",
+									"        console.log(\"Saved profitLossReportId:\", jsonData.data.id);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/profit-and-loss/pdf?period=2025-10-01",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tenants",
+								"{{tenantId}}",
+								"report",
+								"profit-and-loss",
+								"pdf"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "2025-10-01",
+									"description": "Report period in YYYY-MM-01 format. If omitted, returns previous month's report."
+								}
+							]
+						},
+						"description": "Generate and retrieve profit & loss report in PDF format. The PDF is cached in database and S3 for future requests. Returns report metadata including PDF URL."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/report/profit-and-loss/pdf?period=2025-10-01",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tenants",
+										"{{tenantId}}",
+										"report",
+										"profit-and-loss",
+										"pdf"
+									],
+									"query": [
+										{
+											"key": "period",
+											"value": "2025-10-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"message\": \"Success\"\n    },\n    \"data\": {\n        \"id\": \"clm9876543210zyxwvu\",\n        \"tenantId\": \"tenant123\",\n        \"type\": \"profit_and_loss\",\n        \"period\": \"2025-10-01\",\n        \"title\": \"Laporan Laba Rugi Oktober 2025\",\n        \"pdfUrl\": \"https://s3.amazonaws.com/bucket/reports/profit-loss-2025-10.pdf\",\n        \"createdAt\": \"2025-11-24T10:35:00.000Z\",\n        \"data\": {\n            \"reportTitle\": \"Laporan Laba Rugi\",\n            \"businessName\": \"Toko ABC\",\n            \"period\": \"2025-10-01\",\n            \"periodLabel\": \"Oktober 2025\",\n            \"revenue\": {\n                \"total\": 10000000\n            },\n            \"expenses\": {\n                \"total\": 5800000\n            },\n            \"netProfit\": 4200000\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Profit & loss report endpoints for financial data and PDF generation"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "your_jwt_token_here",
+			"type": "string"
+		},
+		{
+			"key": "tenantId",
+			"value": "your_tenant_id_here",
+			"type": "string"
+		},
+		{
+			"key": "salesReportId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "profitLossReportId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

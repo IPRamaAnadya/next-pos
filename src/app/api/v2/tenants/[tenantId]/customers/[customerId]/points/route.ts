@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { CustomerController } from '../../../../../../../../presentation/controllers/CustomerController';
+import { CustomerController } from '@/presentation/controllers/CustomerController';
 
 // Use singleton to prevent memory leaks
 const getCustomerController = () => CustomerController.getInstance();
