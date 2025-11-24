@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { AuthController } from '../../../../../../presentation/controllers/AuthController';
+import { AuthController } from '@/presentation/controllers/AuthController';
 
 // Use singleton to prevent memory leaks
 const getAuthController = () => AuthController.getInstance();

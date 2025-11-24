@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { DiscountController } from '../../../../../../presentation/controllers/DiscountController';
+import { DiscountController } from '@/presentation/controllers/DiscountController';
 
 // Use singleton to prevent memory leaks
 const getDiscountController = () => DiscountController.getInstance();

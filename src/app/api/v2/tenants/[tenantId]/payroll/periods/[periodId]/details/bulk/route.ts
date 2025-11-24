@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { PayrollController } from '../../../../../../../../../../presentation/controllers/PayrollController';
+import { PayrollController } from '@/presentation/controllers/PayrollController';
 
 const payrollController = new PayrollController();
 
