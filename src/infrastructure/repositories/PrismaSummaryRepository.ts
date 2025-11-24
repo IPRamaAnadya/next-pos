@@ -13,7 +13,6 @@ import {
   TopCustomersSummary,
   DailyPaymentReceivedSummary,
 } from '@/domain/entities/Summary';
-import { format } from 'date-fns';
 
 export class PrismaSummaryRepository implements SummaryRepository {
   constructor() {}
@@ -24,8 +23,8 @@ export class PrismaSummaryRepository implements SummaryRepository {
     endDate: Date
   ): Promise<DailyOrderSummary[]> {
     // Fetch all data in parallel for date range
-    const [orders, expenses, payments] = await Promise.all([
-      // Aggregate orders by date
+    const [orders, allOrders, expenses, payments] = await Promise.all([
+      // Aggregate paid orders by date
       prisma.order.findMany({
         where: {
           tenantId,
@@ -40,6 +39,21 @@ export class PrismaSummaryRepository implements SummaryRepository {
           grandTotal: true,
         },
       }),
+      // Aggregate all orders (paid + unpaid) by date
+      prisma.order.findMany({
+        where: {
+          tenantId,
+          createdAt: {
+            gte: startDate,
+            lte: endDate,
+          },
+        },
+        select: {
+          createdAt: true,
+          grandTotal: true,
+          paymentStatus: true,
+        },
+      }),
       // Aggregate expenses by date
       prisma.expense.findMany({
         where: {
@@ -48,7 +62,6 @@ export class PrismaSummaryRepository implements SummaryRepository {
             gte: startDate,
             lte: endDate,
           },
-          isShow: true,
         },
         select: {
           createdAt: true,
@@ -71,7 +84,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
         },
       }),
     ]);
-
+    
     // Helper function to get 24-hour period key from timestamp
     // Groups data by 24-hour periods starting from startDate
     // This solves timezone issues where UTC times span two calendar days
@@ -85,7 +98,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
     // Group data by 24-hour period starting from startDate
     const dailyData = new Map<string, DailyOrderSummary>();
 
-    // Process orders
+    // Process paid orders
     orders.forEach((order) => {
       if (!order.paymentDate) return;
       const dateKey = getPeriodKey(order.paymentDate);
@@ -96,9 +109,37 @@ export class PrismaSummaryRepository implements SummaryRepository {
         totalExpenses: 0,
         totalPaymentsReceived: 0,
         netProfit: 0,
+        totalAmountCreated: 0,
+        totalAmountPaid: 0,
+        totalAmountUnpaid: 0,
       };
       existing.totalOrders += 1;
       existing.totalRevenue += order.grandTotal?.toNumber() || 0;
+      dailyData.set(dateKey, existing);
+    });
+
+    // Process all orders to calculate total_amount_created and total_amount_unpaid
+    allOrders.forEach((order) => {
+      if (!order.createdAt) return;
+      const dateKey = getPeriodKey(order.createdAt);
+      const existing = dailyData.get(dateKey) || {
+        date: dateKey,
+        totalOrders: 0,
+        totalRevenue: 0,
+        totalExpenses: 0,
+        totalPaymentsReceived: 0,
+        netProfit: 0,
+        totalAmountCreated: 0,
+        totalAmountPaid: 0,
+        totalAmountUnpaid: 0,
+      };
+      const amount = order.grandTotal?.toNumber() || 0;
+      existing.totalAmountCreated += amount;
+      if (order.paymentStatus === 'paid') {
+        existing.totalAmountPaid += amount;
+      } else {
+        existing.totalAmountUnpaid += amount;
+      }
       dailyData.set(dateKey, existing);
     });
 
@@ -113,6 +154,9 @@ export class PrismaSummaryRepository implements SummaryRepository {
         totalExpenses: 0,
         totalPaymentsReceived: 0,
         netProfit: 0,
+        totalAmountCreated: 0,
+        totalAmountPaid: 0,
+        totalAmountUnpaid: 0,
       };
       existing.totalExpenses += expense.amount?.toNumber() || 0;
       dailyData.set(dateKey, existing);

@@ -23,6 +23,9 @@ export function mapDailyOrdersSummaryResponse(summaries: DailyOrderSummary[]) {
     total_expenses: summary.totalExpenses,
     total_payments_received: summary.totalPaymentsReceived,
     net_profit: summary.netProfit,
+    total_amount_created: summary.totalAmountCreated,
+    total_amount_paid: summary.totalAmountPaid,
+    total_amount_unpaid: summary.totalAmountUnpaid,
   }));
 }
 

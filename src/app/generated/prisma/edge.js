@@ -704,7 +704,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/iputuramaanadya/Desktop/random/next-pos/src/app/generated/prisma",
+      "value": "/Volumes/Rama SSD/Work/freelance/next-pos-prod/src/app/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -718,7 +718,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/iputuramaanadya/Desktop/random/next-pos/prisma/schema.prisma",
+    "sourceFilePath": "/Volumes/Rama SSD/Work/freelance/next-pos-prod/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

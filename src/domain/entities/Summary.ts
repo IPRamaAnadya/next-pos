@@ -13,6 +13,9 @@ export interface DailyOrderSummary {
   totalExpenses: number;
   totalPaymentsReceived: number;
   netProfit: number; // totalRevenue - totalExpenses
+  totalAmountCreated: number; // Sum of all orders created (paid + unpaid)
+  totalAmountPaid: number; // Sum of paid orders
+  totalAmountUnpaid: number; // Sum of unpaid orders
 }
 
 /**
