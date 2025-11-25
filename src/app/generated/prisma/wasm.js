@@ -604,6 +604,52 @@ exports.Prisma.TenantDonationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PushNotificationTokenScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  staffId: 'staffId',
+  fcmToken: 'fcmToken',
+  deviceType: 'deviceType',
+  deviceId: 'deviceId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastUsedAt: 'lastUsedAt'
+};
+
+exports.Prisma.PushNotificationMessageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  body: 'body',
+  data: 'data',
+  imageUrl: 'imageUrl',
+  targetType: 'targetType',
+  targetValue: 'targetValue',
+  category: 'category',
+  eventType: 'eventType',
+  status: 'status',
+  sentAt: 'sentAt',
+  failedAt: 'failedAt',
+  fcmResponse: 'fcmResponse',
+  error: 'error',
+  retryCount: 'retryCount',
+  maxRetries: 'maxRetries',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PushNotificationSubscriptionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  tokenId: 'tokenId',
+  topic: 'topic',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -719,7 +765,10 @@ exports.Prisma.ModelName = {
   StaffShift: 'StaffShift',
   Report: 'Report',
   DonationPaymentMethod: 'DonationPaymentMethod',
-  TenantDonation: 'TenantDonation'
+  TenantDonation: 'TenantDonation',
+  PushNotificationToken: 'PushNotificationToken',
+  PushNotificationMessage: 'PushNotificationMessage',
+  PushNotificationSubscription: 'PushNotificationSubscription'
 };
 
 /**

@@ -257,6 +257,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
       select: {
         grandTotal: true,
         paymentDate: true,
+        paymentMethod: true,
         customer: {
           select: {
             name: true,
@@ -272,6 +273,7 @@ export class PrismaSummaryRepository implements SummaryRepository {
       grandTotal: order.grandTotal?.toNumber() || 0,
       paymentDate: order.paymentDate,
       customerName: order.customer?.name || null,
+      paymentMethod: order.paymentMethod || null,
     }));
 
     const totalRevenue = orderList.reduce(

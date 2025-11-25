@@ -54,15 +54,12 @@ export function mapPaymentMethodSummaryResponse(summary: PaymentMethodSummary) {
  * Map today's orders summary to API response
  */
 export function mapTodayOrdersSummaryResponse(summary: TodayOrdersSummary) {
-  return {
-    orders: summary.orders.map((order) => ({
-      grand_total: order.grandTotal,
-      payment_date: order.paymentDate ? order.paymentDate.toISOString() : null,
-      customer_name: order.customerName,
-    })),
-    total_orders: summary.totalOrders,
-    total_revenue: summary.totalRevenue,
-  };
+  return summary.orders.map((order) => ({
+    grand_total: order.grandTotal,
+    payment_date: order.paymentDate ? order.paymentDate.toISOString() : null,
+    customer_name: order.customerName,
+    payment_method: order.paymentMethod,
+  }));
 }
 
 /**

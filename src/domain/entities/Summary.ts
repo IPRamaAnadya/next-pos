@@ -48,6 +48,7 @@ export interface TodayOrder {
   grandTotal: number;
   paymentDate: Date | null;
   customerName: string | null;
+  paymentMethod: string | null;
 }
 
 export interface TodayOrdersSummary {
