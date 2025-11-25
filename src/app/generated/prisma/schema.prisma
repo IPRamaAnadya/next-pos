@@ -27,10 +27,12 @@ model User {
   provider      String?                 @default("email")
   providerId    String?
   emailVerified Boolean?                @default(false)
+  role          UserRole                @default(USER)
   createdAt     DateTime                @default(now()) @db.Timestamptz(6)
   updatedAt     DateTime                @updatedAt @db.Timestamptz(6)
   tenants       Tenant[]
   pushTokens    PushNotificationToken[]
+  hunter        Hunter?
 
   @@unique([provider, providerId])
 }
@@ -44,9 +46,11 @@ model Tenant {
   phone                       String?
   subscribedUntil             DateTime?                   @map("subscribed_until") @db.Timestamptz(6)
   isSubscribed                Boolean?                    @default(false) @map("is_subscribed")
+  hunterReferralCode          String?                     @map("hunter_referral_code") // Hunter referral code used during registration
   createdAt                   DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt                   DateTime                    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   user                        User                        @relation(fields: [userId], references: [id])
+  hunter                      Hunter?                     @relation(fields: [hunterReferralCode], references: [referralCode])
   customers                   Customer[]
   discounts                   Discount[]
   expenseCategories           ExpenseCategory[]
@@ -129,6 +133,12 @@ enum AdminRole {
   STAFF
 }
 
+enum UserRole {
+  USER
+  HUNTER
+  ADMIN
+}
+
 model Admin {
   id          String    @id @default(uuid()) @db.Uuid
   role        AdminRole @default(ADMIN)
@@ -140,6 +150,7 @@ model Admin {
   lastLoginAt DateTime? @map("last_login_at") @db.Timestamptz(6)
   createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  hunters     Hunter[]
 
   @@index([email])
 }
@@ -857,6 +868,8 @@ model TenantDonation {
 
   tenant        Tenant                 @relation(fields: [tenantId], references: [id])
   paymentMethod DonationPaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+  commissions   HunterCommission[]
+  systemLedgers SystemLedger[]
 
   @@index([tenantId])
   @@index([status])
@@ -952,4 +965,153 @@ model PushNotificationSubscription {
   @@index([tenantId])
   @@index([topic])
   @@index([isActive])
+}
+
+// =========================================================
+//  HUNTER / AFFILIATE SYSTEM
+// =========================================================
+
+model Hunter {
+  id                   String   @id @default(uuid()) @db.Uuid
+  userId               String?  @unique @map("user_id") @db.Uuid // Optional: Hunter can be a registered user
+  adminId              String   @map("admin_id") @db.Uuid // Admin who created this hunter
+  referralCode         String   @unique @map("referral_code") // Unique referral code
+  name                 String // Hunter full name
+  email                String   @unique
+  phone                String?
+  commissionPercentage Decimal  @default(10) @map("commission_percentage") @db.Decimal(5, 2) // Percentage of donation amount
+  isActive             Boolean  @default(true) @map("is_active")
+  totalEarnings        Decimal  @default(0) @map("total_earnings") @db.Decimal(15, 2) // Cumulative earnings
+  totalPaidOut         Decimal  @default(0) @map("total_paid_out") @db.Decimal(15, 2) // Total amount paid to hunter
+  bankAccountName      String?  @map("bank_account_name")
+  bankAccountNumber    String?  @map("bank_account_number")
+  bankName             String?  @map("bank_name")
+  notes                String?  @db.Text
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user          User?              @relation(fields: [userId], references: [id])
+  admin         Admin              @relation(fields: [adminId], references: [id])
+  tenants       Tenant[] // Tenants referred by this hunter
+  commissions   HunterCommission[]
+  payouts       HunterPayout[]
+  systemLedgers SystemLedger[]     @relation("HunterLedgers")
+
+  @@index([referralCode])
+  @@index([isActive])
+  @@index([adminId])
+  @@index([email])
+}
+
+model HunterCommission {
+  id               String           @id @default(uuid()) @db.Uuid
+  hunterId         String           @map("hunter_id") @db.Uuid
+  tenantId         String           @map("tenant_id") @db.Uuid
+  donationId       String           @map("donation_id") @db.Uuid
+  donationAmount   Decimal          @map("donation_amount") @db.Decimal(15, 2) // Original donation amount
+  commissionRate   Decimal          @map("commission_rate") @db.Decimal(5, 2) // Commission percentage at time of calculation
+  commissionAmount Decimal          @map("commission_amount") @db.Decimal(15, 2) // Calculated commission
+  status           CommissionStatus @default(PENDING)
+  paidOutAt        DateTime?        @map("paid_out_at") @db.Timestamptz(6)
+  notes            String?          @db.Text
+  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  hunter        Hunter         @relation(fields: [hunterId], references: [id])
+  donation      TenantDonation @relation(fields: [donationId], references: [id])
+  systemLedgers SystemLedger[] @relation("CommissionLedgers")
+
+  @@index([hunterId])
+  @@index([tenantId])
+  @@index([donationId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([hunterId, status])
+}
+
+model HunterPayout {
+  id              String       @id @default(uuid()) @db.Uuid
+  hunterId        String       @map("hunter_id") @db.Uuid
+  amount          Decimal      @db.Decimal(15, 2)
+  paymentMethod   String?      @map("payment_method") // bank_transfer, cash, etc
+  referenceNumber String?      @map("reference_number") // Bank transaction reference
+  status          PayoutStatus @default(PENDING)
+  processedBy     String?      @map("processed_by") @db.Uuid // Admin ID who processed
+  processedAt     DateTime?    @map("processed_at") @db.Timestamptz(6)
+  notes           String?      @db.Text
+  createdAt       DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  hunter        Hunter         @relation(fields: [hunterId], references: [id])
+  systemLedgers SystemLedger[] @relation("PayoutLedgers")
+
+  @@index([hunterId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model SystemLedger {
+  id              String          @id @default(uuid()) @db.Uuid
+  transactionType TransactionType @map("transaction_type")
+  category        LedgerCategory
+  amount          Decimal         @db.Decimal(15, 2)
+  balance         Decimal         @db.Decimal(15, 2) // Running balance after this transaction
+  description     String          @db.Text
+  referenceType   String?         @map("reference_type") // donation, commission, payout, subscription, etc
+  referenceId     String?         @map("reference_id") @db.Uuid
+  hunterId        String?         @map("hunter_id") @db.Uuid
+  tenantId        String?         @map("tenant_id") @db.Uuid
+  donationId      String?         @map("donation_id") @db.Uuid
+  commissionId    String?         @map("commission_id") @db.Uuid
+  payoutId        String?         @map("payout_id") @db.Uuid
+  metadata        Json? // Additional data
+  createdAt       DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  hunter     Hunter?           @relation("HunterLedgers", fields: [hunterId], references: [id])
+  donation   TenantDonation?   @relation(fields: [donationId], references: [id])
+  commission HunterCommission? @relation("CommissionLedgers", fields: [commissionId], references: [id])
+  payout     HunterPayout?     @relation("PayoutLedgers", fields: [payoutId], references: [id])
+
+  @@index([transactionType])
+  @@index([category])
+  @@index([hunterId])
+  @@index([tenantId])
+  @@index([donationId])
+  @@index([commissionId])
+  @@index([payoutId])
+  @@index([createdAt])
+  @@index([referenceType, referenceId])
+}
+
+enum CommissionStatus {
+  PENDING // Commission calculated but not paid
+  APPROVED // Approved for payout
+  PAID // Commission paid to hunter
+  CANCELLED // Commission cancelled (e.g., refund)
+}
+
+enum PayoutStatus {
+  PENDING // Payout requested
+  PROCESSING // Being processed
+  COMPLETED // Successfully paid
+  FAILED // Payment failed
+  CANCELLED // Payout cancelled
+}
+
+enum TransactionType {
+  DEBIT // Money out from system
+  CREDIT // Money in to system
+}
+
+enum LedgerCategory {
+  DONATION_RECEIVED // System receives donation from tenant
+  DONATION_REFUND // Refund donation to tenant
+  COMMISSION_CALCULATED // Commission calculated for hunter
+  COMMISSION_PAID // Commission paid to hunter
+  SUBSCRIPTION_RECEIVED // Subscription payment received
+  PLATFORM_FEE // Platform fees
+  PAYMENT_GATEWAY_FEE // Payment gateway transaction fees
+  PAYOUT_TO_HUNTER // Money paid to hunter
+  OTHER_INCOME // Other income
+  OTHER_EXPENSE // Other expenses
 }

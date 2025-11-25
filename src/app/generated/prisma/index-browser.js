@@ -129,6 +129,7 @@ exports.Prisma.UserScalarFieldEnum = {
   provider: 'provider',
   providerId: 'providerId',
   emailVerified: 'emailVerified',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -142,6 +143,7 @@ exports.Prisma.TenantScalarFieldEnum = {
   phone: 'phone',
   subscribedUntil: 'subscribedUntil',
   isSubscribed: 'isSubscribed',
+  hunterReferralCode: 'hunterReferralCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -650,6 +652,73 @@ exports.Prisma.PushNotificationSubscriptionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HunterScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  adminId: 'adminId',
+  referralCode: 'referralCode',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  commissionPercentage: 'commissionPercentage',
+  isActive: 'isActive',
+  totalEarnings: 'totalEarnings',
+  totalPaidOut: 'totalPaidOut',
+  bankAccountName: 'bankAccountName',
+  bankAccountNumber: 'bankAccountNumber',
+  bankName: 'bankName',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HunterCommissionScalarFieldEnum = {
+  id: 'id',
+  hunterId: 'hunterId',
+  tenantId: 'tenantId',
+  donationId: 'donationId',
+  donationAmount: 'donationAmount',
+  commissionRate: 'commissionRate',
+  commissionAmount: 'commissionAmount',
+  status: 'status',
+  paidOutAt: 'paidOutAt',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HunterPayoutScalarFieldEnum = {
+  id: 'id',
+  hunterId: 'hunterId',
+  amount: 'amount',
+  paymentMethod: 'paymentMethod',
+  referenceNumber: 'referenceNumber',
+  status: 'status',
+  processedBy: 'processedBy',
+  processedAt: 'processedAt',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SystemLedgerScalarFieldEnum = {
+  id: 'id',
+  transactionType: 'transactionType',
+  category: 'category',
+  amount: 'amount',
+  balance: 'balance',
+  description: 'description',
+  referenceType: 'referenceType',
+  referenceId: 'referenceId',
+  hunterId: 'hunterId',
+  tenantId: 'tenantId',
+  donationId: 'donationId',
+  commissionId: 'commissionId',
+  payoutId: 'payoutId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -679,6 +748,12 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.UserRole = exports.$Enums.UserRole = {
+  USER: 'USER',
+  HUNTER: 'HUNTER',
+  ADMIN: 'ADMIN'
+};
+
 exports.AdminRole = exports.$Enums.AdminRole = {
   SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',
@@ -731,6 +806,39 @@ exports.DonationStatus = exports.$Enums.DonationStatus = {
   EXPIRED: 'EXPIRED'
 };
 
+exports.CommissionStatus = exports.$Enums.CommissionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.PayoutStatus = exports.$Enums.PayoutStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+};
+
+exports.LedgerCategory = exports.$Enums.LedgerCategory = {
+  DONATION_RECEIVED: 'DONATION_RECEIVED',
+  DONATION_REFUND: 'DONATION_REFUND',
+  COMMISSION_CALCULATED: 'COMMISSION_CALCULATED',
+  COMMISSION_PAID: 'COMMISSION_PAID',
+  SUBSCRIPTION_RECEIVED: 'SUBSCRIPTION_RECEIVED',
+  PLATFORM_FEE: 'PLATFORM_FEE',
+  PAYMENT_GATEWAY_FEE: 'PAYMENT_GATEWAY_FEE',
+  PAYOUT_TO_HUNTER: 'PAYOUT_TO_HUNTER',
+  OTHER_INCOME: 'OTHER_INCOME',
+  OTHER_EXPENSE: 'OTHER_EXPENSE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
@@ -768,7 +876,11 @@ exports.Prisma.ModelName = {
   TenantDonation: 'TenantDonation',
   PushNotificationToken: 'PushNotificationToken',
   PushNotificationMessage: 'PushNotificationMessage',
-  PushNotificationSubscription: 'PushNotificationSubscription'
+  PushNotificationSubscription: 'PushNotificationSubscription',
+  Hunter: 'Hunter',
+  HunterCommission: 'HunterCommission',
+  HunterPayout: 'HunterPayout',
+  SystemLedger: 'SystemLedger'
 };
 
 /**

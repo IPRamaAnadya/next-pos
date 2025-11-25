@@ -198,6 +198,26 @@ export type PushNotificationMessage = $Result.DefaultSelection<Prisma.$PushNotif
  * 
  */
 export type PushNotificationSubscription = $Result.DefaultSelection<Prisma.$PushNotificationSubscriptionPayload>
+/**
+ * Model Hunter
+ * 
+ */
+export type Hunter = $Result.DefaultSelection<Prisma.$HunterPayload>
+/**
+ * Model HunterCommission
+ * 
+ */
+export type HunterCommission = $Result.DefaultSelection<Prisma.$HunterCommissionPayload>
+/**
+ * Model HunterPayout
+ * 
+ */
+export type HunterPayout = $Result.DefaultSelection<Prisma.$HunterPayoutPayload>
+/**
+ * Model SystemLedger
+ * 
+ */
+export type SystemLedger = $Result.DefaultSelection<Prisma.$SystemLedgerPayload>
 
 /**
  * Enums
@@ -210,6 +230,15 @@ export namespace $Enums {
 };
 
 export type AdminRole = (typeof AdminRole)[keyof typeof AdminRole]
+
+
+export const UserRole: {
+  USER: 'USER',
+  HUNTER: 'HUNTER',
+  ADMIN: 'ADMIN'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const LeaveType: {
@@ -278,11 +307,60 @@ export const DonationStatus: {
 
 export type DonationStatus = (typeof DonationStatus)[keyof typeof DonationStatus]
 
+
+export const CommissionStatus: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
+};
+
+export type CommissionStatus = (typeof CommissionStatus)[keyof typeof CommissionStatus]
+
+
+export const PayoutStatus: {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type PayoutStatus = (typeof PayoutStatus)[keyof typeof PayoutStatus]
+
+
+export const TransactionType: {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+};
+
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const LedgerCategory: {
+  DONATION_RECEIVED: 'DONATION_RECEIVED',
+  DONATION_REFUND: 'DONATION_REFUND',
+  COMMISSION_CALCULATED: 'COMMISSION_CALCULATED',
+  COMMISSION_PAID: 'COMMISSION_PAID',
+  SUBSCRIPTION_RECEIVED: 'SUBSCRIPTION_RECEIVED',
+  PLATFORM_FEE: 'PLATFORM_FEE',
+  PAYMENT_GATEWAY_FEE: 'PAYMENT_GATEWAY_FEE',
+  PAYOUT_TO_HUNTER: 'PAYOUT_TO_HUNTER',
+  OTHER_INCOME: 'OTHER_INCOME',
+  OTHER_EXPENSE: 'OTHER_EXPENSE'
+};
+
+export type LedgerCategory = (typeof LedgerCategory)[keyof typeof LedgerCategory]
+
 }
 
 export type AdminRole = $Enums.AdminRole
 
 export const AdminRole: typeof $Enums.AdminRole
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
 
 export type LeaveType = $Enums.LeaveType
 
@@ -311,6 +389,22 @@ export const ReportStatus: typeof $Enums.ReportStatus
 export type DonationStatus = $Enums.DonationStatus
 
 export const DonationStatus: typeof $Enums.DonationStatus
+
+export type CommissionStatus = $Enums.CommissionStatus
+
+export const CommissionStatus: typeof $Enums.CommissionStatus
+
+export type PayoutStatus = $Enums.PayoutStatus
+
+export const PayoutStatus: typeof $Enums.PayoutStatus
+
+export type TransactionType = $Enums.TransactionType
+
+export const TransactionType: typeof $Enums.TransactionType
+
+export type LedgerCategory = $Enums.LedgerCategory
+
+export const LedgerCategory: typeof $Enums.LedgerCategory
 
 /**
  * ##  Prisma Client ʲˢ
@@ -799,6 +893,46 @@ export class PrismaClient<
     * ```
     */
   get pushNotificationSubscription(): Prisma.PushNotificationSubscriptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.hunter`: Exposes CRUD operations for the **Hunter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Hunters
+    * const hunters = await prisma.hunter.findMany()
+    * ```
+    */
+  get hunter(): Prisma.HunterDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.hunterCommission`: Exposes CRUD operations for the **HunterCommission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HunterCommissions
+    * const hunterCommissions = await prisma.hunterCommission.findMany()
+    * ```
+    */
+  get hunterCommission(): Prisma.HunterCommissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.hunterPayout`: Exposes CRUD operations for the **HunterPayout** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HunterPayouts
+    * const hunterPayouts = await prisma.hunterPayout.findMany()
+    * ```
+    */
+  get hunterPayout(): Prisma.HunterPayoutDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.systemLedger`: Exposes CRUD operations for the **SystemLedger** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemLedgers
+    * const systemLedgers = await prisma.systemLedger.findMany()
+    * ```
+    */
+  get systemLedger(): Prisma.SystemLedgerDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1275,7 +1409,11 @@ export namespace Prisma {
     TenantDonation: 'TenantDonation',
     PushNotificationToken: 'PushNotificationToken',
     PushNotificationMessage: 'PushNotificationMessage',
-    PushNotificationSubscription: 'PushNotificationSubscription'
+    PushNotificationSubscription: 'PushNotificationSubscription',
+    Hunter: 'Hunter',
+    HunterCommission: 'HunterCommission',
+    HunterPayout: 'HunterPayout',
+    SystemLedger: 'SystemLedger'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1294,7 +1432,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "tenant" | "staff" | "admin" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog" | "tenantReport" | "bannerCampaign" | "shift" | "staffShift" | "report" | "donationPaymentMethod" | "tenantDonation" | "pushNotificationToken" | "pushNotificationMessage" | "pushNotificationSubscription"
+      modelProps: "user" | "tenant" | "staff" | "admin" | "customer" | "discount" | "order" | "orderItem" | "product" | "productCategory" | "expenseCategory" | "expense" | "log" | "tenantSetting" | "subscriptionPlan" | "tenantSubscription" | "tenantSubscriptionHistory" | "subscriptionPayment" | "payrollSetting" | "salary" | "attendance" | "payrollPeriod" | "payrollDetail" | "staffLeave" | "tenantNotificationConfig" | "notificationTemplate" | "notificationLog" | "tenantReport" | "bannerCampaign" | "shift" | "staffShift" | "report" | "donationPaymentMethod" | "tenantDonation" | "pushNotificationToken" | "pushNotificationMessage" | "pushNotificationSubscription" | "hunter" | "hunterCommission" | "hunterPayout" | "systemLedger"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4036,6 +4174,302 @@ export namespace Prisma {
           }
         }
       }
+      Hunter: {
+        payload: Prisma.$HunterPayload<ExtArgs>
+        fields: Prisma.HunterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HunterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HunterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>
+          }
+          findFirst: {
+            args: Prisma.HunterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HunterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>
+          }
+          findMany: {
+            args: Prisma.HunterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>[]
+          }
+          create: {
+            args: Prisma.HunterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>
+          }
+          createMany: {
+            args: Prisma.HunterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HunterCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>[]
+          }
+          delete: {
+            args: Prisma.HunterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>
+          }
+          update: {
+            args: Prisma.HunterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>
+          }
+          deleteMany: {
+            args: Prisma.HunterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HunterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HunterUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>[]
+          }
+          upsert: {
+            args: Prisma.HunterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayload>
+          }
+          aggregate: {
+            args: Prisma.HunterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHunter>
+          }
+          groupBy: {
+            args: Prisma.HunterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HunterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HunterCountArgs<ExtArgs>
+            result: $Utils.Optional<HunterCountAggregateOutputType> | number
+          }
+        }
+      }
+      HunterCommission: {
+        payload: Prisma.$HunterCommissionPayload<ExtArgs>
+        fields: Prisma.HunterCommissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HunterCommissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HunterCommissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>
+          }
+          findFirst: {
+            args: Prisma.HunterCommissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HunterCommissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>
+          }
+          findMany: {
+            args: Prisma.HunterCommissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>[]
+          }
+          create: {
+            args: Prisma.HunterCommissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>
+          }
+          createMany: {
+            args: Prisma.HunterCommissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HunterCommissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>[]
+          }
+          delete: {
+            args: Prisma.HunterCommissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>
+          }
+          update: {
+            args: Prisma.HunterCommissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.HunterCommissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HunterCommissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HunterCommissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.HunterCommissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterCommissionPayload>
+          }
+          aggregate: {
+            args: Prisma.HunterCommissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHunterCommission>
+          }
+          groupBy: {
+            args: Prisma.HunterCommissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HunterCommissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HunterCommissionCountArgs<ExtArgs>
+            result: $Utils.Optional<HunterCommissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      HunterPayout: {
+        payload: Prisma.$HunterPayoutPayload<ExtArgs>
+        fields: Prisma.HunterPayoutFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HunterPayoutFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HunterPayoutFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>
+          }
+          findFirst: {
+            args: Prisma.HunterPayoutFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HunterPayoutFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>
+          }
+          findMany: {
+            args: Prisma.HunterPayoutFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>[]
+          }
+          create: {
+            args: Prisma.HunterPayoutCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>
+          }
+          createMany: {
+            args: Prisma.HunterPayoutCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HunterPayoutCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>[]
+          }
+          delete: {
+            args: Prisma.HunterPayoutDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>
+          }
+          update: {
+            args: Prisma.HunterPayoutUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>
+          }
+          deleteMany: {
+            args: Prisma.HunterPayoutDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HunterPayoutUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HunterPayoutUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>[]
+          }
+          upsert: {
+            args: Prisma.HunterPayoutUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HunterPayoutPayload>
+          }
+          aggregate: {
+            args: Prisma.HunterPayoutAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHunterPayout>
+          }
+          groupBy: {
+            args: Prisma.HunterPayoutGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HunterPayoutGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HunterPayoutCountArgs<ExtArgs>
+            result: $Utils.Optional<HunterPayoutCountAggregateOutputType> | number
+          }
+        }
+      }
+      SystemLedger: {
+        payload: Prisma.$SystemLedgerPayload<ExtArgs>
+        fields: Prisma.SystemLedgerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SystemLedgerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SystemLedgerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>
+          }
+          findFirst: {
+            args: Prisma.SystemLedgerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SystemLedgerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>
+          }
+          findMany: {
+            args: Prisma.SystemLedgerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>[]
+          }
+          create: {
+            args: Prisma.SystemLedgerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>
+          }
+          createMany: {
+            args: Prisma.SystemLedgerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SystemLedgerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>[]
+          }
+          delete: {
+            args: Prisma.SystemLedgerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>
+          }
+          update: {
+            args: Prisma.SystemLedgerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>
+          }
+          deleteMany: {
+            args: Prisma.SystemLedgerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SystemLedgerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SystemLedgerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>[]
+          }
+          upsert: {
+            args: Prisma.SystemLedgerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemLedgerPayload>
+          }
+          aggregate: {
+            args: Prisma.SystemLedgerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSystemLedger>
+          }
+          groupBy: {
+            args: Prisma.SystemLedgerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SystemLedgerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SystemLedgerCountArgs<ExtArgs>
+            result: $Utils.Optional<SystemLedgerCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4165,6 +4599,10 @@ export namespace Prisma {
     pushNotificationToken?: PushNotificationTokenOmit
     pushNotificationMessage?: PushNotificationMessageOmit
     pushNotificationSubscription?: PushNotificationSubscriptionOmit
+    hunter?: HunterOmit
+    hunterCommission?: HunterCommissionOmit
+    hunterPayout?: HunterPayoutOmit
+    systemLedger?: SystemLedgerOmit
   }
 
   /* Types for Logging */
@@ -4631,6 +5069,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AdminCountOutputType
+   */
+
+  export type AdminCountOutputType = {
+    hunters: number
+  }
+
+  export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunters?: boolean | AdminCountOutputTypeCountHuntersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdminCountOutputType
+     */
+    select?: AdminCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountHuntersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HunterWhereInput
+  }
+
+
+  /**
    * Count Type CustomerCountOutputType
    */
 
@@ -5030,6 +5499,166 @@ export namespace Prisma {
 
 
   /**
+   * Count Type TenantDonationCountOutputType
+   */
+
+  export type TenantDonationCountOutputType = {
+    commissions: number
+    systemLedgers: number
+  }
+
+  export type TenantDonationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    commissions?: boolean | TenantDonationCountOutputTypeCountCommissionsArgs
+    systemLedgers?: boolean | TenantDonationCountOutputTypeCountSystemLedgersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TenantDonationCountOutputType without action
+   */
+  export type TenantDonationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonationCountOutputType
+     */
+    select?: TenantDonationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TenantDonationCountOutputType without action
+   */
+  export type TenantDonationCountOutputTypeCountCommissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HunterCommissionWhereInput
+  }
+
+  /**
+   * TenantDonationCountOutputType without action
+   */
+  export type TenantDonationCountOutputTypeCountSystemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemLedgerWhereInput
+  }
+
+
+  /**
+   * Count Type HunterCountOutputType
+   */
+
+  export type HunterCountOutputType = {
+    tenants: number
+    commissions: number
+    payouts: number
+    systemLedgers: number
+  }
+
+  export type HunterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenants?: boolean | HunterCountOutputTypeCountTenantsArgs
+    commissions?: boolean | HunterCountOutputTypeCountCommissionsArgs
+    payouts?: boolean | HunterCountOutputTypeCountPayoutsArgs
+    systemLedgers?: boolean | HunterCountOutputTypeCountSystemLedgersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HunterCountOutputType without action
+   */
+  export type HunterCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCountOutputType
+     */
+    select?: HunterCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HunterCountOutputType without action
+   */
+  export type HunterCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantWhereInput
+  }
+
+  /**
+   * HunterCountOutputType without action
+   */
+  export type HunterCountOutputTypeCountCommissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HunterCommissionWhereInput
+  }
+
+  /**
+   * HunterCountOutputType without action
+   */
+  export type HunterCountOutputTypeCountPayoutsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HunterPayoutWhereInput
+  }
+
+  /**
+   * HunterCountOutputType without action
+   */
+  export type HunterCountOutputTypeCountSystemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemLedgerWhereInput
+  }
+
+
+  /**
+   * Count Type HunterCommissionCountOutputType
+   */
+
+  export type HunterCommissionCountOutputType = {
+    systemLedgers: number
+  }
+
+  export type HunterCommissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    systemLedgers?: boolean | HunterCommissionCountOutputTypeCountSystemLedgersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HunterCommissionCountOutputType without action
+   */
+  export type HunterCommissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommissionCountOutputType
+     */
+    select?: HunterCommissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HunterCommissionCountOutputType without action
+   */
+  export type HunterCommissionCountOutputTypeCountSystemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemLedgerWhereInput
+  }
+
+
+  /**
+   * Count Type HunterPayoutCountOutputType
+   */
+
+  export type HunterPayoutCountOutputType = {
+    systemLedgers: number
+  }
+
+  export type HunterPayoutCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    systemLedgers?: boolean | HunterPayoutCountOutputTypeCountSystemLedgersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HunterPayoutCountOutputType without action
+   */
+  export type HunterPayoutCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayoutCountOutputType
+     */
+    select?: HunterPayoutCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HunterPayoutCountOutputType without action
+   */
+  export type HunterPayoutCountOutputTypeCountSystemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemLedgerWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -5052,6 +5681,7 @@ export namespace Prisma {
     provider: string | null
     providerId: string | null
     emailVerified: boolean | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5065,6 +5695,7 @@ export namespace Prisma {
     provider: string | null
     providerId: string | null
     emailVerified: boolean | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5078,6 +5709,7 @@ export namespace Prisma {
     provider: number
     providerId: number
     emailVerified: number
+    role: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5093,6 +5725,7 @@ export namespace Prisma {
     provider?: true
     providerId?: true
     emailVerified?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5106,6 +5739,7 @@ export namespace Prisma {
     provider?: true
     providerId?: true
     emailVerified?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5119,6 +5753,7 @@ export namespace Prisma {
     provider?: true
     providerId?: true
     emailVerified?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5205,6 +5840,7 @@ export namespace Prisma {
     provider: string | null
     providerId: string | null
     emailVerified: boolean | null
+    role: $Enums.UserRole
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -5235,10 +5871,12 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     emailVerified?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenants?: boolean | User$tenantsArgs<ExtArgs>
     pushTokens?: boolean | User$pushTokensArgs<ExtArgs>
+    hunter?: boolean | User$hunterArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5251,6 +5889,7 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     emailVerified?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -5264,6 +5903,7 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     emailVerified?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -5277,14 +5917,16 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     emailVerified?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "displayName" | "photoURL" | "provider" | "providerId" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "displayName" | "photoURL" | "provider" | "providerId" | "emailVerified" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenants?: boolean | User$tenantsArgs<ExtArgs>
     pushTokens?: boolean | User$pushTokensArgs<ExtArgs>
+    hunter?: boolean | User$hunterArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5295,6 +5937,7 @@ export namespace Prisma {
     objects: {
       tenants: Prisma.$TenantPayload<ExtArgs>[]
       pushTokens: Prisma.$PushNotificationTokenPayload<ExtArgs>[]
+      hunter: Prisma.$HunterPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5305,6 +5948,7 @@ export namespace Prisma {
       provider: string | null
       providerId: string | null
       emailVerified: boolean | null
+      role: $Enums.UserRole
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -5703,6 +6347,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenants<T extends User$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, User$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pushTokens<T extends User$pushTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$pushTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    hunter<T extends User$hunterArgs<ExtArgs> = {}>(args?: Subset<T, User$hunterArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5740,6 +6385,7 @@ export namespace Prisma {
     readonly provider: FieldRef<"User", 'String'>
     readonly providerId: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
+    readonly role: FieldRef<"User", 'UserRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -6178,6 +6824,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.hunter
+   */
+  export type User$hunterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    where?: HunterWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6215,6 +6880,7 @@ export namespace Prisma {
     phone: string | null
     subscribedUntil: Date | null
     isSubscribed: boolean | null
+    hunterReferralCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6228,6 +6894,7 @@ export namespace Prisma {
     phone: string | null
     subscribedUntil: Date | null
     isSubscribed: boolean | null
+    hunterReferralCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6241,6 +6908,7 @@ export namespace Prisma {
     phone: number
     subscribedUntil: number
     isSubscribed: number
+    hunterReferralCode: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6256,6 +6924,7 @@ export namespace Prisma {
     phone?: true
     subscribedUntil?: true
     isSubscribed?: true
+    hunterReferralCode?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6269,6 +6938,7 @@ export namespace Prisma {
     phone?: true
     subscribedUntil?: true
     isSubscribed?: true
+    hunterReferralCode?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6282,6 +6952,7 @@ export namespace Prisma {
     phone?: true
     subscribedUntil?: true
     isSubscribed?: true
+    hunterReferralCode?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6368,6 +7039,7 @@ export namespace Prisma {
     phone: string | null
     subscribedUntil: Date | null
     isSubscribed: boolean | null
+    hunterReferralCode: string | null
     createdAt: Date
     updatedAt: Date
     _count: TenantCountAggregateOutputType | null
@@ -6398,9 +7070,11 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    hunter?: boolean | Tenant$hunterArgs<ExtArgs>
     customers?: boolean | Tenant$customersArgs<ExtArgs>
     discounts?: boolean | Tenant$discountsArgs<ExtArgs>
     expenseCategories?: boolean | Tenant$expenseCategoriesArgs<ExtArgs>
@@ -6443,9 +7117,11 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    hunter?: boolean | Tenant$hunterArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6457,9 +7133,11 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    hunter?: boolean | Tenant$hunterArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectScalar = {
@@ -6471,13 +7149,15 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "email" | "address" | "phone" | "subscribedUntil" | "isSubscribed" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "email" | "address" | "phone" | "subscribedUntil" | "isSubscribed" | "hunterReferralCode" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    hunter?: boolean | Tenant$hunterArgs<ExtArgs>
     customers?: boolean | Tenant$customersArgs<ExtArgs>
     discounts?: boolean | Tenant$discountsArgs<ExtArgs>
     expenseCategories?: boolean | Tenant$expenseCategoriesArgs<ExtArgs>
@@ -6512,15 +7192,18 @@ export namespace Prisma {
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    hunter?: boolean | Tenant$hunterArgs<ExtArgs>
   }
   export type TenantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    hunter?: boolean | Tenant$hunterArgs<ExtArgs>
   }
 
   export type $TenantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tenant"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      hunter: Prisma.$HunterPayload<ExtArgs> | null
       customers: Prisma.$CustomerPayload<ExtArgs>[]
       discounts: Prisma.$DiscountPayload<ExtArgs>[]
       expenseCategories: Prisma.$ExpenseCategoryPayload<ExtArgs>[]
@@ -6561,6 +7244,7 @@ export namespace Prisma {
       phone: string | null
       subscribedUntil: Date | null
       isSubscribed: boolean | null
+      hunterReferralCode: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["tenant"]>
@@ -6958,6 +7642,7 @@ export namespace Prisma {
   export interface Prisma__TenantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    hunter<T extends Tenant$hunterArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$hunterArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     customers<T extends Tenant$customersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$customersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discounts<T extends Tenant$discountsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$discountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     expenseCategories<T extends Tenant$expenseCategoriesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$expenseCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpenseCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7025,6 +7710,7 @@ export namespace Prisma {
     readonly phone: FieldRef<"Tenant", 'String'>
     readonly subscribedUntil: FieldRef<"Tenant", 'DateTime'>
     readonly isSubscribed: FieldRef<"Tenant", 'Boolean'>
+    readonly hunterReferralCode: FieldRef<"Tenant", 'String'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
     readonly updatedAt: FieldRef<"Tenant", 'DateTime'>
   }
@@ -7420,6 +8106,25 @@ export namespace Prisma {
      * Limit how many Tenants to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Tenant.hunter
+   */
+  export type Tenant$hunterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    where?: HunterWhereInput
   }
 
   /**
@@ -9710,6 +10415,8 @@ export namespace Prisma {
     lastLoginAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    hunters?: boolean | Admin$huntersArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9752,10 +10459,18 @@ export namespace Prisma {
   }
 
   export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role" | "username" | "email" | "fullName" | "password" | "isActive" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["admin"]>
+  export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunters?: boolean | Admin$huntersArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AdminIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Admin"
-    objects: {}
+    objects: {
+      hunters: Prisma.$HunterPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       role: $Enums.AdminRole
@@ -10161,6 +10876,7 @@ export namespace Prisma {
    */
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    hunters<T extends Admin$huntersArgs<ExtArgs> = {}>(args?: Subset<T, Admin$huntersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10217,6 +10933,10 @@ export namespace Prisma {
      */
     omit?: AdminOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where: AdminWhereUniqueInput
@@ -10235,6 +10955,10 @@ export namespace Prisma {
      */
     omit?: AdminOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where: AdminWhereUniqueInput
@@ -10252,6 +10976,10 @@ export namespace Prisma {
      * Omit specific fields from the Admin
      */
     omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter, which Admin to fetch.
      */
@@ -10301,6 +11029,10 @@ export namespace Prisma {
      */
     omit?: AdminOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where?: AdminWhereInput
@@ -10349,6 +11081,10 @@ export namespace Prisma {
      */
     omit?: AdminOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admins to fetch.
      */
     where?: AdminWhereInput
@@ -10391,6 +11127,10 @@ export namespace Prisma {
      * Omit specific fields from the Admin
      */
     omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * The data needed to create a Admin.
      */
@@ -10439,6 +11179,10 @@ export namespace Prisma {
      * Omit specific fields from the Admin
      */
     omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * The data needed to update a Admin.
      */
@@ -10506,6 +11250,10 @@ export namespace Prisma {
      */
     omit?: AdminOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * The filter to search for the Admin to update in case it exists.
      */
     where: AdminWhereUniqueInput
@@ -10532,6 +11280,10 @@ export namespace Prisma {
      */
     omit?: AdminOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter which Admin to delete.
      */
     where: AdminWhereUniqueInput
@@ -10552,6 +11304,30 @@ export namespace Prisma {
   }
 
   /**
+   * Admin.hunters
+   */
+  export type Admin$huntersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    where?: HunterWhereInput
+    orderBy?: HunterOrderByWithRelationInput | HunterOrderByWithRelationInput[]
+    cursor?: HunterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HunterScalarFieldEnum | HunterScalarFieldEnum[]
+  }
+
+  /**
    * Admin without action
    */
   export type AdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10563,6 +11339,10 @@ export namespace Prisma {
      * Omit specific fields from the Admin
      */
     omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
   }
 
 
@@ -45430,6 +46210,9 @@ export namespace Prisma {
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+    commissions?: boolean | TenantDonation$commissionsArgs<ExtArgs>
+    systemLedgers?: boolean | TenantDonation$systemLedgersArgs<ExtArgs>
+    _count?: boolean | TenantDonationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantDonation"]>
 
   export type TenantDonationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -45500,6 +46283,9 @@ export namespace Prisma {
   export type TenantDonationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     paymentMethod?: boolean | TenantDonation$paymentMethodArgs<ExtArgs>
+    commissions?: boolean | TenantDonation$commissionsArgs<ExtArgs>
+    systemLedgers?: boolean | TenantDonation$systemLedgersArgs<ExtArgs>
+    _count?: boolean | TenantDonationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantDonationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -45515,6 +46301,8 @@ export namespace Prisma {
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
       paymentMethod: Prisma.$DonationPaymentMethodPayload<ExtArgs> | null
+      commissions: Prisma.$HunterCommissionPayload<ExtArgs>[]
+      systemLedgers: Prisma.$SystemLedgerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -45930,6 +46718,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     paymentMethod<T extends TenantDonation$paymentMethodArgs<ExtArgs> = {}>(args?: Subset<T, TenantDonation$paymentMethodArgs<ExtArgs>>): Prisma__DonationPaymentMethodClient<$Result.GetResult<Prisma.$DonationPaymentMethodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    commissions<T extends TenantDonation$commissionsArgs<ExtArgs> = {}>(args?: Subset<T, TenantDonation$commissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    systemLedgers<T extends TenantDonation$systemLedgersArgs<ExtArgs> = {}>(args?: Subset<T, TenantDonation$systemLedgersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -46388,6 +47178,54 @@ export namespace Prisma {
      */
     include?: DonationPaymentMethodInclude<ExtArgs> | null
     where?: DonationPaymentMethodWhereInput
+  }
+
+  /**
+   * TenantDonation.commissions
+   */
+  export type TenantDonation$commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    where?: HunterCommissionWhereInput
+    orderBy?: HunterCommissionOrderByWithRelationInput | HunterCommissionOrderByWithRelationInput[]
+    cursor?: HunterCommissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HunterCommissionScalarFieldEnum | HunterCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * TenantDonation.systemLedgers
+   */
+  export type TenantDonation$systemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    where?: SystemLedgerWhereInput
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    cursor?: SystemLedgerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SystemLedgerScalarFieldEnum | SystemLedgerScalarFieldEnum[]
   }
 
   /**
@@ -49954,6 +50792,5154 @@ export namespace Prisma {
 
 
   /**
+   * Model Hunter
+   */
+
+  export type AggregateHunter = {
+    _count: HunterCountAggregateOutputType | null
+    _avg: HunterAvgAggregateOutputType | null
+    _sum: HunterSumAggregateOutputType | null
+    _min: HunterMinAggregateOutputType | null
+    _max: HunterMaxAggregateOutputType | null
+  }
+
+  export type HunterAvgAggregateOutputType = {
+    commissionPercentage: Decimal | null
+    totalEarnings: Decimal | null
+    totalPaidOut: Decimal | null
+  }
+
+  export type HunterSumAggregateOutputType = {
+    commissionPercentage: Decimal | null
+    totalEarnings: Decimal | null
+    totalPaidOut: Decimal | null
+  }
+
+  export type HunterMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    adminId: string | null
+    referralCode: string | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    commissionPercentage: Decimal | null
+    isActive: boolean | null
+    totalEarnings: Decimal | null
+    totalPaidOut: Decimal | null
+    bankAccountName: string | null
+    bankAccountNumber: string | null
+    bankName: string | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HunterMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    adminId: string | null
+    referralCode: string | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    commissionPercentage: Decimal | null
+    isActive: boolean | null
+    totalEarnings: Decimal | null
+    totalPaidOut: Decimal | null
+    bankAccountName: string | null
+    bankAccountNumber: string | null
+    bankName: string | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HunterCountAggregateOutputType = {
+    id: number
+    userId: number
+    adminId: number
+    referralCode: number
+    name: number
+    email: number
+    phone: number
+    commissionPercentage: number
+    isActive: number
+    totalEarnings: number
+    totalPaidOut: number
+    bankAccountName: number
+    bankAccountNumber: number
+    bankName: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HunterAvgAggregateInputType = {
+    commissionPercentage?: true
+    totalEarnings?: true
+    totalPaidOut?: true
+  }
+
+  export type HunterSumAggregateInputType = {
+    commissionPercentage?: true
+    totalEarnings?: true
+    totalPaidOut?: true
+  }
+
+  export type HunterMinAggregateInputType = {
+    id?: true
+    userId?: true
+    adminId?: true
+    referralCode?: true
+    name?: true
+    email?: true
+    phone?: true
+    commissionPercentage?: true
+    isActive?: true
+    totalEarnings?: true
+    totalPaidOut?: true
+    bankAccountName?: true
+    bankAccountNumber?: true
+    bankName?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HunterMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    adminId?: true
+    referralCode?: true
+    name?: true
+    email?: true
+    phone?: true
+    commissionPercentage?: true
+    isActive?: true
+    totalEarnings?: true
+    totalPaidOut?: true
+    bankAccountName?: true
+    bankAccountNumber?: true
+    bankName?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HunterCountAggregateInputType = {
+    id?: true
+    userId?: true
+    adminId?: true
+    referralCode?: true
+    name?: true
+    email?: true
+    phone?: true
+    commissionPercentage?: true
+    isActive?: true
+    totalEarnings?: true
+    totalPaidOut?: true
+    bankAccountName?: true
+    bankAccountNumber?: true
+    bankName?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HunterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Hunter to aggregate.
+     */
+    where?: HunterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hunters to fetch.
+     */
+    orderBy?: HunterOrderByWithRelationInput | HunterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HunterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hunters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hunters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Hunters
+    **/
+    _count?: true | HunterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HunterAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HunterSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HunterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HunterMaxAggregateInputType
+  }
+
+  export type GetHunterAggregateType<T extends HunterAggregateArgs> = {
+        [P in keyof T & keyof AggregateHunter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHunter[P]>
+      : GetScalarType<T[P], AggregateHunter[P]>
+  }
+
+
+
+
+  export type HunterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HunterWhereInput
+    orderBy?: HunterOrderByWithAggregationInput | HunterOrderByWithAggregationInput[]
+    by: HunterScalarFieldEnum[] | HunterScalarFieldEnum
+    having?: HunterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HunterCountAggregateInputType | true
+    _avg?: HunterAvgAggregateInputType
+    _sum?: HunterSumAggregateInputType
+    _min?: HunterMinAggregateInputType
+    _max?: HunterMaxAggregateInputType
+  }
+
+  export type HunterGroupByOutputType = {
+    id: string
+    userId: string | null
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone: string | null
+    commissionPercentage: Decimal
+    isActive: boolean
+    totalEarnings: Decimal
+    totalPaidOut: Decimal
+    bankAccountName: string | null
+    bankAccountNumber: string | null
+    bankName: string | null
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: HunterCountAggregateOutputType | null
+    _avg: HunterAvgAggregateOutputType | null
+    _sum: HunterSumAggregateOutputType | null
+    _min: HunterMinAggregateOutputType | null
+    _max: HunterMaxAggregateOutputType | null
+  }
+
+  type GetHunterGroupByPayload<T extends HunterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HunterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HunterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HunterGroupByOutputType[P]>
+            : GetScalarType<T[P], HunterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HunterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    adminId?: boolean
+    referralCode?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    commissionPercentage?: boolean
+    isActive?: boolean
+    totalEarnings?: boolean
+    totalPaidOut?: boolean
+    bankAccountName?: boolean
+    bankAccountNumber?: boolean
+    bankName?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | Hunter$userArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    tenants?: boolean | Hunter$tenantsArgs<ExtArgs>
+    commissions?: boolean | Hunter$commissionsArgs<ExtArgs>
+    payouts?: boolean | Hunter$payoutsArgs<ExtArgs>
+    systemLedgers?: boolean | Hunter$systemLedgersArgs<ExtArgs>
+    _count?: boolean | HunterCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunter"]>
+
+  export type HunterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    adminId?: boolean
+    referralCode?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    commissionPercentage?: boolean
+    isActive?: boolean
+    totalEarnings?: boolean
+    totalPaidOut?: boolean
+    bankAccountName?: boolean
+    bankAccountNumber?: boolean
+    bankName?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | Hunter$userArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunter"]>
+
+  export type HunterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    adminId?: boolean
+    referralCode?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    commissionPercentage?: boolean
+    isActive?: boolean
+    totalEarnings?: boolean
+    totalPaidOut?: boolean
+    bankAccountName?: boolean
+    bankAccountNumber?: boolean
+    bankName?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | Hunter$userArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunter"]>
+
+  export type HunterSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    adminId?: boolean
+    referralCode?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    commissionPercentage?: boolean
+    isActive?: boolean
+    totalEarnings?: boolean
+    totalPaidOut?: boolean
+    bankAccountName?: boolean
+    bankAccountNumber?: boolean
+    bankName?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HunterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "adminId" | "referralCode" | "name" | "email" | "phone" | "commissionPercentage" | "isActive" | "totalEarnings" | "totalPaidOut" | "bankAccountName" | "bankAccountNumber" | "bankName" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["hunter"]>
+  export type HunterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Hunter$userArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    tenants?: boolean | Hunter$tenantsArgs<ExtArgs>
+    commissions?: boolean | Hunter$commissionsArgs<ExtArgs>
+    payouts?: boolean | Hunter$payoutsArgs<ExtArgs>
+    systemLedgers?: boolean | Hunter$systemLedgersArgs<ExtArgs>
+    _count?: boolean | HunterCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type HunterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Hunter$userArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+  }
+  export type HunterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Hunter$userArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+  }
+
+  export type $HunterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Hunter"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+      admin: Prisma.$AdminPayload<ExtArgs>
+      tenants: Prisma.$TenantPayload<ExtArgs>[]
+      commissions: Prisma.$HunterCommissionPayload<ExtArgs>[]
+      payouts: Prisma.$HunterPayoutPayload<ExtArgs>[]
+      systemLedgers: Prisma.$SystemLedgerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string | null
+      adminId: string
+      referralCode: string
+      name: string
+      email: string
+      phone: string | null
+      commissionPercentage: Prisma.Decimal
+      isActive: boolean
+      totalEarnings: Prisma.Decimal
+      totalPaidOut: Prisma.Decimal
+      bankAccountName: string | null
+      bankAccountNumber: string | null
+      bankName: string | null
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["hunter"]>
+    composites: {}
+  }
+
+  type HunterGetPayload<S extends boolean | null | undefined | HunterDefaultArgs> = $Result.GetResult<Prisma.$HunterPayload, S>
+
+  type HunterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HunterFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HunterCountAggregateInputType | true
+    }
+
+  export interface HunterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Hunter'], meta: { name: 'Hunter' } }
+    /**
+     * Find zero or one Hunter that matches the filter.
+     * @param {HunterFindUniqueArgs} args - Arguments to find a Hunter
+     * @example
+     * // Get one Hunter
+     * const hunter = await prisma.hunter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HunterFindUniqueArgs>(args: SelectSubset<T, HunterFindUniqueArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Hunter that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HunterFindUniqueOrThrowArgs} args - Arguments to find a Hunter
+     * @example
+     * // Get one Hunter
+     * const hunter = await prisma.hunter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HunterFindUniqueOrThrowArgs>(args: SelectSubset<T, HunterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hunter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterFindFirstArgs} args - Arguments to find a Hunter
+     * @example
+     * // Get one Hunter
+     * const hunter = await prisma.hunter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HunterFindFirstArgs>(args?: SelectSubset<T, HunterFindFirstArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hunter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterFindFirstOrThrowArgs} args - Arguments to find a Hunter
+     * @example
+     * // Get one Hunter
+     * const hunter = await prisma.hunter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HunterFindFirstOrThrowArgs>(args?: SelectSubset<T, HunterFindFirstOrThrowArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Hunters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Hunters
+     * const hunters = await prisma.hunter.findMany()
+     * 
+     * // Get first 10 Hunters
+     * const hunters = await prisma.hunter.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hunterWithIdOnly = await prisma.hunter.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HunterFindManyArgs>(args?: SelectSubset<T, HunterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Hunter.
+     * @param {HunterCreateArgs} args - Arguments to create a Hunter.
+     * @example
+     * // Create one Hunter
+     * const Hunter = await prisma.hunter.create({
+     *   data: {
+     *     // ... data to create a Hunter
+     *   }
+     * })
+     * 
+     */
+    create<T extends HunterCreateArgs>(args: SelectSubset<T, HunterCreateArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Hunters.
+     * @param {HunterCreateManyArgs} args - Arguments to create many Hunters.
+     * @example
+     * // Create many Hunters
+     * const hunter = await prisma.hunter.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HunterCreateManyArgs>(args?: SelectSubset<T, HunterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Hunters and returns the data saved in the database.
+     * @param {HunterCreateManyAndReturnArgs} args - Arguments to create many Hunters.
+     * @example
+     * // Create many Hunters
+     * const hunter = await prisma.hunter.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Hunters and only return the `id`
+     * const hunterWithIdOnly = await prisma.hunter.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HunterCreateManyAndReturnArgs>(args?: SelectSubset<T, HunterCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Hunter.
+     * @param {HunterDeleteArgs} args - Arguments to delete one Hunter.
+     * @example
+     * // Delete one Hunter
+     * const Hunter = await prisma.hunter.delete({
+     *   where: {
+     *     // ... filter to delete one Hunter
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HunterDeleteArgs>(args: SelectSubset<T, HunterDeleteArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Hunter.
+     * @param {HunterUpdateArgs} args - Arguments to update one Hunter.
+     * @example
+     * // Update one Hunter
+     * const hunter = await prisma.hunter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HunterUpdateArgs>(args: SelectSubset<T, HunterUpdateArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Hunters.
+     * @param {HunterDeleteManyArgs} args - Arguments to filter Hunters to delete.
+     * @example
+     * // Delete a few Hunters
+     * const { count } = await prisma.hunter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HunterDeleteManyArgs>(args?: SelectSubset<T, HunterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Hunters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Hunters
+     * const hunter = await prisma.hunter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HunterUpdateManyArgs>(args: SelectSubset<T, HunterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Hunters and returns the data updated in the database.
+     * @param {HunterUpdateManyAndReturnArgs} args - Arguments to update many Hunters.
+     * @example
+     * // Update many Hunters
+     * const hunter = await prisma.hunter.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Hunters and only return the `id`
+     * const hunterWithIdOnly = await prisma.hunter.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HunterUpdateManyAndReturnArgs>(args: SelectSubset<T, HunterUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Hunter.
+     * @param {HunterUpsertArgs} args - Arguments to update or create a Hunter.
+     * @example
+     * // Update or create a Hunter
+     * const hunter = await prisma.hunter.upsert({
+     *   create: {
+     *     // ... data to create a Hunter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Hunter we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HunterUpsertArgs>(args: SelectSubset<T, HunterUpsertArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Hunters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCountArgs} args - Arguments to filter Hunters to count.
+     * @example
+     * // Count the number of Hunters
+     * const count = await prisma.hunter.count({
+     *   where: {
+     *     // ... the filter for the Hunters we want to count
+     *   }
+     * })
+    **/
+    count<T extends HunterCountArgs>(
+      args?: Subset<T, HunterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HunterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Hunter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HunterAggregateArgs>(args: Subset<T, HunterAggregateArgs>): Prisma.PrismaPromise<GetHunterAggregateType<T>>
+
+    /**
+     * Group by Hunter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HunterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HunterGroupByArgs['orderBy'] }
+        : { orderBy?: HunterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HunterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHunterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Hunter model
+   */
+  readonly fields: HunterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Hunter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HunterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends Hunter$userArgs<ExtArgs> = {}>(args?: Subset<T, Hunter$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tenants<T extends Hunter$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Hunter$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    commissions<T extends Hunter$commissionsArgs<ExtArgs> = {}>(args?: Subset<T, Hunter$commissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    payouts<T extends Hunter$payoutsArgs<ExtArgs> = {}>(args?: Subset<T, Hunter$payoutsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    systemLedgers<T extends Hunter$systemLedgersArgs<ExtArgs> = {}>(args?: Subset<T, Hunter$systemLedgersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Hunter model
+   */
+  interface HunterFieldRefs {
+    readonly id: FieldRef<"Hunter", 'String'>
+    readonly userId: FieldRef<"Hunter", 'String'>
+    readonly adminId: FieldRef<"Hunter", 'String'>
+    readonly referralCode: FieldRef<"Hunter", 'String'>
+    readonly name: FieldRef<"Hunter", 'String'>
+    readonly email: FieldRef<"Hunter", 'String'>
+    readonly phone: FieldRef<"Hunter", 'String'>
+    readonly commissionPercentage: FieldRef<"Hunter", 'Decimal'>
+    readonly isActive: FieldRef<"Hunter", 'Boolean'>
+    readonly totalEarnings: FieldRef<"Hunter", 'Decimal'>
+    readonly totalPaidOut: FieldRef<"Hunter", 'Decimal'>
+    readonly bankAccountName: FieldRef<"Hunter", 'String'>
+    readonly bankAccountNumber: FieldRef<"Hunter", 'String'>
+    readonly bankName: FieldRef<"Hunter", 'String'>
+    readonly notes: FieldRef<"Hunter", 'String'>
+    readonly createdAt: FieldRef<"Hunter", 'DateTime'>
+    readonly updatedAt: FieldRef<"Hunter", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Hunter findUnique
+   */
+  export type HunterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * Filter, which Hunter to fetch.
+     */
+    where: HunterWhereUniqueInput
+  }
+
+  /**
+   * Hunter findUniqueOrThrow
+   */
+  export type HunterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * Filter, which Hunter to fetch.
+     */
+    where: HunterWhereUniqueInput
+  }
+
+  /**
+   * Hunter findFirst
+   */
+  export type HunterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * Filter, which Hunter to fetch.
+     */
+    where?: HunterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hunters to fetch.
+     */
+    orderBy?: HunterOrderByWithRelationInput | HunterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Hunters.
+     */
+    cursor?: HunterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hunters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hunters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Hunters.
+     */
+    distinct?: HunterScalarFieldEnum | HunterScalarFieldEnum[]
+  }
+
+  /**
+   * Hunter findFirstOrThrow
+   */
+  export type HunterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * Filter, which Hunter to fetch.
+     */
+    where?: HunterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hunters to fetch.
+     */
+    orderBy?: HunterOrderByWithRelationInput | HunterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Hunters.
+     */
+    cursor?: HunterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hunters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hunters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Hunters.
+     */
+    distinct?: HunterScalarFieldEnum | HunterScalarFieldEnum[]
+  }
+
+  /**
+   * Hunter findMany
+   */
+  export type HunterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * Filter, which Hunters to fetch.
+     */
+    where?: HunterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hunters to fetch.
+     */
+    orderBy?: HunterOrderByWithRelationInput | HunterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Hunters.
+     */
+    cursor?: HunterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hunters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hunters.
+     */
+    skip?: number
+    distinct?: HunterScalarFieldEnum | HunterScalarFieldEnum[]
+  }
+
+  /**
+   * Hunter create
+   */
+  export type HunterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Hunter.
+     */
+    data: XOR<HunterCreateInput, HunterUncheckedCreateInput>
+  }
+
+  /**
+   * Hunter createMany
+   */
+  export type HunterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Hunters.
+     */
+    data: HunterCreateManyInput | HunterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Hunter createManyAndReturn
+   */
+  export type HunterCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * The data used to create many Hunters.
+     */
+    data: HunterCreateManyInput | HunterCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Hunter update
+   */
+  export type HunterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Hunter.
+     */
+    data: XOR<HunterUpdateInput, HunterUncheckedUpdateInput>
+    /**
+     * Choose, which Hunter to update.
+     */
+    where: HunterWhereUniqueInput
+  }
+
+  /**
+   * Hunter updateMany
+   */
+  export type HunterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Hunters.
+     */
+    data: XOR<HunterUpdateManyMutationInput, HunterUncheckedUpdateManyInput>
+    /**
+     * Filter which Hunters to update
+     */
+    where?: HunterWhereInput
+    /**
+     * Limit how many Hunters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hunter updateManyAndReturn
+   */
+  export type HunterUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * The data used to update Hunters.
+     */
+    data: XOR<HunterUpdateManyMutationInput, HunterUncheckedUpdateManyInput>
+    /**
+     * Filter which Hunters to update
+     */
+    where?: HunterWhereInput
+    /**
+     * Limit how many Hunters to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Hunter upsert
+   */
+  export type HunterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Hunter to update in case it exists.
+     */
+    where: HunterWhereUniqueInput
+    /**
+     * In case the Hunter found by the `where` argument doesn't exist, create a new Hunter with this data.
+     */
+    create: XOR<HunterCreateInput, HunterUncheckedCreateInput>
+    /**
+     * In case the Hunter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HunterUpdateInput, HunterUncheckedUpdateInput>
+  }
+
+  /**
+   * Hunter delete
+   */
+  export type HunterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    /**
+     * Filter which Hunter to delete.
+     */
+    where: HunterWhereUniqueInput
+  }
+
+  /**
+   * Hunter deleteMany
+   */
+  export type HunterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Hunters to delete
+     */
+    where?: HunterWhereInput
+    /**
+     * Limit how many Hunters to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hunter.user
+   */
+  export type Hunter$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Hunter.tenants
+   */
+  export type Hunter$tenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    cursor?: TenantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
+   * Hunter.commissions
+   */
+  export type Hunter$commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    where?: HunterCommissionWhereInput
+    orderBy?: HunterCommissionOrderByWithRelationInput | HunterCommissionOrderByWithRelationInput[]
+    cursor?: HunterCommissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HunterCommissionScalarFieldEnum | HunterCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * Hunter.payouts
+   */
+  export type Hunter$payoutsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    where?: HunterPayoutWhereInput
+    orderBy?: HunterPayoutOrderByWithRelationInput | HunterPayoutOrderByWithRelationInput[]
+    cursor?: HunterPayoutWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HunterPayoutScalarFieldEnum | HunterPayoutScalarFieldEnum[]
+  }
+
+  /**
+   * Hunter.systemLedgers
+   */
+  export type Hunter$systemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    where?: SystemLedgerWhereInput
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    cursor?: SystemLedgerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SystemLedgerScalarFieldEnum | SystemLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * Hunter without action
+   */
+  export type HunterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HunterCommission
+   */
+
+  export type AggregateHunterCommission = {
+    _count: HunterCommissionCountAggregateOutputType | null
+    _avg: HunterCommissionAvgAggregateOutputType | null
+    _sum: HunterCommissionSumAggregateOutputType | null
+    _min: HunterCommissionMinAggregateOutputType | null
+    _max: HunterCommissionMaxAggregateOutputType | null
+  }
+
+  export type HunterCommissionAvgAggregateOutputType = {
+    donationAmount: Decimal | null
+    commissionRate: Decimal | null
+    commissionAmount: Decimal | null
+  }
+
+  export type HunterCommissionSumAggregateOutputType = {
+    donationAmount: Decimal | null
+    commissionRate: Decimal | null
+    commissionAmount: Decimal | null
+  }
+
+  export type HunterCommissionMinAggregateOutputType = {
+    id: string | null
+    hunterId: string | null
+    tenantId: string | null
+    donationId: string | null
+    donationAmount: Decimal | null
+    commissionRate: Decimal | null
+    commissionAmount: Decimal | null
+    status: $Enums.CommissionStatus | null
+    paidOutAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HunterCommissionMaxAggregateOutputType = {
+    id: string | null
+    hunterId: string | null
+    tenantId: string | null
+    donationId: string | null
+    donationAmount: Decimal | null
+    commissionRate: Decimal | null
+    commissionAmount: Decimal | null
+    status: $Enums.CommissionStatus | null
+    paidOutAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HunterCommissionCountAggregateOutputType = {
+    id: number
+    hunterId: number
+    tenantId: number
+    donationId: number
+    donationAmount: number
+    commissionRate: number
+    commissionAmount: number
+    status: number
+    paidOutAt: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HunterCommissionAvgAggregateInputType = {
+    donationAmount?: true
+    commissionRate?: true
+    commissionAmount?: true
+  }
+
+  export type HunterCommissionSumAggregateInputType = {
+    donationAmount?: true
+    commissionRate?: true
+    commissionAmount?: true
+  }
+
+  export type HunterCommissionMinAggregateInputType = {
+    id?: true
+    hunterId?: true
+    tenantId?: true
+    donationId?: true
+    donationAmount?: true
+    commissionRate?: true
+    commissionAmount?: true
+    status?: true
+    paidOutAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HunterCommissionMaxAggregateInputType = {
+    id?: true
+    hunterId?: true
+    tenantId?: true
+    donationId?: true
+    donationAmount?: true
+    commissionRate?: true
+    commissionAmount?: true
+    status?: true
+    paidOutAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HunterCommissionCountAggregateInputType = {
+    id?: true
+    hunterId?: true
+    tenantId?: true
+    donationId?: true
+    donationAmount?: true
+    commissionRate?: true
+    commissionAmount?: true
+    status?: true
+    paidOutAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HunterCommissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HunterCommission to aggregate.
+     */
+    where?: HunterCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterCommissions to fetch.
+     */
+    orderBy?: HunterCommissionOrderByWithRelationInput | HunterCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HunterCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterCommissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HunterCommissions
+    **/
+    _count?: true | HunterCommissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HunterCommissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HunterCommissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HunterCommissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HunterCommissionMaxAggregateInputType
+  }
+
+  export type GetHunterCommissionAggregateType<T extends HunterCommissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateHunterCommission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHunterCommission[P]>
+      : GetScalarType<T[P], AggregateHunterCommission[P]>
+  }
+
+
+
+
+  export type HunterCommissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HunterCommissionWhereInput
+    orderBy?: HunterCommissionOrderByWithAggregationInput | HunterCommissionOrderByWithAggregationInput[]
+    by: HunterCommissionScalarFieldEnum[] | HunterCommissionScalarFieldEnum
+    having?: HunterCommissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HunterCommissionCountAggregateInputType | true
+    _avg?: HunterCommissionAvgAggregateInputType
+    _sum?: HunterCommissionSumAggregateInputType
+    _min?: HunterCommissionMinAggregateInputType
+    _max?: HunterCommissionMaxAggregateInputType
+  }
+
+  export type HunterCommissionGroupByOutputType = {
+    id: string
+    hunterId: string
+    tenantId: string
+    donationId: string
+    donationAmount: Decimal
+    commissionRate: Decimal
+    commissionAmount: Decimal
+    status: $Enums.CommissionStatus
+    paidOutAt: Date | null
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: HunterCommissionCountAggregateOutputType | null
+    _avg: HunterCommissionAvgAggregateOutputType | null
+    _sum: HunterCommissionSumAggregateOutputType | null
+    _min: HunterCommissionMinAggregateOutputType | null
+    _max: HunterCommissionMaxAggregateOutputType | null
+  }
+
+  type GetHunterCommissionGroupByPayload<T extends HunterCommissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HunterCommissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HunterCommissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HunterCommissionGroupByOutputType[P]>
+            : GetScalarType<T[P], HunterCommissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HunterCommissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    donationAmount?: boolean
+    commissionRate?: boolean
+    commissionAmount?: boolean
+    status?: boolean
+    paidOutAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    donation?: boolean | TenantDonationDefaultArgs<ExtArgs>
+    systemLedgers?: boolean | HunterCommission$systemLedgersArgs<ExtArgs>
+    _count?: boolean | HunterCommissionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunterCommission"]>
+
+  export type HunterCommissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    donationAmount?: boolean
+    commissionRate?: boolean
+    commissionAmount?: boolean
+    status?: boolean
+    paidOutAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    donation?: boolean | TenantDonationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunterCommission"]>
+
+  export type HunterCommissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    donationAmount?: boolean
+    commissionRate?: boolean
+    commissionAmount?: boolean
+    status?: boolean
+    paidOutAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    donation?: boolean | TenantDonationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunterCommission"]>
+
+  export type HunterCommissionSelectScalar = {
+    id?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    donationAmount?: boolean
+    commissionRate?: boolean
+    commissionAmount?: boolean
+    status?: boolean
+    paidOutAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HunterCommissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hunterId" | "tenantId" | "donationId" | "donationAmount" | "commissionRate" | "commissionAmount" | "status" | "paidOutAt" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["hunterCommission"]>
+  export type HunterCommissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    donation?: boolean | TenantDonationDefaultArgs<ExtArgs>
+    systemLedgers?: boolean | HunterCommission$systemLedgersArgs<ExtArgs>
+    _count?: boolean | HunterCommissionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type HunterCommissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    donation?: boolean | TenantDonationDefaultArgs<ExtArgs>
+  }
+  export type HunterCommissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    donation?: boolean | TenantDonationDefaultArgs<ExtArgs>
+  }
+
+  export type $HunterCommissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HunterCommission"
+    objects: {
+      hunter: Prisma.$HunterPayload<ExtArgs>
+      donation: Prisma.$TenantDonationPayload<ExtArgs>
+      systemLedgers: Prisma.$SystemLedgerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hunterId: string
+      tenantId: string
+      donationId: string
+      donationAmount: Prisma.Decimal
+      commissionRate: Prisma.Decimal
+      commissionAmount: Prisma.Decimal
+      status: $Enums.CommissionStatus
+      paidOutAt: Date | null
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["hunterCommission"]>
+    composites: {}
+  }
+
+  type HunterCommissionGetPayload<S extends boolean | null | undefined | HunterCommissionDefaultArgs> = $Result.GetResult<Prisma.$HunterCommissionPayload, S>
+
+  type HunterCommissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HunterCommissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HunterCommissionCountAggregateInputType | true
+    }
+
+  export interface HunterCommissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HunterCommission'], meta: { name: 'HunterCommission' } }
+    /**
+     * Find zero or one HunterCommission that matches the filter.
+     * @param {HunterCommissionFindUniqueArgs} args - Arguments to find a HunterCommission
+     * @example
+     * // Get one HunterCommission
+     * const hunterCommission = await prisma.hunterCommission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HunterCommissionFindUniqueArgs>(args: SelectSubset<T, HunterCommissionFindUniqueArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one HunterCommission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HunterCommissionFindUniqueOrThrowArgs} args - Arguments to find a HunterCommission
+     * @example
+     * // Get one HunterCommission
+     * const hunterCommission = await prisma.hunterCommission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HunterCommissionFindUniqueOrThrowArgs>(args: SelectSubset<T, HunterCommissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HunterCommission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCommissionFindFirstArgs} args - Arguments to find a HunterCommission
+     * @example
+     * // Get one HunterCommission
+     * const hunterCommission = await prisma.hunterCommission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HunterCommissionFindFirstArgs>(args?: SelectSubset<T, HunterCommissionFindFirstArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HunterCommission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCommissionFindFirstOrThrowArgs} args - Arguments to find a HunterCommission
+     * @example
+     * // Get one HunterCommission
+     * const hunterCommission = await prisma.hunterCommission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HunterCommissionFindFirstOrThrowArgs>(args?: SelectSubset<T, HunterCommissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HunterCommissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCommissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HunterCommissions
+     * const hunterCommissions = await prisma.hunterCommission.findMany()
+     * 
+     * // Get first 10 HunterCommissions
+     * const hunterCommissions = await prisma.hunterCommission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hunterCommissionWithIdOnly = await prisma.hunterCommission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HunterCommissionFindManyArgs>(args?: SelectSubset<T, HunterCommissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a HunterCommission.
+     * @param {HunterCommissionCreateArgs} args - Arguments to create a HunterCommission.
+     * @example
+     * // Create one HunterCommission
+     * const HunterCommission = await prisma.hunterCommission.create({
+     *   data: {
+     *     // ... data to create a HunterCommission
+     *   }
+     * })
+     * 
+     */
+    create<T extends HunterCommissionCreateArgs>(args: SelectSubset<T, HunterCommissionCreateArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many HunterCommissions.
+     * @param {HunterCommissionCreateManyArgs} args - Arguments to create many HunterCommissions.
+     * @example
+     * // Create many HunterCommissions
+     * const hunterCommission = await prisma.hunterCommission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HunterCommissionCreateManyArgs>(args?: SelectSubset<T, HunterCommissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HunterCommissions and returns the data saved in the database.
+     * @param {HunterCommissionCreateManyAndReturnArgs} args - Arguments to create many HunterCommissions.
+     * @example
+     * // Create many HunterCommissions
+     * const hunterCommission = await prisma.hunterCommission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HunterCommissions and only return the `id`
+     * const hunterCommissionWithIdOnly = await prisma.hunterCommission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HunterCommissionCreateManyAndReturnArgs>(args?: SelectSubset<T, HunterCommissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a HunterCommission.
+     * @param {HunterCommissionDeleteArgs} args - Arguments to delete one HunterCommission.
+     * @example
+     * // Delete one HunterCommission
+     * const HunterCommission = await prisma.hunterCommission.delete({
+     *   where: {
+     *     // ... filter to delete one HunterCommission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HunterCommissionDeleteArgs>(args: SelectSubset<T, HunterCommissionDeleteArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one HunterCommission.
+     * @param {HunterCommissionUpdateArgs} args - Arguments to update one HunterCommission.
+     * @example
+     * // Update one HunterCommission
+     * const hunterCommission = await prisma.hunterCommission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HunterCommissionUpdateArgs>(args: SelectSubset<T, HunterCommissionUpdateArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more HunterCommissions.
+     * @param {HunterCommissionDeleteManyArgs} args - Arguments to filter HunterCommissions to delete.
+     * @example
+     * // Delete a few HunterCommissions
+     * const { count } = await prisma.hunterCommission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HunterCommissionDeleteManyArgs>(args?: SelectSubset<T, HunterCommissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HunterCommissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCommissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HunterCommissions
+     * const hunterCommission = await prisma.hunterCommission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HunterCommissionUpdateManyArgs>(args: SelectSubset<T, HunterCommissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HunterCommissions and returns the data updated in the database.
+     * @param {HunterCommissionUpdateManyAndReturnArgs} args - Arguments to update many HunterCommissions.
+     * @example
+     * // Update many HunterCommissions
+     * const hunterCommission = await prisma.hunterCommission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more HunterCommissions and only return the `id`
+     * const hunterCommissionWithIdOnly = await prisma.hunterCommission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HunterCommissionUpdateManyAndReturnArgs>(args: SelectSubset<T, HunterCommissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one HunterCommission.
+     * @param {HunterCommissionUpsertArgs} args - Arguments to update or create a HunterCommission.
+     * @example
+     * // Update or create a HunterCommission
+     * const hunterCommission = await prisma.hunterCommission.upsert({
+     *   create: {
+     *     // ... data to create a HunterCommission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HunterCommission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HunterCommissionUpsertArgs>(args: SelectSubset<T, HunterCommissionUpsertArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of HunterCommissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCommissionCountArgs} args - Arguments to filter HunterCommissions to count.
+     * @example
+     * // Count the number of HunterCommissions
+     * const count = await prisma.hunterCommission.count({
+     *   where: {
+     *     // ... the filter for the HunterCommissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends HunterCommissionCountArgs>(
+      args?: Subset<T, HunterCommissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HunterCommissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HunterCommission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCommissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HunterCommissionAggregateArgs>(args: Subset<T, HunterCommissionAggregateArgs>): Prisma.PrismaPromise<GetHunterCommissionAggregateType<T>>
+
+    /**
+     * Group by HunterCommission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterCommissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HunterCommissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HunterCommissionGroupByArgs['orderBy'] }
+        : { orderBy?: HunterCommissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HunterCommissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHunterCommissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HunterCommission model
+   */
+  readonly fields: HunterCommissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HunterCommission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HunterCommissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hunter<T extends HunterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HunterDefaultArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    donation<T extends TenantDonationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDonationDefaultArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    systemLedgers<T extends HunterCommission$systemLedgersArgs<ExtArgs> = {}>(args?: Subset<T, HunterCommission$systemLedgersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HunterCommission model
+   */
+  interface HunterCommissionFieldRefs {
+    readonly id: FieldRef<"HunterCommission", 'String'>
+    readonly hunterId: FieldRef<"HunterCommission", 'String'>
+    readonly tenantId: FieldRef<"HunterCommission", 'String'>
+    readonly donationId: FieldRef<"HunterCommission", 'String'>
+    readonly donationAmount: FieldRef<"HunterCommission", 'Decimal'>
+    readonly commissionRate: FieldRef<"HunterCommission", 'Decimal'>
+    readonly commissionAmount: FieldRef<"HunterCommission", 'Decimal'>
+    readonly status: FieldRef<"HunterCommission", 'CommissionStatus'>
+    readonly paidOutAt: FieldRef<"HunterCommission", 'DateTime'>
+    readonly notes: FieldRef<"HunterCommission", 'String'>
+    readonly createdAt: FieldRef<"HunterCommission", 'DateTime'>
+    readonly updatedAt: FieldRef<"HunterCommission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HunterCommission findUnique
+   */
+  export type HunterCommissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterCommission to fetch.
+     */
+    where: HunterCommissionWhereUniqueInput
+  }
+
+  /**
+   * HunterCommission findUniqueOrThrow
+   */
+  export type HunterCommissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterCommission to fetch.
+     */
+    where: HunterCommissionWhereUniqueInput
+  }
+
+  /**
+   * HunterCommission findFirst
+   */
+  export type HunterCommissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterCommission to fetch.
+     */
+    where?: HunterCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterCommissions to fetch.
+     */
+    orderBy?: HunterCommissionOrderByWithRelationInput | HunterCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HunterCommissions.
+     */
+    cursor?: HunterCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterCommissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HunterCommissions.
+     */
+    distinct?: HunterCommissionScalarFieldEnum | HunterCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * HunterCommission findFirstOrThrow
+   */
+  export type HunterCommissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterCommission to fetch.
+     */
+    where?: HunterCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterCommissions to fetch.
+     */
+    orderBy?: HunterCommissionOrderByWithRelationInput | HunterCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HunterCommissions.
+     */
+    cursor?: HunterCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterCommissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HunterCommissions.
+     */
+    distinct?: HunterCommissionScalarFieldEnum | HunterCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * HunterCommission findMany
+   */
+  export type HunterCommissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterCommissions to fetch.
+     */
+    where?: HunterCommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterCommissions to fetch.
+     */
+    orderBy?: HunterCommissionOrderByWithRelationInput | HunterCommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HunterCommissions.
+     */
+    cursor?: HunterCommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterCommissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterCommissions.
+     */
+    skip?: number
+    distinct?: HunterCommissionScalarFieldEnum | HunterCommissionScalarFieldEnum[]
+  }
+
+  /**
+   * HunterCommission create
+   */
+  export type HunterCommissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HunterCommission.
+     */
+    data: XOR<HunterCommissionCreateInput, HunterCommissionUncheckedCreateInput>
+  }
+
+  /**
+   * HunterCommission createMany
+   */
+  export type HunterCommissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HunterCommissions.
+     */
+    data: HunterCommissionCreateManyInput | HunterCommissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HunterCommission createManyAndReturn
+   */
+  export type HunterCommissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many HunterCommissions.
+     */
+    data: HunterCommissionCreateManyInput | HunterCommissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HunterCommission update
+   */
+  export type HunterCommissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HunterCommission.
+     */
+    data: XOR<HunterCommissionUpdateInput, HunterCommissionUncheckedUpdateInput>
+    /**
+     * Choose, which HunterCommission to update.
+     */
+    where: HunterCommissionWhereUniqueInput
+  }
+
+  /**
+   * HunterCommission updateMany
+   */
+  export type HunterCommissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HunterCommissions.
+     */
+    data: XOR<HunterCommissionUpdateManyMutationInput, HunterCommissionUncheckedUpdateManyInput>
+    /**
+     * Filter which HunterCommissions to update
+     */
+    where?: HunterCommissionWhereInput
+    /**
+     * Limit how many HunterCommissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HunterCommission updateManyAndReturn
+   */
+  export type HunterCommissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * The data used to update HunterCommissions.
+     */
+    data: XOR<HunterCommissionUpdateManyMutationInput, HunterCommissionUncheckedUpdateManyInput>
+    /**
+     * Filter which HunterCommissions to update
+     */
+    where?: HunterCommissionWhereInput
+    /**
+     * Limit how many HunterCommissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HunterCommission upsert
+   */
+  export type HunterCommissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HunterCommission to update in case it exists.
+     */
+    where: HunterCommissionWhereUniqueInput
+    /**
+     * In case the HunterCommission found by the `where` argument doesn't exist, create a new HunterCommission with this data.
+     */
+    create: XOR<HunterCommissionCreateInput, HunterCommissionUncheckedCreateInput>
+    /**
+     * In case the HunterCommission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HunterCommissionUpdateInput, HunterCommissionUncheckedUpdateInput>
+  }
+
+  /**
+   * HunterCommission delete
+   */
+  export type HunterCommissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    /**
+     * Filter which HunterCommission to delete.
+     */
+    where: HunterCommissionWhereUniqueInput
+  }
+
+  /**
+   * HunterCommission deleteMany
+   */
+  export type HunterCommissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HunterCommissions to delete
+     */
+    where?: HunterCommissionWhereInput
+    /**
+     * Limit how many HunterCommissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * HunterCommission.systemLedgers
+   */
+  export type HunterCommission$systemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    where?: SystemLedgerWhereInput
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    cursor?: SystemLedgerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SystemLedgerScalarFieldEnum | SystemLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * HunterCommission without action
+   */
+  export type HunterCommissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HunterPayout
+   */
+
+  export type AggregateHunterPayout = {
+    _count: HunterPayoutCountAggregateOutputType | null
+    _avg: HunterPayoutAvgAggregateOutputType | null
+    _sum: HunterPayoutSumAggregateOutputType | null
+    _min: HunterPayoutMinAggregateOutputType | null
+    _max: HunterPayoutMaxAggregateOutputType | null
+  }
+
+  export type HunterPayoutAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type HunterPayoutSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type HunterPayoutMinAggregateOutputType = {
+    id: string | null
+    hunterId: string | null
+    amount: Decimal | null
+    paymentMethod: string | null
+    referenceNumber: string | null
+    status: $Enums.PayoutStatus | null
+    processedBy: string | null
+    processedAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HunterPayoutMaxAggregateOutputType = {
+    id: string | null
+    hunterId: string | null
+    amount: Decimal | null
+    paymentMethod: string | null
+    referenceNumber: string | null
+    status: $Enums.PayoutStatus | null
+    processedBy: string | null
+    processedAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HunterPayoutCountAggregateOutputType = {
+    id: number
+    hunterId: number
+    amount: number
+    paymentMethod: number
+    referenceNumber: number
+    status: number
+    processedBy: number
+    processedAt: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HunterPayoutAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type HunterPayoutSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type HunterPayoutMinAggregateInputType = {
+    id?: true
+    hunterId?: true
+    amount?: true
+    paymentMethod?: true
+    referenceNumber?: true
+    status?: true
+    processedBy?: true
+    processedAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HunterPayoutMaxAggregateInputType = {
+    id?: true
+    hunterId?: true
+    amount?: true
+    paymentMethod?: true
+    referenceNumber?: true
+    status?: true
+    processedBy?: true
+    processedAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HunterPayoutCountAggregateInputType = {
+    id?: true
+    hunterId?: true
+    amount?: true
+    paymentMethod?: true
+    referenceNumber?: true
+    status?: true
+    processedBy?: true
+    processedAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HunterPayoutAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HunterPayout to aggregate.
+     */
+    where?: HunterPayoutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterPayouts to fetch.
+     */
+    orderBy?: HunterPayoutOrderByWithRelationInput | HunterPayoutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HunterPayoutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterPayouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterPayouts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HunterPayouts
+    **/
+    _count?: true | HunterPayoutCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HunterPayoutAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HunterPayoutSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HunterPayoutMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HunterPayoutMaxAggregateInputType
+  }
+
+  export type GetHunterPayoutAggregateType<T extends HunterPayoutAggregateArgs> = {
+        [P in keyof T & keyof AggregateHunterPayout]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHunterPayout[P]>
+      : GetScalarType<T[P], AggregateHunterPayout[P]>
+  }
+
+
+
+
+  export type HunterPayoutGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HunterPayoutWhereInput
+    orderBy?: HunterPayoutOrderByWithAggregationInput | HunterPayoutOrderByWithAggregationInput[]
+    by: HunterPayoutScalarFieldEnum[] | HunterPayoutScalarFieldEnum
+    having?: HunterPayoutScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HunterPayoutCountAggregateInputType | true
+    _avg?: HunterPayoutAvgAggregateInputType
+    _sum?: HunterPayoutSumAggregateInputType
+    _min?: HunterPayoutMinAggregateInputType
+    _max?: HunterPayoutMaxAggregateInputType
+  }
+
+  export type HunterPayoutGroupByOutputType = {
+    id: string
+    hunterId: string
+    amount: Decimal
+    paymentMethod: string | null
+    referenceNumber: string | null
+    status: $Enums.PayoutStatus
+    processedBy: string | null
+    processedAt: Date | null
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: HunterPayoutCountAggregateOutputType | null
+    _avg: HunterPayoutAvgAggregateOutputType | null
+    _sum: HunterPayoutSumAggregateOutputType | null
+    _min: HunterPayoutMinAggregateOutputType | null
+    _max: HunterPayoutMaxAggregateOutputType | null
+  }
+
+  type GetHunterPayoutGroupByPayload<T extends HunterPayoutGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HunterPayoutGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HunterPayoutGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HunterPayoutGroupByOutputType[P]>
+            : GetScalarType<T[P], HunterPayoutGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HunterPayoutSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hunterId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
+    status?: boolean
+    processedBy?: boolean
+    processedAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    systemLedgers?: boolean | HunterPayout$systemLedgersArgs<ExtArgs>
+    _count?: boolean | HunterPayoutCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunterPayout"]>
+
+  export type HunterPayoutSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hunterId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
+    status?: boolean
+    processedBy?: boolean
+    processedAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunterPayout"]>
+
+  export type HunterPayoutSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hunterId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
+    status?: boolean
+    processedBy?: boolean
+    processedAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hunterPayout"]>
+
+  export type HunterPayoutSelectScalar = {
+    id?: boolean
+    hunterId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
+    status?: boolean
+    processedBy?: boolean
+    processedAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HunterPayoutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hunterId" | "amount" | "paymentMethod" | "referenceNumber" | "status" | "processedBy" | "processedAt" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["hunterPayout"]>
+  export type HunterPayoutInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+    systemLedgers?: boolean | HunterPayout$systemLedgersArgs<ExtArgs>
+    _count?: boolean | HunterPayoutCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type HunterPayoutIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+  }
+  export type HunterPayoutIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | HunterDefaultArgs<ExtArgs>
+  }
+
+  export type $HunterPayoutPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HunterPayout"
+    objects: {
+      hunter: Prisma.$HunterPayload<ExtArgs>
+      systemLedgers: Prisma.$SystemLedgerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hunterId: string
+      amount: Prisma.Decimal
+      paymentMethod: string | null
+      referenceNumber: string | null
+      status: $Enums.PayoutStatus
+      processedBy: string | null
+      processedAt: Date | null
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["hunterPayout"]>
+    composites: {}
+  }
+
+  type HunterPayoutGetPayload<S extends boolean | null | undefined | HunterPayoutDefaultArgs> = $Result.GetResult<Prisma.$HunterPayoutPayload, S>
+
+  type HunterPayoutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HunterPayoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HunterPayoutCountAggregateInputType | true
+    }
+
+  export interface HunterPayoutDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HunterPayout'], meta: { name: 'HunterPayout' } }
+    /**
+     * Find zero or one HunterPayout that matches the filter.
+     * @param {HunterPayoutFindUniqueArgs} args - Arguments to find a HunterPayout
+     * @example
+     * // Get one HunterPayout
+     * const hunterPayout = await prisma.hunterPayout.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HunterPayoutFindUniqueArgs>(args: SelectSubset<T, HunterPayoutFindUniqueArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one HunterPayout that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HunterPayoutFindUniqueOrThrowArgs} args - Arguments to find a HunterPayout
+     * @example
+     * // Get one HunterPayout
+     * const hunterPayout = await prisma.hunterPayout.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HunterPayoutFindUniqueOrThrowArgs>(args: SelectSubset<T, HunterPayoutFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HunterPayout that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterPayoutFindFirstArgs} args - Arguments to find a HunterPayout
+     * @example
+     * // Get one HunterPayout
+     * const hunterPayout = await prisma.hunterPayout.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HunterPayoutFindFirstArgs>(args?: SelectSubset<T, HunterPayoutFindFirstArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HunterPayout that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterPayoutFindFirstOrThrowArgs} args - Arguments to find a HunterPayout
+     * @example
+     * // Get one HunterPayout
+     * const hunterPayout = await prisma.hunterPayout.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HunterPayoutFindFirstOrThrowArgs>(args?: SelectSubset<T, HunterPayoutFindFirstOrThrowArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HunterPayouts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterPayoutFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HunterPayouts
+     * const hunterPayouts = await prisma.hunterPayout.findMany()
+     * 
+     * // Get first 10 HunterPayouts
+     * const hunterPayouts = await prisma.hunterPayout.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hunterPayoutWithIdOnly = await prisma.hunterPayout.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HunterPayoutFindManyArgs>(args?: SelectSubset<T, HunterPayoutFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a HunterPayout.
+     * @param {HunterPayoutCreateArgs} args - Arguments to create a HunterPayout.
+     * @example
+     * // Create one HunterPayout
+     * const HunterPayout = await prisma.hunterPayout.create({
+     *   data: {
+     *     // ... data to create a HunterPayout
+     *   }
+     * })
+     * 
+     */
+    create<T extends HunterPayoutCreateArgs>(args: SelectSubset<T, HunterPayoutCreateArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many HunterPayouts.
+     * @param {HunterPayoutCreateManyArgs} args - Arguments to create many HunterPayouts.
+     * @example
+     * // Create many HunterPayouts
+     * const hunterPayout = await prisma.hunterPayout.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HunterPayoutCreateManyArgs>(args?: SelectSubset<T, HunterPayoutCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HunterPayouts and returns the data saved in the database.
+     * @param {HunterPayoutCreateManyAndReturnArgs} args - Arguments to create many HunterPayouts.
+     * @example
+     * // Create many HunterPayouts
+     * const hunterPayout = await prisma.hunterPayout.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HunterPayouts and only return the `id`
+     * const hunterPayoutWithIdOnly = await prisma.hunterPayout.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HunterPayoutCreateManyAndReturnArgs>(args?: SelectSubset<T, HunterPayoutCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a HunterPayout.
+     * @param {HunterPayoutDeleteArgs} args - Arguments to delete one HunterPayout.
+     * @example
+     * // Delete one HunterPayout
+     * const HunterPayout = await prisma.hunterPayout.delete({
+     *   where: {
+     *     // ... filter to delete one HunterPayout
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HunterPayoutDeleteArgs>(args: SelectSubset<T, HunterPayoutDeleteArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one HunterPayout.
+     * @param {HunterPayoutUpdateArgs} args - Arguments to update one HunterPayout.
+     * @example
+     * // Update one HunterPayout
+     * const hunterPayout = await prisma.hunterPayout.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HunterPayoutUpdateArgs>(args: SelectSubset<T, HunterPayoutUpdateArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more HunterPayouts.
+     * @param {HunterPayoutDeleteManyArgs} args - Arguments to filter HunterPayouts to delete.
+     * @example
+     * // Delete a few HunterPayouts
+     * const { count } = await prisma.hunterPayout.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HunterPayoutDeleteManyArgs>(args?: SelectSubset<T, HunterPayoutDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HunterPayouts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterPayoutUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HunterPayouts
+     * const hunterPayout = await prisma.hunterPayout.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HunterPayoutUpdateManyArgs>(args: SelectSubset<T, HunterPayoutUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HunterPayouts and returns the data updated in the database.
+     * @param {HunterPayoutUpdateManyAndReturnArgs} args - Arguments to update many HunterPayouts.
+     * @example
+     * // Update many HunterPayouts
+     * const hunterPayout = await prisma.hunterPayout.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more HunterPayouts and only return the `id`
+     * const hunterPayoutWithIdOnly = await prisma.hunterPayout.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HunterPayoutUpdateManyAndReturnArgs>(args: SelectSubset<T, HunterPayoutUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one HunterPayout.
+     * @param {HunterPayoutUpsertArgs} args - Arguments to update or create a HunterPayout.
+     * @example
+     * // Update or create a HunterPayout
+     * const hunterPayout = await prisma.hunterPayout.upsert({
+     *   create: {
+     *     // ... data to create a HunterPayout
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HunterPayout we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HunterPayoutUpsertArgs>(args: SelectSubset<T, HunterPayoutUpsertArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of HunterPayouts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterPayoutCountArgs} args - Arguments to filter HunterPayouts to count.
+     * @example
+     * // Count the number of HunterPayouts
+     * const count = await prisma.hunterPayout.count({
+     *   where: {
+     *     // ... the filter for the HunterPayouts we want to count
+     *   }
+     * })
+    **/
+    count<T extends HunterPayoutCountArgs>(
+      args?: Subset<T, HunterPayoutCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HunterPayoutCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HunterPayout.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterPayoutAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HunterPayoutAggregateArgs>(args: Subset<T, HunterPayoutAggregateArgs>): Prisma.PrismaPromise<GetHunterPayoutAggregateType<T>>
+
+    /**
+     * Group by HunterPayout.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HunterPayoutGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HunterPayoutGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HunterPayoutGroupByArgs['orderBy'] }
+        : { orderBy?: HunterPayoutGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HunterPayoutGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHunterPayoutGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HunterPayout model
+   */
+  readonly fields: HunterPayoutFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HunterPayout.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HunterPayoutClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hunter<T extends HunterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HunterDefaultArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    systemLedgers<T extends HunterPayout$systemLedgersArgs<ExtArgs> = {}>(args?: Subset<T, HunterPayout$systemLedgersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HunterPayout model
+   */
+  interface HunterPayoutFieldRefs {
+    readonly id: FieldRef<"HunterPayout", 'String'>
+    readonly hunterId: FieldRef<"HunterPayout", 'String'>
+    readonly amount: FieldRef<"HunterPayout", 'Decimal'>
+    readonly paymentMethod: FieldRef<"HunterPayout", 'String'>
+    readonly referenceNumber: FieldRef<"HunterPayout", 'String'>
+    readonly status: FieldRef<"HunterPayout", 'PayoutStatus'>
+    readonly processedBy: FieldRef<"HunterPayout", 'String'>
+    readonly processedAt: FieldRef<"HunterPayout", 'DateTime'>
+    readonly notes: FieldRef<"HunterPayout", 'String'>
+    readonly createdAt: FieldRef<"HunterPayout", 'DateTime'>
+    readonly updatedAt: FieldRef<"HunterPayout", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HunterPayout findUnique
+   */
+  export type HunterPayoutFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterPayout to fetch.
+     */
+    where: HunterPayoutWhereUniqueInput
+  }
+
+  /**
+   * HunterPayout findUniqueOrThrow
+   */
+  export type HunterPayoutFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterPayout to fetch.
+     */
+    where: HunterPayoutWhereUniqueInput
+  }
+
+  /**
+   * HunterPayout findFirst
+   */
+  export type HunterPayoutFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterPayout to fetch.
+     */
+    where?: HunterPayoutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterPayouts to fetch.
+     */
+    orderBy?: HunterPayoutOrderByWithRelationInput | HunterPayoutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HunterPayouts.
+     */
+    cursor?: HunterPayoutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterPayouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterPayouts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HunterPayouts.
+     */
+    distinct?: HunterPayoutScalarFieldEnum | HunterPayoutScalarFieldEnum[]
+  }
+
+  /**
+   * HunterPayout findFirstOrThrow
+   */
+  export type HunterPayoutFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterPayout to fetch.
+     */
+    where?: HunterPayoutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterPayouts to fetch.
+     */
+    orderBy?: HunterPayoutOrderByWithRelationInput | HunterPayoutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HunterPayouts.
+     */
+    cursor?: HunterPayoutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterPayouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterPayouts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HunterPayouts.
+     */
+    distinct?: HunterPayoutScalarFieldEnum | HunterPayoutScalarFieldEnum[]
+  }
+
+  /**
+   * HunterPayout findMany
+   */
+  export type HunterPayoutFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * Filter, which HunterPayouts to fetch.
+     */
+    where?: HunterPayoutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HunterPayouts to fetch.
+     */
+    orderBy?: HunterPayoutOrderByWithRelationInput | HunterPayoutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HunterPayouts.
+     */
+    cursor?: HunterPayoutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HunterPayouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HunterPayouts.
+     */
+    skip?: number
+    distinct?: HunterPayoutScalarFieldEnum | HunterPayoutScalarFieldEnum[]
+  }
+
+  /**
+   * HunterPayout create
+   */
+  export type HunterPayoutCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HunterPayout.
+     */
+    data: XOR<HunterPayoutCreateInput, HunterPayoutUncheckedCreateInput>
+  }
+
+  /**
+   * HunterPayout createMany
+   */
+  export type HunterPayoutCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HunterPayouts.
+     */
+    data: HunterPayoutCreateManyInput | HunterPayoutCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HunterPayout createManyAndReturn
+   */
+  export type HunterPayoutCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * The data used to create many HunterPayouts.
+     */
+    data: HunterPayoutCreateManyInput | HunterPayoutCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HunterPayout update
+   */
+  export type HunterPayoutUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HunterPayout.
+     */
+    data: XOR<HunterPayoutUpdateInput, HunterPayoutUncheckedUpdateInput>
+    /**
+     * Choose, which HunterPayout to update.
+     */
+    where: HunterPayoutWhereUniqueInput
+  }
+
+  /**
+   * HunterPayout updateMany
+   */
+  export type HunterPayoutUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HunterPayouts.
+     */
+    data: XOR<HunterPayoutUpdateManyMutationInput, HunterPayoutUncheckedUpdateManyInput>
+    /**
+     * Filter which HunterPayouts to update
+     */
+    where?: HunterPayoutWhereInput
+    /**
+     * Limit how many HunterPayouts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HunterPayout updateManyAndReturn
+   */
+  export type HunterPayoutUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * The data used to update HunterPayouts.
+     */
+    data: XOR<HunterPayoutUpdateManyMutationInput, HunterPayoutUncheckedUpdateManyInput>
+    /**
+     * Filter which HunterPayouts to update
+     */
+    where?: HunterPayoutWhereInput
+    /**
+     * Limit how many HunterPayouts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HunterPayout upsert
+   */
+  export type HunterPayoutUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HunterPayout to update in case it exists.
+     */
+    where: HunterPayoutWhereUniqueInput
+    /**
+     * In case the HunterPayout found by the `where` argument doesn't exist, create a new HunterPayout with this data.
+     */
+    create: XOR<HunterPayoutCreateInput, HunterPayoutUncheckedCreateInput>
+    /**
+     * In case the HunterPayout was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HunterPayoutUpdateInput, HunterPayoutUncheckedUpdateInput>
+  }
+
+  /**
+   * HunterPayout delete
+   */
+  export type HunterPayoutDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    /**
+     * Filter which HunterPayout to delete.
+     */
+    where: HunterPayoutWhereUniqueInput
+  }
+
+  /**
+   * HunterPayout deleteMany
+   */
+  export type HunterPayoutDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HunterPayouts to delete
+     */
+    where?: HunterPayoutWhereInput
+    /**
+     * Limit how many HunterPayouts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * HunterPayout.systemLedgers
+   */
+  export type HunterPayout$systemLedgersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    where?: SystemLedgerWhereInput
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    cursor?: SystemLedgerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SystemLedgerScalarFieldEnum | SystemLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * HunterPayout without action
+   */
+  export type HunterPayoutDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SystemLedger
+   */
+
+  export type AggregateSystemLedger = {
+    _count: SystemLedgerCountAggregateOutputType | null
+    _avg: SystemLedgerAvgAggregateOutputType | null
+    _sum: SystemLedgerSumAggregateOutputType | null
+    _min: SystemLedgerMinAggregateOutputType | null
+    _max: SystemLedgerMaxAggregateOutputType | null
+  }
+
+  export type SystemLedgerAvgAggregateOutputType = {
+    amount: Decimal | null
+    balance: Decimal | null
+  }
+
+  export type SystemLedgerSumAggregateOutputType = {
+    amount: Decimal | null
+    balance: Decimal | null
+  }
+
+  export type SystemLedgerMinAggregateOutputType = {
+    id: string | null
+    transactionType: $Enums.TransactionType | null
+    category: $Enums.LedgerCategory | null
+    amount: Decimal | null
+    balance: Decimal | null
+    description: string | null
+    referenceType: string | null
+    referenceId: string | null
+    hunterId: string | null
+    tenantId: string | null
+    donationId: string | null
+    commissionId: string | null
+    payoutId: string | null
+    createdAt: Date | null
+  }
+
+  export type SystemLedgerMaxAggregateOutputType = {
+    id: string | null
+    transactionType: $Enums.TransactionType | null
+    category: $Enums.LedgerCategory | null
+    amount: Decimal | null
+    balance: Decimal | null
+    description: string | null
+    referenceType: string | null
+    referenceId: string | null
+    hunterId: string | null
+    tenantId: string | null
+    donationId: string | null
+    commissionId: string | null
+    payoutId: string | null
+    createdAt: Date | null
+  }
+
+  export type SystemLedgerCountAggregateOutputType = {
+    id: number
+    transactionType: number
+    category: number
+    amount: number
+    balance: number
+    description: number
+    referenceType: number
+    referenceId: number
+    hunterId: number
+    tenantId: number
+    donationId: number
+    commissionId: number
+    payoutId: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SystemLedgerAvgAggregateInputType = {
+    amount?: true
+    balance?: true
+  }
+
+  export type SystemLedgerSumAggregateInputType = {
+    amount?: true
+    balance?: true
+  }
+
+  export type SystemLedgerMinAggregateInputType = {
+    id?: true
+    transactionType?: true
+    category?: true
+    amount?: true
+    balance?: true
+    description?: true
+    referenceType?: true
+    referenceId?: true
+    hunterId?: true
+    tenantId?: true
+    donationId?: true
+    commissionId?: true
+    payoutId?: true
+    createdAt?: true
+  }
+
+  export type SystemLedgerMaxAggregateInputType = {
+    id?: true
+    transactionType?: true
+    category?: true
+    amount?: true
+    balance?: true
+    description?: true
+    referenceType?: true
+    referenceId?: true
+    hunterId?: true
+    tenantId?: true
+    donationId?: true
+    commissionId?: true
+    payoutId?: true
+    createdAt?: true
+  }
+
+  export type SystemLedgerCountAggregateInputType = {
+    id?: true
+    transactionType?: true
+    category?: true
+    amount?: true
+    balance?: true
+    description?: true
+    referenceType?: true
+    referenceId?: true
+    hunterId?: true
+    tenantId?: true
+    donationId?: true
+    commissionId?: true
+    payoutId?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SystemLedgerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemLedger to aggregate.
+     */
+    where?: SystemLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemLedgers to fetch.
+     */
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SystemLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SystemLedgers
+    **/
+    _count?: true | SystemLedgerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SystemLedgerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SystemLedgerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SystemLedgerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SystemLedgerMaxAggregateInputType
+  }
+
+  export type GetSystemLedgerAggregateType<T extends SystemLedgerAggregateArgs> = {
+        [P in keyof T & keyof AggregateSystemLedger]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSystemLedger[P]>
+      : GetScalarType<T[P], AggregateSystemLedger[P]>
+  }
+
+
+
+
+  export type SystemLedgerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemLedgerWhereInput
+    orderBy?: SystemLedgerOrderByWithAggregationInput | SystemLedgerOrderByWithAggregationInput[]
+    by: SystemLedgerScalarFieldEnum[] | SystemLedgerScalarFieldEnum
+    having?: SystemLedgerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SystemLedgerCountAggregateInputType | true
+    _avg?: SystemLedgerAvgAggregateInputType
+    _sum?: SystemLedgerSumAggregateInputType
+    _min?: SystemLedgerMinAggregateInputType
+    _max?: SystemLedgerMaxAggregateInputType
+  }
+
+  export type SystemLedgerGroupByOutputType = {
+    id: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal
+    balance: Decimal
+    description: string
+    referenceType: string | null
+    referenceId: string | null
+    hunterId: string | null
+    tenantId: string | null
+    donationId: string | null
+    commissionId: string | null
+    payoutId: string | null
+    metadata: JsonValue | null
+    createdAt: Date
+    _count: SystemLedgerCountAggregateOutputType | null
+    _avg: SystemLedgerAvgAggregateOutputType | null
+    _sum: SystemLedgerSumAggregateOutputType | null
+    _min: SystemLedgerMinAggregateOutputType | null
+    _max: SystemLedgerMaxAggregateOutputType | null
+  }
+
+  type GetSystemLedgerGroupByPayload<T extends SystemLedgerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SystemLedgerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SystemLedgerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SystemLedgerGroupByOutputType[P]>
+            : GetScalarType<T[P], SystemLedgerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SystemLedgerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionType?: boolean
+    category?: boolean
+    amount?: boolean
+    balance?: boolean
+    description?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    commissionId?: boolean
+    payoutId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    hunter?: boolean | SystemLedger$hunterArgs<ExtArgs>
+    donation?: boolean | SystemLedger$donationArgs<ExtArgs>
+    commission?: boolean | SystemLedger$commissionArgs<ExtArgs>
+    payout?: boolean | SystemLedger$payoutArgs<ExtArgs>
+  }, ExtArgs["result"]["systemLedger"]>
+
+  export type SystemLedgerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionType?: boolean
+    category?: boolean
+    amount?: boolean
+    balance?: boolean
+    description?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    commissionId?: boolean
+    payoutId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    hunter?: boolean | SystemLedger$hunterArgs<ExtArgs>
+    donation?: boolean | SystemLedger$donationArgs<ExtArgs>
+    commission?: boolean | SystemLedger$commissionArgs<ExtArgs>
+    payout?: boolean | SystemLedger$payoutArgs<ExtArgs>
+  }, ExtArgs["result"]["systemLedger"]>
+
+  export type SystemLedgerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionType?: boolean
+    category?: boolean
+    amount?: boolean
+    balance?: boolean
+    description?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    commissionId?: boolean
+    payoutId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    hunter?: boolean | SystemLedger$hunterArgs<ExtArgs>
+    donation?: boolean | SystemLedger$donationArgs<ExtArgs>
+    commission?: boolean | SystemLedger$commissionArgs<ExtArgs>
+    payout?: boolean | SystemLedger$payoutArgs<ExtArgs>
+  }, ExtArgs["result"]["systemLedger"]>
+
+  export type SystemLedgerSelectScalar = {
+    id?: boolean
+    transactionType?: boolean
+    category?: boolean
+    amount?: boolean
+    balance?: boolean
+    description?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    hunterId?: boolean
+    tenantId?: boolean
+    donationId?: boolean
+    commissionId?: boolean
+    payoutId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type SystemLedgerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionType" | "category" | "amount" | "balance" | "description" | "referenceType" | "referenceId" | "hunterId" | "tenantId" | "donationId" | "commissionId" | "payoutId" | "metadata" | "createdAt", ExtArgs["result"]["systemLedger"]>
+  export type SystemLedgerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | SystemLedger$hunterArgs<ExtArgs>
+    donation?: boolean | SystemLedger$donationArgs<ExtArgs>
+    commission?: boolean | SystemLedger$commissionArgs<ExtArgs>
+    payout?: boolean | SystemLedger$payoutArgs<ExtArgs>
+  }
+  export type SystemLedgerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | SystemLedger$hunterArgs<ExtArgs>
+    donation?: boolean | SystemLedger$donationArgs<ExtArgs>
+    commission?: boolean | SystemLedger$commissionArgs<ExtArgs>
+    payout?: boolean | SystemLedger$payoutArgs<ExtArgs>
+  }
+  export type SystemLedgerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hunter?: boolean | SystemLedger$hunterArgs<ExtArgs>
+    donation?: boolean | SystemLedger$donationArgs<ExtArgs>
+    commission?: boolean | SystemLedger$commissionArgs<ExtArgs>
+    payout?: boolean | SystemLedger$payoutArgs<ExtArgs>
+  }
+
+  export type $SystemLedgerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SystemLedger"
+    objects: {
+      hunter: Prisma.$HunterPayload<ExtArgs> | null
+      donation: Prisma.$TenantDonationPayload<ExtArgs> | null
+      commission: Prisma.$HunterCommissionPayload<ExtArgs> | null
+      payout: Prisma.$HunterPayoutPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      transactionType: $Enums.TransactionType
+      category: $Enums.LedgerCategory
+      amount: Prisma.Decimal
+      balance: Prisma.Decimal
+      description: string
+      referenceType: string | null
+      referenceId: string | null
+      hunterId: string | null
+      tenantId: string | null
+      donationId: string | null
+      commissionId: string | null
+      payoutId: string | null
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["systemLedger"]>
+    composites: {}
+  }
+
+  type SystemLedgerGetPayload<S extends boolean | null | undefined | SystemLedgerDefaultArgs> = $Result.GetResult<Prisma.$SystemLedgerPayload, S>
+
+  type SystemLedgerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SystemLedgerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SystemLedgerCountAggregateInputType | true
+    }
+
+  export interface SystemLedgerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SystemLedger'], meta: { name: 'SystemLedger' } }
+    /**
+     * Find zero or one SystemLedger that matches the filter.
+     * @param {SystemLedgerFindUniqueArgs} args - Arguments to find a SystemLedger
+     * @example
+     * // Get one SystemLedger
+     * const systemLedger = await prisma.systemLedger.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SystemLedgerFindUniqueArgs>(args: SelectSubset<T, SystemLedgerFindUniqueArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SystemLedger that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SystemLedgerFindUniqueOrThrowArgs} args - Arguments to find a SystemLedger
+     * @example
+     * // Get one SystemLedger
+     * const systemLedger = await prisma.systemLedger.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SystemLedgerFindUniqueOrThrowArgs>(args: SelectSubset<T, SystemLedgerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SystemLedger that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemLedgerFindFirstArgs} args - Arguments to find a SystemLedger
+     * @example
+     * // Get one SystemLedger
+     * const systemLedger = await prisma.systemLedger.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SystemLedgerFindFirstArgs>(args?: SelectSubset<T, SystemLedgerFindFirstArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SystemLedger that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemLedgerFindFirstOrThrowArgs} args - Arguments to find a SystemLedger
+     * @example
+     * // Get one SystemLedger
+     * const systemLedger = await prisma.systemLedger.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SystemLedgerFindFirstOrThrowArgs>(args?: SelectSubset<T, SystemLedgerFindFirstOrThrowArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SystemLedgers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemLedgerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SystemLedgers
+     * const systemLedgers = await prisma.systemLedger.findMany()
+     * 
+     * // Get first 10 SystemLedgers
+     * const systemLedgers = await prisma.systemLedger.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const systemLedgerWithIdOnly = await prisma.systemLedger.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SystemLedgerFindManyArgs>(args?: SelectSubset<T, SystemLedgerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SystemLedger.
+     * @param {SystemLedgerCreateArgs} args - Arguments to create a SystemLedger.
+     * @example
+     * // Create one SystemLedger
+     * const SystemLedger = await prisma.systemLedger.create({
+     *   data: {
+     *     // ... data to create a SystemLedger
+     *   }
+     * })
+     * 
+     */
+    create<T extends SystemLedgerCreateArgs>(args: SelectSubset<T, SystemLedgerCreateArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SystemLedgers.
+     * @param {SystemLedgerCreateManyArgs} args - Arguments to create many SystemLedgers.
+     * @example
+     * // Create many SystemLedgers
+     * const systemLedger = await prisma.systemLedger.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SystemLedgerCreateManyArgs>(args?: SelectSubset<T, SystemLedgerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SystemLedgers and returns the data saved in the database.
+     * @param {SystemLedgerCreateManyAndReturnArgs} args - Arguments to create many SystemLedgers.
+     * @example
+     * // Create many SystemLedgers
+     * const systemLedger = await prisma.systemLedger.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SystemLedgers and only return the `id`
+     * const systemLedgerWithIdOnly = await prisma.systemLedger.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SystemLedgerCreateManyAndReturnArgs>(args?: SelectSubset<T, SystemLedgerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SystemLedger.
+     * @param {SystemLedgerDeleteArgs} args - Arguments to delete one SystemLedger.
+     * @example
+     * // Delete one SystemLedger
+     * const SystemLedger = await prisma.systemLedger.delete({
+     *   where: {
+     *     // ... filter to delete one SystemLedger
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SystemLedgerDeleteArgs>(args: SelectSubset<T, SystemLedgerDeleteArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SystemLedger.
+     * @param {SystemLedgerUpdateArgs} args - Arguments to update one SystemLedger.
+     * @example
+     * // Update one SystemLedger
+     * const systemLedger = await prisma.systemLedger.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SystemLedgerUpdateArgs>(args: SelectSubset<T, SystemLedgerUpdateArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SystemLedgers.
+     * @param {SystemLedgerDeleteManyArgs} args - Arguments to filter SystemLedgers to delete.
+     * @example
+     * // Delete a few SystemLedgers
+     * const { count } = await prisma.systemLedger.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SystemLedgerDeleteManyArgs>(args?: SelectSubset<T, SystemLedgerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemLedgers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemLedgerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SystemLedgers
+     * const systemLedger = await prisma.systemLedger.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SystemLedgerUpdateManyArgs>(args: SelectSubset<T, SystemLedgerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemLedgers and returns the data updated in the database.
+     * @param {SystemLedgerUpdateManyAndReturnArgs} args - Arguments to update many SystemLedgers.
+     * @example
+     * // Update many SystemLedgers
+     * const systemLedger = await prisma.systemLedger.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SystemLedgers and only return the `id`
+     * const systemLedgerWithIdOnly = await prisma.systemLedger.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SystemLedgerUpdateManyAndReturnArgs>(args: SelectSubset<T, SystemLedgerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SystemLedger.
+     * @param {SystemLedgerUpsertArgs} args - Arguments to update or create a SystemLedger.
+     * @example
+     * // Update or create a SystemLedger
+     * const systemLedger = await prisma.systemLedger.upsert({
+     *   create: {
+     *     // ... data to create a SystemLedger
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SystemLedger we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SystemLedgerUpsertArgs>(args: SelectSubset<T, SystemLedgerUpsertArgs<ExtArgs>>): Prisma__SystemLedgerClient<$Result.GetResult<Prisma.$SystemLedgerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SystemLedgers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemLedgerCountArgs} args - Arguments to filter SystemLedgers to count.
+     * @example
+     * // Count the number of SystemLedgers
+     * const count = await prisma.systemLedger.count({
+     *   where: {
+     *     // ... the filter for the SystemLedgers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SystemLedgerCountArgs>(
+      args?: Subset<T, SystemLedgerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SystemLedgerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SystemLedger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemLedgerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SystemLedgerAggregateArgs>(args: Subset<T, SystemLedgerAggregateArgs>): Prisma.PrismaPromise<GetSystemLedgerAggregateType<T>>
+
+    /**
+     * Group by SystemLedger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemLedgerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SystemLedgerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SystemLedgerGroupByArgs['orderBy'] }
+        : { orderBy?: SystemLedgerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SystemLedgerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSystemLedgerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SystemLedger model
+   */
+  readonly fields: SystemLedgerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SystemLedger.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SystemLedgerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hunter<T extends SystemLedger$hunterArgs<ExtArgs> = {}>(args?: Subset<T, SystemLedger$hunterArgs<ExtArgs>>): Prisma__HunterClient<$Result.GetResult<Prisma.$HunterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    donation<T extends SystemLedger$donationArgs<ExtArgs> = {}>(args?: Subset<T, SystemLedger$donationArgs<ExtArgs>>): Prisma__TenantDonationClient<$Result.GetResult<Prisma.$TenantDonationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    commission<T extends SystemLedger$commissionArgs<ExtArgs> = {}>(args?: Subset<T, SystemLedger$commissionArgs<ExtArgs>>): Prisma__HunterCommissionClient<$Result.GetResult<Prisma.$HunterCommissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    payout<T extends SystemLedger$payoutArgs<ExtArgs> = {}>(args?: Subset<T, SystemLedger$payoutArgs<ExtArgs>>): Prisma__HunterPayoutClient<$Result.GetResult<Prisma.$HunterPayoutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SystemLedger model
+   */
+  interface SystemLedgerFieldRefs {
+    readonly id: FieldRef<"SystemLedger", 'String'>
+    readonly transactionType: FieldRef<"SystemLedger", 'TransactionType'>
+    readonly category: FieldRef<"SystemLedger", 'LedgerCategory'>
+    readonly amount: FieldRef<"SystemLedger", 'Decimal'>
+    readonly balance: FieldRef<"SystemLedger", 'Decimal'>
+    readonly description: FieldRef<"SystemLedger", 'String'>
+    readonly referenceType: FieldRef<"SystemLedger", 'String'>
+    readonly referenceId: FieldRef<"SystemLedger", 'String'>
+    readonly hunterId: FieldRef<"SystemLedger", 'String'>
+    readonly tenantId: FieldRef<"SystemLedger", 'String'>
+    readonly donationId: FieldRef<"SystemLedger", 'String'>
+    readonly commissionId: FieldRef<"SystemLedger", 'String'>
+    readonly payoutId: FieldRef<"SystemLedger", 'String'>
+    readonly metadata: FieldRef<"SystemLedger", 'Json'>
+    readonly createdAt: FieldRef<"SystemLedger", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SystemLedger findUnique
+   */
+  export type SystemLedgerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemLedger to fetch.
+     */
+    where: SystemLedgerWhereUniqueInput
+  }
+
+  /**
+   * SystemLedger findUniqueOrThrow
+   */
+  export type SystemLedgerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemLedger to fetch.
+     */
+    where: SystemLedgerWhereUniqueInput
+  }
+
+  /**
+   * SystemLedger findFirst
+   */
+  export type SystemLedgerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemLedger to fetch.
+     */
+    where?: SystemLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemLedgers to fetch.
+     */
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemLedgers.
+     */
+    cursor?: SystemLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemLedgers.
+     */
+    distinct?: SystemLedgerScalarFieldEnum | SystemLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * SystemLedger findFirstOrThrow
+   */
+  export type SystemLedgerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemLedger to fetch.
+     */
+    where?: SystemLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemLedgers to fetch.
+     */
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemLedgers.
+     */
+    cursor?: SystemLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemLedgers.
+     */
+    distinct?: SystemLedgerScalarFieldEnum | SystemLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * SystemLedger findMany
+   */
+  export type SystemLedgerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemLedgers to fetch.
+     */
+    where?: SystemLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemLedgers to fetch.
+     */
+    orderBy?: SystemLedgerOrderByWithRelationInput | SystemLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SystemLedgers.
+     */
+    cursor?: SystemLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemLedgers.
+     */
+    skip?: number
+    distinct?: SystemLedgerScalarFieldEnum | SystemLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * SystemLedger create
+   */
+  export type SystemLedgerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SystemLedger.
+     */
+    data: XOR<SystemLedgerCreateInput, SystemLedgerUncheckedCreateInput>
+  }
+
+  /**
+   * SystemLedger createMany
+   */
+  export type SystemLedgerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SystemLedgers.
+     */
+    data: SystemLedgerCreateManyInput | SystemLedgerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemLedger createManyAndReturn
+   */
+  export type SystemLedgerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * The data used to create many SystemLedgers.
+     */
+    data: SystemLedgerCreateManyInput | SystemLedgerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SystemLedger update
+   */
+  export type SystemLedgerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SystemLedger.
+     */
+    data: XOR<SystemLedgerUpdateInput, SystemLedgerUncheckedUpdateInput>
+    /**
+     * Choose, which SystemLedger to update.
+     */
+    where: SystemLedgerWhereUniqueInput
+  }
+
+  /**
+   * SystemLedger updateMany
+   */
+  export type SystemLedgerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SystemLedgers.
+     */
+    data: XOR<SystemLedgerUpdateManyMutationInput, SystemLedgerUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemLedgers to update
+     */
+    where?: SystemLedgerWhereInput
+    /**
+     * Limit how many SystemLedgers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemLedger updateManyAndReturn
+   */
+  export type SystemLedgerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * The data used to update SystemLedgers.
+     */
+    data: XOR<SystemLedgerUpdateManyMutationInput, SystemLedgerUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemLedgers to update
+     */
+    where?: SystemLedgerWhereInput
+    /**
+     * Limit how many SystemLedgers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SystemLedger upsert
+   */
+  export type SystemLedgerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SystemLedger to update in case it exists.
+     */
+    where: SystemLedgerWhereUniqueInput
+    /**
+     * In case the SystemLedger found by the `where` argument doesn't exist, create a new SystemLedger with this data.
+     */
+    create: XOR<SystemLedgerCreateInput, SystemLedgerUncheckedCreateInput>
+    /**
+     * In case the SystemLedger was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SystemLedgerUpdateInput, SystemLedgerUncheckedUpdateInput>
+  }
+
+  /**
+   * SystemLedger delete
+   */
+  export type SystemLedgerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+    /**
+     * Filter which SystemLedger to delete.
+     */
+    where: SystemLedgerWhereUniqueInput
+  }
+
+  /**
+   * SystemLedger deleteMany
+   */
+  export type SystemLedgerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemLedgers to delete
+     */
+    where?: SystemLedgerWhereInput
+    /**
+     * Limit how many SystemLedgers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemLedger.hunter
+   */
+  export type SystemLedger$hunterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hunter
+     */
+    select?: HunterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hunter
+     */
+    omit?: HunterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterInclude<ExtArgs> | null
+    where?: HunterWhereInput
+  }
+
+  /**
+   * SystemLedger.donation
+   */
+  export type SystemLedger$donationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantDonation
+     */
+    select?: TenantDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantDonation
+     */
+    omit?: TenantDonationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantDonationInclude<ExtArgs> | null
+    where?: TenantDonationWhereInput
+  }
+
+  /**
+   * SystemLedger.commission
+   */
+  export type SystemLedger$commissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterCommission
+     */
+    select?: HunterCommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterCommission
+     */
+    omit?: HunterCommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterCommissionInclude<ExtArgs> | null
+    where?: HunterCommissionWhereInput
+  }
+
+  /**
+   * SystemLedger.payout
+   */
+  export type SystemLedger$payoutArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HunterPayout
+     */
+    select?: HunterPayoutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HunterPayout
+     */
+    omit?: HunterPayoutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HunterPayoutInclude<ExtArgs> | null
+    where?: HunterPayoutWhereInput
+  }
+
+  /**
+   * SystemLedger without action
+   */
+  export type SystemLedgerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemLedger
+     */
+    select?: SystemLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemLedger
+     */
+    omit?: SystemLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemLedgerInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -49976,6 +55962,7 @@ export namespace Prisma {
     provider: 'provider',
     providerId: 'providerId',
     emailVerified: 'emailVerified',
+    role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -49992,6 +55979,7 @@ export namespace Prisma {
     phone: 'phone',
     subscribedUntil: 'subscribedUntil',
     isSubscribed: 'isSubscribed',
+    hunterReferralCode: 'hunterReferralCode',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -50608,6 +56596,85 @@ export namespace Prisma {
   export type PushNotificationSubscriptionScalarFieldEnum = (typeof PushNotificationSubscriptionScalarFieldEnum)[keyof typeof PushNotificationSubscriptionScalarFieldEnum]
 
 
+  export const HunterScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    adminId: 'adminId',
+    referralCode: 'referralCode',
+    name: 'name',
+    email: 'email',
+    phone: 'phone',
+    commissionPercentage: 'commissionPercentage',
+    isActive: 'isActive',
+    totalEarnings: 'totalEarnings',
+    totalPaidOut: 'totalPaidOut',
+    bankAccountName: 'bankAccountName',
+    bankAccountNumber: 'bankAccountNumber',
+    bankName: 'bankName',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HunterScalarFieldEnum = (typeof HunterScalarFieldEnum)[keyof typeof HunterScalarFieldEnum]
+
+
+  export const HunterCommissionScalarFieldEnum: {
+    id: 'id',
+    hunterId: 'hunterId',
+    tenantId: 'tenantId',
+    donationId: 'donationId',
+    donationAmount: 'donationAmount',
+    commissionRate: 'commissionRate',
+    commissionAmount: 'commissionAmount',
+    status: 'status',
+    paidOutAt: 'paidOutAt',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HunterCommissionScalarFieldEnum = (typeof HunterCommissionScalarFieldEnum)[keyof typeof HunterCommissionScalarFieldEnum]
+
+
+  export const HunterPayoutScalarFieldEnum: {
+    id: 'id',
+    hunterId: 'hunterId',
+    amount: 'amount',
+    paymentMethod: 'paymentMethod',
+    referenceNumber: 'referenceNumber',
+    status: 'status',
+    processedBy: 'processedBy',
+    processedAt: 'processedAt',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HunterPayoutScalarFieldEnum = (typeof HunterPayoutScalarFieldEnum)[keyof typeof HunterPayoutScalarFieldEnum]
+
+
+  export const SystemLedgerScalarFieldEnum: {
+    id: 'id',
+    transactionType: 'transactionType',
+    category: 'category',
+    amount: 'amount',
+    balance: 'balance',
+    description: 'description',
+    referenceType: 'referenceType',
+    referenceId: 'referenceId',
+    hunterId: 'hunterId',
+    tenantId: 'tenantId',
+    donationId: 'donationId',
+    commissionId: 'commissionId',
+    payoutId: 'payoutId',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type SystemLedgerScalarFieldEnum = (typeof SystemLedgerScalarFieldEnum)[keyof typeof SystemLedgerScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -50679,6 +56746,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole[]'
+   */
+  export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
     
 
 
@@ -50876,6 +56957,62 @@ export namespace Prisma {
    */
   export type ListEnumDonationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DonationStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'CommissionStatus'
+   */
+  export type EnumCommissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommissionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommissionStatus[]'
+   */
+  export type ListEnumCommissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommissionStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PayoutStatus'
+   */
+  export type EnumPayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PayoutStatus[]'
+   */
+  export type ListEnumPayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionType'
+   */
+  export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionType[]'
+   */
+  export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'LedgerCategory'
+   */
+  export type EnumLedgerCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'LedgerCategory[]'
+   */
+  export type ListEnumLedgerCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerCategory[]'>
+    
   /**
    * Deep Input Types
    */
@@ -50893,10 +57030,12 @@ export namespace Prisma {
     provider?: StringNullableFilter<"User"> | string | null
     providerId?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolNullableFilter<"User"> | boolean | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tenants?: TenantListRelationFilter
     pushTokens?: PushNotificationTokenListRelationFilter
+    hunter?: XOR<HunterNullableScalarRelationFilter, HunterWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -50908,10 +57047,12 @@ export namespace Prisma {
     provider?: SortOrderInput | SortOrder
     providerId?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenants?: TenantOrderByRelationAggregateInput
     pushTokens?: PushNotificationTokenOrderByRelationAggregateInput
+    hunter?: HunterOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -50927,10 +57068,12 @@ export namespace Prisma {
     provider?: StringNullableFilter<"User"> | string | null
     providerId?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolNullableFilter<"User"> | boolean | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tenants?: TenantListRelationFilter
     pushTokens?: PushNotificationTokenListRelationFilter
+    hunter?: XOR<HunterNullableScalarRelationFilter, HunterWhereInput> | null
   }, "id" | "email" | "provider_providerId">
 
   export type UserOrderByWithAggregationInput = {
@@ -50942,6 +57085,7 @@ export namespace Prisma {
     provider?: SortOrderInput | SortOrder
     providerId?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -50961,6 +57105,7 @@ export namespace Prisma {
     provider?: StringNullableWithAggregatesFilter<"User"> | string | null
     providerId?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerified?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -50977,9 +57122,11 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Tenant"> | string | null
     subscribedUntil?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     isSubscribed?: BoolNullableFilter<"Tenant"> | boolean | null
+    hunterReferralCode?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    hunter?: XOR<HunterNullableScalarRelationFilter, HunterWhereInput> | null
     customers?: CustomerListRelationFilter
     discounts?: DiscountListRelationFilter
     expenseCategories?: ExpenseCategoryListRelationFilter
@@ -51021,9 +57168,11 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     subscribedUntil?: SortOrderInput | SortOrder
     isSubscribed?: SortOrderInput | SortOrder
+    hunterReferralCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    hunter?: HunterOrderByWithRelationInput
     customers?: CustomerOrderByRelationAggregateInput
     discounts?: DiscountOrderByRelationAggregateInput
     expenseCategories?: ExpenseCategoryOrderByRelationAggregateInput
@@ -51068,9 +57217,11 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Tenant"> | string | null
     subscribedUntil?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     isSubscribed?: BoolNullableFilter<"Tenant"> | boolean | null
+    hunterReferralCode?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    hunter?: XOR<HunterNullableScalarRelationFilter, HunterWhereInput> | null
     customers?: CustomerListRelationFilter
     discounts?: DiscountListRelationFilter
     expenseCategories?: ExpenseCategoryListRelationFilter
@@ -51112,6 +57263,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     subscribedUntil?: SortOrderInput | SortOrder
     isSubscribed?: SortOrderInput | SortOrder
+    hunterReferralCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TenantCountOrderByAggregateInput
@@ -51131,6 +57283,7 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     subscribedUntil?: DateTimeNullableWithAggregatesFilter<"Tenant"> | Date | string | null
     isSubscribed?: BoolNullableWithAggregatesFilter<"Tenant"> | boolean | null
+    hunterReferralCode?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   }
@@ -51247,6 +57400,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     createdAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
+    hunters?: HunterListRelationFilter
   }
 
   export type AdminOrderByWithRelationInput = {
@@ -51260,6 +57414,7 @@ export namespace Prisma {
     lastLoginAt?: SortOrderInput | SortOrder
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    hunters?: HunterOrderByRelationAggregateInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -51276,6 +57431,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     createdAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
+    hunters?: HunterListRelationFilter
   }, "id" | "username" | "email">
 
   export type AdminOrderByWithAggregationInput = {
@@ -53972,6 +60128,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"TenantDonation"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     paymentMethod?: XOR<DonationPaymentMethodNullableScalarRelationFilter, DonationPaymentMethodWhereInput> | null
+    commissions?: HunterCommissionListRelationFilter
+    systemLedgers?: SystemLedgerListRelationFilter
   }
 
   export type TenantDonationOrderByWithRelationInput = {
@@ -53994,6 +60152,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     paymentMethod?: DonationPaymentMethodOrderByWithRelationInput
+    commissions?: HunterCommissionOrderByRelationAggregateInput
+    systemLedgers?: SystemLedgerOrderByRelationAggregateInput
   }
 
   export type TenantDonationWhereUniqueInput = Prisma.AtLeast<{
@@ -54019,6 +60179,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"TenantDonation"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     paymentMethod?: XOR<DonationPaymentMethodNullableScalarRelationFilter, DonationPaymentMethodWhereInput> | null
+    commissions?: HunterCommissionListRelationFilter
+    systemLedgers?: SystemLedgerListRelationFilter
   }, "id" | "midtransOrderId">
 
   export type TenantDonationOrderByWithAggregationInput = {
@@ -54353,6 +60515,442 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"PushNotificationSubscription"> | Date | string
   }
 
+  export type HunterWhereInput = {
+    AND?: HunterWhereInput | HunterWhereInput[]
+    OR?: HunterWhereInput[]
+    NOT?: HunterWhereInput | HunterWhereInput[]
+    id?: UuidFilter<"Hunter"> | string
+    userId?: UuidNullableFilter<"Hunter"> | string | null
+    adminId?: UuidFilter<"Hunter"> | string
+    referralCode?: StringFilter<"Hunter"> | string
+    name?: StringFilter<"Hunter"> | string
+    email?: StringFilter<"Hunter"> | string
+    phone?: StringNullableFilter<"Hunter"> | string | null
+    commissionPercentage?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFilter<"Hunter"> | boolean
+    totalEarnings?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    bankAccountName?: StringNullableFilter<"Hunter"> | string | null
+    bankAccountNumber?: StringNullableFilter<"Hunter"> | string | null
+    bankName?: StringNullableFilter<"Hunter"> | string | null
+    notes?: StringNullableFilter<"Hunter"> | string | null
+    createdAt?: DateTimeFilter<"Hunter"> | Date | string
+    updatedAt?: DateTimeFilter<"Hunter"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    tenants?: TenantListRelationFilter
+    commissions?: HunterCommissionListRelationFilter
+    payouts?: HunterPayoutListRelationFilter
+    systemLedgers?: SystemLedgerListRelationFilter
+  }
+
+  export type HunterOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    adminId?: SortOrder
+    referralCode?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    commissionPercentage?: SortOrder
+    isActive?: SortOrder
+    totalEarnings?: SortOrder
+    totalPaidOut?: SortOrder
+    bankAccountName?: SortOrderInput | SortOrder
+    bankAccountNumber?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    admin?: AdminOrderByWithRelationInput
+    tenants?: TenantOrderByRelationAggregateInput
+    commissions?: HunterCommissionOrderByRelationAggregateInput
+    payouts?: HunterPayoutOrderByRelationAggregateInput
+    systemLedgers?: SystemLedgerOrderByRelationAggregateInput
+  }
+
+  export type HunterWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    referralCode?: string
+    email?: string
+    AND?: HunterWhereInput | HunterWhereInput[]
+    OR?: HunterWhereInput[]
+    NOT?: HunterWhereInput | HunterWhereInput[]
+    adminId?: UuidFilter<"Hunter"> | string
+    name?: StringFilter<"Hunter"> | string
+    phone?: StringNullableFilter<"Hunter"> | string | null
+    commissionPercentage?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFilter<"Hunter"> | boolean
+    totalEarnings?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    bankAccountName?: StringNullableFilter<"Hunter"> | string | null
+    bankAccountNumber?: StringNullableFilter<"Hunter"> | string | null
+    bankName?: StringNullableFilter<"Hunter"> | string | null
+    notes?: StringNullableFilter<"Hunter"> | string | null
+    createdAt?: DateTimeFilter<"Hunter"> | Date | string
+    updatedAt?: DateTimeFilter<"Hunter"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    tenants?: TenantListRelationFilter
+    commissions?: HunterCommissionListRelationFilter
+    payouts?: HunterPayoutListRelationFilter
+    systemLedgers?: SystemLedgerListRelationFilter
+  }, "id" | "userId" | "referralCode" | "email">
+
+  export type HunterOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    adminId?: SortOrder
+    referralCode?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    commissionPercentage?: SortOrder
+    isActive?: SortOrder
+    totalEarnings?: SortOrder
+    totalPaidOut?: SortOrder
+    bankAccountName?: SortOrderInput | SortOrder
+    bankAccountNumber?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HunterCountOrderByAggregateInput
+    _avg?: HunterAvgOrderByAggregateInput
+    _max?: HunterMaxOrderByAggregateInput
+    _min?: HunterMinOrderByAggregateInput
+    _sum?: HunterSumOrderByAggregateInput
+  }
+
+  export type HunterScalarWhereWithAggregatesInput = {
+    AND?: HunterScalarWhereWithAggregatesInput | HunterScalarWhereWithAggregatesInput[]
+    OR?: HunterScalarWhereWithAggregatesInput[]
+    NOT?: HunterScalarWhereWithAggregatesInput | HunterScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Hunter"> | string
+    userId?: UuidNullableWithAggregatesFilter<"Hunter"> | string | null
+    adminId?: UuidWithAggregatesFilter<"Hunter"> | string
+    referralCode?: StringWithAggregatesFilter<"Hunter"> | string
+    name?: StringWithAggregatesFilter<"Hunter"> | string
+    email?: StringWithAggregatesFilter<"Hunter"> | string
+    phone?: StringNullableWithAggregatesFilter<"Hunter"> | string | null
+    commissionPercentage?: DecimalWithAggregatesFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    isActive?: BoolWithAggregatesFilter<"Hunter"> | boolean
+    totalEarnings?: DecimalWithAggregatesFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalWithAggregatesFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    bankAccountName?: StringNullableWithAggregatesFilter<"Hunter"> | string | null
+    bankAccountNumber?: StringNullableWithAggregatesFilter<"Hunter"> | string | null
+    bankName?: StringNullableWithAggregatesFilter<"Hunter"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"Hunter"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Hunter"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Hunter"> | Date | string
+  }
+
+  export type HunterCommissionWhereInput = {
+    AND?: HunterCommissionWhereInput | HunterCommissionWhereInput[]
+    OR?: HunterCommissionWhereInput[]
+    NOT?: HunterCommissionWhereInput | HunterCommissionWhereInput[]
+    id?: UuidFilter<"HunterCommission"> | string
+    hunterId?: UuidFilter<"HunterCommission"> | string
+    tenantId?: UuidFilter<"HunterCommission"> | string
+    donationId?: UuidFilter<"HunterCommission"> | string
+    donationAmount?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFilter<"HunterCommission"> | $Enums.CommissionStatus
+    paidOutAt?: DateTimeNullableFilter<"HunterCommission"> | Date | string | null
+    notes?: StringNullableFilter<"HunterCommission"> | string | null
+    createdAt?: DateTimeFilter<"HunterCommission"> | Date | string
+    updatedAt?: DateTimeFilter<"HunterCommission"> | Date | string
+    hunter?: XOR<HunterScalarRelationFilter, HunterWhereInput>
+    donation?: XOR<TenantDonationScalarRelationFilter, TenantDonationWhereInput>
+    systemLedgers?: SystemLedgerListRelationFilter
+  }
+
+  export type HunterCommissionOrderByWithRelationInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    donationAmount?: SortOrder
+    commissionRate?: SortOrder
+    commissionAmount?: SortOrder
+    status?: SortOrder
+    paidOutAt?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    hunter?: HunterOrderByWithRelationInput
+    donation?: TenantDonationOrderByWithRelationInput
+    systemLedgers?: SystemLedgerOrderByRelationAggregateInput
+  }
+
+  export type HunterCommissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HunterCommissionWhereInput | HunterCommissionWhereInput[]
+    OR?: HunterCommissionWhereInput[]
+    NOT?: HunterCommissionWhereInput | HunterCommissionWhereInput[]
+    hunterId?: UuidFilter<"HunterCommission"> | string
+    tenantId?: UuidFilter<"HunterCommission"> | string
+    donationId?: UuidFilter<"HunterCommission"> | string
+    donationAmount?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFilter<"HunterCommission"> | $Enums.CommissionStatus
+    paidOutAt?: DateTimeNullableFilter<"HunterCommission"> | Date | string | null
+    notes?: StringNullableFilter<"HunterCommission"> | string | null
+    createdAt?: DateTimeFilter<"HunterCommission"> | Date | string
+    updatedAt?: DateTimeFilter<"HunterCommission"> | Date | string
+    hunter?: XOR<HunterScalarRelationFilter, HunterWhereInput>
+    donation?: XOR<TenantDonationScalarRelationFilter, TenantDonationWhereInput>
+    systemLedgers?: SystemLedgerListRelationFilter
+  }, "id">
+
+  export type HunterCommissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    donationAmount?: SortOrder
+    commissionRate?: SortOrder
+    commissionAmount?: SortOrder
+    status?: SortOrder
+    paidOutAt?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HunterCommissionCountOrderByAggregateInput
+    _avg?: HunterCommissionAvgOrderByAggregateInput
+    _max?: HunterCommissionMaxOrderByAggregateInput
+    _min?: HunterCommissionMinOrderByAggregateInput
+    _sum?: HunterCommissionSumOrderByAggregateInput
+  }
+
+  export type HunterCommissionScalarWhereWithAggregatesInput = {
+    AND?: HunterCommissionScalarWhereWithAggregatesInput | HunterCommissionScalarWhereWithAggregatesInput[]
+    OR?: HunterCommissionScalarWhereWithAggregatesInput[]
+    NOT?: HunterCommissionScalarWhereWithAggregatesInput | HunterCommissionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"HunterCommission"> | string
+    hunterId?: UuidWithAggregatesFilter<"HunterCommission"> | string
+    tenantId?: UuidWithAggregatesFilter<"HunterCommission"> | string
+    donationId?: UuidWithAggregatesFilter<"HunterCommission"> | string
+    donationAmount?: DecimalWithAggregatesFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalWithAggregatesFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalWithAggregatesFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusWithAggregatesFilter<"HunterCommission"> | $Enums.CommissionStatus
+    paidOutAt?: DateTimeNullableWithAggregatesFilter<"HunterCommission"> | Date | string | null
+    notes?: StringNullableWithAggregatesFilter<"HunterCommission"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"HunterCommission"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HunterCommission"> | Date | string
+  }
+
+  export type HunterPayoutWhereInput = {
+    AND?: HunterPayoutWhereInput | HunterPayoutWhereInput[]
+    OR?: HunterPayoutWhereInput[]
+    NOT?: HunterPayoutWhereInput | HunterPayoutWhereInput[]
+    id?: UuidFilter<"HunterPayout"> | string
+    hunterId?: UuidFilter<"HunterPayout"> | string
+    amount?: DecimalFilter<"HunterPayout"> | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringNullableFilter<"HunterPayout"> | string | null
+    referenceNumber?: StringNullableFilter<"HunterPayout"> | string | null
+    status?: EnumPayoutStatusFilter<"HunterPayout"> | $Enums.PayoutStatus
+    processedBy?: UuidNullableFilter<"HunterPayout"> | string | null
+    processedAt?: DateTimeNullableFilter<"HunterPayout"> | Date | string | null
+    notes?: StringNullableFilter<"HunterPayout"> | string | null
+    createdAt?: DateTimeFilter<"HunterPayout"> | Date | string
+    updatedAt?: DateTimeFilter<"HunterPayout"> | Date | string
+    hunter?: XOR<HunterScalarRelationFilter, HunterWhereInput>
+    systemLedgers?: SystemLedgerListRelationFilter
+  }
+
+  export type HunterPayoutOrderByWithRelationInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    referenceNumber?: SortOrderInput | SortOrder
+    status?: SortOrder
+    processedBy?: SortOrderInput | SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    hunter?: HunterOrderByWithRelationInput
+    systemLedgers?: SystemLedgerOrderByRelationAggregateInput
+  }
+
+  export type HunterPayoutWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HunterPayoutWhereInput | HunterPayoutWhereInput[]
+    OR?: HunterPayoutWhereInput[]
+    NOT?: HunterPayoutWhereInput | HunterPayoutWhereInput[]
+    hunterId?: UuidFilter<"HunterPayout"> | string
+    amount?: DecimalFilter<"HunterPayout"> | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringNullableFilter<"HunterPayout"> | string | null
+    referenceNumber?: StringNullableFilter<"HunterPayout"> | string | null
+    status?: EnumPayoutStatusFilter<"HunterPayout"> | $Enums.PayoutStatus
+    processedBy?: UuidNullableFilter<"HunterPayout"> | string | null
+    processedAt?: DateTimeNullableFilter<"HunterPayout"> | Date | string | null
+    notes?: StringNullableFilter<"HunterPayout"> | string | null
+    createdAt?: DateTimeFilter<"HunterPayout"> | Date | string
+    updatedAt?: DateTimeFilter<"HunterPayout"> | Date | string
+    hunter?: XOR<HunterScalarRelationFilter, HunterWhereInput>
+    systemLedgers?: SystemLedgerListRelationFilter
+  }, "id">
+
+  export type HunterPayoutOrderByWithAggregationInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    referenceNumber?: SortOrderInput | SortOrder
+    status?: SortOrder
+    processedBy?: SortOrderInput | SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HunterPayoutCountOrderByAggregateInput
+    _avg?: HunterPayoutAvgOrderByAggregateInput
+    _max?: HunterPayoutMaxOrderByAggregateInput
+    _min?: HunterPayoutMinOrderByAggregateInput
+    _sum?: HunterPayoutSumOrderByAggregateInput
+  }
+
+  export type HunterPayoutScalarWhereWithAggregatesInput = {
+    AND?: HunterPayoutScalarWhereWithAggregatesInput | HunterPayoutScalarWhereWithAggregatesInput[]
+    OR?: HunterPayoutScalarWhereWithAggregatesInput[]
+    NOT?: HunterPayoutScalarWhereWithAggregatesInput | HunterPayoutScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"HunterPayout"> | string
+    hunterId?: UuidWithAggregatesFilter<"HunterPayout"> | string
+    amount?: DecimalWithAggregatesFilter<"HunterPayout"> | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringNullableWithAggregatesFilter<"HunterPayout"> | string | null
+    referenceNumber?: StringNullableWithAggregatesFilter<"HunterPayout"> | string | null
+    status?: EnumPayoutStatusWithAggregatesFilter<"HunterPayout"> | $Enums.PayoutStatus
+    processedBy?: UuidNullableWithAggregatesFilter<"HunterPayout"> | string | null
+    processedAt?: DateTimeNullableWithAggregatesFilter<"HunterPayout"> | Date | string | null
+    notes?: StringNullableWithAggregatesFilter<"HunterPayout"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"HunterPayout"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HunterPayout"> | Date | string
+  }
+
+  export type SystemLedgerWhereInput = {
+    AND?: SystemLedgerWhereInput | SystemLedgerWhereInput[]
+    OR?: SystemLedgerWhereInput[]
+    NOT?: SystemLedgerWhereInput | SystemLedgerWhereInput[]
+    id?: UuidFilter<"SystemLedger"> | string
+    transactionType?: EnumTransactionTypeFilter<"SystemLedger"> | $Enums.TransactionType
+    category?: EnumLedgerCategoryFilter<"SystemLedger"> | $Enums.LedgerCategory
+    amount?: DecimalFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"SystemLedger"> | string
+    referenceType?: StringNullableFilter<"SystemLedger"> | string | null
+    referenceId?: UuidNullableFilter<"SystemLedger"> | string | null
+    hunterId?: UuidNullableFilter<"SystemLedger"> | string | null
+    tenantId?: UuidNullableFilter<"SystemLedger"> | string | null
+    donationId?: UuidNullableFilter<"SystemLedger"> | string | null
+    commissionId?: UuidNullableFilter<"SystemLedger"> | string | null
+    payoutId?: UuidNullableFilter<"SystemLedger"> | string | null
+    metadata?: JsonNullableFilter<"SystemLedger">
+    createdAt?: DateTimeFilter<"SystemLedger"> | Date | string
+    hunter?: XOR<HunterNullableScalarRelationFilter, HunterWhereInput> | null
+    donation?: XOR<TenantDonationNullableScalarRelationFilter, TenantDonationWhereInput> | null
+    commission?: XOR<HunterCommissionNullableScalarRelationFilter, HunterCommissionWhereInput> | null
+    payout?: XOR<HunterPayoutNullableScalarRelationFilter, HunterPayoutWhereInput> | null
+  }
+
+  export type SystemLedgerOrderByWithRelationInput = {
+    id?: SortOrder
+    transactionType?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    balance?: SortOrder
+    description?: SortOrder
+    referenceType?: SortOrderInput | SortOrder
+    referenceId?: SortOrderInput | SortOrder
+    hunterId?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    donationId?: SortOrderInput | SortOrder
+    commissionId?: SortOrderInput | SortOrder
+    payoutId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    hunter?: HunterOrderByWithRelationInput
+    donation?: TenantDonationOrderByWithRelationInput
+    commission?: HunterCommissionOrderByWithRelationInput
+    payout?: HunterPayoutOrderByWithRelationInput
+  }
+
+  export type SystemLedgerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SystemLedgerWhereInput | SystemLedgerWhereInput[]
+    OR?: SystemLedgerWhereInput[]
+    NOT?: SystemLedgerWhereInput | SystemLedgerWhereInput[]
+    transactionType?: EnumTransactionTypeFilter<"SystemLedger"> | $Enums.TransactionType
+    category?: EnumLedgerCategoryFilter<"SystemLedger"> | $Enums.LedgerCategory
+    amount?: DecimalFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"SystemLedger"> | string
+    referenceType?: StringNullableFilter<"SystemLedger"> | string | null
+    referenceId?: UuidNullableFilter<"SystemLedger"> | string | null
+    hunterId?: UuidNullableFilter<"SystemLedger"> | string | null
+    tenantId?: UuidNullableFilter<"SystemLedger"> | string | null
+    donationId?: UuidNullableFilter<"SystemLedger"> | string | null
+    commissionId?: UuidNullableFilter<"SystemLedger"> | string | null
+    payoutId?: UuidNullableFilter<"SystemLedger"> | string | null
+    metadata?: JsonNullableFilter<"SystemLedger">
+    createdAt?: DateTimeFilter<"SystemLedger"> | Date | string
+    hunter?: XOR<HunterNullableScalarRelationFilter, HunterWhereInput> | null
+    donation?: XOR<TenantDonationNullableScalarRelationFilter, TenantDonationWhereInput> | null
+    commission?: XOR<HunterCommissionNullableScalarRelationFilter, HunterCommissionWhereInput> | null
+    payout?: XOR<HunterPayoutNullableScalarRelationFilter, HunterPayoutWhereInput> | null
+  }, "id">
+
+  export type SystemLedgerOrderByWithAggregationInput = {
+    id?: SortOrder
+    transactionType?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    balance?: SortOrder
+    description?: SortOrder
+    referenceType?: SortOrderInput | SortOrder
+    referenceId?: SortOrderInput | SortOrder
+    hunterId?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    donationId?: SortOrderInput | SortOrder
+    commissionId?: SortOrderInput | SortOrder
+    payoutId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: SystemLedgerCountOrderByAggregateInput
+    _avg?: SystemLedgerAvgOrderByAggregateInput
+    _max?: SystemLedgerMaxOrderByAggregateInput
+    _min?: SystemLedgerMinOrderByAggregateInput
+    _sum?: SystemLedgerSumOrderByAggregateInput
+  }
+
+  export type SystemLedgerScalarWhereWithAggregatesInput = {
+    AND?: SystemLedgerScalarWhereWithAggregatesInput | SystemLedgerScalarWhereWithAggregatesInput[]
+    OR?: SystemLedgerScalarWhereWithAggregatesInput[]
+    NOT?: SystemLedgerScalarWhereWithAggregatesInput | SystemLedgerScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SystemLedger"> | string
+    transactionType?: EnumTransactionTypeWithAggregatesFilter<"SystemLedger"> | $Enums.TransactionType
+    category?: EnumLedgerCategoryWithAggregatesFilter<"SystemLedger"> | $Enums.LedgerCategory
+    amount?: DecimalWithAggregatesFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    balance?: DecimalWithAggregatesFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    description?: StringWithAggregatesFilter<"SystemLedger"> | string
+    referenceType?: StringNullableWithAggregatesFilter<"SystemLedger"> | string | null
+    referenceId?: UuidNullableWithAggregatesFilter<"SystemLedger"> | string | null
+    hunterId?: UuidNullableWithAggregatesFilter<"SystemLedger"> | string | null
+    tenantId?: UuidNullableWithAggregatesFilter<"SystemLedger"> | string | null
+    donationId?: UuidNullableWithAggregatesFilter<"SystemLedger"> | string | null
+    commissionId?: UuidNullableWithAggregatesFilter<"SystemLedger"> | string | null
+    payoutId?: UuidNullableWithAggregatesFilter<"SystemLedger"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"SystemLedger">
+    createdAt?: DateTimeWithAggregatesFilter<"SystemLedger"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -54362,10 +60960,12 @@ export namespace Prisma {
     provider?: string | null
     providerId?: string | null
     emailVerified?: boolean | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     tenants?: TenantCreateNestedManyWithoutUserInput
     pushTokens?: PushNotificationTokenCreateNestedManyWithoutUserInput
+    hunter?: HunterCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -54377,10 +60977,12 @@ export namespace Prisma {
     provider?: string | null
     providerId?: string | null
     emailVerified?: boolean | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     tenants?: TenantUncheckedCreateNestedManyWithoutUserInput
     pushTokens?: PushNotificationTokenUncheckedCreateNestedManyWithoutUserInput
+    hunter?: HunterUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -54392,10 +60994,12 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: TenantUpdateManyWithoutUserNestedInput
     pushTokens?: PushNotificationTokenUpdateManyWithoutUserNestedInput
+    hunter?: HunterUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -54407,10 +61011,12 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: TenantUncheckedUpdateManyWithoutUserNestedInput
     pushTokens?: PushNotificationTokenUncheckedUpdateManyWithoutUserNestedInput
+    hunter?: HunterUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -54422,6 +61028,7 @@ export namespace Prisma {
     provider?: string | null
     providerId?: string | null
     emailVerified?: boolean | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -54435,6 +61042,7 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -54448,6 +61056,7 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -54463,6 +61072,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -54504,6 +61114,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -54549,6 +61160,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -54590,6 +61202,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -54633,6 +61246,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -54658,6 +61272,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -54785,6 +61400,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    hunters?: HunterCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateInput = {
@@ -54798,6 +61414,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    hunters?: HunterUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUpdateInput = {
@@ -54811,6 +61428,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hunters?: HunterUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
@@ -54824,6 +61442,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hunters?: HunterUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateManyInput = {
@@ -57794,6 +64413,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutDonationsInput
     paymentMethod?: DonationPaymentMethodCreateNestedOneWithoutDonationsInput
+    commissions?: HunterCommissionCreateNestedManyWithoutDonationInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutDonationInput
   }
 
   export type TenantDonationUncheckedCreateInput = {
@@ -57814,6 +64435,8 @@ export namespace Prisma {
     midtransResponse?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutDonationInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutDonationInput
   }
 
   export type TenantDonationUpdateInput = {
@@ -57834,6 +64457,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutDonationsNestedInput
     paymentMethod?: DonationPaymentMethodUpdateOneWithoutDonationsNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutDonationNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutDonationNestedInput
   }
 
   export type TenantDonationUncheckedUpdateInput = {
@@ -57854,6 +64479,8 @@ export namespace Prisma {
     midtransResponse?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutDonationNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutDonationNestedInput
   }
 
   export type TenantDonationCreateManyInput = {
@@ -58231,6 +64858,490 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HunterCreateInput = {
+    id?: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutHunterInput
+    admin: AdminCreateNestedOneWithoutHuntersInput
+    tenants?: TenantCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUncheckedCreateInput = {
+    id?: string
+    userId?: string | null
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutUncheckedCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutHunterNestedInput
+    admin?: AdminUpdateOneRequiredWithoutHuntersNestedInput
+    tenants?: TenantUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUncheckedUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterCreateManyInput = {
+    id?: string
+    userId?: string | null
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterCommissionCreateInput = {
+    id?: string
+    tenantId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    hunter: HunterCreateNestedOneWithoutCommissionsInput
+    donation: TenantDonationCreateNestedOneWithoutCommissionsInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutCommissionInput
+  }
+
+  export type HunterCommissionUncheckedCreateInput = {
+    id?: string
+    hunterId: string
+    tenantId: string
+    donationId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutCommissionInput
+  }
+
+  export type HunterCommissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneRequiredWithoutCommissionsNestedInput
+    donation?: TenantDonationUpdateOneRequiredWithoutCommissionsNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutCommissionNestedInput
+  }
+
+  export type HunterCommissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutCommissionNestedInput
+  }
+
+  export type HunterCommissionCreateManyInput = {
+    id?: string
+    hunterId: string
+    tenantId: string
+    donationId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterCommissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterCommissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterPayoutCreateInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    hunter: HunterCreateNestedOneWithoutPayoutsInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutPayoutInput
+  }
+
+  export type HunterPayoutUncheckedCreateInput = {
+    id?: string
+    hunterId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutPayoutInput
+  }
+
+  export type HunterPayoutUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneRequiredWithoutPayoutsNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutPayoutNestedInput
+  }
+
+  export type HunterPayoutUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutPayoutNestedInput
+  }
+
+  export type HunterPayoutCreateManyInput = {
+    id?: string
+    hunterId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterPayoutUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterPayoutUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerCreateInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    tenantId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    hunter?: HunterCreateNestedOneWithoutSystemLedgersInput
+    donation?: TenantDonationCreateNestedOneWithoutSystemLedgersInput
+    commission?: HunterCommissionCreateNestedOneWithoutSystemLedgersInput
+    payout?: HunterPayoutCreateNestedOneWithoutSystemLedgersInput
+  }
+
+  export type SystemLedgerUncheckedCreateInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    commissionId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneWithoutSystemLedgersNestedInput
+    donation?: TenantDonationUpdateOneWithoutSystemLedgersNestedInput
+    commission?: HunterCommissionUpdateOneWithoutSystemLedgersNestedInput
+    payout?: HunterPayoutUpdateOneWithoutSystemLedgersNestedInput
+  }
+
+  export type SystemLedgerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerCreateManyInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    commissionId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -58278,6 +65389,13 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -58299,6 +65417,11 @@ export namespace Prisma {
     every?: PushNotificationTokenWhereInput
     some?: PushNotificationTokenWhereInput
     none?: PushNotificationTokenWhereInput
+  }
+
+  export type HunterNullableScalarRelationFilter = {
+    is?: HunterWhereInput | null
+    isNot?: HunterWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -58328,6 +65451,7 @@ export namespace Prisma {
     provider?: SortOrder
     providerId?: SortOrder
     emailVerified?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -58341,6 +65465,7 @@ export namespace Prisma {
     provider?: SortOrder
     providerId?: SortOrder
     emailVerified?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -58354,6 +65479,7 @@ export namespace Prisma {
     provider?: SortOrder
     providerId?: SortOrder
     emailVerified?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -58415,6 +65541,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -58726,6 +65862,7 @@ export namespace Prisma {
     phone?: SortOrder
     subscribedUntil?: SortOrder
     isSubscribed?: SortOrder
+    hunterReferralCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -58739,6 +65876,7 @@ export namespace Prisma {
     phone?: SortOrder
     subscribedUntil?: SortOrder
     isSubscribed?: SortOrder
+    hunterReferralCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -58752,6 +65890,7 @@ export namespace Prisma {
     phone?: SortOrder
     subscribedUntil?: SortOrder
     isSubscribed?: SortOrder
+    hunterReferralCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -58873,6 +66012,16 @@ export namespace Prisma {
     in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumAdminRoleFilter<$PrismaModel> | $Enums.AdminRole
+  }
+
+  export type HunterListRelationFilter = {
+    every?: HunterWhereInput
+    some?: HunterWhereInput
+    none?: HunterWhereInput
+  }
+
+  export type HunterOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type AdminCountOrderByAggregateInput = {
@@ -60838,6 +67987,26 @@ export namespace Prisma {
     isNot?: DonationPaymentMethodWhereInput | null
   }
 
+  export type HunterCommissionListRelationFilter = {
+    every?: HunterCommissionWhereInput
+    some?: HunterCommissionWhereInput
+    none?: HunterCommissionWhereInput
+  }
+
+  export type SystemLedgerListRelationFilter = {
+    every?: SystemLedgerWhereInput
+    some?: SystemLedgerWhereInput
+    none?: SystemLedgerWhereInput
+  }
+
+  export type HunterCommissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SystemLedgerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TenantDonationCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
@@ -61072,6 +68241,355 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type AdminScalarRelationFilter = {
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
+  }
+
+  export type HunterPayoutListRelationFilter = {
+    every?: HunterPayoutWhereInput
+    some?: HunterPayoutWhereInput
+    none?: HunterPayoutWhereInput
+  }
+
+  export type HunterPayoutOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HunterCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adminId?: SortOrder
+    referralCode?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    commissionPercentage?: SortOrder
+    isActive?: SortOrder
+    totalEarnings?: SortOrder
+    totalPaidOut?: SortOrder
+    bankAccountName?: SortOrder
+    bankAccountNumber?: SortOrder
+    bankName?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterAvgOrderByAggregateInput = {
+    commissionPercentage?: SortOrder
+    totalEarnings?: SortOrder
+    totalPaidOut?: SortOrder
+  }
+
+  export type HunterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adminId?: SortOrder
+    referralCode?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    commissionPercentage?: SortOrder
+    isActive?: SortOrder
+    totalEarnings?: SortOrder
+    totalPaidOut?: SortOrder
+    bankAccountName?: SortOrder
+    bankAccountNumber?: SortOrder
+    bankName?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adminId?: SortOrder
+    referralCode?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    commissionPercentage?: SortOrder
+    isActive?: SortOrder
+    totalEarnings?: SortOrder
+    totalPaidOut?: SortOrder
+    bankAccountName?: SortOrder
+    bankAccountNumber?: SortOrder
+    bankName?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterSumOrderByAggregateInput = {
+    commissionPercentage?: SortOrder
+    totalEarnings?: SortOrder
+    totalPaidOut?: SortOrder
+  }
+
+  export type EnumCommissionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusFilter<$PrismaModel> | $Enums.CommissionStatus
+  }
+
+  export type HunterScalarRelationFilter = {
+    is?: HunterWhereInput
+    isNot?: HunterWhereInput
+  }
+
+  export type TenantDonationScalarRelationFilter = {
+    is?: TenantDonationWhereInput
+    isNot?: TenantDonationWhereInput
+  }
+
+  export type HunterCommissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    donationAmount?: SortOrder
+    commissionRate?: SortOrder
+    commissionAmount?: SortOrder
+    status?: SortOrder
+    paidOutAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterCommissionAvgOrderByAggregateInput = {
+    donationAmount?: SortOrder
+    commissionRate?: SortOrder
+    commissionAmount?: SortOrder
+  }
+
+  export type HunterCommissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    donationAmount?: SortOrder
+    commissionRate?: SortOrder
+    commissionAmount?: SortOrder
+    status?: SortOrder
+    paidOutAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterCommissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    donationAmount?: SortOrder
+    commissionRate?: SortOrder
+    commissionAmount?: SortOrder
+    status?: SortOrder
+    paidOutAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterCommissionSumOrderByAggregateInput = {
+    donationAmount?: SortOrder
+    commissionRate?: SortOrder
+    commissionAmount?: SortOrder
+  }
+
+  export type EnumCommissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommissionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommissionStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommissionStatusFilter<$PrismaModel>
+  }
+
+  export type EnumPayoutStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PayoutStatus | EnumPayoutStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPayoutStatusFilter<$PrismaModel> | $Enums.PayoutStatus
+  }
+
+  export type HunterPayoutCountOrderByAggregateInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    referenceNumber?: SortOrder
+    status?: SortOrder
+    processedBy?: SortOrder
+    processedAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterPayoutAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type HunterPayoutMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    referenceNumber?: SortOrder
+    status?: SortOrder
+    processedBy?: SortOrder
+    processedAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterPayoutMinOrderByAggregateInput = {
+    id?: SortOrder
+    hunterId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    referenceNumber?: SortOrder
+    status?: SortOrder
+    processedBy?: SortOrder
+    processedAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HunterPayoutSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumPayoutStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PayoutStatus | EnumPayoutStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPayoutStatusWithAggregatesFilter<$PrismaModel> | $Enums.PayoutStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPayoutStatusFilter<$PrismaModel>
+    _max?: NestedEnumPayoutStatusFilter<$PrismaModel>
+  }
+
+  export type EnumTransactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  }
+
+  export type EnumLedgerCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedgerCategory | EnumLedgerCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLedgerCategoryFilter<$PrismaModel> | $Enums.LedgerCategory
+  }
+
+  export type TenantDonationNullableScalarRelationFilter = {
+    is?: TenantDonationWhereInput | null
+    isNot?: TenantDonationWhereInput | null
+  }
+
+  export type HunterCommissionNullableScalarRelationFilter = {
+    is?: HunterCommissionWhereInput | null
+    isNot?: HunterCommissionWhereInput | null
+  }
+
+  export type HunterPayoutNullableScalarRelationFilter = {
+    is?: HunterPayoutWhereInput | null
+    isNot?: HunterPayoutWhereInput | null
+  }
+
+  export type SystemLedgerCountOrderByAggregateInput = {
+    id?: SortOrder
+    transactionType?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    balance?: SortOrder
+    description?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    commissionId?: SortOrder
+    payoutId?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SystemLedgerAvgOrderByAggregateInput = {
+    amount?: SortOrder
+    balance?: SortOrder
+  }
+
+  export type SystemLedgerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    transactionType?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    balance?: SortOrder
+    description?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    commissionId?: SortOrder
+    payoutId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SystemLedgerMinOrderByAggregateInput = {
+    id?: SortOrder
+    transactionType?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    balance?: SortOrder
+    description?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    hunterId?: SortOrder
+    tenantId?: SortOrder
+    donationId?: SortOrder
+    commissionId?: SortOrder
+    payoutId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SystemLedgerSumOrderByAggregateInput = {
+    amount?: SortOrder
+    balance?: SortOrder
+  }
+
+  export type EnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type EnumLedgerCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedgerCategory | EnumLedgerCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLedgerCategoryWithAggregatesFilter<$PrismaModel> | $Enums.LedgerCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLedgerCategoryFilter<$PrismaModel>
+    _max?: NestedEnumLedgerCategoryFilter<$PrismaModel>
+  }
+
   export type TenantCreateNestedManyWithoutUserInput = {
     create?: XOR<TenantCreateWithoutUserInput, TenantUncheckedCreateWithoutUserInput> | TenantCreateWithoutUserInput[] | TenantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutUserInput | TenantCreateOrConnectWithoutUserInput[]
@@ -61084,6 +68602,12 @@ export namespace Prisma {
     connectOrCreate?: PushNotificationTokenCreateOrConnectWithoutUserInput | PushNotificationTokenCreateOrConnectWithoutUserInput[]
     createMany?: PushNotificationTokenCreateManyUserInputEnvelope
     connect?: PushNotificationTokenWhereUniqueInput | PushNotificationTokenWhereUniqueInput[]
+  }
+
+  export type HunterCreateNestedOneWithoutUserInput = {
+    create?: XOR<HunterCreateWithoutUserInput, HunterUncheckedCreateWithoutUserInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutUserInput
+    connect?: HunterWhereUniqueInput
   }
 
   export type TenantUncheckedCreateNestedManyWithoutUserInput = {
@@ -61100,6 +68624,12 @@ export namespace Prisma {
     connect?: PushNotificationTokenWhereUniqueInput | PushNotificationTokenWhereUniqueInput[]
   }
 
+  export type HunterUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<HunterCreateWithoutUserInput, HunterUncheckedCreateWithoutUserInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutUserInput
+    connect?: HunterWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -61110,6 +68640,10 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -61144,6 +68678,16 @@ export namespace Prisma {
     deleteMany?: PushNotificationTokenScalarWhereInput | PushNotificationTokenScalarWhereInput[]
   }
 
+  export type HunterUpdateOneWithoutUserNestedInput = {
+    create?: XOR<HunterCreateWithoutUserInput, HunterUncheckedCreateWithoutUserInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutUserInput
+    upsert?: HunterUpsertWithoutUserInput
+    disconnect?: HunterWhereInput | boolean
+    delete?: HunterWhereInput | boolean
+    connect?: HunterWhereUniqueInput
+    update?: XOR<XOR<HunterUpdateToOneWithWhereWithoutUserInput, HunterUpdateWithoutUserInput>, HunterUncheckedUpdateWithoutUserInput>
+  }
+
   export type TenantUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<TenantCreateWithoutUserInput, TenantUncheckedCreateWithoutUserInput> | TenantCreateWithoutUserInput[] | TenantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutUserInput | TenantCreateOrConnectWithoutUserInput[]
@@ -61172,10 +68716,26 @@ export namespace Prisma {
     deleteMany?: PushNotificationTokenScalarWhereInput | PushNotificationTokenScalarWhereInput[]
   }
 
+  export type HunterUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<HunterCreateWithoutUserInput, HunterUncheckedCreateWithoutUserInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutUserInput
+    upsert?: HunterUpsertWithoutUserInput
+    disconnect?: HunterWhereInput | boolean
+    delete?: HunterWhereInput | boolean
+    connect?: HunterWhereUniqueInput
+    update?: XOR<XOR<HunterUpdateToOneWithWhereWithoutUserInput, HunterUpdateWithoutUserInput>, HunterUncheckedUpdateWithoutUserInput>
+  }
+
   export type UserCreateNestedOneWithoutTenantsInput = {
     create?: XOR<UserCreateWithoutTenantsInput, UserUncheckedCreateWithoutTenantsInput>
     connectOrCreate?: UserCreateOrConnectWithoutTenantsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type HunterCreateNestedOneWithoutTenantsInput = {
+    create?: XOR<HunterCreateWithoutTenantsInput, HunterUncheckedCreateWithoutTenantsInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutTenantsInput
+    connect?: HunterWhereUniqueInput
   }
 
   export type CustomerCreateNestedManyWithoutTenantInput = {
@@ -61600,6 +69160,16 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutTenantsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTenantsInput, UserUpdateWithoutTenantsInput>, UserUncheckedUpdateWithoutTenantsInput>
+  }
+
+  export type HunterUpdateOneWithoutTenantsNestedInput = {
+    create?: XOR<HunterCreateWithoutTenantsInput, HunterUncheckedCreateWithoutTenantsInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutTenantsInput
+    upsert?: HunterUpsertWithoutTenantsInput
+    disconnect?: HunterWhereInput | boolean
+    delete?: HunterWhereInput | boolean
+    connect?: HunterWhereUniqueInput
+    update?: XOR<XOR<HunterUpdateToOneWithWhereWithoutTenantsInput, HunterUpdateWithoutTenantsInput>, HunterUncheckedUpdateWithoutTenantsInput>
   }
 
   export type CustomerUpdateManyWithoutTenantNestedInput = {
@@ -62798,8 +70368,50 @@ export namespace Prisma {
     deleteMany?: PushNotificationTokenScalarWhereInput | PushNotificationTokenScalarWhereInput[]
   }
 
+  export type HunterCreateNestedManyWithoutAdminInput = {
+    create?: XOR<HunterCreateWithoutAdminInput, HunterUncheckedCreateWithoutAdminInput> | HunterCreateWithoutAdminInput[] | HunterUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: HunterCreateOrConnectWithoutAdminInput | HunterCreateOrConnectWithoutAdminInput[]
+    createMany?: HunterCreateManyAdminInputEnvelope
+    connect?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+  }
+
+  export type HunterUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<HunterCreateWithoutAdminInput, HunterUncheckedCreateWithoutAdminInput> | HunterCreateWithoutAdminInput[] | HunterUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: HunterCreateOrConnectWithoutAdminInput | HunterCreateOrConnectWithoutAdminInput[]
+    createMany?: HunterCreateManyAdminInputEnvelope
+    connect?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+  }
+
   export type EnumAdminRoleFieldUpdateOperationsInput = {
     set?: $Enums.AdminRole
+  }
+
+  export type HunterUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<HunterCreateWithoutAdminInput, HunterUncheckedCreateWithoutAdminInput> | HunterCreateWithoutAdminInput[] | HunterUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: HunterCreateOrConnectWithoutAdminInput | HunterCreateOrConnectWithoutAdminInput[]
+    upsert?: HunterUpsertWithWhereUniqueWithoutAdminInput | HunterUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: HunterCreateManyAdminInputEnvelope
+    set?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    disconnect?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    delete?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    connect?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    update?: HunterUpdateWithWhereUniqueWithoutAdminInput | HunterUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: HunterUpdateManyWithWhereWithoutAdminInput | HunterUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: HunterScalarWhereInput | HunterScalarWhereInput[]
+  }
+
+  export type HunterUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<HunterCreateWithoutAdminInput, HunterUncheckedCreateWithoutAdminInput> | HunterCreateWithoutAdminInput[] | HunterUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: HunterCreateOrConnectWithoutAdminInput | HunterCreateOrConnectWithoutAdminInput[]
+    upsert?: HunterUpsertWithWhereUniqueWithoutAdminInput | HunterUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: HunterCreateManyAdminInputEnvelope
+    set?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    disconnect?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    delete?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    connect?: HunterWhereUniqueInput | HunterWhereUniqueInput[]
+    update?: HunterUpdateWithWhereUniqueWithoutAdminInput | HunterUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: HunterUpdateManyWithWhereWithoutAdminInput | HunterUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: HunterScalarWhereInput | HunterScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutCustomersInput = {
@@ -64208,6 +71820,34 @@ export namespace Prisma {
     connect?: DonationPaymentMethodWhereUniqueInput
   }
 
+  export type HunterCommissionCreateNestedManyWithoutDonationInput = {
+    create?: XOR<HunterCommissionCreateWithoutDonationInput, HunterCommissionUncheckedCreateWithoutDonationInput> | HunterCommissionCreateWithoutDonationInput[] | HunterCommissionUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutDonationInput | HunterCommissionCreateOrConnectWithoutDonationInput[]
+    createMany?: HunterCommissionCreateManyDonationInputEnvelope
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+  }
+
+  export type SystemLedgerCreateNestedManyWithoutDonationInput = {
+    create?: XOR<SystemLedgerCreateWithoutDonationInput, SystemLedgerUncheckedCreateWithoutDonationInput> | SystemLedgerCreateWithoutDonationInput[] | SystemLedgerUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutDonationInput | SystemLedgerCreateOrConnectWithoutDonationInput[]
+    createMany?: SystemLedgerCreateManyDonationInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
+  export type HunterCommissionUncheckedCreateNestedManyWithoutDonationInput = {
+    create?: XOR<HunterCommissionCreateWithoutDonationInput, HunterCommissionUncheckedCreateWithoutDonationInput> | HunterCommissionCreateWithoutDonationInput[] | HunterCommissionUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutDonationInput | HunterCommissionCreateOrConnectWithoutDonationInput[]
+    createMany?: HunterCommissionCreateManyDonationInputEnvelope
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+  }
+
+  export type SystemLedgerUncheckedCreateNestedManyWithoutDonationInput = {
+    create?: XOR<SystemLedgerCreateWithoutDonationInput, SystemLedgerUncheckedCreateWithoutDonationInput> | SystemLedgerCreateWithoutDonationInput[] | SystemLedgerUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutDonationInput | SystemLedgerCreateOrConnectWithoutDonationInput[]
+    createMany?: SystemLedgerCreateManyDonationInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
   export type EnumDonationStatusFieldUpdateOperationsInput = {
     set?: $Enums.DonationStatus
   }
@@ -64228,6 +71868,62 @@ export namespace Prisma {
     delete?: DonationPaymentMethodWhereInput | boolean
     connect?: DonationPaymentMethodWhereUniqueInput
     update?: XOR<XOR<DonationPaymentMethodUpdateToOneWithWhereWithoutDonationsInput, DonationPaymentMethodUpdateWithoutDonationsInput>, DonationPaymentMethodUncheckedUpdateWithoutDonationsInput>
+  }
+
+  export type HunterCommissionUpdateManyWithoutDonationNestedInput = {
+    create?: XOR<HunterCommissionCreateWithoutDonationInput, HunterCommissionUncheckedCreateWithoutDonationInput> | HunterCommissionCreateWithoutDonationInput[] | HunterCommissionUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutDonationInput | HunterCommissionCreateOrConnectWithoutDonationInput[]
+    upsert?: HunterCommissionUpsertWithWhereUniqueWithoutDonationInput | HunterCommissionUpsertWithWhereUniqueWithoutDonationInput[]
+    createMany?: HunterCommissionCreateManyDonationInputEnvelope
+    set?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    disconnect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    delete?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    update?: HunterCommissionUpdateWithWhereUniqueWithoutDonationInput | HunterCommissionUpdateWithWhereUniqueWithoutDonationInput[]
+    updateMany?: HunterCommissionUpdateManyWithWhereWithoutDonationInput | HunterCommissionUpdateManyWithWhereWithoutDonationInput[]
+    deleteMany?: HunterCommissionScalarWhereInput | HunterCommissionScalarWhereInput[]
+  }
+
+  export type SystemLedgerUpdateManyWithoutDonationNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutDonationInput, SystemLedgerUncheckedCreateWithoutDonationInput> | SystemLedgerCreateWithoutDonationInput[] | SystemLedgerUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutDonationInput | SystemLedgerCreateOrConnectWithoutDonationInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutDonationInput | SystemLedgerUpsertWithWhereUniqueWithoutDonationInput[]
+    createMany?: SystemLedgerCreateManyDonationInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutDonationInput | SystemLedgerUpdateWithWhereUniqueWithoutDonationInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutDonationInput | SystemLedgerUpdateManyWithWhereWithoutDonationInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+  }
+
+  export type HunterCommissionUncheckedUpdateManyWithoutDonationNestedInput = {
+    create?: XOR<HunterCommissionCreateWithoutDonationInput, HunterCommissionUncheckedCreateWithoutDonationInput> | HunterCommissionCreateWithoutDonationInput[] | HunterCommissionUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutDonationInput | HunterCommissionCreateOrConnectWithoutDonationInput[]
+    upsert?: HunterCommissionUpsertWithWhereUniqueWithoutDonationInput | HunterCommissionUpsertWithWhereUniqueWithoutDonationInput[]
+    createMany?: HunterCommissionCreateManyDonationInputEnvelope
+    set?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    disconnect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    delete?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    update?: HunterCommissionUpdateWithWhereUniqueWithoutDonationInput | HunterCommissionUpdateWithWhereUniqueWithoutDonationInput[]
+    updateMany?: HunterCommissionUpdateManyWithWhereWithoutDonationInput | HunterCommissionUpdateManyWithWhereWithoutDonationInput[]
+    deleteMany?: HunterCommissionScalarWhereInput | HunterCommissionScalarWhereInput[]
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutDonationNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutDonationInput, SystemLedgerUncheckedCreateWithoutDonationInput> | SystemLedgerCreateWithoutDonationInput[] | SystemLedgerUncheckedCreateWithoutDonationInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutDonationInput | SystemLedgerCreateOrConnectWithoutDonationInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutDonationInput | SystemLedgerUpsertWithWhereUniqueWithoutDonationInput[]
+    createMany?: SystemLedgerCreateManyDonationInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutDonationInput | SystemLedgerUpdateWithWhereUniqueWithoutDonationInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutDonationInput | SystemLedgerUpdateManyWithWhereWithoutDonationInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutPushTokensInput = {
@@ -64304,6 +72000,410 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPushSubscriptionsInput, TenantUpdateWithoutPushSubscriptionsInput>, TenantUncheckedUpdateWithoutPushSubscriptionsInput>
   }
 
+  export type UserCreateNestedOneWithoutHunterInput = {
+    create?: XOR<UserCreateWithoutHunterInput, UserUncheckedCreateWithoutHunterInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHunterInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AdminCreateNestedOneWithoutHuntersInput = {
+    create?: XOR<AdminCreateWithoutHuntersInput, AdminUncheckedCreateWithoutHuntersInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutHuntersInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type TenantCreateNestedManyWithoutHunterInput = {
+    create?: XOR<TenantCreateWithoutHunterInput, TenantUncheckedCreateWithoutHunterInput> | TenantCreateWithoutHunterInput[] | TenantUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutHunterInput | TenantCreateOrConnectWithoutHunterInput[]
+    createMany?: TenantCreateManyHunterInputEnvelope
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type HunterCommissionCreateNestedManyWithoutHunterInput = {
+    create?: XOR<HunterCommissionCreateWithoutHunterInput, HunterCommissionUncheckedCreateWithoutHunterInput> | HunterCommissionCreateWithoutHunterInput[] | HunterCommissionUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutHunterInput | HunterCommissionCreateOrConnectWithoutHunterInput[]
+    createMany?: HunterCommissionCreateManyHunterInputEnvelope
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+  }
+
+  export type HunterPayoutCreateNestedManyWithoutHunterInput = {
+    create?: XOR<HunterPayoutCreateWithoutHunterInput, HunterPayoutUncheckedCreateWithoutHunterInput> | HunterPayoutCreateWithoutHunterInput[] | HunterPayoutUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterPayoutCreateOrConnectWithoutHunterInput | HunterPayoutCreateOrConnectWithoutHunterInput[]
+    createMany?: HunterPayoutCreateManyHunterInputEnvelope
+    connect?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+  }
+
+  export type SystemLedgerCreateNestedManyWithoutHunterInput = {
+    create?: XOR<SystemLedgerCreateWithoutHunterInput, SystemLedgerUncheckedCreateWithoutHunterInput> | SystemLedgerCreateWithoutHunterInput[] | SystemLedgerUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutHunterInput | SystemLedgerCreateOrConnectWithoutHunterInput[]
+    createMany?: SystemLedgerCreateManyHunterInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
+  export type TenantUncheckedCreateNestedManyWithoutHunterInput = {
+    create?: XOR<TenantCreateWithoutHunterInput, TenantUncheckedCreateWithoutHunterInput> | TenantCreateWithoutHunterInput[] | TenantUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutHunterInput | TenantCreateOrConnectWithoutHunterInput[]
+    createMany?: TenantCreateManyHunterInputEnvelope
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type HunterCommissionUncheckedCreateNestedManyWithoutHunterInput = {
+    create?: XOR<HunterCommissionCreateWithoutHunterInput, HunterCommissionUncheckedCreateWithoutHunterInput> | HunterCommissionCreateWithoutHunterInput[] | HunterCommissionUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutHunterInput | HunterCommissionCreateOrConnectWithoutHunterInput[]
+    createMany?: HunterCommissionCreateManyHunterInputEnvelope
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+  }
+
+  export type HunterPayoutUncheckedCreateNestedManyWithoutHunterInput = {
+    create?: XOR<HunterPayoutCreateWithoutHunterInput, HunterPayoutUncheckedCreateWithoutHunterInput> | HunterPayoutCreateWithoutHunterInput[] | HunterPayoutUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterPayoutCreateOrConnectWithoutHunterInput | HunterPayoutCreateOrConnectWithoutHunterInput[]
+    createMany?: HunterPayoutCreateManyHunterInputEnvelope
+    connect?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+  }
+
+  export type SystemLedgerUncheckedCreateNestedManyWithoutHunterInput = {
+    create?: XOR<SystemLedgerCreateWithoutHunterInput, SystemLedgerUncheckedCreateWithoutHunterInput> | SystemLedgerCreateWithoutHunterInput[] | SystemLedgerUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutHunterInput | SystemLedgerCreateOrConnectWithoutHunterInput[]
+    createMany?: SystemLedgerCreateManyHunterInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneWithoutHunterNestedInput = {
+    create?: XOR<UserCreateWithoutHunterInput, UserUncheckedCreateWithoutHunterInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHunterInput
+    upsert?: UserUpsertWithoutHunterInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHunterInput, UserUpdateWithoutHunterInput>, UserUncheckedUpdateWithoutHunterInput>
+  }
+
+  export type AdminUpdateOneRequiredWithoutHuntersNestedInput = {
+    create?: XOR<AdminCreateWithoutHuntersInput, AdminUncheckedCreateWithoutHuntersInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutHuntersInput
+    upsert?: AdminUpsertWithoutHuntersInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutHuntersInput, AdminUpdateWithoutHuntersInput>, AdminUncheckedUpdateWithoutHuntersInput>
+  }
+
+  export type TenantUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<TenantCreateWithoutHunterInput, TenantUncheckedCreateWithoutHunterInput> | TenantCreateWithoutHunterInput[] | TenantUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutHunterInput | TenantCreateOrConnectWithoutHunterInput[]
+    upsert?: TenantUpsertWithWhereUniqueWithoutHunterInput | TenantUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: TenantCreateManyHunterInputEnvelope
+    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    update?: TenantUpdateWithWhereUniqueWithoutHunterInput | TenantUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: TenantUpdateManyWithWhereWithoutHunterInput | TenantUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type HunterCommissionUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<HunterCommissionCreateWithoutHunterInput, HunterCommissionUncheckedCreateWithoutHunterInput> | HunterCommissionCreateWithoutHunterInput[] | HunterCommissionUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutHunterInput | HunterCommissionCreateOrConnectWithoutHunterInput[]
+    upsert?: HunterCommissionUpsertWithWhereUniqueWithoutHunterInput | HunterCommissionUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: HunterCommissionCreateManyHunterInputEnvelope
+    set?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    disconnect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    delete?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    update?: HunterCommissionUpdateWithWhereUniqueWithoutHunterInput | HunterCommissionUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: HunterCommissionUpdateManyWithWhereWithoutHunterInput | HunterCommissionUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: HunterCommissionScalarWhereInput | HunterCommissionScalarWhereInput[]
+  }
+
+  export type HunterPayoutUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<HunterPayoutCreateWithoutHunterInput, HunterPayoutUncheckedCreateWithoutHunterInput> | HunterPayoutCreateWithoutHunterInput[] | HunterPayoutUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterPayoutCreateOrConnectWithoutHunterInput | HunterPayoutCreateOrConnectWithoutHunterInput[]
+    upsert?: HunterPayoutUpsertWithWhereUniqueWithoutHunterInput | HunterPayoutUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: HunterPayoutCreateManyHunterInputEnvelope
+    set?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    disconnect?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    delete?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    connect?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    update?: HunterPayoutUpdateWithWhereUniqueWithoutHunterInput | HunterPayoutUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: HunterPayoutUpdateManyWithWhereWithoutHunterInput | HunterPayoutUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: HunterPayoutScalarWhereInput | HunterPayoutScalarWhereInput[]
+  }
+
+  export type SystemLedgerUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutHunterInput, SystemLedgerUncheckedCreateWithoutHunterInput> | SystemLedgerCreateWithoutHunterInput[] | SystemLedgerUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutHunterInput | SystemLedgerCreateOrConnectWithoutHunterInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutHunterInput | SystemLedgerUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: SystemLedgerCreateManyHunterInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutHunterInput | SystemLedgerUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutHunterInput | SystemLedgerUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+  }
+
+  export type TenantUncheckedUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<TenantCreateWithoutHunterInput, TenantUncheckedCreateWithoutHunterInput> | TenantCreateWithoutHunterInput[] | TenantUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutHunterInput | TenantCreateOrConnectWithoutHunterInput[]
+    upsert?: TenantUpsertWithWhereUniqueWithoutHunterInput | TenantUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: TenantCreateManyHunterInputEnvelope
+    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    update?: TenantUpdateWithWhereUniqueWithoutHunterInput | TenantUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: TenantUpdateManyWithWhereWithoutHunterInput | TenantUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type HunterCommissionUncheckedUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<HunterCommissionCreateWithoutHunterInput, HunterCommissionUncheckedCreateWithoutHunterInput> | HunterCommissionCreateWithoutHunterInput[] | HunterCommissionUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutHunterInput | HunterCommissionCreateOrConnectWithoutHunterInput[]
+    upsert?: HunterCommissionUpsertWithWhereUniqueWithoutHunterInput | HunterCommissionUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: HunterCommissionCreateManyHunterInputEnvelope
+    set?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    disconnect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    delete?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    connect?: HunterCommissionWhereUniqueInput | HunterCommissionWhereUniqueInput[]
+    update?: HunterCommissionUpdateWithWhereUniqueWithoutHunterInput | HunterCommissionUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: HunterCommissionUpdateManyWithWhereWithoutHunterInput | HunterCommissionUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: HunterCommissionScalarWhereInput | HunterCommissionScalarWhereInput[]
+  }
+
+  export type HunterPayoutUncheckedUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<HunterPayoutCreateWithoutHunterInput, HunterPayoutUncheckedCreateWithoutHunterInput> | HunterPayoutCreateWithoutHunterInput[] | HunterPayoutUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: HunterPayoutCreateOrConnectWithoutHunterInput | HunterPayoutCreateOrConnectWithoutHunterInput[]
+    upsert?: HunterPayoutUpsertWithWhereUniqueWithoutHunterInput | HunterPayoutUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: HunterPayoutCreateManyHunterInputEnvelope
+    set?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    disconnect?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    delete?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    connect?: HunterPayoutWhereUniqueInput | HunterPayoutWhereUniqueInput[]
+    update?: HunterPayoutUpdateWithWhereUniqueWithoutHunterInput | HunterPayoutUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: HunterPayoutUpdateManyWithWhereWithoutHunterInput | HunterPayoutUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: HunterPayoutScalarWhereInput | HunterPayoutScalarWhereInput[]
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutHunterNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutHunterInput, SystemLedgerUncheckedCreateWithoutHunterInput> | SystemLedgerCreateWithoutHunterInput[] | SystemLedgerUncheckedCreateWithoutHunterInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutHunterInput | SystemLedgerCreateOrConnectWithoutHunterInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutHunterInput | SystemLedgerUpsertWithWhereUniqueWithoutHunterInput[]
+    createMany?: SystemLedgerCreateManyHunterInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutHunterInput | SystemLedgerUpdateWithWhereUniqueWithoutHunterInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutHunterInput | SystemLedgerUpdateManyWithWhereWithoutHunterInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+  }
+
+  export type HunterCreateNestedOneWithoutCommissionsInput = {
+    create?: XOR<HunterCreateWithoutCommissionsInput, HunterUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutCommissionsInput
+    connect?: HunterWhereUniqueInput
+  }
+
+  export type TenantDonationCreateNestedOneWithoutCommissionsInput = {
+    create?: XOR<TenantDonationCreateWithoutCommissionsInput, TenantDonationUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutCommissionsInput
+    connect?: TenantDonationWhereUniqueInput
+  }
+
+  export type SystemLedgerCreateNestedManyWithoutCommissionInput = {
+    create?: XOR<SystemLedgerCreateWithoutCommissionInput, SystemLedgerUncheckedCreateWithoutCommissionInput> | SystemLedgerCreateWithoutCommissionInput[] | SystemLedgerUncheckedCreateWithoutCommissionInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutCommissionInput | SystemLedgerCreateOrConnectWithoutCommissionInput[]
+    createMany?: SystemLedgerCreateManyCommissionInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
+  export type SystemLedgerUncheckedCreateNestedManyWithoutCommissionInput = {
+    create?: XOR<SystemLedgerCreateWithoutCommissionInput, SystemLedgerUncheckedCreateWithoutCommissionInput> | SystemLedgerCreateWithoutCommissionInput[] | SystemLedgerUncheckedCreateWithoutCommissionInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutCommissionInput | SystemLedgerCreateOrConnectWithoutCommissionInput[]
+    createMany?: SystemLedgerCreateManyCommissionInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
+  export type EnumCommissionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CommissionStatus
+  }
+
+  export type HunterUpdateOneRequiredWithoutCommissionsNestedInput = {
+    create?: XOR<HunterCreateWithoutCommissionsInput, HunterUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutCommissionsInput
+    upsert?: HunterUpsertWithoutCommissionsInput
+    connect?: HunterWhereUniqueInput
+    update?: XOR<XOR<HunterUpdateToOneWithWhereWithoutCommissionsInput, HunterUpdateWithoutCommissionsInput>, HunterUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type TenantDonationUpdateOneRequiredWithoutCommissionsNestedInput = {
+    create?: XOR<TenantDonationCreateWithoutCommissionsInput, TenantDonationUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutCommissionsInput
+    upsert?: TenantDonationUpsertWithoutCommissionsInput
+    connect?: TenantDonationWhereUniqueInput
+    update?: XOR<XOR<TenantDonationUpdateToOneWithWhereWithoutCommissionsInput, TenantDonationUpdateWithoutCommissionsInput>, TenantDonationUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type SystemLedgerUpdateManyWithoutCommissionNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutCommissionInput, SystemLedgerUncheckedCreateWithoutCommissionInput> | SystemLedgerCreateWithoutCommissionInput[] | SystemLedgerUncheckedCreateWithoutCommissionInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutCommissionInput | SystemLedgerCreateOrConnectWithoutCommissionInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutCommissionInput | SystemLedgerUpsertWithWhereUniqueWithoutCommissionInput[]
+    createMany?: SystemLedgerCreateManyCommissionInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutCommissionInput | SystemLedgerUpdateWithWhereUniqueWithoutCommissionInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutCommissionInput | SystemLedgerUpdateManyWithWhereWithoutCommissionInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutCommissionNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutCommissionInput, SystemLedgerUncheckedCreateWithoutCommissionInput> | SystemLedgerCreateWithoutCommissionInput[] | SystemLedgerUncheckedCreateWithoutCommissionInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutCommissionInput | SystemLedgerCreateOrConnectWithoutCommissionInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutCommissionInput | SystemLedgerUpsertWithWhereUniqueWithoutCommissionInput[]
+    createMany?: SystemLedgerCreateManyCommissionInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutCommissionInput | SystemLedgerUpdateWithWhereUniqueWithoutCommissionInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutCommissionInput | SystemLedgerUpdateManyWithWhereWithoutCommissionInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+  }
+
+  export type HunterCreateNestedOneWithoutPayoutsInput = {
+    create?: XOR<HunterCreateWithoutPayoutsInput, HunterUncheckedCreateWithoutPayoutsInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutPayoutsInput
+    connect?: HunterWhereUniqueInput
+  }
+
+  export type SystemLedgerCreateNestedManyWithoutPayoutInput = {
+    create?: XOR<SystemLedgerCreateWithoutPayoutInput, SystemLedgerUncheckedCreateWithoutPayoutInput> | SystemLedgerCreateWithoutPayoutInput[] | SystemLedgerUncheckedCreateWithoutPayoutInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutPayoutInput | SystemLedgerCreateOrConnectWithoutPayoutInput[]
+    createMany?: SystemLedgerCreateManyPayoutInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
+  export type SystemLedgerUncheckedCreateNestedManyWithoutPayoutInput = {
+    create?: XOR<SystemLedgerCreateWithoutPayoutInput, SystemLedgerUncheckedCreateWithoutPayoutInput> | SystemLedgerCreateWithoutPayoutInput[] | SystemLedgerUncheckedCreateWithoutPayoutInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutPayoutInput | SystemLedgerCreateOrConnectWithoutPayoutInput[]
+    createMany?: SystemLedgerCreateManyPayoutInputEnvelope
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+  }
+
+  export type EnumPayoutStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PayoutStatus
+  }
+
+  export type HunterUpdateOneRequiredWithoutPayoutsNestedInput = {
+    create?: XOR<HunterCreateWithoutPayoutsInput, HunterUncheckedCreateWithoutPayoutsInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutPayoutsInput
+    upsert?: HunterUpsertWithoutPayoutsInput
+    connect?: HunterWhereUniqueInput
+    update?: XOR<XOR<HunterUpdateToOneWithWhereWithoutPayoutsInput, HunterUpdateWithoutPayoutsInput>, HunterUncheckedUpdateWithoutPayoutsInput>
+  }
+
+  export type SystemLedgerUpdateManyWithoutPayoutNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutPayoutInput, SystemLedgerUncheckedCreateWithoutPayoutInput> | SystemLedgerCreateWithoutPayoutInput[] | SystemLedgerUncheckedCreateWithoutPayoutInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutPayoutInput | SystemLedgerCreateOrConnectWithoutPayoutInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutPayoutInput | SystemLedgerUpsertWithWhereUniqueWithoutPayoutInput[]
+    createMany?: SystemLedgerCreateManyPayoutInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutPayoutInput | SystemLedgerUpdateWithWhereUniqueWithoutPayoutInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutPayoutInput | SystemLedgerUpdateManyWithWhereWithoutPayoutInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutPayoutNestedInput = {
+    create?: XOR<SystemLedgerCreateWithoutPayoutInput, SystemLedgerUncheckedCreateWithoutPayoutInput> | SystemLedgerCreateWithoutPayoutInput[] | SystemLedgerUncheckedCreateWithoutPayoutInput[]
+    connectOrCreate?: SystemLedgerCreateOrConnectWithoutPayoutInput | SystemLedgerCreateOrConnectWithoutPayoutInput[]
+    upsert?: SystemLedgerUpsertWithWhereUniqueWithoutPayoutInput | SystemLedgerUpsertWithWhereUniqueWithoutPayoutInput[]
+    createMany?: SystemLedgerCreateManyPayoutInputEnvelope
+    set?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    disconnect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    delete?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    connect?: SystemLedgerWhereUniqueInput | SystemLedgerWhereUniqueInput[]
+    update?: SystemLedgerUpdateWithWhereUniqueWithoutPayoutInput | SystemLedgerUpdateWithWhereUniqueWithoutPayoutInput[]
+    updateMany?: SystemLedgerUpdateManyWithWhereWithoutPayoutInput | SystemLedgerUpdateManyWithWhereWithoutPayoutInput[]
+    deleteMany?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+  }
+
+  export type HunterCreateNestedOneWithoutSystemLedgersInput = {
+    create?: XOR<HunterCreateWithoutSystemLedgersInput, HunterUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutSystemLedgersInput
+    connect?: HunterWhereUniqueInput
+  }
+
+  export type TenantDonationCreateNestedOneWithoutSystemLedgersInput = {
+    create?: XOR<TenantDonationCreateWithoutSystemLedgersInput, TenantDonationUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutSystemLedgersInput
+    connect?: TenantDonationWhereUniqueInput
+  }
+
+  export type HunterCommissionCreateNestedOneWithoutSystemLedgersInput = {
+    create?: XOR<HunterCommissionCreateWithoutSystemLedgersInput, HunterCommissionUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutSystemLedgersInput
+    connect?: HunterCommissionWhereUniqueInput
+  }
+
+  export type HunterPayoutCreateNestedOneWithoutSystemLedgersInput = {
+    create?: XOR<HunterPayoutCreateWithoutSystemLedgersInput, HunterPayoutUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: HunterPayoutCreateOrConnectWithoutSystemLedgersInput
+    connect?: HunterPayoutWhereUniqueInput
+  }
+
+  export type EnumTransactionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionType
+  }
+
+  export type EnumLedgerCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.LedgerCategory
+  }
+
+  export type HunterUpdateOneWithoutSystemLedgersNestedInput = {
+    create?: XOR<HunterCreateWithoutSystemLedgersInput, HunterUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: HunterCreateOrConnectWithoutSystemLedgersInput
+    upsert?: HunterUpsertWithoutSystemLedgersInput
+    disconnect?: HunterWhereInput | boolean
+    delete?: HunterWhereInput | boolean
+    connect?: HunterWhereUniqueInput
+    update?: XOR<XOR<HunterUpdateToOneWithWhereWithoutSystemLedgersInput, HunterUpdateWithoutSystemLedgersInput>, HunterUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
+  export type TenantDonationUpdateOneWithoutSystemLedgersNestedInput = {
+    create?: XOR<TenantDonationCreateWithoutSystemLedgersInput, TenantDonationUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: TenantDonationCreateOrConnectWithoutSystemLedgersInput
+    upsert?: TenantDonationUpsertWithoutSystemLedgersInput
+    disconnect?: TenantDonationWhereInput | boolean
+    delete?: TenantDonationWhereInput | boolean
+    connect?: TenantDonationWhereUniqueInput
+    update?: XOR<XOR<TenantDonationUpdateToOneWithWhereWithoutSystemLedgersInput, TenantDonationUpdateWithoutSystemLedgersInput>, TenantDonationUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
+  export type HunterCommissionUpdateOneWithoutSystemLedgersNestedInput = {
+    create?: XOR<HunterCommissionCreateWithoutSystemLedgersInput, HunterCommissionUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: HunterCommissionCreateOrConnectWithoutSystemLedgersInput
+    upsert?: HunterCommissionUpsertWithoutSystemLedgersInput
+    disconnect?: HunterCommissionWhereInput | boolean
+    delete?: HunterCommissionWhereInput | boolean
+    connect?: HunterCommissionWhereUniqueInput
+    update?: XOR<XOR<HunterCommissionUpdateToOneWithWhereWithoutSystemLedgersInput, HunterCommissionUpdateWithoutSystemLedgersInput>, HunterCommissionUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
+  export type HunterPayoutUpdateOneWithoutSystemLedgersNestedInput = {
+    create?: XOR<HunterPayoutCreateWithoutSystemLedgersInput, HunterPayoutUncheckedCreateWithoutSystemLedgersInput>
+    connectOrCreate?: HunterPayoutCreateOrConnectWithoutSystemLedgersInput
+    upsert?: HunterPayoutUpsertWithoutSystemLedgersInput
+    disconnect?: HunterPayoutWhereInput | boolean
+    delete?: HunterPayoutWhereInput | boolean
+    connect?: HunterPayoutWhereUniqueInput
+    update?: XOR<XOR<HunterPayoutUpdateToOneWithWhereWithoutSystemLedgersInput, HunterPayoutUpdateWithoutSystemLedgersInput>, HunterPayoutUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -64346,6 +72446,13 @@ export namespace Prisma {
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -64435,6 +72542,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -64847,6 +72964,74 @@ export namespace Prisma {
     _max?: NestedEnumDonationStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumCommissionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusFilter<$PrismaModel> | $Enums.CommissionStatus
+  }
+
+  export type NestedEnumCommissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommissionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommissionStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommissionStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPayoutStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PayoutStatus | EnumPayoutStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPayoutStatusFilter<$PrismaModel> | $Enums.PayoutStatus
+  }
+
+  export type NestedEnumPayoutStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PayoutStatus | EnumPayoutStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PayoutStatus[] | ListEnumPayoutStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPayoutStatusWithAggregatesFilter<$PrismaModel> | $Enums.PayoutStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPayoutStatusFilter<$PrismaModel>
+    _max?: NestedEnumPayoutStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  }
+
+  export type NestedEnumLedgerCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedgerCategory | EnumLedgerCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLedgerCategoryFilter<$PrismaModel> | $Enums.LedgerCategory
+  }
+
+  export type NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLedgerCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedgerCategory | EnumLedgerCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LedgerCategory[] | ListEnumLedgerCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumLedgerCategoryWithAggregatesFilter<$PrismaModel> | $Enums.LedgerCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLedgerCategoryFilter<$PrismaModel>
+    _max?: NestedEnumLedgerCategoryFilter<$PrismaModel>
+  }
+
   export type TenantCreateWithoutUserInput = {
     id?: string
     name: string
@@ -64857,6 +73042,7 @@ export namespace Prisma {
     isSubscribed?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -64897,6 +73083,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -64977,6 +73164,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HunterCreateWithoutUserInput = {
+    id?: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    admin: AdminCreateNestedOneWithoutHuntersInput
+    tenants?: TenantCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUncheckedCreateWithoutUserInput = {
+    id?: string
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutUncheckedCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterCreateOrConnectWithoutUserInput = {
+    where: HunterWhereUniqueInput
+    create: XOR<HunterCreateWithoutUserInput, HunterUncheckedCreateWithoutUserInput>
+  }
+
   export type TenantUpsertWithWhereUniqueWithoutUserInput = {
     where: TenantWhereUniqueInput
     update: XOR<TenantUpdateWithoutUserInput, TenantUncheckedUpdateWithoutUserInput>
@@ -65005,6 +73243,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Tenant"> | string | null
     subscribedUntil?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     isSubscribed?: BoolNullableFilter<"Tenant"> | boolean | null
+    hunterReferralCode?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
   }
@@ -65042,6 +73281,63 @@ export namespace Prisma {
     lastUsedAt?: DateTimeFilter<"PushNotificationToken"> | Date | string
   }
 
+  export type HunterUpsertWithoutUserInput = {
+    update: XOR<HunterUpdateWithoutUserInput, HunterUncheckedUpdateWithoutUserInput>
+    create: XOR<HunterCreateWithoutUserInput, HunterUncheckedCreateWithoutUserInput>
+    where?: HunterWhereInput
+  }
+
+  export type HunterUpdateToOneWithWhereWithoutUserInput = {
+    where?: HunterWhereInput
+    data: XOR<HunterUpdateWithoutUserInput, HunterUncheckedUpdateWithoutUserInput>
+  }
+
+  export type HunterUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: AdminUpdateOneRequiredWithoutHuntersNestedInput
+    tenants?: TenantUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUncheckedUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutHunterNestedInput
+  }
+
   export type UserCreateWithoutTenantsInput = {
     id?: string
     email: string
@@ -65051,9 +73347,11 @@ export namespace Prisma {
     provider?: string | null
     providerId?: string | null
     emailVerified?: boolean | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     pushTokens?: PushNotificationTokenCreateNestedManyWithoutUserInput
+    hunter?: HunterCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTenantsInput = {
@@ -65065,14 +73363,67 @@ export namespace Prisma {
     provider?: string | null
     providerId?: string | null
     emailVerified?: boolean | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     pushTokens?: PushNotificationTokenUncheckedCreateNestedManyWithoutUserInput
+    hunter?: HunterUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTenantsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutTenantsInput, UserUncheckedCreateWithoutTenantsInput>
+  }
+
+  export type HunterCreateWithoutTenantsInput = {
+    id?: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutHunterInput
+    admin: AdminCreateNestedOneWithoutHuntersInput
+    commissions?: HunterCommissionCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUncheckedCreateWithoutTenantsInput = {
+    id?: string
+    userId?: string | null
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutUncheckedCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterCreateOrConnectWithoutTenantsInput = {
+    where: HunterWhereUniqueInput
+    create: XOR<HunterCreateWithoutTenantsInput, HunterUncheckedCreateWithoutTenantsInput>
   }
 
   export type CustomerCreateWithoutTenantInput = {
@@ -66066,6 +74417,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     paymentMethod?: DonationPaymentMethodCreateNestedOneWithoutDonationsInput
+    commissions?: HunterCommissionCreateNestedManyWithoutDonationInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutDonationInput
   }
 
   export type TenantDonationUncheckedCreateWithoutTenantInput = {
@@ -66085,6 +74438,8 @@ export namespace Prisma {
     midtransResponse?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutDonationInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutDonationInput
   }
 
   export type TenantDonationCreateOrConnectWithoutTenantInput = {
@@ -66233,9 +74588,11 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pushTokens?: PushNotificationTokenUpdateManyWithoutUserNestedInput
+    hunter?: HunterUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantsInput = {
@@ -66247,9 +74604,68 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pushTokens?: PushNotificationTokenUncheckedUpdateManyWithoutUserNestedInput
+    hunter?: HunterUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type HunterUpsertWithoutTenantsInput = {
+    update: XOR<HunterUpdateWithoutTenantsInput, HunterUncheckedUpdateWithoutTenantsInput>
+    create: XOR<HunterCreateWithoutTenantsInput, HunterUncheckedCreateWithoutTenantsInput>
+    where?: HunterWhereInput
+  }
+
+  export type HunterUpdateToOneWithWhereWithoutTenantsInput = {
+    where?: HunterWhereInput
+    data: XOR<HunterUpdateWithoutTenantsInput, HunterUncheckedUpdateWithoutTenantsInput>
+  }
+
+  export type HunterUpdateWithoutTenantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutHunterNestedInput
+    admin?: AdminUpdateOneRequiredWithoutHuntersNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateWithoutTenantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUncheckedUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutHunterNestedInput
   }
 
   export type CustomerUpsertWithWhereUniqueWithoutTenantInput = {
@@ -67271,6 +75687,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -67311,6 +75728,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -67724,6 +76142,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -67764,6 +76183,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -67970,6 +76390,101 @@ export namespace Prisma {
     data: XOR<PushNotificationTokenUpdateManyMutationInput, PushNotificationTokenUncheckedUpdateManyWithoutStaffInput>
   }
 
+  export type HunterCreateWithoutAdminInput = {
+    id?: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutHunterInput
+    tenants?: TenantCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUncheckedCreateWithoutAdminInput = {
+    id?: string
+    userId?: string | null
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutUncheckedCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterCreateOrConnectWithoutAdminInput = {
+    where: HunterWhereUniqueInput
+    create: XOR<HunterCreateWithoutAdminInput, HunterUncheckedCreateWithoutAdminInput>
+  }
+
+  export type HunterCreateManyAdminInputEnvelope = {
+    data: HunterCreateManyAdminInput | HunterCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HunterUpsertWithWhereUniqueWithoutAdminInput = {
+    where: HunterWhereUniqueInput
+    update: XOR<HunterUpdateWithoutAdminInput, HunterUncheckedUpdateWithoutAdminInput>
+    create: XOR<HunterCreateWithoutAdminInput, HunterUncheckedCreateWithoutAdminInput>
+  }
+
+  export type HunterUpdateWithWhereUniqueWithoutAdminInput = {
+    where: HunterWhereUniqueInput
+    data: XOR<HunterUpdateWithoutAdminInput, HunterUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type HunterUpdateManyWithWhereWithoutAdminInput = {
+    where: HunterScalarWhereInput
+    data: XOR<HunterUpdateManyMutationInput, HunterUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type HunterScalarWhereInput = {
+    AND?: HunterScalarWhereInput | HunterScalarWhereInput[]
+    OR?: HunterScalarWhereInput[]
+    NOT?: HunterScalarWhereInput | HunterScalarWhereInput[]
+    id?: UuidFilter<"Hunter"> | string
+    userId?: UuidNullableFilter<"Hunter"> | string | null
+    adminId?: UuidFilter<"Hunter"> | string
+    referralCode?: StringFilter<"Hunter"> | string
+    name?: StringFilter<"Hunter"> | string
+    email?: StringFilter<"Hunter"> | string
+    phone?: StringNullableFilter<"Hunter"> | string | null
+    commissionPercentage?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFilter<"Hunter"> | boolean
+    totalEarnings?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFilter<"Hunter"> | Decimal | DecimalJsLike | number | string
+    bankAccountName?: StringNullableFilter<"Hunter"> | string | null
+    bankAccountNumber?: StringNullableFilter<"Hunter"> | string | null
+    bankName?: StringNullableFilter<"Hunter"> | string | null
+    notes?: StringNullableFilter<"Hunter"> | string | null
+    createdAt?: DateTimeFilter<"Hunter"> | Date | string
+    updatedAt?: DateTimeFilter<"Hunter"> | Date | string
+  }
+
   export type TenantCreateWithoutCustomersInput = {
     id?: string
     name: string
@@ -67981,6 +76496,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
     expenses?: ExpenseCreateNestedManyWithoutTenantInput
@@ -68021,6 +76537,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     discounts?: DiscountUncheckedCreateNestedManyWithoutTenantInput
@@ -68153,6 +76670,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
     expenses?: ExpenseUpdateManyWithoutTenantNestedInput
@@ -68193,6 +76711,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     discounts?: DiscountUncheckedUpdateManyWithoutTenantNestedInput
@@ -68253,6 +76772,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
     expenses?: ExpenseCreateNestedManyWithoutTenantInput
@@ -68293,6 +76813,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -68425,6 +76946,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
     expenses?: ExpenseUpdateManyWithoutTenantNestedInput
@@ -68465,6 +76987,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -68525,6 +77048,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -68565,6 +77089,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -68780,6 +77305,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -68820,6 +77346,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -69021,6 +77548,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -69061,6 +77589,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -69229,6 +77758,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -69269,6 +77799,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -69433,6 +77964,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -69473,6 +78005,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -69592,6 +78125,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -69632,6 +78166,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -69725,6 +78260,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -69765,6 +78301,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -69930,6 +78467,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -69970,6 +78508,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -70079,6 +78618,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenses?: ExpenseCreateNestedManyWithoutTenantInput
@@ -70119,6 +78659,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -70217,6 +78758,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenses?: ExpenseUpdateManyWithoutTenantNestedInput
@@ -70257,6 +78799,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -70317,6 +78860,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -70357,6 +78901,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -70524,6 +79069,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -70564,6 +79110,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -70776,6 +79323,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -70816,6 +79364,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -70925,6 +79474,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -70965,6 +79515,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -71009,6 +79560,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -71049,6 +79601,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -71109,6 +79662,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -71149,6 +79703,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -71306,6 +79861,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -71346,6 +79902,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -71437,6 +79994,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -71477,6 +80035,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -71558,6 +80117,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -71598,6 +80158,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -71719,6 +80280,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -71759,6 +80321,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -71885,6 +80448,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -71925,6 +80489,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -72020,6 +80585,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -72060,6 +80626,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -72104,6 +80671,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -72144,6 +80712,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -72204,6 +80773,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -72244,6 +80814,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -72288,6 +80859,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -72328,6 +80900,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -72431,6 +81004,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -72471,6 +81045,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -72564,6 +81139,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -72604,6 +81180,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -72756,6 +81333,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -72796,6 +81374,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -72944,6 +81523,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -72984,6 +81564,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -73090,6 +81671,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -73130,6 +81712,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -73190,6 +81773,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -73230,6 +81814,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -73396,6 +81981,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -73436,6 +82022,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -73668,6 +82255,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -73708,6 +82296,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -73768,6 +82357,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -73808,6 +82398,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -73852,6 +82443,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -73892,6 +82484,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -73952,6 +82545,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -73992,6 +82586,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -74036,6 +82631,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -74076,6 +82672,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -74136,6 +82733,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -74176,6 +82774,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -74220,6 +82819,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -74260,6 +82860,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -74320,6 +82921,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -74360,6 +82962,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -74404,6 +83007,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -74444,6 +83048,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -74584,6 +83189,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -74624,6 +83230,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -74700,6 +83307,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -74740,6 +83348,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -74892,6 +83501,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -74932,6 +83542,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -75080,6 +83691,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -75120,6 +83732,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -75180,6 +83793,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -75220,6 +83834,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -75270,6 +83885,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutDonationsInput
+    commissions?: HunterCommissionCreateNestedManyWithoutDonationInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutDonationInput
   }
 
   export type TenantDonationUncheckedCreateWithoutPaymentMethodInput = {
@@ -75289,6 +83906,8 @@ export namespace Prisma {
     midtransResponse?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutDonationInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutDonationInput
   }
 
   export type TenantDonationCreateOrConnectWithoutPaymentMethodInput = {
@@ -75328,6 +83947,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -75368,6 +83988,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -75447,6 +84068,90 @@ export namespace Prisma {
     create: XOR<DonationPaymentMethodCreateWithoutDonationsInput, DonationPaymentMethodUncheckedCreateWithoutDonationsInput>
   }
 
+  export type HunterCommissionCreateWithoutDonationInput = {
+    id?: string
+    tenantId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    hunter: HunterCreateNestedOneWithoutCommissionsInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutCommissionInput
+  }
+
+  export type HunterCommissionUncheckedCreateWithoutDonationInput = {
+    id?: string
+    hunterId: string
+    tenantId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutCommissionInput
+  }
+
+  export type HunterCommissionCreateOrConnectWithoutDonationInput = {
+    where: HunterCommissionWhereUniqueInput
+    create: XOR<HunterCommissionCreateWithoutDonationInput, HunterCommissionUncheckedCreateWithoutDonationInput>
+  }
+
+  export type HunterCommissionCreateManyDonationInputEnvelope = {
+    data: HunterCommissionCreateManyDonationInput | HunterCommissionCreateManyDonationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SystemLedgerCreateWithoutDonationInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    tenantId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    hunter?: HunterCreateNestedOneWithoutSystemLedgersInput
+    commission?: HunterCommissionCreateNestedOneWithoutSystemLedgersInput
+    payout?: HunterPayoutCreateNestedOneWithoutSystemLedgersInput
+  }
+
+  export type SystemLedgerUncheckedCreateWithoutDonationInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    commissionId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerCreateOrConnectWithoutDonationInput = {
+    where: SystemLedgerWhereUniqueInput
+    create: XOR<SystemLedgerCreateWithoutDonationInput, SystemLedgerUncheckedCreateWithoutDonationInput>
+  }
+
+  export type SystemLedgerCreateManyDonationInputEnvelope = {
+    data: SystemLedgerCreateManyDonationInput | SystemLedgerCreateManyDonationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutDonationsInput = {
     update: XOR<TenantUpdateWithoutDonationsInput, TenantUncheckedUpdateWithoutDonationsInput>
     create: XOR<TenantCreateWithoutDonationsInput, TenantUncheckedCreateWithoutDonationsInput>
@@ -75469,6 +84174,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -75509,6 +84215,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -75589,6 +84296,77 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HunterCommissionUpsertWithWhereUniqueWithoutDonationInput = {
+    where: HunterCommissionWhereUniqueInput
+    update: XOR<HunterCommissionUpdateWithoutDonationInput, HunterCommissionUncheckedUpdateWithoutDonationInput>
+    create: XOR<HunterCommissionCreateWithoutDonationInput, HunterCommissionUncheckedCreateWithoutDonationInput>
+  }
+
+  export type HunterCommissionUpdateWithWhereUniqueWithoutDonationInput = {
+    where: HunterCommissionWhereUniqueInput
+    data: XOR<HunterCommissionUpdateWithoutDonationInput, HunterCommissionUncheckedUpdateWithoutDonationInput>
+  }
+
+  export type HunterCommissionUpdateManyWithWhereWithoutDonationInput = {
+    where: HunterCommissionScalarWhereInput
+    data: XOR<HunterCommissionUpdateManyMutationInput, HunterCommissionUncheckedUpdateManyWithoutDonationInput>
+  }
+
+  export type HunterCommissionScalarWhereInput = {
+    AND?: HunterCommissionScalarWhereInput | HunterCommissionScalarWhereInput[]
+    OR?: HunterCommissionScalarWhereInput[]
+    NOT?: HunterCommissionScalarWhereInput | HunterCommissionScalarWhereInput[]
+    id?: UuidFilter<"HunterCommission"> | string
+    hunterId?: UuidFilter<"HunterCommission"> | string
+    tenantId?: UuidFilter<"HunterCommission"> | string
+    donationId?: UuidFilter<"HunterCommission"> | string
+    donationAmount?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFilter<"HunterCommission"> | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFilter<"HunterCommission"> | $Enums.CommissionStatus
+    paidOutAt?: DateTimeNullableFilter<"HunterCommission"> | Date | string | null
+    notes?: StringNullableFilter<"HunterCommission"> | string | null
+    createdAt?: DateTimeFilter<"HunterCommission"> | Date | string
+    updatedAt?: DateTimeFilter<"HunterCommission"> | Date | string
+  }
+
+  export type SystemLedgerUpsertWithWhereUniqueWithoutDonationInput = {
+    where: SystemLedgerWhereUniqueInput
+    update: XOR<SystemLedgerUpdateWithoutDonationInput, SystemLedgerUncheckedUpdateWithoutDonationInput>
+    create: XOR<SystemLedgerCreateWithoutDonationInput, SystemLedgerUncheckedCreateWithoutDonationInput>
+  }
+
+  export type SystemLedgerUpdateWithWhereUniqueWithoutDonationInput = {
+    where: SystemLedgerWhereUniqueInput
+    data: XOR<SystemLedgerUpdateWithoutDonationInput, SystemLedgerUncheckedUpdateWithoutDonationInput>
+  }
+
+  export type SystemLedgerUpdateManyWithWhereWithoutDonationInput = {
+    where: SystemLedgerScalarWhereInput
+    data: XOR<SystemLedgerUpdateManyMutationInput, SystemLedgerUncheckedUpdateManyWithoutDonationInput>
+  }
+
+  export type SystemLedgerScalarWhereInput = {
+    AND?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+    OR?: SystemLedgerScalarWhereInput[]
+    NOT?: SystemLedgerScalarWhereInput | SystemLedgerScalarWhereInput[]
+    id?: UuidFilter<"SystemLedger"> | string
+    transactionType?: EnumTransactionTypeFilter<"SystemLedger"> | $Enums.TransactionType
+    category?: EnumLedgerCategoryFilter<"SystemLedger"> | $Enums.LedgerCategory
+    amount?: DecimalFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFilter<"SystemLedger"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"SystemLedger"> | string
+    referenceType?: StringNullableFilter<"SystemLedger"> | string | null
+    referenceId?: UuidNullableFilter<"SystemLedger"> | string | null
+    hunterId?: UuidNullableFilter<"SystemLedger"> | string | null
+    tenantId?: UuidNullableFilter<"SystemLedger"> | string | null
+    donationId?: UuidNullableFilter<"SystemLedger"> | string | null
+    commissionId?: UuidNullableFilter<"SystemLedger"> | string | null
+    payoutId?: UuidNullableFilter<"SystemLedger"> | string | null
+    metadata?: JsonNullableFilter<"SystemLedger">
+    createdAt?: DateTimeFilter<"SystemLedger"> | Date | string
+  }
+
   export type TenantCreateWithoutPushTokensInput = {
     id?: string
     name: string
@@ -75600,6 +84378,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -75640,6 +84419,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -75687,9 +84467,11 @@ export namespace Prisma {
     provider?: string | null
     providerId?: string | null
     emailVerified?: boolean | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     tenants?: TenantCreateNestedManyWithoutUserInput
+    hunter?: HunterCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushTokensInput = {
@@ -75701,9 +84483,11 @@ export namespace Prisma {
     provider?: string | null
     providerId?: string | null
     emailVerified?: boolean | null
+    role?: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     tenants?: TenantUncheckedCreateNestedManyWithoutUserInput
+    hunter?: HunterUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushTokensInput = {
@@ -75776,6 +84560,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -75816,6 +84601,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -75869,9 +84655,11 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: TenantUpdateManyWithoutUserNestedInput
+    hunter?: HunterUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushTokensInput = {
@@ -75883,9 +84671,11 @@ export namespace Prisma {
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: TenantUncheckedUpdateManyWithoutUserNestedInput
+    hunter?: HunterUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type StaffUpsertWithoutPushTokensInput = {
@@ -75948,6 +84738,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -75988,6 +84779,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -76048,6 +84840,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -76088,6 +84881,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -76132,6 +84926,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
+    hunter?: HunterCreateNestedOneWithoutTenantsInput
     customers?: CustomerCreateNestedManyWithoutTenantInput
     discounts?: DiscountCreateNestedManyWithoutTenantInput
     expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
@@ -76172,6 +84967,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -76232,6 +85028,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -76272,6 +85069,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -76305,6 +85103,1245 @@ export namespace Prisma {
     pushMessages?: PushNotificationMessageUncheckedUpdateManyWithoutTenantNestedInput
   }
 
+  export type UserCreateWithoutHunterInput = {
+    id?: string
+    email: string
+    password: string
+    displayName?: string | null
+    photoURL?: string | null
+    provider?: string | null
+    providerId?: string | null
+    emailVerified?: boolean | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantCreateNestedManyWithoutUserInput
+    pushTokens?: PushNotificationTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutHunterInput = {
+    id?: string
+    email: string
+    password: string
+    displayName?: string | null
+    photoURL?: string | null
+    provider?: string | null
+    providerId?: string | null
+    emailVerified?: boolean | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutUserInput
+    pushTokens?: PushNotificationTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutHunterInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutHunterInput, UserUncheckedCreateWithoutHunterInput>
+  }
+
+  export type AdminCreateWithoutHuntersInput = {
+    id?: string
+    role?: $Enums.AdminRole
+    username: string
+    email: string
+    fullName?: string | null
+    password: string
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+  }
+
+  export type AdminUncheckedCreateWithoutHuntersInput = {
+    id?: string
+    role?: $Enums.AdminRole
+    username: string
+    email: string
+    fullName?: string | null
+    password: string
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+  }
+
+  export type AdminCreateOrConnectWithoutHuntersInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutHuntersInput, AdminUncheckedCreateWithoutHuntersInput>
+  }
+
+  export type TenantCreateWithoutHunterInput = {
+    id?: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTenantsInput
+    customers?: CustomerCreateNestedManyWithoutTenantInput
+    discounts?: DiscountCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseCreateNestedManyWithoutTenantInput
+    logs?: LogCreateNestedManyWithoutTenantInput
+    orders?: OrderCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemCreateNestedManyWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryCreateNestedManyWithoutTenantInput
+    staffs?: StaffCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingCreateNestedOneWithoutTenantInput
+    salaries?: SalaryCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogCreateNestedManyWithoutTenantInput
+    reports?: TenantReportCreateNestedManyWithoutTenantInput
+    reportsV2?: ReportCreateNestedManyWithoutTenantInput
+    shifts?: ShiftCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationCreateNestedManyWithoutTenantInput
+    pushTokens?: PushNotificationTokenCreateNestedManyWithoutTenantInput
+    pushMessages?: PushNotificationMessageCreateNestedManyWithoutTenantInput
+    pushSubscriptions?: PushNotificationSubscriptionCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutHunterInput = {
+    id?: string
+    userId: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutTenantInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutTenantInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    logs?: LogUncheckedCreateNestedManyWithoutTenantInput
+    orders?: OrderUncheckedCreateNestedManyWithoutTenantInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
+    productCategories?: ProductCategoryUncheckedCreateNestedManyWithoutTenantInput
+    staffs?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    settings?: TenantSettingUncheckedCreateNestedOneWithoutTenantInput
+    subscription?: TenantSubscriptionUncheckedCreateNestedOneWithoutTenantInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedCreateNestedManyWithoutTenantInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedCreateNestedManyWithoutTenantInput
+    payrollSettings?: PayrollSettingUncheckedCreateNestedOneWithoutTenantInput
+    salaries?: SalaryUncheckedCreateNestedManyWithoutTenantInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    payrollPeriods?: PayrollPeriodUncheckedCreateNestedManyWithoutTenantInput
+    payrollDetails?: PayrollDetailUncheckedCreateNestedManyWithoutTenantInput
+    notificationConfig?: TenantNotificationConfigUncheckedCreateNestedOneWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notificationLogs?: NotificationLogUncheckedCreateNestedManyWithoutTenantInput
+    reports?: TenantReportUncheckedCreateNestedManyWithoutTenantInput
+    reportsV2?: ReportUncheckedCreateNestedManyWithoutTenantInput
+    shifts?: ShiftUncheckedCreateNestedManyWithoutTenantInput
+    staffShifts?: StaffShiftUncheckedCreateNestedManyWithoutTenantInput
+    donations?: TenantDonationUncheckedCreateNestedManyWithoutTenantInput
+    pushTokens?: PushNotificationTokenUncheckedCreateNestedManyWithoutTenantInput
+    pushMessages?: PushNotificationMessageUncheckedCreateNestedManyWithoutTenantInput
+    pushSubscriptions?: PushNotificationSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutHunterInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutHunterInput, TenantUncheckedCreateWithoutHunterInput>
+  }
+
+  export type TenantCreateManyHunterInputEnvelope = {
+    data: TenantCreateManyHunterInput | TenantCreateManyHunterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HunterCommissionCreateWithoutHunterInput = {
+    id?: string
+    tenantId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    donation: TenantDonationCreateNestedOneWithoutCommissionsInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutCommissionInput
+  }
+
+  export type HunterCommissionUncheckedCreateWithoutHunterInput = {
+    id?: string
+    tenantId: string
+    donationId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutCommissionInput
+  }
+
+  export type HunterCommissionCreateOrConnectWithoutHunterInput = {
+    where: HunterCommissionWhereUniqueInput
+    create: XOR<HunterCommissionCreateWithoutHunterInput, HunterCommissionUncheckedCreateWithoutHunterInput>
+  }
+
+  export type HunterCommissionCreateManyHunterInputEnvelope = {
+    data: HunterCommissionCreateManyHunterInput | HunterCommissionCreateManyHunterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HunterPayoutCreateWithoutHunterInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutPayoutInput
+  }
+
+  export type HunterPayoutUncheckedCreateWithoutHunterInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutPayoutInput
+  }
+
+  export type HunterPayoutCreateOrConnectWithoutHunterInput = {
+    where: HunterPayoutWhereUniqueInput
+    create: XOR<HunterPayoutCreateWithoutHunterInput, HunterPayoutUncheckedCreateWithoutHunterInput>
+  }
+
+  export type HunterPayoutCreateManyHunterInputEnvelope = {
+    data: HunterPayoutCreateManyHunterInput | HunterPayoutCreateManyHunterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SystemLedgerCreateWithoutHunterInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    tenantId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    donation?: TenantDonationCreateNestedOneWithoutSystemLedgersInput
+    commission?: HunterCommissionCreateNestedOneWithoutSystemLedgersInput
+    payout?: HunterPayoutCreateNestedOneWithoutSystemLedgersInput
+  }
+
+  export type SystemLedgerUncheckedCreateWithoutHunterInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    commissionId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerCreateOrConnectWithoutHunterInput = {
+    where: SystemLedgerWhereUniqueInput
+    create: XOR<SystemLedgerCreateWithoutHunterInput, SystemLedgerUncheckedCreateWithoutHunterInput>
+  }
+
+  export type SystemLedgerCreateManyHunterInputEnvelope = {
+    data: SystemLedgerCreateManyHunterInput | SystemLedgerCreateManyHunterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutHunterInput = {
+    update: XOR<UserUpdateWithoutHunterInput, UserUncheckedUpdateWithoutHunterInput>
+    create: XOR<UserCreateWithoutHunterInput, UserUncheckedCreateWithoutHunterInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutHunterInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHunterInput, UserUncheckedUpdateWithoutHunterInput>
+  }
+
+  export type UserUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUpdateManyWithoutUserNestedInput
+    pushTokens?: PushNotificationTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoURL?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutUserNestedInput
+    pushTokens?: PushNotificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AdminUpsertWithoutHuntersInput = {
+    update: XOR<AdminUpdateWithoutHuntersInput, AdminUncheckedUpdateWithoutHuntersInput>
+    create: XOR<AdminCreateWithoutHuntersInput, AdminUncheckedCreateWithoutHuntersInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutHuntersInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutHuntersInput, AdminUncheckedUpdateWithoutHuntersInput>
+  }
+
+  export type AdminUpdateWithoutHuntersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AdminUncheckedUpdateWithoutHuntersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type TenantUpsertWithWhereUniqueWithoutHunterInput = {
+    where: TenantWhereUniqueInput
+    update: XOR<TenantUpdateWithoutHunterInput, TenantUncheckedUpdateWithoutHunterInput>
+    create: XOR<TenantCreateWithoutHunterInput, TenantUncheckedCreateWithoutHunterInput>
+  }
+
+  export type TenantUpdateWithWhereUniqueWithoutHunterInput = {
+    where: TenantWhereUniqueInput
+    data: XOR<TenantUpdateWithoutHunterInput, TenantUncheckedUpdateWithoutHunterInput>
+  }
+
+  export type TenantUpdateManyWithWhereWithoutHunterInput = {
+    where: TenantScalarWhereInput
+    data: XOR<TenantUpdateManyMutationInput, TenantUncheckedUpdateManyWithoutHunterInput>
+  }
+
+  export type HunterCommissionUpsertWithWhereUniqueWithoutHunterInput = {
+    where: HunterCommissionWhereUniqueInput
+    update: XOR<HunterCommissionUpdateWithoutHunterInput, HunterCommissionUncheckedUpdateWithoutHunterInput>
+    create: XOR<HunterCommissionCreateWithoutHunterInput, HunterCommissionUncheckedCreateWithoutHunterInput>
+  }
+
+  export type HunterCommissionUpdateWithWhereUniqueWithoutHunterInput = {
+    where: HunterCommissionWhereUniqueInput
+    data: XOR<HunterCommissionUpdateWithoutHunterInput, HunterCommissionUncheckedUpdateWithoutHunterInput>
+  }
+
+  export type HunterCommissionUpdateManyWithWhereWithoutHunterInput = {
+    where: HunterCommissionScalarWhereInput
+    data: XOR<HunterCommissionUpdateManyMutationInput, HunterCommissionUncheckedUpdateManyWithoutHunterInput>
+  }
+
+  export type HunterPayoutUpsertWithWhereUniqueWithoutHunterInput = {
+    where: HunterPayoutWhereUniqueInput
+    update: XOR<HunterPayoutUpdateWithoutHunterInput, HunterPayoutUncheckedUpdateWithoutHunterInput>
+    create: XOR<HunterPayoutCreateWithoutHunterInput, HunterPayoutUncheckedCreateWithoutHunterInput>
+  }
+
+  export type HunterPayoutUpdateWithWhereUniqueWithoutHunterInput = {
+    where: HunterPayoutWhereUniqueInput
+    data: XOR<HunterPayoutUpdateWithoutHunterInput, HunterPayoutUncheckedUpdateWithoutHunterInput>
+  }
+
+  export type HunterPayoutUpdateManyWithWhereWithoutHunterInput = {
+    where: HunterPayoutScalarWhereInput
+    data: XOR<HunterPayoutUpdateManyMutationInput, HunterPayoutUncheckedUpdateManyWithoutHunterInput>
+  }
+
+  export type HunterPayoutScalarWhereInput = {
+    AND?: HunterPayoutScalarWhereInput | HunterPayoutScalarWhereInput[]
+    OR?: HunterPayoutScalarWhereInput[]
+    NOT?: HunterPayoutScalarWhereInput | HunterPayoutScalarWhereInput[]
+    id?: UuidFilter<"HunterPayout"> | string
+    hunterId?: UuidFilter<"HunterPayout"> | string
+    amount?: DecimalFilter<"HunterPayout"> | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringNullableFilter<"HunterPayout"> | string | null
+    referenceNumber?: StringNullableFilter<"HunterPayout"> | string | null
+    status?: EnumPayoutStatusFilter<"HunterPayout"> | $Enums.PayoutStatus
+    processedBy?: UuidNullableFilter<"HunterPayout"> | string | null
+    processedAt?: DateTimeNullableFilter<"HunterPayout"> | Date | string | null
+    notes?: StringNullableFilter<"HunterPayout"> | string | null
+    createdAt?: DateTimeFilter<"HunterPayout"> | Date | string
+    updatedAt?: DateTimeFilter<"HunterPayout"> | Date | string
+  }
+
+  export type SystemLedgerUpsertWithWhereUniqueWithoutHunterInput = {
+    where: SystemLedgerWhereUniqueInput
+    update: XOR<SystemLedgerUpdateWithoutHunterInput, SystemLedgerUncheckedUpdateWithoutHunterInput>
+    create: XOR<SystemLedgerCreateWithoutHunterInput, SystemLedgerUncheckedCreateWithoutHunterInput>
+  }
+
+  export type SystemLedgerUpdateWithWhereUniqueWithoutHunterInput = {
+    where: SystemLedgerWhereUniqueInput
+    data: XOR<SystemLedgerUpdateWithoutHunterInput, SystemLedgerUncheckedUpdateWithoutHunterInput>
+  }
+
+  export type SystemLedgerUpdateManyWithWhereWithoutHunterInput = {
+    where: SystemLedgerScalarWhereInput
+    data: XOR<SystemLedgerUpdateManyMutationInput, SystemLedgerUncheckedUpdateManyWithoutHunterInput>
+  }
+
+  export type HunterCreateWithoutCommissionsInput = {
+    id?: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutHunterInput
+    admin: AdminCreateNestedOneWithoutHuntersInput
+    tenants?: TenantCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUncheckedCreateWithoutCommissionsInput = {
+    id?: string
+    userId?: string | null
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutUncheckedCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterCreateOrConnectWithoutCommissionsInput = {
+    where: HunterWhereUniqueInput
+    create: XOR<HunterCreateWithoutCommissionsInput, HunterUncheckedCreateWithoutCommissionsInput>
+  }
+
+  export type TenantDonationCreateWithoutCommissionsInput = {
+    id?: string
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDonationsInput
+    paymentMethod?: DonationPaymentMethodCreateNestedOneWithoutDonationsInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutDonationInput
+  }
+
+  export type TenantDonationUncheckedCreateWithoutCommissionsInput = {
+    id?: string
+    tenantId: string
+    paymentMethodId?: string | null
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutDonationInput
+  }
+
+  export type TenantDonationCreateOrConnectWithoutCommissionsInput = {
+    where: TenantDonationWhereUniqueInput
+    create: XOR<TenantDonationCreateWithoutCommissionsInput, TenantDonationUncheckedCreateWithoutCommissionsInput>
+  }
+
+  export type SystemLedgerCreateWithoutCommissionInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    tenantId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    hunter?: HunterCreateNestedOneWithoutSystemLedgersInput
+    donation?: TenantDonationCreateNestedOneWithoutSystemLedgersInput
+    payout?: HunterPayoutCreateNestedOneWithoutSystemLedgersInput
+  }
+
+  export type SystemLedgerUncheckedCreateWithoutCommissionInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerCreateOrConnectWithoutCommissionInput = {
+    where: SystemLedgerWhereUniqueInput
+    create: XOR<SystemLedgerCreateWithoutCommissionInput, SystemLedgerUncheckedCreateWithoutCommissionInput>
+  }
+
+  export type SystemLedgerCreateManyCommissionInputEnvelope = {
+    data: SystemLedgerCreateManyCommissionInput | SystemLedgerCreateManyCommissionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HunterUpsertWithoutCommissionsInput = {
+    update: XOR<HunterUpdateWithoutCommissionsInput, HunterUncheckedUpdateWithoutCommissionsInput>
+    create: XOR<HunterCreateWithoutCommissionsInput, HunterUncheckedCreateWithoutCommissionsInput>
+    where?: HunterWhereInput
+  }
+
+  export type HunterUpdateToOneWithWhereWithoutCommissionsInput = {
+    where?: HunterWhereInput
+    data: XOR<HunterUpdateWithoutCommissionsInput, HunterUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type HunterUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutHunterNestedInput
+    admin?: AdminUpdateOneRequiredWithoutHuntersNestedInput
+    tenants?: TenantUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUncheckedUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutHunterNestedInput
+  }
+
+  export type TenantDonationUpsertWithoutCommissionsInput = {
+    update: XOR<TenantDonationUpdateWithoutCommissionsInput, TenantDonationUncheckedUpdateWithoutCommissionsInput>
+    create: XOR<TenantDonationCreateWithoutCommissionsInput, TenantDonationUncheckedCreateWithoutCommissionsInput>
+    where?: TenantDonationWhereInput
+  }
+
+  export type TenantDonationUpdateToOneWithWhereWithoutCommissionsInput = {
+    where?: TenantDonationWhereInput
+    data: XOR<TenantDonationUpdateWithoutCommissionsInput, TenantDonationUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type TenantDonationUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDonationsNestedInput
+    paymentMethod?: DonationPaymentMethodUpdateOneWithoutDonationsNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutDonationNestedInput
+  }
+
+  export type TenantDonationUncheckedUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    paymentMethodId?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutDonationNestedInput
+  }
+
+  export type SystemLedgerUpsertWithWhereUniqueWithoutCommissionInput = {
+    where: SystemLedgerWhereUniqueInput
+    update: XOR<SystemLedgerUpdateWithoutCommissionInput, SystemLedgerUncheckedUpdateWithoutCommissionInput>
+    create: XOR<SystemLedgerCreateWithoutCommissionInput, SystemLedgerUncheckedCreateWithoutCommissionInput>
+  }
+
+  export type SystemLedgerUpdateWithWhereUniqueWithoutCommissionInput = {
+    where: SystemLedgerWhereUniqueInput
+    data: XOR<SystemLedgerUpdateWithoutCommissionInput, SystemLedgerUncheckedUpdateWithoutCommissionInput>
+  }
+
+  export type SystemLedgerUpdateManyWithWhereWithoutCommissionInput = {
+    where: SystemLedgerScalarWhereInput
+    data: XOR<SystemLedgerUpdateManyMutationInput, SystemLedgerUncheckedUpdateManyWithoutCommissionInput>
+  }
+
+  export type HunterCreateWithoutPayoutsInput = {
+    id?: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutHunterInput
+    admin: AdminCreateNestedOneWithoutHuntersInput
+    tenants?: TenantCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUncheckedCreateWithoutPayoutsInput = {
+    id?: string
+    userId?: string | null
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutHunterInput
+    systemLedgers?: SystemLedgerUncheckedCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterCreateOrConnectWithoutPayoutsInput = {
+    where: HunterWhereUniqueInput
+    create: XOR<HunterCreateWithoutPayoutsInput, HunterUncheckedCreateWithoutPayoutsInput>
+  }
+
+  export type SystemLedgerCreateWithoutPayoutInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    tenantId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    hunter?: HunterCreateNestedOneWithoutSystemLedgersInput
+    donation?: TenantDonationCreateNestedOneWithoutSystemLedgersInput
+    commission?: HunterCommissionCreateNestedOneWithoutSystemLedgersInput
+  }
+
+  export type SystemLedgerUncheckedCreateWithoutPayoutInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    commissionId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerCreateOrConnectWithoutPayoutInput = {
+    where: SystemLedgerWhereUniqueInput
+    create: XOR<SystemLedgerCreateWithoutPayoutInput, SystemLedgerUncheckedCreateWithoutPayoutInput>
+  }
+
+  export type SystemLedgerCreateManyPayoutInputEnvelope = {
+    data: SystemLedgerCreateManyPayoutInput | SystemLedgerCreateManyPayoutInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HunterUpsertWithoutPayoutsInput = {
+    update: XOR<HunterUpdateWithoutPayoutsInput, HunterUncheckedUpdateWithoutPayoutsInput>
+    create: XOR<HunterCreateWithoutPayoutsInput, HunterUncheckedCreateWithoutPayoutsInput>
+    where?: HunterWhereInput
+  }
+
+  export type HunterUpdateToOneWithWhereWithoutPayoutsInput = {
+    where?: HunterWhereInput
+    data: XOR<HunterUpdateWithoutPayoutsInput, HunterUncheckedUpdateWithoutPayoutsInput>
+  }
+
+  export type HunterUpdateWithoutPayoutsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutHunterNestedInput
+    admin?: AdminUpdateOneRequiredWithoutHuntersNestedInput
+    tenants?: TenantUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateWithoutPayoutsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutHunterNestedInput
+  }
+
+  export type SystemLedgerUpsertWithWhereUniqueWithoutPayoutInput = {
+    where: SystemLedgerWhereUniqueInput
+    update: XOR<SystemLedgerUpdateWithoutPayoutInput, SystemLedgerUncheckedUpdateWithoutPayoutInput>
+    create: XOR<SystemLedgerCreateWithoutPayoutInput, SystemLedgerUncheckedCreateWithoutPayoutInput>
+  }
+
+  export type SystemLedgerUpdateWithWhereUniqueWithoutPayoutInput = {
+    where: SystemLedgerWhereUniqueInput
+    data: XOR<SystemLedgerUpdateWithoutPayoutInput, SystemLedgerUncheckedUpdateWithoutPayoutInput>
+  }
+
+  export type SystemLedgerUpdateManyWithWhereWithoutPayoutInput = {
+    where: SystemLedgerScalarWhereInput
+    data: XOR<SystemLedgerUpdateManyMutationInput, SystemLedgerUncheckedUpdateManyWithoutPayoutInput>
+  }
+
+  export type HunterCreateWithoutSystemLedgersInput = {
+    id?: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutHunterInput
+    admin: AdminCreateNestedOneWithoutHuntersInput
+    tenants?: TenantCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterUncheckedCreateWithoutSystemLedgersInput = {
+    id?: string
+    userId?: string | null
+    adminId: string
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutHunterInput
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutHunterInput
+    payouts?: HunterPayoutUncheckedCreateNestedManyWithoutHunterInput
+  }
+
+  export type HunterCreateOrConnectWithoutSystemLedgersInput = {
+    where: HunterWhereUniqueInput
+    create: XOR<HunterCreateWithoutSystemLedgersInput, HunterUncheckedCreateWithoutSystemLedgersInput>
+  }
+
+  export type TenantDonationCreateWithoutSystemLedgersInput = {
+    id?: string
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDonationsInput
+    paymentMethod?: DonationPaymentMethodCreateNestedOneWithoutDonationsInput
+    commissions?: HunterCommissionCreateNestedManyWithoutDonationInput
+  }
+
+  export type TenantDonationUncheckedCreateWithoutSystemLedgersInput = {
+    id?: string
+    tenantId: string
+    paymentMethodId?: string | null
+    midtransOrderId: string
+    snapToken?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    transactionFee?: Decimal | DecimalJsLike | number | string
+    netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.DonationStatus
+    paymentType?: string | null
+    transactionTime?: Date | string | null
+    settlementTime?: Date | string | null
+    expiryTime?: Date | string | null
+    message?: string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    commissions?: HunterCommissionUncheckedCreateNestedManyWithoutDonationInput
+  }
+
+  export type TenantDonationCreateOrConnectWithoutSystemLedgersInput = {
+    where: TenantDonationWhereUniqueInput
+    create: XOR<TenantDonationCreateWithoutSystemLedgersInput, TenantDonationUncheckedCreateWithoutSystemLedgersInput>
+  }
+
+  export type HunterCommissionCreateWithoutSystemLedgersInput = {
+    id?: string
+    tenantId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    hunter: HunterCreateNestedOneWithoutCommissionsInput
+    donation: TenantDonationCreateNestedOneWithoutCommissionsInput
+  }
+
+  export type HunterCommissionUncheckedCreateWithoutSystemLedgersInput = {
+    id?: string
+    hunterId: string
+    tenantId: string
+    donationId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterCommissionCreateOrConnectWithoutSystemLedgersInput = {
+    where: HunterCommissionWhereUniqueInput
+    create: XOR<HunterCommissionCreateWithoutSystemLedgersInput, HunterCommissionUncheckedCreateWithoutSystemLedgersInput>
+  }
+
+  export type HunterPayoutCreateWithoutSystemLedgersInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    hunter: HunterCreateNestedOneWithoutPayoutsInput
+  }
+
+  export type HunterPayoutUncheckedCreateWithoutSystemLedgersInput = {
+    id?: string
+    hunterId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterPayoutCreateOrConnectWithoutSystemLedgersInput = {
+    where: HunterPayoutWhereUniqueInput
+    create: XOR<HunterPayoutCreateWithoutSystemLedgersInput, HunterPayoutUncheckedCreateWithoutSystemLedgersInput>
+  }
+
+  export type HunterUpsertWithoutSystemLedgersInput = {
+    update: XOR<HunterUpdateWithoutSystemLedgersInput, HunterUncheckedUpdateWithoutSystemLedgersInput>
+    create: XOR<HunterCreateWithoutSystemLedgersInput, HunterUncheckedCreateWithoutSystemLedgersInput>
+    where?: HunterWhereInput
+  }
+
+  export type HunterUpdateToOneWithWhereWithoutSystemLedgersInput = {
+    where?: HunterWhereInput
+    data: XOR<HunterUpdateWithoutSystemLedgersInput, HunterUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
+  export type HunterUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutHunterNestedInput
+    admin?: AdminUpdateOneRequiredWithoutHuntersNestedInput
+    tenants?: TenantUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUncheckedUpdateManyWithoutHunterNestedInput
+  }
+
+  export type TenantDonationUpsertWithoutSystemLedgersInput = {
+    update: XOR<TenantDonationUpdateWithoutSystemLedgersInput, TenantDonationUncheckedUpdateWithoutSystemLedgersInput>
+    create: XOR<TenantDonationCreateWithoutSystemLedgersInput, TenantDonationUncheckedCreateWithoutSystemLedgersInput>
+    where?: TenantDonationWhereInput
+  }
+
+  export type TenantDonationUpdateToOneWithWhereWithoutSystemLedgersInput = {
+    where?: TenantDonationWhereInput
+    data: XOR<TenantDonationUpdateWithoutSystemLedgersInput, TenantDonationUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
+  export type TenantDonationUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDonationsNestedInput
+    paymentMethod?: DonationPaymentMethodUpdateOneWithoutDonationsNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutDonationNestedInput
+  }
+
+  export type TenantDonationUncheckedUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    paymentMethodId?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransOrderId?: StringFieldUpdateOperationsInput | string
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    transactionFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumDonationStatusFieldUpdateOperationsInput | $Enums.DonationStatus
+    paymentType?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settlementTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    midtransResponse?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutDonationNestedInput
+  }
+
+  export type HunterCommissionUpsertWithoutSystemLedgersInput = {
+    update: XOR<HunterCommissionUpdateWithoutSystemLedgersInput, HunterCommissionUncheckedUpdateWithoutSystemLedgersInput>
+    create: XOR<HunterCommissionCreateWithoutSystemLedgersInput, HunterCommissionUncheckedCreateWithoutSystemLedgersInput>
+    where?: HunterCommissionWhereInput
+  }
+
+  export type HunterCommissionUpdateToOneWithWhereWithoutSystemLedgersInput = {
+    where?: HunterCommissionWhereInput
+    data: XOR<HunterCommissionUpdateWithoutSystemLedgersInput, HunterCommissionUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
+  export type HunterCommissionUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneRequiredWithoutCommissionsNestedInput
+    donation?: TenantDonationUpdateOneRequiredWithoutCommissionsNestedInput
+  }
+
+  export type HunterCommissionUncheckedUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterPayoutUpsertWithoutSystemLedgersInput = {
+    update: XOR<HunterPayoutUpdateWithoutSystemLedgersInput, HunterPayoutUncheckedUpdateWithoutSystemLedgersInput>
+    create: XOR<HunterPayoutCreateWithoutSystemLedgersInput, HunterPayoutUncheckedCreateWithoutSystemLedgersInput>
+    where?: HunterPayoutWhereInput
+  }
+
+  export type HunterPayoutUpdateToOneWithWhereWithoutSystemLedgersInput = {
+    where?: HunterPayoutWhereInput
+    data: XOR<HunterPayoutUpdateWithoutSystemLedgersInput, HunterPayoutUncheckedUpdateWithoutSystemLedgersInput>
+  }
+
+  export type HunterPayoutUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneRequiredWithoutPayoutsNestedInput
+  }
+
+  export type HunterPayoutUncheckedUpdateWithoutSystemLedgersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantCreateManyUserInput = {
     id?: string
     name: string
@@ -76313,6 +86350,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -76340,6 +86378,7 @@ export namespace Prisma {
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneWithoutTenantsNestedInput
     customers?: CustomerUpdateManyWithoutTenantNestedInput
     discounts?: DiscountUpdateManyWithoutTenantNestedInput
     expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
@@ -76380,6 +86419,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -76422,6 +86462,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -77758,6 +87799,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentMethod?: DonationPaymentMethodUpdateOneWithoutDonationsNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutDonationNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutDonationNestedInput
   }
 
   export type TenantDonationUncheckedUpdateWithoutTenantInput = {
@@ -77777,6 +87820,8 @@ export namespace Prisma {
     midtransResponse?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutDonationNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutDonationNestedInput
   }
 
   export type TenantDonationUncheckedUpdateManyWithoutTenantInput = {
@@ -78417,6 +88462,90 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterCreateManyAdminInput = {
+    id?: string
+    userId?: string | null
+    referralCode: string
+    name: string
+    email: string
+    phone?: string | null
+    commissionPercentage?: Decimal | DecimalJsLike | number | string
+    isActive?: boolean
+    totalEarnings?: Decimal | DecimalJsLike | number | string
+    totalPaidOut?: Decimal | DecimalJsLike | number | string
+    bankAccountName?: string | null
+    bankAccountNumber?: string | null
+    bankName?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutHunterNestedInput
+    tenants?: TenantUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutHunterNestedInput
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutHunterNestedInput
+    payouts?: HunterPayoutUncheckedUpdateManyWithoutHunterNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutHunterNestedInput
+  }
+
+  export type HunterUncheckedUpdateManyWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    referralCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    totalEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidOut?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankAccountName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderCreateManyCustomerInput = {
@@ -79329,6 +89458,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutDonationsNestedInput
+    commissions?: HunterCommissionUpdateManyWithoutDonationNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutDonationNestedInput
   }
 
   export type TenantDonationUncheckedUpdateWithoutPaymentMethodInput = {
@@ -79348,6 +89479,8 @@ export namespace Prisma {
     midtransResponse?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commissions?: HunterCommissionUncheckedUpdateManyWithoutDonationNestedInput
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutDonationNestedInput
   }
 
   export type TenantDonationUncheckedUpdateManyWithoutPaymentMethodInput = {
@@ -79367,6 +89500,560 @@ export namespace Prisma {
     midtransResponse?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterCommissionCreateManyDonationInput = {
+    id?: string
+    hunterId: string
+    tenantId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SystemLedgerCreateManyDonationInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    commissionId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type HunterCommissionUpdateWithoutDonationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneRequiredWithoutCommissionsNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutCommissionNestedInput
+  }
+
+  export type HunterCommissionUncheckedUpdateWithoutDonationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutCommissionNestedInput
+  }
+
+  export type HunterCommissionUncheckedUpdateManyWithoutDonationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hunterId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerUpdateWithoutDonationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneWithoutSystemLedgersNestedInput
+    commission?: HunterCommissionUpdateOneWithoutSystemLedgersNestedInput
+    payout?: HunterPayoutUpdateOneWithoutSystemLedgersNestedInput
+  }
+
+  export type SystemLedgerUncheckedUpdateWithoutDonationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutDonationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantCreateManyHunterInput = {
+    id?: string
+    userId: string
+    name: string
+    email: string
+    address?: string | null
+    phone?: string | null
+    subscribedUntil?: Date | string | null
+    isSubscribed?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterCommissionCreateManyHunterInput = {
+    id?: string
+    tenantId: string
+    donationId: string
+    donationAmount: Decimal | DecimalJsLike | number | string
+    commissionRate: Decimal | DecimalJsLike | number | string
+    commissionAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CommissionStatus
+    paidOutAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HunterPayoutCreateManyHunterInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
+    status?: $Enums.PayoutStatus
+    processedBy?: string | null
+    processedAt?: Date | string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SystemLedgerCreateManyHunterInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    commissionId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type TenantUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantsNestedInput
+    customers?: CustomerUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUpdateManyWithoutTenantNestedInput
+    logs?: LogUpdateManyWithoutTenantNestedInput
+    orders?: OrderUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUpdateManyWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUpdateManyWithoutTenantNestedInput
+    reportsV2?: ReportUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUpdateManyWithoutTenantNestedInput
+    pushTokens?: PushNotificationTokenUpdateManyWithoutTenantNestedInput
+    pushMessages?: PushNotificationMessageUpdateManyWithoutTenantNestedInput
+    pushSubscriptions?: PushNotificationSubscriptionUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
+    discounts?: DiscountUncheckedUpdateManyWithoutTenantNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    logs?: LogUncheckedUpdateManyWithoutTenantNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutTenantNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
+    productCategories?: ProductCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    staffs?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    settings?: TenantSettingUncheckedUpdateOneWithoutTenantNestedInput
+    subscription?: TenantSubscriptionUncheckedUpdateOneWithoutTenantNestedInput
+    subscriptionPayments?: SubscriptionPaymentUncheckedUpdateManyWithoutTenantNestedInput
+    tenantSubscriptionHistories?: TenantSubscriptionHistoryUncheckedUpdateManyWithoutTenantNestedInput
+    payrollSettings?: PayrollSettingUncheckedUpdateOneWithoutTenantNestedInput
+    salaries?: SalaryUncheckedUpdateManyWithoutTenantNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    payrollPeriods?: PayrollPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    payrollDetails?: PayrollDetailUncheckedUpdateManyWithoutTenantNestedInput
+    notificationConfig?: TenantNotificationConfigUncheckedUpdateOneWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notificationLogs?: NotificationLogUncheckedUpdateManyWithoutTenantNestedInput
+    reports?: TenantReportUncheckedUpdateManyWithoutTenantNestedInput
+    reportsV2?: ReportUncheckedUpdateManyWithoutTenantNestedInput
+    shifts?: ShiftUncheckedUpdateManyWithoutTenantNestedInput
+    staffShifts?: StaffShiftUncheckedUpdateManyWithoutTenantNestedInput
+    donations?: TenantDonationUncheckedUpdateManyWithoutTenantNestedInput
+    pushTokens?: PushNotificationTokenUncheckedUpdateManyWithoutTenantNestedInput
+    pushMessages?: PushNotificationMessageUncheckedUpdateManyWithoutTenantNestedInput
+    pushSubscriptions?: PushNotificationSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateManyWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterCommissionUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donation?: TenantDonationUpdateOneRequiredWithoutCommissionsNestedInput
+    systemLedgers?: SystemLedgerUpdateManyWithoutCommissionNestedInput
+  }
+
+  export type HunterCommissionUncheckedUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutCommissionNestedInput
+  }
+
+  export type HunterCommissionUncheckedUpdateManyWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    donationId?: StringFieldUpdateOperationsInput | string
+    donationAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commissionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paidOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HunterPayoutUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemLedgers?: SystemLedgerUpdateManyWithoutPayoutNestedInput
+  }
+
+  export type HunterPayoutUncheckedUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemLedgers?: SystemLedgerUncheckedUpdateManyWithoutPayoutNestedInput
+  }
+
+  export type HunterPayoutUncheckedUpdateManyWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
+    processedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donation?: TenantDonationUpdateOneWithoutSystemLedgersNestedInput
+    commission?: HunterCommissionUpdateOneWithoutSystemLedgersNestedInput
+    payout?: HunterPayoutUpdateOneWithoutSystemLedgersNestedInput
+  }
+
+  export type SystemLedgerUncheckedUpdateWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutHunterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerCreateManyCommissionInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    payoutId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerUpdateWithoutCommissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneWithoutSystemLedgersNestedInput
+    donation?: TenantDonationUpdateOneWithoutSystemLedgersNestedInput
+    payout?: HunterPayoutUpdateOneWithoutSystemLedgersNestedInput
+  }
+
+  export type SystemLedgerUncheckedUpdateWithoutCommissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutCommissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payoutId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerCreateManyPayoutInput = {
+    id?: string
+    transactionType: $Enums.TransactionType
+    category: $Enums.LedgerCategory
+    amount: Decimal | DecimalJsLike | number | string
+    balance: Decimal | DecimalJsLike | number | string
+    description: string
+    referenceType?: string | null
+    referenceId?: string | null
+    hunterId?: string | null
+    tenantId?: string | null
+    donationId?: string | null
+    commissionId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SystemLedgerUpdateWithoutPayoutInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hunter?: HunterUpdateOneWithoutSystemLedgersNestedInput
+    donation?: TenantDonationUpdateOneWithoutSystemLedgersNestedInput
+    commission?: HunterCommissionUpdateOneWithoutSystemLedgersNestedInput
+  }
+
+  export type SystemLedgerUncheckedUpdateWithoutPayoutInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemLedgerUncheckedUpdateManyWithoutPayoutInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    category?: EnumLedgerCategoryFieldUpdateOperationsInput | $Enums.LedgerCategory
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    hunterId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    donationId?: NullableStringFieldUpdateOperationsInput | string | null
+    commissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
