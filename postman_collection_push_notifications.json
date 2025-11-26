@@ -1,0 +1,358 @@
+{
+  "info": {
+    "name": "Push Notifications API V2",
+    "description": "API endpoints for push notification management including token registration, sending notifications, and retrieving notification history",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "push-notifications-v2",
+    "version": "2.0.0"
+  },
+  "item": [
+    {
+      "name": "Notification History",
+      "item": [
+        {
+          "name": "Get All Notification History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/:tenantId/push-notifications/history?limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "v2",
+                "tenants",
+                ":tenantId",
+                "push-notifications",
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of notifications to return (default: 50)"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}",
+                  "description": "The tenant ID"
+                }
+              ]
+            },
+            "description": "Retrieve notification history for a specific tenant. Returns the most recent notifications with optional limit parameter."
+          },
+          "response": [
+            {
+              "name": "Success - All Notifications",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/123e4567-e89b-12d3-a456-426614174000/push-notifications/history?limit=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "api",
+                    "v2",
+                    "tenants",
+                    "123e4567-e89b-12d3-a456-426614174000",
+                    "push-notifications",
+                    "history"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 200,\n    \"message\": \"Notification history retrieved successfully\"\n  },\n  \"data\": [\n    {\n      \"id\": \"notif-001\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"New Donation Received\",\n      \"body\": \"You received a donation of Rp 100,000\",\n      \"category\": \"DONATION\",\n      \"data\": {\n        \"donationId\": \"don-123\",\n        \"amount\": 100000,\n        \"donorName\": \"John Doe\"\n      },\n      \"imageUrl\": \"https://example.com/donation-icon.png\",\n      \"sentAt\": \"2025-11-25T10:30:00.000Z\",\n      \"readAt\": null,\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T10:30:00.000Z\"\n    },\n    {\n      \"id\": \"notif-002\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Payment Confirmed\",\n      \"body\": \"Your donation payment has been confirmed\",\n      \"category\": \"DONATION\",\n      \"data\": {\n        \"donationId\": \"don-122\",\n        \"status\": \"PAID\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-25T09:15:00.000Z\",\n      \"readAt\": \"2025-11-25T09:20:00.000Z\",\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T09:15:00.000Z\"\n    },\n    {\n      \"id\": \"notif-003\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Shift Started\",\n      \"body\": \"Your shift has started. Have a great day!\",\n      \"category\": \"SHIFT\",\n      \"data\": {\n        \"shiftId\": \"shift-789\",\n        \"startTime\": \"2025-11-25T08:00:00.000Z\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-25T08:00:00.000Z\",\n      \"readAt\": \"2025-11-25T08:01:00.000Z\",\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T08:00:00.000Z\"\n    },\n    {\n      \"id\": \"notif-004\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Low Stock Alert\",\n      \"body\": \"Product 'Coffee Beans' is running low (5 units left)\",\n      \"category\": \"SYSTEM\",\n      \"data\": {\n        \"productId\": \"prod-456\",\n        \"productName\": \"Coffee Beans\",\n        \"currentStock\": 5,\n        \"minStock\": 10\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-24T18:30:00.000Z\",\n      \"readAt\": null,\n      \"deliveredCount\": 2,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-24T18:30:00.000Z\"\n    },\n    {\n      \"id\": \"notif-005\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Subscription Expiring Soon\",\n      \"body\": \"Your Premium subscription will expire in 3 days\",\n      \"category\": \"SUBSCRIPTION\",\n      \"data\": {\n        \"subscriptionId\": \"sub-999\",\n        \"expiryDate\": \"2025-11-28T23:59:59.000Z\",\n        \"daysRemaining\": 3\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-24T10:00:00.000Z\",\n      \"readAt\": \"2025-11-24T11:30:00.000Z\",\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-24T10:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Success - Empty History",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/new-tenant-id/push-notifications/history",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "api",
+                    "v2",
+                    "tenants",
+                    "new-tenant-id",
+                    "push-notifications",
+                    "history"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 200,\n    \"message\": \"Notification history retrieved successfully\"\n  },\n  \"data\": []\n}"
+            },
+            {
+              "name": "Error - Invalid Tenant ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/invalid-id/push-notifications/history",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "api",
+                    "v2",
+                    "tenants",
+                    "invalid-id",
+                    "push-notifications",
+                    "history"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 400,\n    \"message\": \"Invalid tenant ID format\"\n  },\n  \"data\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Notification History by Category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tenants/:tenantId/push-notifications/history?category=DONATION&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "v2",
+                "tenants",
+                ":tenantId",
+                "push-notifications",
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "DONATION",
+                  "description": "Filter by notification category (DONATION, ORDER, SHIFT, ATTENDANCE, SUBSCRIPTION, SYSTEM, ANNOUNCEMENT, MARKETING)"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of notifications to return"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}",
+                  "description": "The tenant ID"
+                }
+              ]
+            },
+            "description": "Retrieve notification history filtered by a specific category. Useful for showing donation-only notifications, shift notifications, etc."
+          },
+          "response": [
+            {
+              "name": "Success - Donation Category",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/123e4567-e89b-12d3-a456-426614174000/push-notifications/history?category=DONATION&limit=5",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "api",
+                    "v2",
+                    "tenants",
+                    "123e4567-e89b-12d3-a456-426614174000",
+                    "push-notifications",
+                    "history"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "DONATION"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 200,\n    \"message\": \"Notification history retrieved successfully\"\n  },\n  \"data\": [\n    {\n      \"id\": \"notif-001\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"New Donation Received\",\n      \"body\": \"You received a donation of Rp 100,000 from John Doe\",\n      \"category\": \"DONATION\",\n      \"data\": {\n        \"donationId\": \"don-123\",\n        \"amount\": 100000,\n        \"donorName\": \"John Doe\",\n        \"status\": \"PAID\"\n      },\n      \"imageUrl\": \"https://example.com/donation-success.png\",\n      \"sentAt\": \"2025-11-25T10:30:00.000Z\",\n      \"readAt\": null,\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T10:30:00.000Z\"\n    },\n    {\n      \"id\": \"notif-002\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Donation Payment Pending\",\n      \"body\": \"Waiting for payment confirmation for donation of Rp 50,000\",\n      \"category\": \"DONATION\",\n      \"data\": {\n        \"donationId\": \"don-124\",\n        \"amount\": 50000,\n        \"status\": \"PENDING\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-25T09:45:00.000Z\",\n      \"readAt\": \"2025-11-25T09:50:00.000Z\",\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T09:45:00.000Z\"\n    },\n    {\n      \"id\": \"notif-003\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Donation Payment Failed\",\n      \"body\": \"Payment for donation of Rp 75,000 has failed\",\n      \"category\": \"DONATION\",\n      \"data\": {\n        \"donationId\": \"don-125\",\n        \"amount\": 75000,\n        \"status\": \"FAILED\",\n        \"failureReason\": \"Insufficient balance\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-24T16:20:00.000Z\",\n      \"readAt\": \"2025-11-24T16:25:00.000Z\",\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-24T16:20:00.000Z\"\n    },\n    {\n      \"id\": \"notif-004\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Donation Payment Expired\",\n      \"body\": \"Donation payment link has expired\",\n      \"category\": \"DONATION\",\n      \"data\": {\n        \"donationId\": \"don-126\",\n        \"amount\": 25000,\n        \"status\": \"EXPIRED\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-24T14:00:00.000Z\",\n      \"readAt\": null,\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-24T14:00:00.000Z\"\n    },\n    {\n      \"id\": \"notif-005\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Large Donation Received!\",\n      \"body\": \"Amazing! You received a donation of Rp 1,000,000 from Anonymous\",\n      \"category\": \"DONATION\",\n      \"data\": {\n        \"donationId\": \"don-127\",\n        \"amount\": 1000000,\n        \"donorName\": \"Anonymous\",\n        \"status\": \"PAID\",\n        \"isLarge\": true\n      },\n      \"imageUrl\": \"https://example.com/celebration.png\",\n      \"sentAt\": \"2025-11-23T11:15:00.000Z\",\n      \"readAt\": \"2025-11-23T11:16:00.000Z\",\n      \"deliveredCount\": 2,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-23T11:15:00.000Z\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Success - Order Category",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/tenants/123e4567-e89b-12d3-a456-426614174000/push-notifications/history?category=ORDER&limit=3",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "api",
+                    "v2",
+                    "tenants",
+                    "123e4567-e89b-12d3-a456-426614174000",
+                    "push-notifications",
+                    "history"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "ORDER"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 200,\n    \"message\": \"Notification history retrieved successfully\"\n  },\n  \"data\": [\n    {\n      \"id\": \"notif-010\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"New Order #ORD-001\",\n      \"body\": \"You have a new order for Rp 45,000\",\n      \"category\": \"ORDER\",\n      \"data\": {\n        \"orderId\": \"ORD-001\",\n        \"orderNumber\": \"#ORD-001\",\n        \"totalAmount\": 45000,\n        \"status\": \"PENDING\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-25T12:00:00.000Z\",\n      \"readAt\": \"2025-11-25T12:01:00.000Z\",\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T12:00:00.000Z\"\n    },\n    {\n      \"id\": \"notif-011\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Order Completed\",\n      \"body\": \"Order #ORD-002 has been completed\",\n      \"category\": \"ORDER\",\n      \"data\": {\n        \"orderId\": \"ORD-002\",\n        \"orderNumber\": \"#ORD-002\",\n        \"totalAmount\": 120000,\n        \"status\": \"COMPLETED\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-25T11:30:00.000Z\",\n      \"readAt\": \"2025-11-25T11:35:00.000Z\",\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T11:30:00.000Z\"\n    },\n    {\n      \"id\": \"notif-012\",\n      \"tenantId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"title\": \"Order Cancelled\",\n      \"body\": \"Order #ORD-003 has been cancelled by customer\",\n      \"category\": \"ORDER\",\n      \"data\": {\n        \"orderId\": \"ORD-003\",\n        \"orderNumber\": \"#ORD-003\",\n        \"totalAmount\": 65000,\n        \"status\": \"CANCELLED\",\n        \"reason\": \"Customer request\"\n      },\n      \"imageUrl\": null,\n      \"sentAt\": \"2025-11-25T10:15:00.000Z\",\n      \"readAt\": null,\n      \"deliveredCount\": 1,\n      \"failedCount\": 0,\n      \"createdAt\": \"2025-11-25T10:15:00.000Z\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "tenantId",
+      "value": "123e4567-e89b-12d3-a456-426614174000",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}
