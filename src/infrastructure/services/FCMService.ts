@@ -33,13 +33,19 @@ export class FCMService {
       throw new Error('Token is required for sendToToken');
     }
 
+    const messaging = firebaseAdmin.getMessaging();
+    if (!messaging) {
+      console.warn('⚠️ Firebase Admin SDK not initialized, skipping notification');
+      return 'skipped';
+    }
+
     const message: Message = {
       ...this.buildMessage(options),
       token: options.token,
     };
 
     try {
-      const messageId = await firebaseAdmin.getMessaging().send(message);
+      const messageId = await messaging.send(message);
       console.log('✅ Successfully sent message to token:', messageId);
       return messageId;
     } catch (error: any) {
@@ -56,13 +62,23 @@ export class FCMService {
       throw new Error('Tokens array is required for sendToTokens');
     }
 
+    const messaging = firebaseAdmin.getMessaging();
+    if (!messaging) {
+      console.warn('⚠️ Firebase Admin SDK not initialized, skipping multicast notification');
+      return {
+        successCount: 0,
+        failureCount: options.tokens.length,
+        responses: []
+      } as BatchResponse;
+    }
+
     const message: MulticastMessage = {
       ...this.buildMessage(options),
       tokens: options.tokens,
     };
 
     try {
-      const response = await firebaseAdmin.getMessaging().sendEachForMulticast(message);
+      const response = await messaging.sendEachForMulticast(message);
       console.log(`✅ Successfully sent multicast message. Success: ${response.successCount}, Failure: ${response.failureCount}`);
       
       // Log failed tokens
@@ -91,13 +107,19 @@ export class FCMService {
       throw new Error('Topic is required for sendToTopic');
     }
 
+    const messaging = firebaseAdmin.getMessaging();
+    if (!messaging) {
+      console.warn('⚠️ Firebase Admin SDK not initialized, skipping topic notification');
+      return 'skipped';
+    }
+
     const message: Message = {
       ...this.buildMessage(options),
       topic: options.topic,
     };
 
     try {
-      const messageId = await firebaseAdmin.getMessaging().send(message);
+      const messageId = await messaging.send(message);
       console.log('✅ Successfully sent message to topic:', options.topic, messageId);
       return messageId;
     } catch (error: any) {
@@ -114,13 +136,19 @@ export class FCMService {
       throw new Error('Condition is required for sendToCondition');
     }
 
+    const messaging = firebaseAdmin.getMessaging();
+    if (!messaging) {
+      console.warn('⚠️ Firebase Admin SDK not initialized, skipping condition notification');
+      return 'skipped';
+    }
+
     const message: Message = {
       ...this.buildMessage(options),
       condition: options.condition,
     };
 
     try {
-      const messageId = await firebaseAdmin.getMessaging().send(message);
+      const messageId = await messaging.send(message);
       console.log('✅ Successfully sent message to condition:', options.condition, messageId);
       return messageId;
     } catch (error: any) {
@@ -133,8 +161,14 @@ export class FCMService {
    * Subscribe tokens to a topic
    */
   async subscribeToTopic(options: TopicSubscriptionOptions): Promise<void> {
+    const messaging = firebaseAdmin.getMessaging();
+    if (!messaging) {
+      console.warn('⚠️ Firebase Admin SDK not initialized, skipping topic subscription');
+      return;
+    }
+
     try {
-      const response = await firebaseAdmin.getMessaging().subscribeToTopic(
+      const response = await messaging.subscribeToTopic(
         options.tokens,
         options.topic
       );
@@ -155,8 +189,14 @@ export class FCMService {
    * Unsubscribe tokens from a topic
    */
   async unsubscribeFromTopic(options: TopicSubscriptionOptions): Promise<void> {
+    const messaging = firebaseAdmin.getMessaging();
+    if (!messaging) {
+      console.warn('⚠️ Firebase Admin SDK not initialized, skipping topic unsubscription');
+      return;
+    }
+
     try {
-      const response = await firebaseAdmin.getMessaging().unsubscribeFromTopic(
+      const response = await messaging.unsubscribeFromTopic(
         options.tokens,
         options.topic
       );

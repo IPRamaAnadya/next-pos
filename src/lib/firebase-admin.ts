@@ -55,7 +55,8 @@ class FirebaseAdminService {
 
   public getMessaging() {
     if (!this.initialized) {
-      throw new Error('Firebase Admin SDK is not initialized');
+      console.warn('⚠️ Firebase Admin SDK is not initialized. Push notifications will be skipped.');
+      return null;
     }
     return admin.messaging();
   }
