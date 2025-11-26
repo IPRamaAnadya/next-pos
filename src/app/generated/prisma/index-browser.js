@@ -238,6 +238,18 @@ exports.Prisma.OrderScalarFieldEnum = {
   lastPointsAccumulation: 'lastPointsAccumulation'
 };
 
+exports.Prisma.OrderStatusScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  name: 'name',
+  order: 'order',
+  isFinal: 'isFinal',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.OrderItemScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -847,6 +859,7 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   Discount: 'Discount',
   Order: 'Order',
+  OrderStatus: 'OrderStatus',
   OrderItem: 'OrderItem',
   Product: 'Product',
   ProductCategory: 'ProductCategory',
