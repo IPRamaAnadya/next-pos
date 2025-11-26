@@ -102,6 +102,8 @@ export class AuthUseCases {
         ...payload,
         email: user.email,
         tenantName: primaryTenant.name,
+        tenantAddress: primaryTenant.address || null,
+        tenantPhone: primaryTenant.phone || null,
       },
     };
   }
