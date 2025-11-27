@@ -47,6 +47,7 @@ export interface OrderListResponse {
   id: string;
   orderNo: string;
   grandTotal: number;
+  customerId?: string;
   customerName?: string;
   createdAt?: string;
   orderStatus: string;
@@ -111,6 +112,7 @@ export class OrderResponseMapper {
       id: order.id,
       orderNo: order.orderNo,
       grandTotal: order.grandTotal,
+      customerId: order.customerId,
       customerName: order.customerName,
       createdAt: order.createdAt?.toISOString(),
       orderStatus: order.orderStatus,

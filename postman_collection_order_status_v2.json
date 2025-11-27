@@ -1,0 +1,452 @@
+{
+  "info": {
+    "name": "Order Status API V2",
+    "description": "Complete CRUD operations for Order Status management with tenant isolation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "List Order Statuses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses?limit=10&page=1&sortBy=order&sortDir=asc",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Number of items per page"
+            },
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page number"
+            },
+            {
+              "key": "search",
+              "value": "",
+              "description": "Search by code or name",
+              "disabled": true
+            },
+            {
+              "key": "isActive",
+              "value": "true",
+              "description": "Filter by active status",
+              "disabled": true
+            },
+            {
+              "key": "sortBy",
+              "value": "order",
+              "description": "Sort field (order, code, name, createdAt)"
+            },
+            {
+              "key": "sortDir",
+              "value": "asc",
+              "description": "Sort direction (asc, desc)"
+            }
+          ]
+        },
+        "description": "Get paginated list of order statuses for a tenant with optional filtering and sorting"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses?limit=10&page=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"statuses\": [\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n        \"code\": \"pending\",\n        \"name\": \"Pending\",\n        \"order\": 1,\n        \"isFinal\": false,\n        \"isActive\": true,\n        \"createdAt\": \"2025-11-26T10:00:00.000Z\",\n        \"updatedAt\": \"2025-11-26T10:00:00.000Z\"\n      },\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n        \"code\": \"processing\",\n        \"name\": \"Processing\",\n        \"order\": 2,\n        \"isFinal\": false,\n        \"isActive\": true,\n        \"createdAt\": \"2025-11-26T10:00:00.000Z\",\n        \"updatedAt\": \"2025-11-26T10:00:00.000Z\"\n      },\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440002\",\n        \"code\": \"completed\",\n        \"name\": \"Completed\",\n        \"order\": 3,\n        \"isFinal\": true,\n        \"isActive\": true,\n        \"createdAt\": \"2025-11-26T10:00:00.000Z\",\n        \"updatedAt\": \"2025-11-26T10:00:00.000Z\"\n      }\n    ]\n  },\n  \"pagination\": {\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"total\": 3\n  },\n  \"message\": \"Order statuses retrieved successfully\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Single Order Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses/{{statusId}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses", "{{statusId}}"]
+        },
+        "description": "Get a single order status by ID"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses/{{statusId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses", "{{statusId}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"status\": {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"code\": \"pending\",\n      \"name\": \"Pending\",\n      \"order\": 1,\n      \"isFinal\": false,\n      \"isActive\": true,\n      \"createdAt\": \"2025-11-26T10:00:00.000Z\",\n      \"updatedAt\": \"2025-11-26T10:00:00.000Z\"\n    }\n  },\n  \"message\": \"Order status retrieved successfully\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Order Status",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"preparing\",\n  \"name\": \"Preparing\",\n  \"order\": 2,\n  \"isFinal\": false,\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"]
+        },
+        "description": "Create a new order status for a tenant"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"preparing\",\n  \"name\": \"Preparing\",\n  \"order\": 2,\n  \"isFinal\": false,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"status\": {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440003\",\n      \"code\": \"preparing\",\n      \"name\": \"Preparing\",\n      \"order\": 2,\n      \"isFinal\": false,\n      \"isActive\": true,\n      \"createdAt\": \"2025-11-26T10:30:00.000Z\",\n      \"updatedAt\": \"2025-11-26T10:30:00.000Z\"\n    }\n  },\n  \"message\": \"Order status created successfully\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Final Status (Only One Allowed)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"completed\",\n  \"name\": \"Completed\",\n  \"order\": 5,\n  \"isFinal\": true,\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"]
+        },
+        "description": "Create a final status. Only one final status is allowed per tenant."
+      },
+      "response": [
+        {
+          "name": "Error - Final Status Already Exists",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"cancelled\",\n  \"name\": \"Cancelled\",\n  \"order\": 6,\n  \"isFinal\": true,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": "json",
+          "header": [],
+          "cookie": [],
+          "body": "{\n  \"success\": false,\n  \"error\": \"internal_server_error\",\n  \"message\": \"A final status already exists for this tenant: Completed\",\n  \"status\": 500\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Order Status",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"In Preparation\",\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses/{{statusId}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses", "{{statusId}}"]
+        },
+        "description": "Update an existing order status. All fields are optional."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"In Preparation\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses/{{statusId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses", "{{statusId}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"status\": {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440003\",\n      \"code\": \"preparing\",\n      \"name\": \"In Preparation\",\n      \"order\": 2,\n      \"isFinal\": false,\n      \"isActive\": true,\n      \"createdAt\": \"2025-11-26T10:30:00.000Z\",\n      \"updatedAt\": \"2025-11-26T11:00:00.000Z\"\n    }\n  },\n  \"message\": \"Order status updated successfully\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Order Status",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses/{{statusId}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses", "{{statusId}}"]
+        },
+        "description": "Delete an order status. Final statuses cannot be deleted."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses/{{statusId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses", "{{statusId}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Order status deleted successfully\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Reorder Order Statuses",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orders\": [\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"order\": 1\n    },\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440003\",\n      \"order\": 2\n    },\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n      \"order\": 3\n    },\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440002\",\n      \"order\": 4\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"]
+        },
+        "description": "Reorder multiple order statuses at once. Provide an array of status IDs with their new order numbers."
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orders\": [\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"order\": 1\n    },\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440003\",\n      \"order\": 2\n    },\n    {\n      \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n      \"order\": 3\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"statuses\": [\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n        \"code\": \"pending\",\n        \"name\": \"Pending\",\n        \"order\": 1,\n        \"isFinal\": false,\n        \"isActive\": true,\n        \"createdAt\": \"2025-11-26T10:00:00.000Z\",\n        \"updatedAt\": \"2025-11-26T11:30:00.000Z\"\n      },\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440003\",\n        \"code\": \"preparing\",\n        \"name\": \"Preparing\",\n        \"order\": 2,\n        \"isFinal\": false,\n        \"isActive\": true,\n        \"createdAt\": \"2025-11-26T10:30:00.000Z\",\n        \"updatedAt\": \"2025-11-26T11:30:00.000Z\"\n      },\n      {\n        \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n        \"code\": \"processing\",\n        \"name\": \"Processing\",\n        \"order\": 3,\n        \"isFinal\": false,\n        \"isActive\": true,\n        \"createdAt\": \"2025-11-26T10:00:00.000Z\",\n        \"updatedAt\": \"2025-11-26T11:30:00.000Z\"\n      }\n    ]\n  },\n  \"message\": \"Order statuses reordered successfully\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Search Order Statuses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses?search=pend&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"],
+          "query": [
+            {
+              "key": "search",
+              "value": "pend",
+              "description": "Search term for code or name"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Search order statuses by code or name (case-insensitive)"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter Active Statuses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v2/tenants/{{tenantId}}/order-statuses?isActive=true&limit=50",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v2", "tenants", "{{tenantId}}", "order-statuses"],
+          "query": [
+            {
+              "key": "isActive",
+              "value": "true",
+              "description": "Filter by active/inactive status"
+            },
+            {
+              "key": "limit",
+              "value": "50"
+            }
+          ]
+        },
+        "description": "Get only active order statuses"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "tenantId",
+      "value": "8cbb2d6e-c644-4b2d-b812-3b6e353ee52f",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    },
+    {
+      "key": "statusId",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "type": "string"
+    }
+  ]
+}

@@ -35,8 +35,7 @@ export class FCMService {
 
     const messaging = firebaseAdmin.getMessaging();
     if (!messaging) {
-      console.warn('⚠️ Firebase Admin SDK not initialized, skipping notification');
-      return 'skipped';
+      throw new Error('Firebase Admin SDK is not initialized. Configure FIREBASE_SERVICE_ACCOUNT_KEY environment variable.');
     }
 
     const message: Message = {
@@ -64,12 +63,7 @@ export class FCMService {
 
     const messaging = firebaseAdmin.getMessaging();
     if (!messaging) {
-      console.warn('⚠️ Firebase Admin SDK not initialized, skipping multicast notification');
-      return {
-        successCount: 0,
-        failureCount: options.tokens.length,
-        responses: []
-      } as BatchResponse;
+      throw new Error('Firebase Admin SDK is not initialized. Configure FIREBASE_SERVICE_ACCOUNT_KEY environment variable.');
     }
 
     const message: MulticastMessage = {
@@ -109,8 +103,7 @@ export class FCMService {
 
     const messaging = firebaseAdmin.getMessaging();
     if (!messaging) {
-      console.warn('⚠️ Firebase Admin SDK not initialized, skipping topic notification');
-      return 'skipped';
+      throw new Error('Firebase Admin SDK is not initialized. Configure FIREBASE_SERVICE_ACCOUNT_KEY environment variable.');
     }
 
     const message: Message = {
@@ -138,8 +131,7 @@ export class FCMService {
 
     const messaging = firebaseAdmin.getMessaging();
     if (!messaging) {
-      console.warn('⚠️ Firebase Admin SDK not initialized, skipping condition notification');
-      return 'skipped';
+      throw new Error('Firebase Admin SDK is not initialized. Configure FIREBASE_SERVICE_ACCOUNT_KEY environment variable.');
     }
 
     const message: Message = {
@@ -163,8 +155,7 @@ export class FCMService {
   async subscribeToTopic(options: TopicSubscriptionOptions): Promise<void> {
     const messaging = firebaseAdmin.getMessaging();
     if (!messaging) {
-      console.warn('⚠️ Firebase Admin SDK not initialized, skipping topic subscription');
-      return;
+      throw new Error('Firebase Admin SDK is not initialized. Configure FIREBASE_SERVICE_ACCOUNT_KEY environment variable.');
     }
 
     try {
@@ -191,8 +182,7 @@ export class FCMService {
   async unsubscribeFromTopic(options: TopicSubscriptionOptions): Promise<void> {
     const messaging = firebaseAdmin.getMessaging();
     if (!messaging) {
-      console.warn('⚠️ Firebase Admin SDK not initialized, skipping topic unsubscription');
-      return;
+      throw new Error('Firebase Admin SDK is not initialized. Configure FIREBASE_SERVICE_ACCOUNT_KEY environment variable.');
     }
 
     try {
@@ -258,7 +248,12 @@ export class FCMService {
    */
   isValidToken(token: string): boolean {
     // FCM tokens are typically 152-163 characters long
-    return token.length >= 100 && /^[A-Za-z0-9_-]+$/.test(token);
+    // They can contain: A-Z, a-z, 0-9, underscore, hyphen, and colon
+    if (!token || token.length < 100) {
+      return false;
+    }
+    // Allow alphanumeric, underscore, hyphen, and colon characters
+    return /^[A-Za-z0-9_:/-]+$/.test(token);
   }
 }
 

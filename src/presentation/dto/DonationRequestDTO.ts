@@ -124,7 +124,7 @@ export const createPaymentMethodSchema = yup.object({
     .required("Code is required"),
   type: yup
     .string()
-    .oneOf(["bank_transfer", "ewallet", "qris"], "Invalid payment type")
+    .oneOf(["bank_transfer", "virtual_account", "e_wallet", "qris", "retail", "cardless_credit"], "Invalid payment type")
     .required("Type is required"),
   transaction_fee: yup
     .number()

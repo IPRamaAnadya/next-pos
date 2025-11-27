@@ -10,6 +10,7 @@ import { GetOrderByIdUseCase } from '../../application/use-cases/GetOrderByIdUse
 import { CreateOrderUseCase } from '../../application/use-cases/CreateOrderUseCase';
 import { UpdateOrderUseCase } from '../../application/use-cases/UpdateOrderUseCase';
 import { DeleteOrderUseCase } from '../../application/use-cases/DeleteOrderUseCase';
+import { UpdateOrderStatusByCodeUseCase } from '../../application/use-cases/UpdateOrderStatusByCodeUseCase';
 
 export class OrderServiceContainer {
   private static instance: OrderServiceContainer;
@@ -28,6 +29,7 @@ export class OrderServiceContainer {
   private _createOrderUseCase!: CreateOrderUseCase;
   private _updateOrderUseCase!: UpdateOrderUseCase;
   private _deleteOrderUseCase!: DeleteOrderUseCase;
+  private _updateOrderStatusByCodeUseCase!: UpdateOrderStatusByCodeUseCase;
 
   private constructor() {
     this.initializeDependencies();
@@ -60,6 +62,11 @@ export class OrderServiceContainer {
       this._orderRepository,
       this._customerRepository
     );
+    this._updateOrderStatusByCodeUseCase = new UpdateOrderStatusByCodeUseCase(
+      this._orderRepository,
+      this._customerRepository,
+      this._notificationService
+    );
   }
 
   public static getInstance(): OrderServiceContainer {
@@ -88,6 +95,10 @@ export class OrderServiceContainer {
 
   public getDeleteOrderUseCase(): DeleteOrderUseCase {
     return this._deleteOrderUseCase;
+  }
+
+  public getUpdateOrderStatusByCodeUseCase(): UpdateOrderStatusByCodeUseCase {
+    return this._updateOrderStatusByCodeUseCase;
   }
 
   // For testing purposes - allow overriding dependencies
@@ -128,6 +139,11 @@ export class OrderServiceContainer {
     this._deleteOrderUseCase = new DeleteOrderUseCase(
       this._orderRepository,
       this._customerRepository
+    );
+    this._updateOrderStatusByCodeUseCase = new UpdateOrderStatusByCodeUseCase(
+      this._orderRepository,
+      this._customerRepository,
+      this._notificationService
     );
   }
 

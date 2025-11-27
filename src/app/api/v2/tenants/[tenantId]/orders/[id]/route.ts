@@ -30,3 +30,12 @@ export async function DELETE(
   const orderController = getOrderController();
   return await orderController.deleteOrder(req, tenantId, id);
 }
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { tenantId: string; id: string } }
+) {
+  const { tenantId, id } = await params;
+  const orderController = getOrderController();
+  return await orderController.updateOrderStatusByCode(req, tenantId, id);
+}

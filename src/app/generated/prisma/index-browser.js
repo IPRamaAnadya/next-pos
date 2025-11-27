@@ -250,6 +250,15 @@ exports.Prisma.OrderStatusScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.OrderLogScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  staffId: 'staffId',
+  status: 'status',
+  note: 'note',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.OrderItemScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -860,6 +869,7 @@ exports.Prisma.ModelName = {
   Discount: 'Discount',
   Order: 'Order',
   OrderStatus: 'OrderStatus',
+  OrderLog: 'OrderLog',
   OrderItem: 'OrderItem',
   Product: 'Product',
   ProductCategory: 'ProductCategory',

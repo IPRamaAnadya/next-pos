@@ -240,7 +240,10 @@ export class PrismaPushNotificationMessageRepository implements PushNotification
     return await prisma.pushNotificationMessage.findMany({
       where: {
         tenantId,
-        category,
+        category: {
+          equals: category,
+          mode: 'insensitive',
+        },
       },
       orderBy: { createdAt: 'desc' },
       take: limit,

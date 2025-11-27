@@ -30,7 +30,8 @@ class FirebaseAdminService {
         const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
         
         if (!serviceAccount) {
-          console.warn('FIREBASE_SERVICE_ACCOUNT_KEY not found in environment variables');
+          console.warn('⚠️ FIREBASE_SERVICE_ACCOUNT_KEY not found in environment variables. Firebase notifications will be disabled.');
+          this.initialized = false;
           return;
         }
 
@@ -49,7 +50,8 @@ class FirebaseAdminService {
       }
     } catch (error) {
       console.error('❌ Error initializing Firebase Admin SDK:', error);
-      throw error;
+      this.initialized = false;
+      // Don't throw - allow app to continue without Firebase
     }
   }
 

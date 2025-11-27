@@ -11,6 +11,7 @@ import { GetOrderByIdUseCase } from '../../application/use-cases/GetOrderByIdUse
 import { CreateOrderUseCase } from '../../application/use-cases/CreateOrderUseCase';
 import { UpdateOrderUseCase } from '../../application/use-cases/UpdateOrderUseCase';
 import { DeleteOrderUseCase } from '../../application/use-cases/DeleteOrderUseCase';
+import { UpdateOrderStatusByCodeUseCase } from '../../application/use-cases/UpdateOrderStatusByCodeUseCase';
 
 // DTOs and Schemas
 import { 
@@ -39,6 +40,7 @@ export class OrderController {
   private createOrderUseCase: CreateOrderUseCase;
   private updateOrderUseCase: UpdateOrderUseCase;
   private deleteOrderUseCase: DeleteOrderUseCase;
+  private updateOrderStatusByCodeUseCase: UpdateOrderStatusByCodeUseCase;
 
   private constructor() {
     // Get dependencies from container
@@ -50,6 +52,7 @@ export class OrderController {
     this.createOrderUseCase = container.getCreateOrderUseCase();
     this.updateOrderUseCase = container.getUpdateOrderUseCase();
     this.deleteOrderUseCase = container.getDeleteOrderUseCase();
+    this.updateOrderStatusByCodeUseCase = container.getUpdateOrderStatusByCodeUseCase();
   }
 
   // Singleton pattern to prevent memory leaks from multiple instances
@@ -182,6 +185,34 @@ export class OrderController {
 
       return apiResponse.success({
         message: 'Order deleted successfully'
+      });
+    } catch (error) {
+      return this.handleError(error);
+    }
+  }
+
+  async updateOrderStatusByCode(req: NextRequest, tenantId: string, orderId: string) {
+    try {
+      const tenantIdFromToken = this.validateAndGetTenantId(req, tenantId);
+
+      const body = await req.json();
+
+      // Validate request body
+      if (!body.statusCode) {
+        return apiResponse.validationError([
+          { field: 'statusCode', message: 'Status code is required' }
+        ]);
+      }
+
+      const order = await this.updateOrderStatusByCodeUseCase.execute(
+        tenantIdFromToken,
+        orderId,
+        { statusCode: body.statusCode }
+      );
+
+      return apiResponse.success({
+        data: { order: OrderResponseMapper.toOrderResponse(order) },
+        message: 'Order status updated successfully'
       });
     } catch (error) {
       return this.handleError(error);
