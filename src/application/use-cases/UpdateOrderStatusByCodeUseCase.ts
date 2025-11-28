@@ -77,7 +77,7 @@ export class UpdateOrderStatusByCodeUseCase {
       change: existingOrder.change || 0,
       paymentMethod: existingOrder.paymentMethod || null,
       paymentStatus: existingOrder.paymentStatus,
-      orderStatus: orderStatus.name, // This is the key change
+      orderStatus: orderStatus.code, // This is the key change
       staffId: existingOrder.staffId,
       note: existingOrder.note || null,
       orderItems: existingOrder.items.map(item => ({
