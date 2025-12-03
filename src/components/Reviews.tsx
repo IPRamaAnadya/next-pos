@@ -1,6 +1,8 @@
 // components/Reviews.tsx
 'use client'
 
+import { Star } from 'lucide-react'
+
 interface Review {
   name: string
   role: string
@@ -35,28 +37,33 @@ export default function Reviews() {
   ]
 
   return (
-    <section id="reviews" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="reviews" className="py-20 md:py-32 bg-white">
+      <div className="max-w-[980px] mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            What Our Customers Say
+          <h2 className="text-[40px] md:text-[56px] font-semibold tracking-tight leading-[1.1] mb-4">
+            Dipercaya ribuan UMKM
           </h2>
-          <p className="text-xl text-gray-600">
-            Join thousands of satisfied business owners
+          <p className="text-[19px] md:text-[21px] text-black/70">
+            Bergabunglah dengan komunitas yang saling membantu
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {reviews.map((review, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg p-6">
-              <div className="flex mb-4">
+            <div key={index} className="bg-gray-50 rounded-3xl p-8">
+              <div className="flex gap-1 mb-4">
                 {[...Array(review.rating)].map((_, i) => (
-                  <span key={i} className="text-orange-500">★</span>
+                  <Star key={i} className="w-4 h-4 fill-[#06c] text-[#06c]" />
                 ))}
               </div>
-              <p className="text-gray-600 mb-4 italic">"{review.content}"</p>
-              <div>
-                <p className="font-semibold text-gray-900">{review.name}</p>
-                <p className="text-sm text-gray-500">{review.role}, {review.company}</p>
+              <p className="text-[15px] md:text-[17px] text-black/80 leading-relaxed mb-8">"{review.content}"</p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-black/10 rounded-full flex items-center justify-center text-black font-semibold text-sm">
+                  {review.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="text-[15px] font-semibold text-black">{review.name}</p>
+                  <p className="text-[13px] text-black/60">{review.role}, {review.company}</p>
+                </div>
               </div>
             </div>
           ))}

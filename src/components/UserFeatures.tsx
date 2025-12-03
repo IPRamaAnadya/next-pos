@@ -10,54 +10,54 @@ interface UserType {
 export default function UserFeatures() {
   const userTypes: UserType[] = [
     {
-      name: "Restaurants",
-      description: "Manage orders, track tables, and streamline kitchen operations",
+      name: "Restoran",
+      description: "Kelola pesanan, lacak meja, dan sederhanakan operasional dapur",
       icon: "🍽️"
     },
     {
       name: "Laundry",
-      description: "Track orders, manage pickup/delivery, and monitor cleaning status",
+      description: "Lacak pesanan, kelola pickup/delivery, dan monitor status pencucian",
       icon: "👕"
     },
     {
       name: "Salon & Spa",
-      description: "Book appointments, manage staff schedules, and track services",
+      description: "Booking appointment, kelola jadwal staff, dan lacak layanan",
       icon: "💅"
     },
     {
-      name: "Retail Stores",
-      description: "Manage inventory, process sales, and track customer data",
+      name: "Toko Retail",
+      description: "Kelola inventori, proses penjualan, dan lacak data pelanggan",
       icon: "🛍️"
     },
     {
-      name: "Cafes",
-      description: "Quick order processing, table management, and menu customization",
+      name: "Kafe",
+      description: "Proses pesanan cepat, kelola meja, dan kustomisasi menu",
       icon: "☕"
     },
     {
-      name: "And More",
-      description: "Flexible system that adapts to any business type",
+      name: "Dan Lainnya",
+      description: "Sistem fleksibel yang dapat disesuaikan dengan berbagai jenis bisnis",
       icon: "✨"
     }
   ]
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 md:py-32 bg-gray-50">
+      <div className="max-w-[980px] mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Perfect For Your Business
+          <h2 className="text-[40px] md:text-[56px] font-semibold tracking-tight leading-[1.1] mb-4">
+            Untuk semua jenis bisnis
           </h2>
-          <p className="text-xl text-gray-600">
-            Trusted by various industries worldwide
+          <p className="text-[19px] md:text-[21px] text-black/70">
+            Dipercaya berbagai industri
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {userTypes.map((user, index) => (
-            <div key={index} className="p-6 rounded-lg border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-200">
-              <div className="text-4xl mb-4">{user.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{user.name}</h3>
-              <p className="text-gray-600">{user.description}</p>
+            <div key={index} className="bg-white rounded-2xl p-6 md:p-8">
+              <div className="text-3xl md:text-4xl mb-3 md:mb-4">{user.icon}</div>
+              <h3 className="text-[17px] md:text-[19px] font-semibold mb-2">{user.name}</h3>
+              <p className="text-[13px] md:text-[15px] text-black/60 leading-relaxed">{user.description}</p>
             </div>
           ))}
         </div>

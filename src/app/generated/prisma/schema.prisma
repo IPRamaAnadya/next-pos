@@ -276,7 +276,7 @@ model OrderLog {
   status    String
   note      String?
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  order     Order    @relation(fields: [orderId], references: [id])
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   staff     Staff?   @relation(fields: [staffId], references: [id])
 
   @@index([orderId])
