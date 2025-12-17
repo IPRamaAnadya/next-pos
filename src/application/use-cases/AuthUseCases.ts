@@ -225,6 +225,8 @@ export class AuthUseCases {
         ...payload,
         email: user.email,
         tenantName: tenant.name,
+        tenantAddress: tenant.address || null,
+        tenantPhone: tenant.phone || null,
       },
     };
   }
