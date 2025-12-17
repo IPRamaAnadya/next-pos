@@ -52,6 +52,8 @@ export class AuthResponseDTO {
           email: result.user.email,
           tenant_id: result.user.tenantId,
           tenant_name: result.user.tenantName,
+          tenant_address: result.user.tenantAddress,
+          tenant_phone: result.user.tenantPhone,
           role: result.user.role,
           staff_id: result.user.staffId,
           limits: result.user.limits,
