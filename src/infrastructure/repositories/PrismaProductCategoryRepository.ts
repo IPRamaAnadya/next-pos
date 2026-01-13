@@ -85,7 +85,9 @@ export class PrismaProductCategoryRepository implements ProductCategoryRepositor
 
   async findAll(tenantId: string, options: ProductCategoryQueryOptions): Promise<PaginatedProductCategories> {
     try {
-      const { limit, page, sortBy, sortDir, filters } = options;
+      const {page, sortBy, sortDir, filters } = options;
+
+      const limit = 1000; // Fixed limit for simplicity
       
       const whereClause: any = { tenantId };
       
