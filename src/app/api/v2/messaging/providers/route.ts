@@ -3,7 +3,7 @@
  * Get available messaging providers (no tenant authentication required)
  */
 
-import { CustomerMessagingServiceContainer } from "@/application/services/CustomerMessagingServiceContainer";
+import { CustomerMessagingServiceContainer } from "@/v2/application/services/CustomerMessagingServiceContainer";
 
 export async function GET(request: Request) {
   const container = CustomerMessagingServiceContainer.getInstance();

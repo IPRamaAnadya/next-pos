@@ -46,6 +46,7 @@ model Tenant {
   phone                       String?
   subscribedUntil             DateTime?                   @map("subscribed_until") @db.Timestamptz(6)
   isSubscribed                Boolean?                    @default(false) @map("is_subscribed")
+  storeCode                   String?                     @unique @map("store_code")
   hunterReferralCode          String?                     @map("hunter_referral_code") // Hunter referral code used during registration
   createdAt                   DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt                   DateTime                    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)

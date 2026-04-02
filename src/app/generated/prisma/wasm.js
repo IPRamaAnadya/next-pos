@@ -143,6 +143,7 @@ exports.Prisma.TenantScalarFieldEnum = {
   phone: 'phone',
   subscribedUntil: 'subscribedUntil',
   isSubscribed: 'isSubscribed',
+  storeCode: 'storeCode',
   hunterReferralCode: 'hunterReferralCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

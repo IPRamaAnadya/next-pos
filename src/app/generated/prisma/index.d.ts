@@ -7089,6 +7089,7 @@ export namespace Prisma {
     phone: string | null
     subscribedUntil: Date | null
     isSubscribed: boolean | null
+    storeCode: string | null
     hunterReferralCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7103,6 +7104,7 @@ export namespace Prisma {
     phone: string | null
     subscribedUntil: Date | null
     isSubscribed: boolean | null
+    storeCode: string | null
     hunterReferralCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7117,6 +7119,7 @@ export namespace Prisma {
     phone: number
     subscribedUntil: number
     isSubscribed: number
+    storeCode: number
     hunterReferralCode: number
     createdAt: number
     updatedAt: number
@@ -7133,6 +7136,7 @@ export namespace Prisma {
     phone?: true
     subscribedUntil?: true
     isSubscribed?: true
+    storeCode?: true
     hunterReferralCode?: true
     createdAt?: true
     updatedAt?: true
@@ -7147,6 +7151,7 @@ export namespace Prisma {
     phone?: true
     subscribedUntil?: true
     isSubscribed?: true
+    storeCode?: true
     hunterReferralCode?: true
     createdAt?: true
     updatedAt?: true
@@ -7161,6 +7166,7 @@ export namespace Prisma {
     phone?: true
     subscribedUntil?: true
     isSubscribed?: true
+    storeCode?: true
     hunterReferralCode?: true
     createdAt?: true
     updatedAt?: true
@@ -7248,6 +7254,7 @@ export namespace Prisma {
     phone: string | null
     subscribedUntil: Date | null
     isSubscribed: boolean | null
+    storeCode: string | null
     hunterReferralCode: string | null
     createdAt: Date
     updatedAt: Date
@@ -7279,6 +7286,7 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    storeCode?: boolean
     hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7327,6 +7335,7 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    storeCode?: boolean
     hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7343,6 +7352,7 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    storeCode?: boolean
     hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7359,12 +7369,13 @@ export namespace Prisma {
     phone?: boolean
     subscribedUntil?: boolean
     isSubscribed?: boolean
+    storeCode?: boolean
     hunterReferralCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "email" | "address" | "phone" | "subscribedUntil" | "isSubscribed" | "hunterReferralCode" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "email" | "address" | "phone" | "subscribedUntil" | "isSubscribed" | "storeCode" | "hunterReferralCode" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     hunter?: boolean | Tenant$hunterArgs<ExtArgs>
@@ -7456,6 +7467,7 @@ export namespace Prisma {
       phone: string | null
       subscribedUntil: Date | null
       isSubscribed: boolean | null
+      storeCode: string | null
       hunterReferralCode: string | null
       createdAt: Date
       updatedAt: Date
@@ -7923,6 +7935,7 @@ export namespace Prisma {
     readonly phone: FieldRef<"Tenant", 'String'>
     readonly subscribedUntil: FieldRef<"Tenant", 'DateTime'>
     readonly isSubscribed: FieldRef<"Tenant", 'Boolean'>
+    readonly storeCode: FieldRef<"Tenant", 'String'>
     readonly hunterReferralCode: FieldRef<"Tenant", 'String'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
     readonly updatedAt: FieldRef<"Tenant", 'DateTime'>
@@ -58514,6 +58527,7 @@ export namespace Prisma {
     phone: 'phone',
     subscribedUntil: 'subscribedUntil',
     isSubscribed: 'isSubscribed',
+    storeCode: 'storeCode',
     hunterReferralCode: 'hunterReferralCode',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -59684,6 +59698,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Tenant"> | string | null
     subscribedUntil?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     isSubscribed?: BoolNullableFilter<"Tenant"> | boolean | null
+    storeCode?: StringNullableFilter<"Tenant"> | string | null
     hunterReferralCode?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
@@ -59731,6 +59746,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     subscribedUntil?: SortOrderInput | SortOrder
     isSubscribed?: SortOrderInput | SortOrder
+    storeCode?: SortOrderInput | SortOrder
     hunterReferralCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -59772,6 +59788,7 @@ export namespace Prisma {
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    storeCode?: string
     AND?: TenantWhereInput | TenantWhereInput[]
     OR?: TenantWhereInput[]
     NOT?: TenantWhereInput | TenantWhereInput[]
@@ -59817,7 +59834,7 @@ export namespace Prisma {
     pushTokens?: PushNotificationTokenListRelationFilter
     pushMessages?: PushNotificationMessageListRelationFilter
     pushSubscriptions?: PushNotificationSubscriptionListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "storeCode">
 
   export type TenantOrderByWithAggregationInput = {
     id?: SortOrder
@@ -59828,6 +59845,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     subscribedUntil?: SortOrderInput | SortOrder
     isSubscribed?: SortOrderInput | SortOrder
+    storeCode?: SortOrderInput | SortOrder
     hunterReferralCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -59848,6 +59866,7 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     subscribedUntil?: DateTimeNullableWithAggregatesFilter<"Tenant"> | Date | string | null
     isSubscribed?: BoolNullableWithAggregatesFilter<"Tenant"> | boolean | null
+    storeCode?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     hunterReferralCode?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
@@ -63782,6 +63801,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -63828,6 +63848,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -63872,6 +63893,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -63918,6 +63940,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63963,6 +63986,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -63976,6 +64000,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -63989,6 +64014,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -68741,6 +68767,7 @@ export namespace Prisma {
     phone?: SortOrder
     subscribedUntil?: SortOrder
     isSubscribed?: SortOrder
+    storeCode?: SortOrder
     hunterReferralCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -68755,6 +68782,7 @@ export namespace Prisma {
     phone?: SortOrder
     subscribedUntil?: SortOrder
     isSubscribed?: SortOrder
+    storeCode?: SortOrder
     hunterReferralCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -68769,6 +68797,7 @@ export namespace Prisma {
     phone?: SortOrder
     subscribedUntil?: SortOrder
     isSubscribed?: SortOrder
+    storeCode?: SortOrder
     hunterReferralCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -76185,6 +76214,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     hunter?: HunterCreateNestedOneWithoutTenantsInput
@@ -76229,6 +76259,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -76390,6 +76421,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Tenant"> | string | null
     subscribedUntil?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     isSubscribed?: BoolNullableFilter<"Tenant"> | boolean | null
+    storeCode?: StringNullableFilter<"Tenant"> | string | null
     hunterReferralCode?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
@@ -78898,6 +78930,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -78943,6 +78976,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -79383,6 +79417,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -79428,6 +79463,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -79767,6 +79803,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -79812,6 +79849,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -79945,6 +79983,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -79990,6 +80029,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80049,6 +80089,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -80094,6 +80135,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -80227,6 +80269,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -80272,6 +80315,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80331,6 +80375,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -80376,6 +80421,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -80618,6 +80664,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -80663,6 +80710,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80881,6 +80929,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -80926,6 +80975,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -80985,6 +81035,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -81030,6 +81081,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -81313,6 +81365,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -81358,6 +81411,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -81527,6 +81581,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -81572,6 +81627,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -81737,6 +81793,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -81782,6 +81839,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -81900,6 +81958,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -81945,6 +82004,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -82037,6 +82097,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -82082,6 +82143,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -82246,6 +82308,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -82291,6 +82354,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -82399,6 +82463,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -82444,6 +82509,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -82541,6 +82607,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -82586,6 +82653,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -82645,6 +82713,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -82690,6 +82759,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -82858,6 +82928,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -82903,6 +82974,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -83118,6 +83190,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -83163,6 +83236,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -83273,6 +83347,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -83318,6 +83393,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -83361,6 +83437,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -83406,6 +83483,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -83465,6 +83543,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -83510,6 +83589,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -83666,6 +83746,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -83711,6 +83792,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -83801,6 +83883,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -83846,6 +83929,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -83926,6 +84010,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -83971,6 +84056,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -84091,6 +84177,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -84136,6 +84223,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -84261,6 +84349,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -84306,6 +84395,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -84400,6 +84490,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -84445,6 +84536,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -84488,6 +84580,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -84533,6 +84626,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -84592,6 +84686,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -84637,6 +84732,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -84680,6 +84776,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -84725,6 +84822,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -84829,6 +84927,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -84874,6 +84973,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -84968,6 +85068,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -85013,6 +85114,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -85166,6 +85268,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -85211,6 +85314,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85360,6 +85464,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -85405,6 +85510,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -85510,6 +85616,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -85555,6 +85662,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85614,6 +85722,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -85659,6 +85768,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -85826,6 +85936,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -85871,6 +85982,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86108,6 +86220,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -86153,6 +86266,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -86212,6 +86326,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -86257,6 +86372,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86300,6 +86416,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -86345,6 +86462,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -86404,6 +86522,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -86449,6 +86568,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86492,6 +86612,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -86537,6 +86658,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -86596,6 +86718,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -86641,6 +86764,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86684,6 +86808,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -86729,6 +86854,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -86788,6 +86914,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -86833,6 +86960,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86876,6 +87004,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -86921,6 +87050,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -87060,6 +87190,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -87105,6 +87236,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -87180,6 +87312,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -87225,6 +87358,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -87378,6 +87512,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -87423,6 +87558,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -87572,6 +87708,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -87617,6 +87754,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -87676,6 +87814,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -87721,6 +87860,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -87832,6 +87972,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -87877,6 +88018,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -88061,6 +88203,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -88106,6 +88249,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -88267,6 +88411,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -88312,6 +88457,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -88453,6 +88599,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -88498,6 +88645,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -88635,6 +88783,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -88680,6 +88829,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -88739,6 +88889,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -88784,6 +88935,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -88827,6 +88979,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -88872,6 +89025,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -88931,6 +89085,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -88976,6 +89131,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -89087,6 +89243,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutTenantsInput
@@ -89132,6 +89289,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutTenantInput
@@ -90260,6 +90418,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     hunterReferralCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -90286,6 +90445,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hunter?: HunterUpdateOneWithoutTenantsNestedInput
@@ -90330,6 +90490,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -90374,6 +90535,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     hunterReferralCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93667,6 +93829,7 @@ export namespace Prisma {
     phone?: string | null
     subscribedUntil?: Date | string | null
     isSubscribed?: boolean | null
+    storeCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -93723,6 +93886,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantsNestedInput
@@ -93768,6 +93932,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutTenantNestedInput
@@ -93812,6 +93977,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     subscribedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isSubscribed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    storeCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
